@@ -12,20 +12,7 @@
 
 
 
-//= require jquery-backstretch
-//= require jquery
-//= require datatables.net/js/jquery.dataTables.min
-//= require datatables.net/js/jquery.dataTables
-//= require datatables.net-bs4/js/dataTables.bootstrap4
-//= require underscore/underscore
-//= require gmaps/google
-//= require rails-ujs
+
 //= require activestorage
 //= require turbolinks
-//= require jquery/dist/jquery
-//= require moment/moment
-//= require bootstrap-datepicker
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
-//= require fullcalendar/dist/fullcalendar
 //= require_tree .
