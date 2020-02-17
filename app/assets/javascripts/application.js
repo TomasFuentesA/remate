@@ -9,9 +9,9 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require jquery/dist/jquery
-//= require jquery/dist/jquery.min
+
+
+
 //= require jquery-backstretch
 //= require jquery
 //= require datatables.net/js/jquery.dataTables.min

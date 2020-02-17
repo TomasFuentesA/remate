@@ -1,8 +1,5 @@
-<div class="container">
-
-
-
 <%= link_to 'Ir a Propiedades', realties_path %>
+
 <table id="myTable" class="table">
   <thead>
     <tr>
@@ -18,13 +15,13 @@
 
       <tr>
         <td><%= commune.name %></td>
-        <td><%= commune.province.name %></td>
-        <td><%= commune.province.region.name %></td>
+        <td><%= commune.province %></td>
+        <td><%= commune.province %></td>
 
         <td>
-          <%= link_to 'Ver', commune %>
-          <%= link_to 'Editar', edit_commune_path(commune) %>
-          <%= link_to 'Eliminar', commune, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Show', commune %>
+          <%= link_to 'Edit', edit_commune_path(commune) %>
+          <%= link_to 'Destroy', commune, method: :delete, data: { confirm: 'Are you sure?' } %>
 
       </tr>
     <% end %>
@@ -45,4 +42,3 @@
   <div>
     <%= link_to 'Ir a Provincia', provinces_path %>
   </div>
-</div>
