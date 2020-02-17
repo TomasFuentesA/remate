@@ -12,7 +12,7 @@
 
 
 //= require gmaps/google
-//= require moment/moment
+
 
 //= require activestorage
 //= require turbolinks
