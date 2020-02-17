@@ -17,7 +17,7 @@ class AuctionnoticesController < ApplicationController
   end
 
   def show
-    
+
   end
 
   def edit
@@ -38,7 +38,7 @@ class AuctionnoticesController < ApplicationController
   def action_selection
       auction = Auctionnotice.find(params[:id])
       auction.update(status: 1)
-      redirect_to auctionnotices_selected_path
+      
   end
 
   def pending

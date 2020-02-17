@@ -1,25 +1,25 @@
 <h1>Listado de Avisos</h1>
-
-
-<ul class="list-group">
-  <li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
-  <li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
-  <li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
-  <li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
-  <li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
-  <li class="list-group-item"><%= link_to 'Calendario de Remates ', auctions_path %></li>
-  <li class="list-group-item"><%= link_to 'Ir a Propiedades', realties_path %></li>
-
-</ul>
+<li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
+<li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
+<li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
+<li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
+<li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
+<li class="list-group-item"><%= link_to 'Calendario de Remates ', auctions_path %></li>
+<li class="list-group-item"><%= link_to 'Ir a Propiedades', realties_path %></li>
 
 
 
+<br>
+
+
+
+<div class="limiter">
 <table id="myTable" class="table">
   <thead>
     <tr>
-      <th>Nº</th>
-      <th>Auction</th>
-      <th>Opciones</th>
+      <th id = "actionNoticeTable">Nº</th>
+      <th id = "actionNoticeTable">Auction</th>
+      <th id = "actionNoticeTable">Opciones</th>
 
     </tr>
   </thead>
@@ -46,5 +46,6 @@
 </table>
 
 <br>
+</div>
 
-<%= link_to 'nuevo aviso', new_auctionnotice_path %>
+<%= link_to 'nuevo aviso', new_auctionnotice_path ,class:"button"%>

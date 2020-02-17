@@ -1,15 +1,18 @@
-<%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %>
-<%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %>
+<br>
+<li class="list-group-item "><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
+<li class="list-group-item "><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
+
 
 <h1>  Avisos de Remate Pendientes </h1>
 
+<div class="table-responsive">
 
-<table id="myTable" class="table">
+<table  class="table table-bordered ">
   <thead>
     <tr>
-      <th></th>
-      <th>Auction</th>
-      <th>Opciones</th>
+      <th scope="col">N°</th>
+      <th scope="col">Auction</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
@@ -18,10 +21,10 @@
     <% @auctionnotices.each_with_index do |auctionnotice, i| %>
 
       <tr>
-        <td><%= i + 1 %></td>
-        <td><%= auctionnotice.auction %></td>
+        <td ><%= i + 1 %></td>
+        <td ><%= auctionnotice.auction %></td>
 
-        <td>
+        <td >
 
           <%= link_to 'Show', auctionnotice %>
           <%= link_to 'Edit', edit_auctionnotice_path(auctionnotice) %>
@@ -32,6 +35,8 @@
     <% end %>
   </tbody>
 </table>
+
+</div>
 
 <%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %>
 <%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %>

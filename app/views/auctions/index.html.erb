@@ -1,5 +1,6 @@
+<br>
 <div class="container-md">
-<%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %>
+  <li class="list-group-item "><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
 
 
 <h1>Listado Aviso Remate</h1>
@@ -7,18 +8,18 @@
 
 <table id="myTable" class="table">
   <thead>
-    <tr>
-      <th>Nº</th>
+    <tr >
+      <th id="auctionsTable">Nº</th>
 
-      <th>Fecha</th>
-      <th>Hora</th>
-      <th>Tribunal</th>
-      <th>Rol</th>
-      <th>Propiedad</th>
-      <th>Minimo</th>
-      <th>Garantia</th>
-      <th>Derechos</th>
-      <th>Opciones</th>
+      <th id="auctionsTable">Fecha</th>
+      <th id="auctionsTable">Hora</th>
+      <th id="auctionsTable">Tribunal</th>
+      <th id="auctionsTable">Rol</th>
+      <th id="auctionsTable">Propiedad</th>
+      <th id="auctionsTable">Minimo</th>
+      <th id="auctionsTable">Garantia</th>
+      <th id="auctionsTable">Derechos</th>
+      <th id="auctionsTable">Opciones</th>
 
     </tr>
   </thead>
@@ -42,8 +43,8 @@
         <td><%= auction.fee %></td>
 
         <td>
-          <%= link_to 'Show', auction %>
-          <%= link_to 'Edit', edit_auction_path(auction) %>
+          <%= link_to 'Ver', auction %>
+          <%= link_to 'Editar', edit_auction_path(auction) %>
 
 
         </td>
