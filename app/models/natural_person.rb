@@ -1,0 +1,2 @@
+class NaturalPerson < ApplicationRecord
+end

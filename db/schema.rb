@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_132131) do
+ActiveRecord::Schema.define(version: 2020_02_17_190426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,27 @@ ActiveRecord::Schema.define(version: 2020_02_12_132131) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+  end
+
+  create_table "natural_people", force: :cascade do |t|
+    t.string "rut"
+    t.string "name"
+    t.string "apellido_pat"
+    t.string "apellido_mat"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.integer "direction_id"
+    t.string "photo"
+    t.string "e_civil"
+    t.string "profesion"
+    t.date "fecha_nac"
+    t.string "alias"
+    t.string "nacionality"
+    t.string "passport"
+    t.integer "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -124,6 +145,7 @@ ActiveRecord::Schema.define(version: 2020_02_12_132131) do
     t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "commune_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -150,6 +172,7 @@ ActiveRecord::Schema.define(version: 2020_02_12_132131) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
   end
 
   create_table "users", force: :cascade do |t|
