@@ -1,0 +1,18 @@
+<br>
+<div class="container">
+
+
+  <%= form_with model: NaturalPerson.new do |form| %>
+    <%= form.label :name, "Ingresar Persona Natural:" %>
+
+    <div class="form-group">
+      <%= form.label :rut, "rut" %>
+      <%= form.text_field :rut,id: :rut%>
+    </div>
+
+   <%= form.submit "Ingresar" %>
+
+  <% end %>
+
+
+</div>

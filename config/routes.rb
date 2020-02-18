@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   resources :communes
   resources :provinces
   resources :regions
+  resources :natural_people
 
   resources :courts
 
