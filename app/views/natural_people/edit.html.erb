@@ -1,16 +1,2 @@
 <h1>NaturalPeople#edit</h1>
 <p>Find me in app/views/natural_people/edit.html.erb</p>
-<%= form_with model: @natural_people do |form| %>
-  <h1><%= form.label :name, "Editar Propiedad." %></h1>
-
-  <div>
-    <%= @natural_people.id %>
-
-  </div>
-
-  <p></p>
-
-  <div class="field">
-    <%= form.label :rut, "rut" %>
-    <%= form.text_field :rut%>
-  </div>
