@@ -44,7 +44,9 @@
         <td><%= auction.hour %></td>
         <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
+        <%if auction.realty%>
         <td><%= auction.realty.address %></td>
+        <%end %>
         <td><%= auction.total_minimum %></td>
         <td><%= auction.warranty %></td>
         <td><%= auction.fee %></td>
