@@ -37,7 +37,11 @@ class NaturalPeopleController < ApplicationController
 
   private
   def natural_person_params
+<<<<<<< HEAD
     params.require(:natural_people).permit(:rut,:name, :apellido_pat, :apellido_mat, :phone_id, :mail_id, :direction_id, :photo, :e_civil, :profesion, :fecha_nac, :alias, :nacionality, :passport, :job_id)
+=======
+    params.require(:natural_person).permit(:rut, :name, :apellido_pat, :apellido_mat, :phone_id, :mail_id, :direction_id, :photo, :e_civil, :profesion, :fecha_nac, :alias, :nacionality, :passport, :job_id)
+>>>>>>> personaNatural
   end
 
 
