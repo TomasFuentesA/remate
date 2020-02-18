@@ -1,24 +1,8 @@
 <br>
-<<<<<<< HEAD
-<div class="container">
 
 
-  <%= form_with model: NaturalPerson.new do |form| %>
-    <%= form.label :name, "Ingresar Persona Natural:" %>
 
-    <div class="form-group">
-      <%= form.label :rut, "rut" %>
-      <%= form.text_field :rut,id: :rut%>
-    </div>
-
-   <%= form.submit "Ingresar" %>
-
-  <% end %>
-
-
-</div>
-=======
-<%= form_with(model: natural_person, local: true) do |form| %>
+<%= form_with model: NaturalPerson.new do |form| %>
 
 
   <div class="field">
@@ -100,4 +84,3 @@
     <%= form.submit %>
   </div>
 <% end %>
->>>>>>> personaNatural
