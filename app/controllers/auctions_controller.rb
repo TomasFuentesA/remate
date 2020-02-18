@@ -5,6 +5,7 @@ class AuctionsController < ApplicationController
     @auctions = Auction.order(params[:date],params[:hour])
     @auctions = Auction.all
 
+    
   end
 
   def new

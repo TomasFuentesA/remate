@@ -1,18 +1,83 @@
 <br>
-<div class="container">
+<%= form_with(model: natural_person, local: true) do |form| %>
 
 
-  <%= form_with model: NaturalPerson.new do |form| %>
-    <%= form.label :name, "Ingresar Persona Natural:" %>
+  <div class="field">
+    <%= form.label :rut %>
+    <%= form.text_field :rut %>
+  </div>
 
-    <div class="form-group">
-      <%= form.label :rut, "rut" %>
-      <%= form.text_field :rut,id: :rut%>
-    </div>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
 
-   <%= form.submit "Ingresar" %>
+  <div class="field">
+    <%= form.label :apellido_pat %>
+    <%= form.text_field :apellido_pat %>
+  </div>
 
-  <% end %>
+  <div class="field">
+    <%= form.label :apellido_mat %>
+    <%= form.text_field :apellido_mat %>
+  </div>
 
+  <div class="field">
+    <%= form.label :phone_id %>
+    <%= form.number_field :phone_id %>
+  </div>
 
-</div>
+  <div class="field">
+    <%= form.label :mail_id %>
+    <%= form.number_field :mail_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :direction_id %>
+    <%= form.number_field :direction_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo %>
+    <%= form.text_field :photo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :e_civil %>
+    <%= form.text_field :e_civil %>
+  </div>
+
+  <div class="field">
+    <%= form.label :profesion %>
+    <%= form.text_field :profesion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_nac %>
+    <%= form.date_select :fecha_nac %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alias %>
+    <%= form.text_field :alias %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nacionality %>
+    <%= form.text_field :nacionality %>
+  </div>
+
+  <div class="field">
+    <%= form.label :passport %>
+    <%= form.text_field :passport %>
+  </div>
+
+  <div class="field">
+    <%= form.label :job_id %>
+    <%= form.number_field :job_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

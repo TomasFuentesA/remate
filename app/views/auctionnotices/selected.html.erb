@@ -1,8 +1,22 @@
 <br>
-<li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
-<li class="list-group-item "><%= link_to 'Ir a Listado Avisos', auctionnotices_path %></li>
-<li class="list-group-item "><%= link_to 'Ir a Propiedades', realties_path %></li>
-<li class="list-group-item "><%= link_to 'Ir a Avisos Ingresado a Propiedad', auctions_path %></li>
+
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Ir a:
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
+    <li class="list-group-item "><%= link_to 'Ir a Listado Avisos', auctionnotices_path %></li>
+    <li class="list-group-item "><%= link_to 'Ir a Propiedades', realties_path %></li>
+    <li class="list-group-item "><%= link_to 'Ir a Avisos Ingresado a Propiedad', auctions_path %></li>
+
+  </div>
+</div>
+
+
+
 
 
 
@@ -27,9 +41,9 @@
         <td><%= auctionnotice.auction %></td>
 
         <td>
-          <%= link_to 'Ver', auctionnotice %>
+          <%= link_to "Ver", auctionnotice, class:"fa fa-search" %>
           <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
-          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post %>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post, class:"fa fa-trash" %>
 
            <%= link_to 'Asociar a Propiedad', new_auctionnotice_auction_path(auctionnotice) %>
             </td>
@@ -38,4 +52,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Listado De Avisos ', auctionnotices_pending_path %>
+<%= link_to 'Listado De Avisos Pendientes ', auctionnotices_pending_path %>

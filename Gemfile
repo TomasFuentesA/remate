@@ -12,6 +12,7 @@ gem 'jquery-datatables'
 gem 'jquery-ui-rails'
 
 
+
 gem 'cancancan'
 # Use jQuery
 gem 'docx'

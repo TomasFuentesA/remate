@@ -1,2 +1,58 @@
 <h1>NaturalPeople#index</h1>
 <p>Find me in app/views/natural_people/index.html.erb</p>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Natural People</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rut</th>
+      <th>Name</th>
+      <th>Apellido pat</th>
+      <th>Apellido mat</th>
+      <th>Phone</th>
+      <th>Mail</th>
+      <th>Direction</th>
+      <th>Photo</th>
+      <th>E civil</th>
+      <th>Profesion</th>
+      <th>Fecha nac</th>
+      <th>Alias</th>
+      <th>Nacionality</th>
+      <th>Passport</th>
+      <th>Job</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @natural_people.each do |natural_person| %>
+      <tr>
+        <td><%= natural_person.rut %></td>
+        <td><%= natural_person.name %></td>
+        <td><%= natural_person.apellido_pat %></td>
+        <td><%= natural_person.apellido_mat %></td>
+        <td><%= natural_person.phone_id %></td>
+        <td><%= natural_person.mail_id %></td>
+        <td><%= natural_person.direction_id %></td>
+        <td><%= natural_person.photo %></td>
+        <td><%= natural_person.e_civil %></td>
+        <td><%= natural_person.profesion %></td>
+        <td><%= natural_person.fecha_nac %></td>
+        <td><%= natural_person.alias %></td>
+        <td><%= natural_person.nacionality %></td>
+        <td><%= natural_person.passport %></td>
+        <td><%= natural_person.job_id %></td>
+        <td><%= link_to 'Show', natural_person %></td>
+        <td><%= link_to 'Edit', edit_natural_person_path(natural_person) %></td>
+        <td><%= link_to 'Destroy', natural_person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Natural Person', new_natural_person_path %>
