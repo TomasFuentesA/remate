@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NaturalPersonTest < ActiveSupport::TestCase
+class LegalPersonTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

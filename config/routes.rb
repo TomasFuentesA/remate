@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'legal_people/index'
   get 'natural_people/index'
   get 'natural_people/new'
   get 'natural_people/edit'
@@ -44,7 +45,7 @@ Rails.application.routes.draw do
   resources :communes
   resources :provinces
   resources :regions
-  resources :natural_people
+  resources :legal_people
 
   resources :courts
 
