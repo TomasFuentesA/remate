@@ -2,10 +2,12 @@ class AuctionsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @auctions = Auction.order(params[:date],params[:hour])
-    @auctions = Auction.all
 
+    @auctions = Auction.order(params[:date],params[:hour])
     
+
+
+
   end
 
   def new

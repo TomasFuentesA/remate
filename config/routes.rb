@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'legal_people/index'
-  get 'natural_people/index'
-  get 'natural_people/new'
-  get 'natural_people/edit'
-  get 'natural_people/update'
-  get 'natural_people/create'
+
+
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -47,7 +43,6 @@ Rails.application.routes.draw do
   resources :regions
   resources :legal_people
   resources :natural_people
-
   resources :courts
 
 
