@@ -37,12 +37,16 @@
       <div class="field"
         <%= form.label :minimum, "Minimo Remate" %>
         <%= form.label :uf, "UF" %>
-        <%= form.number_field :uf, id: :uf %>
+        <%= form.number_field  :uf, id: :uf %>
 
-        <%= form.label :pesos, "Pesos" %>
-        <%= form.number_field :pesos, id: :pesos %>
+
      </div>
     </div>
+
+    <div class="field">
+      <%= form.label :pesos, "Pesos" %>
+      <%= form.number_field :pesos, id: :pesos %>s
+      </div>
 
     <div class="field">
       <%= form.label :cost, "Costas" %>
@@ -51,6 +55,7 @@
 
     <div class="field">
       <%= form.label :total_minimum, "Total Minimo" %>
+      <%= if  %>
       <%= form.number_field :total_minimum, id: :total_minimum %>
     </div>
   </div>

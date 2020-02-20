@@ -66,11 +66,15 @@
   <div class="field">
     <%= form.label :pesos, "Pesos" %>
     <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
+
   </div>
 
   <div class="field">
-    <%= form.label :total_minimum, "Total Minimo" %>
-    <%= form.number_field :total_minimum, id: :total_minimum %>
+    <%= form.label :total_minimum, "Total Minimo"  %>
+    <%=@auction.total_minimum.inspect %>
+    
+
+
   </div>
 
   <div class="field">
