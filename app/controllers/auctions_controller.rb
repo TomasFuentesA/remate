@@ -19,7 +19,7 @@ class AuctionsController < ApplicationController
 
   def create
     @auction = Auction.new(auction_params)
-    calculate_uf
+
 
     @auction.save
     redirect_to auctions_path
@@ -33,8 +33,11 @@ class AuctionsController < ApplicationController
   def edit
 
     @auction = Auction.find(params[:id])
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 95a23035c7c95167ab9a4981952385e8877dd3b9
     
 
 
@@ -86,7 +89,10 @@ class AuctionsController < ApplicationController
       redirect_to auctions_path
   end
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 95a23035c7c95167ab9a4981952385e8877dd3b9
 
 
   private
