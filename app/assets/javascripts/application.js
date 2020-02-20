@@ -12,6 +12,7 @@
 
 
 //= require gmaps/google
+//= require underscore
 
 //= require bootstrap-datepicker
 

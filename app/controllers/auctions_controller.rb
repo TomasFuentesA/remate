@@ -4,18 +4,16 @@ class AuctionsController < ApplicationController
   def index
 
     @auctions = Auction.order(params[:date],params[:hour])
-
-
-
-
   end
 
   def new
+
     @auction = Auction.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
 
-
   end
+
+
 
   def create
     @auction = Auction.new(auction_params)
