@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_19_171713) do
+ActiveRecord::Schema.define(version: 2020_02_20_133646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_171713) do
     t.bigint "court_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "minimum"
+    t.float "minimum"
     t.integer "status"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["court_id"], name: "index_auctions_on_court_id"
@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 2020_02_19_171713) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
   end
 
   create_table "legal_people", force: :cascade do |t|
@@ -155,7 +154,6 @@ ActiveRecord::Schema.define(version: 2020_02_19_171713) do
     t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "province_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -182,7 +180,6 @@ ActiveRecord::Schema.define(version: 2020_02_19_171713) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "province_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -191,16 +188,11 @@ ActiveRecord::Schema.define(version: 2020_02_19_171713) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
     t.string "name"
-    t.float "Latitude"
+    t.float "latitude"
     t.float "longitude"
     t.string "address"
     t.string "provider"
