@@ -5,9 +5,6 @@ class AuctionsController < ApplicationController
 
     @auctions = Auction.order(params[:date],params[:hour])
 
-
-
-
   end
 
   def new
@@ -33,14 +30,6 @@ class AuctionsController < ApplicationController
   def edit
 
     @auction = Auction.find(params[:id])
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 95a23035c7c95167ab9a4981952385e8877dd3b9
-    
-
-
 
   end
 
@@ -89,10 +78,7 @@ class AuctionsController < ApplicationController
       redirect_to auctions_path
   end
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 95a23035c7c95167ab9a4981952385e8877dd3b9
 
 
   private
