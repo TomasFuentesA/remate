@@ -1,7 +1,7 @@
 class Realty < ApplicationRecord
     after_create :set_latlon
     belongs_to :commune
-    
+
     has_many :auctions
 
     enum street_type: [:street, :avenue, :passage,]

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -39,7 +41,8 @@ Rails.application.routes.draw do
   resources :communes
   resources :provinces
   resources :regions
-
+  resources :legal_people
+  resources :natural_people
   resources :courts
 
 

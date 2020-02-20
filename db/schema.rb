@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_182701) do
+ActiveRecord::Schema.define(version: 2020_02_19_171713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(version: 2019_10_18_182701) do
   create_table "auctions", force: :cascade do |t|
     t.date "date"
     t.time "hour"
-    t.integer "cost"
+    t.float "cost"
     t.float "uf"
-    t.integer "pesos"
+    t.float "pesos"
     t.float "total_minimum"
     t.float "warranty"
     t.float "fee"
@@ -108,6 +108,37 @@ ActiveRecord::Schema.define(version: 2019_10_18_182701) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+  end
+
+  create_table "legal_people", force: :cascade do |t|
+    t.string "rut"
+    t.string "name"
+    t.string "fantasy_name"
+    t.string "alias"
+    t.string "web"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "natural_people", force: :cascade do |t|
+    t.string "rut"
+    t.string "name"
+    t.string "apellido_pat"
+    t.string "apellido_mat"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.integer "direction_id"
+    t.string "photo"
+    t.string "e_civil"
+    t.string "profesion"
+    t.date "fecha_nac"
+    t.string "alias"
+    t.string "nacionality"
+    t.string "passport"
+    t.integer "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -124,6 +155,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_182701) do
     t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -150,6 +182,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_182701) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -158,11 +191,16 @@ ActiveRecord::Schema.define(version: 2019_10_18_182701) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
     t.string "name"
-    t.float "latitude"
+    t.float "Latitude"
     t.float "longitude"
     t.string "address"
     t.string "provider"

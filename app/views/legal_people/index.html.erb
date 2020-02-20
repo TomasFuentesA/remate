@@ -1,0 +1,29 @@
+<h1>LegalPeople#index</h1>
+<p>Find me in app/views/legal_people/index.html.erb</p>
+<h1>personas juridicas</h1>
+
+<table id="myTable" class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>rut</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @legalPeople.each do |legalPerson| %>
+
+      <tr>
+        <td><%= legalPerson.name %></td>
+        <td><%= legalPerson.rut %></td>
+
+        <td>
+          <%= link_to 'Show', legalPerson %>
+
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

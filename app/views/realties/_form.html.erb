@@ -1,36 +1,43 @@
-<%= form_with model: Realty.new do |form| %>
-  <%= form.label :name, "Ingreso de Propiedad." %>
+<br>
+<div class="container">
+  
 
-  <div class="field">
-    <%= form.label :street_type_id, "Tipo de Calle" %>
-    <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} %>
-  </div>
+  <%= form_with model: Realty.new do |form| %>
+    <%= form.label :name, "Ingreso de Propiedad:" %>
 
-  <div class="field">
-    <%= form.label :type_property_id, "Tipo de Propiedad" %>
-    <%= form.select :type_property_id, options_for_select([["Casa", 0],["Dpto.", 1],["Local", 2], ["Oficina", 3], ["Bodega", 4], ["Sitio", 5], ["Box", 6], ["Parcela", 7]]), {include_blank: "Seleccione"} %>
-  </div>
+    <div class="form-group">
+      <%= form.label :street_type_id, "Tipo de Calle" %>
+      <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} %>
+    </div>
 
-  <div class="field">
-    <%= form.label :street, "Calle" %>
-    <%= form.text_field :street, id: :street %>
-  </div>
+    <div class="form-group">
+      <%= form.label :type_property_id, "Tipo de Propiedad" %>
+      <%= form.select :type_property_id, options_for_select([["Casa", 0],["Dpto.", 1],["Local", 2], ["Oficina", 3], ["Bodega", 4], ["Sitio", 5], ["Box", 6], ["Parcela", 7]]), {include_blank: "Seleccione"} %>
+    </div>
 
-  <div class="field">
-    <%= form.label :number_unit, "Numero" %>
-    <%= form.number_field :number_unit, id: :number_unit %>
-  </div>
+    <div class="form-group">
+      <%= form.label :street, "Calle" %>
+      <%= form.text_field :street, id: :street %>
+    </div>
 
-  <div class="field">
-    <%= form.label :unit_estate, "Unidad" %>
-    <%= form.text_field :unit_estate, id: :unit_estate %>
-  </div>
+    <div class="form-group">
+      <%= form.label :number_unit, "Numero" %>
+      <%= form.number_field :number_unit, id: :number_unit %>
+    </div>
 
-  <div class="field">
-    <%= form.label :commune_id, "Comuna" %>
-    <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-  </div>
+    <div class="form-group">
+      <%= form.label :unit_estate, "Unidad" %>
+      <%= form.text_field :unit_estate, id: :unit_estate %>
+    </div>
 
- <%= form.submit "Ingresar" %>
+    <div class="form-group">
+      <%= form.label :commune_id, "Comuna" %>
+      <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
+    </div>
 
-<% end %>
+   <%= form.submit "Ingresar" %>
+
+  <% end %>
+
+
+</div>

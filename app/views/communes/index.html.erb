@@ -15,8 +15,11 @@
 
       <tr>
         <td><%= commune.name %></td>
+        <% if commune.province %>
+
         <td><%= commune.province.name %></td>
         <td><%= commune.province.region.name %></td>
+        <%end%>
 
         <td>
           <%= link_to 'Show', commune %>

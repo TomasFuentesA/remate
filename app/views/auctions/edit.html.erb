@@ -3,9 +3,9 @@
 <%= form_with model: @auction  do |form| %>
   <%= form.label :name, "Seleccion de Avisos de Remate" %>
 
-  <div class="field">
+  <div class="field" >
     <%= form.label :date, "Fecha" %>
-    <%= form.text_field :date %>
+    <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)" %>
   </div>
 
   <div class="field">
@@ -57,9 +57,10 @@
 
 
 
-  <div class="field">
+  <div class="field" id="uf">
     <%= form.label :uf, "UF" %>
-    <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil?, 'data-loquesea': 28000, onchange: "calculo_uf(this)"  %>
+    <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
+    <script > new ufApi()</script>
   </div>
 
 
@@ -70,11 +71,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :total_minimum, "Total Minimo"  %>
-    <%=@auction.total_minimum.inspect %>
-    
-
-
+    <%= form.label :total_minimum, "total minimo" %>
+    <%= form.label :total_minimum, @auction.total_minimum%>
   </div>
 
   <div class="field">

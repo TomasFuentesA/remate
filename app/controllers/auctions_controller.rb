@@ -2,7 +2,12 @@ class AuctionsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @auctions = Auction.all
+
+    @auctions = Auction.order(params[:date],params[:hour])
+
+
+
+
   end
 
   def new
@@ -29,6 +34,10 @@ class AuctionsController < ApplicationController
 
     @auction = Auction.find(params[:id])
     calculate_uf
+
+    sum_total_minimun
+
+
 
   end
 
@@ -77,10 +86,11 @@ class AuctionsController < ApplicationController
       redirect_to auctions_path
   end
 
+  def sum_total_minimun
+    @auction.uf ||= 0
+    @auction.cost ||= 0
+    @auction.total_minimum = @auction.cost + @auction.pesos
 
-  def calculate_uf
-    total = params[:uf] + params[:cost]
-    self.update_attribute(total_minimum: total)
   end
 
 

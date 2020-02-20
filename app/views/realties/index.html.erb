@@ -1,8 +1,12 @@
-<%= link_to 'Ir a Listado Avisos', auctionnotices_path %>
+<br>
+<ul class="list-group">
+  <li class="list-group-item "><%= link_to 'Ir a Listado Avisos', auctionnotices_path %> </li>
 
+</ul>
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
+
 
 <script>
 
@@ -58,9 +62,9 @@ handler.buildMap({
 </div>
 
 <br>
+<ul class="list-group">
+  <li class="list-group-item "> <%= link_to 'Ir a Comuna', communes_path %> </li>
+  <li class="list-group-item "> <%= link_to 'Nueva Propiedad', new_realty_path %> </li>
 
-  <%= link_to 'Nueva Propiedad', new_realty_path %>
 
-  <p></p>
-
-  <%= link_to 'Ir a Comuna', communes_path %>
+</ul>

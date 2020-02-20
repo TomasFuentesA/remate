@@ -1,39 +1,25 @@
-<h1>Auctionnotices#index</h1>
-<p>Find me in app/views/auctionnotices/index.html.erb</p>
-
-<%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %>
-
-<p></p>
-
-<%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %>
-
-<p></p>
-
-<%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %>
-
-<p></p>
-
-<%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %>
-
-<p></p>
-
-<%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %>
-
-<p></p>
-
-<%= link_to 'Calendario de Remates ', auctions_path %>
+<h1>Listado de Avisos</h1>
+<li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
+<li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
+<li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
+<li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
+<li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
+<li class="list-group-item"><%= link_to 'Calendario de Remates ', auctions_path %></li>
+<li class="list-group-item"><%= link_to 'Ir a Propiedades', realties_path %></li>
 
 
-<p></p>
 
-<%= link_to 'Ir a Propiedades', realties_path %>
+<br>
 
+
+
+<div class="table-responsive">
 <table id="myTable" class="table">
   <thead>
     <tr>
-      <th>Nº</th>
-      <th>Auction</th>
-      <th>Opciones</th>
+      <th id = "actionNoticeTable">Nº</th>
+      <th id = "actionNoticeTable">Aviso</th>
+      <th id = "actionNoticeTable">Opciones</th>
 
     </tr>
   </thead>
@@ -49,8 +35,8 @@
         <td><%= auctionnotice.auction %></td>
 
         <td>
-          <%= link_to 'Show', auctionnotice %>
-          <%= link_to 'Edit', edit_auctionnotice_path(auctionnotice) %>
+          <%= link_to 'Ver', auctionnotice %>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
           <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post %>
           <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post %>
         </td>
@@ -60,5 +46,6 @@
 </table>
 
 <br>
+</div>
 
-<%= link_to 'New Auctionnotice', new_auctionnotice_path %>
+<%= link_to 'nuevo aviso', new_auctionnotice_path ,class:"button"%>
