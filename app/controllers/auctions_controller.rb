@@ -8,11 +8,13 @@ class AuctionsController < ApplicationController
   end
 
   def new
+
     @auction = Auction.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
 
-
   end
+
+
 
   def create
     @auction = Auction.new(auction_params)
@@ -30,6 +32,13 @@ class AuctionsController < ApplicationController
   def edit
 
     @auction = Auction.find(params[:id])
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 5bb430b2c305f7cd7420f87d7ded579bc9a6d866
 
   end
 

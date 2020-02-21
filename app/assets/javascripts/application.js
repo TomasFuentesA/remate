@@ -12,7 +12,9 @@
 
 
 //= require gmaps/google
+//= require underscore
 
+//= require bootstrap-datepicker
 
 //= require activestorage
 //= require turbolinks

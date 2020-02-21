@@ -23,8 +23,8 @@ class Realty < ApplicationRecord
     private
 
     def set_latlon
-      #latlon = Geocoder.search(self.address).first.coordinates
-      #self.update(latitude: latlon[0], longitude: latlon[1])
+      latlon = Geocoder.search(self.address).first.coordinates
+      self.update(latitude: latlon[0], longitude: latlon[1])
     end
 
 

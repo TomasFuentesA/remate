@@ -13,11 +13,14 @@ gem 'jquery-ui-rails'
 
 
 
+
 gem 'cancancan'
 # Use jQuery
 gem 'docx'
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'underscore-rails'
+
 gem 'activeadmin'
 gem 'rails-i18n'
 # Use Puma as the app server
@@ -64,6 +67,8 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  gem 'meta_request'
+
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
