@@ -52,6 +52,7 @@ function habilite_money(selector){
 
        }else if($(input).attr('id') == 'pesos'){
          $('#uf').val(inp.val() / uf)
+         calculateTotalMinimum()
 
          } else {
            $('#pesos, #uf').val("")
