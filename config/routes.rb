@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 
 
+  get 'dashboard/index'
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
