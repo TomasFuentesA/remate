@@ -42,15 +42,9 @@
     <%= form.number_field :year, id: :year %>
   </div>
 
-  <div class="field">
-    <%= form.label :warranty, "Garantia" %>
-    <%= form.number_field :warranty, id: :warranty %>
-  </div>
 
-  <div class="field">
-    <%= form.label :cost, "Costas" %>
-    <%= form.number_field :cost, id: :cost %>
-  </div>
+
+
 
   <div class="field">
     <%= form.label :is_uf, "Opcion" %>
@@ -66,7 +60,11 @@
     <script > new ufApi()</script>
   </div>
 
-
+  <div class="field">
+    <%= form.label :cost, "Costas" %>
+    <%= form.number_field :cost, id: :cost %>
+  </div>
+  
   <div class="field" >
     <%= form.label :pesos, "Pesos" %>
     <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
@@ -76,7 +74,14 @@
   <div class="field">
       <%= form.label :total_minimum, "Total Minimo" %>
       <%= form.number_field :total_minimum, id: :total_minimum %>
+  </div>
+
+
+    <div class="field">
+      <%= form.label :warranty, "Garantia" %>
+      <%= form.number_field :warranty, id: :warranty %>
     </div>
+
 
   <div class="field">
     <%= form.label :fee, "Derechos" %>
