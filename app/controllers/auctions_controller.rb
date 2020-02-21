@@ -2,8 +2,7 @@ class AuctionsController < ApplicationController
   load_and_authorize_resource
 
   def index
-
-    @auctions = Auction.order(params[:date],params[:hour])
+      @auctions = Auction.all.order(date: :desc,hour: :desc)
 
   end
 
@@ -32,13 +31,10 @@ class AuctionsController < ApplicationController
   def edit
 
     @auction = Auction.find(params[:id])
-<<<<<<< HEAD
-=======
 
 
 
 
->>>>>>> 5bb430b2c305f7cd7420f87d7ded579bc9a6d866
 
   end
 

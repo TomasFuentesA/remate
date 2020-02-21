@@ -3,23 +3,26 @@
 class Ability
   include CanCan::Ability
 
+
+
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-       user ||= User.new # guest user (not logged in)
-       can :manage, :all
-       can :read, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
-       can :update, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
-       can :read, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
-       if user.admin?
-         can :manage, :all
-       elsif user.analyzer?
-         can :manage, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
-       else
-         can :read, :all
-         can :manage, :all
-       end
-    #
+
+      # user ||= User.new # guest user (not logged in)
+      #everybody has read the information
+      can :read, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
+
+      if user
+        if user.admin?
+          can :manage, :all
+        elsif user.analyzer?
+          can :manage, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
+        else
+          can :manage, :all
+        end
+      end
+
     # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
