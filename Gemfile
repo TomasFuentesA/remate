@@ -20,6 +20,7 @@ gem 'docx'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+gem 'csv'
 
 gem 'activeadmin'
 gem 'rails-i18n'

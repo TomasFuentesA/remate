@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
 
 
+  get 'people/index'
+
+
   get 'dashboard/index'
   resources :comments
   resources :posts

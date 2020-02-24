@@ -11,7 +11,7 @@ class Ability
 
       # user ||= User.new # guest user (not logged in)
       #everybody has read the information
-      can :read, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
+      can :read, :all
 
       if user
         if user.admin?
