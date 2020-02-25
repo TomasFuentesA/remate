@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_151358) do
+ActiveRecord::Schema.define(version: 2020_02_25_054540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,15 +157,6 @@ ActiveRecord::Schema.define(version: 2020_02_24_151358) do
     t.string "fantasy_name"
     t.string "alias"
     t.string "web"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "mails", force: :cascade do |t|
-    t.string "rut"
-    t.string "maila"
-    t.string "mailb"
-    t.string "mailc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
