@@ -2,9 +2,12 @@ class AuctionsController < ApplicationController
   load_and_authorize_resource
 
   def index
-      @auctions = Auction.all.order(date: :desc,hour: :desc)
       @search = Auction.search(params[:q])
-      @auctions = @search.result
+      if @search
+        @auctions = @search.result
+      else
+        @auctions = Auction.all.order(date: :desc,hour: :desc)
+      end
 
 
   end
