@@ -39,7 +39,11 @@ Rails.application.routes.draw do
       resources :auctions
   end
 
-  resources :auctions
+  resources :auctions do
+    collection do
+       match 'search' => 'auctions#search', via: [:get, :post], as: :search
+    end
+  end
 
   resources :realties
 

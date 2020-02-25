@@ -1,12 +1,14 @@
+
 body {
-  background-color: #F9F7EE;
+
   color: #333;
-  margin: 33px;
+  margin: 20px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
 
+/*
 a {
   color: #000;
 
@@ -19,7 +21,7 @@ a {
     background-color: #000;
   }
 }
-
+*/
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -51,7 +53,7 @@ h2 {
 
 ul li {
   font-size: 12px;
-  list-style: square;
+  //list-style: square;
 }
 
 
@@ -100,7 +102,7 @@ table {
   border-spacing: 1;
   border-collapse: collapse;
   background: white;
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
   width: 100%;
   margin: 0 auto;
@@ -140,11 +142,16 @@ tbody tr {
 
 
 
-/*///////////
-//selector (para futuro seleccion de aviso)
+
 tbody tr:hover {
   color: #555555;
   background-color: #f5f5f5;
   cursor: pointer;
 }
-*/
+
+
+nav {
+  border-radius: 10px;
+
+
+}

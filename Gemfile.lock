@@ -71,6 +71,10 @@ GEM
       activesupport (>= 3.0.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
+    arctic_admin (3.1.1)
+      activeadmin (>= 1.1.0, < 3.0)
+      font-awesome-sass (~> 5.0)
+      jquery-rails
     arel (9.0.0)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -129,6 +133,8 @@ GEM
     ffi (1.11.1-java)
     ffi (1.11.1-x64-mingw32)
     ffi (1.11.1-x86-mingw32)
+    font-awesome-sass (5.12.0)
+      sassc (>= 1.11)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -383,6 +389,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  arctic_admin
   bootsnap (>= 1.1.0)
   bootstrap-datepicker-rails
   byebug
@@ -409,6 +416,7 @@ DEPENDENCIES
   rails (~> 5.2.3)
   rails-erd
   rails-i18n
+  ransack
   rspec-rails
   rubyzip (>= 1.3.0)
   sass-rails (~> 5.0)

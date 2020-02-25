@@ -1,51 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ff850b;">
   <% if current_user %>
-  <%=link_to "ALTITUD LTDA:::", dashboard_index_path,class:"navbar-brand" %>
-<% else %>
-<%=link_to "ALTITUD LTDA:::", root_path,class:"navbar-brand" %>
-<% end %>
-
-
-
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <%=link_to "ALTITUD LTDA:::", dashboard_index_path,class:"navbar-brand" %>
+  <% else %>
+    <%=link_to "ALTITUD LTDA:::", root_path,class:"navbar-brand" %>
+  <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-      <%=link_to "remate", auctions_path,class:"nav-link" %> <span class="sr-only">(current)</span>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item ">
+        <%=link_to "remate", auctions_path,class:"nav-link" %> <span class="sr-only">(current)</span>
       </li>
       <li class="nav-item">
         <%=link_to "Propiedades", realties_path,class:"nav-link" %>
-
       </li>
 
       <li class="nav-item">
         <%=link_to "Configuracion", admin_dashboard_path,class:"nav-link" %>
-
       </li>
     </ul>
-
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-        <% if user_signed_in? %>
-        <%= current_user.email %>
-        <% else %>
-         Ingresar a cta
-         <% end %>
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <% if user_signed_in? %>
-        <a class="dropdown-item" href="<%= destroy_user_session_path %> " data-method="DELETE">Salir</a>
-        <% else %>
-        <a class="dropdown-item" href="<%= new_user_session_path %> ">Ingreso</a>
-        <a class="dropdown-item" href="<%= new_user_registration_path %> ">Registro</a>
-        <% end %>
+    <div class="navbar-nav ">
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <% if user_signed_in? %>
+            <%= current_user.email %>
+          <% else %>
+            Ingresar a cta
+          <% end %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% if user_signed_in? %>
+            <a class="dropdown-item" href="<%= destroy_user_session_path %> " data-method="DELETE">Salir</a>
+          <% else %>
+            <a class="dropdown-item" href="<%= new_user_session_path %> ">Ingreso</a>
+            <a class="dropdown-item" href="<%= new_user_registration_path %> ">Registro</a>
+          <% end %>
         <div class="dropdown-divider"></div>
-      </div>
+        </div>
+
     </li>
+    </div>
   </div>
 </nav>

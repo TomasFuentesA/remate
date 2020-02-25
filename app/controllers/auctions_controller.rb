@@ -3,8 +3,16 @@ class AuctionsController < ApplicationController
 
   def index
       @auctions = Auction.all.order(date: :desc,hour: :desc)
+      @search = Auction.search(params[:q])
+      @auctions = @search.result
+
 
   end
+
+  def search
+  index
+  render :index
+end
 
   def new
 

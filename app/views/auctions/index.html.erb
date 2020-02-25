@@ -4,13 +4,33 @@
 
 <br>
 <h1>Listado Aviso Remate</h1>
-
 <br>
-<form>
 
- <input name=”searchs” <%= @searchs %> >
- <button type=”submit”>Buscar</button>
-</form>
+
+<%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+<div class="form-row">
+    
+
+    <div class="col-auto">
+
+        <%= f.text_field :date_gteq, class: "form-control", data:{provide:'datepicker'}, placeholder: "Desde:" %>
+    </div>
+    <div> <p>_</P> </div>
+    <div class="col-auto">
+
+      <%= f.text_field :date_lteq, class: "form-control",data:{provide:'datepicker'}, placeholder:"Hasta:" %>
+    </div>
+    <div class="col-auto">
+
+       <%= f.submit "Buscar", class: "btn btn-success mb-2" %>
+       </div>
+
+  </div>
+  <% end %>
+
+
+
+
 
 <br>
 </div>
@@ -66,8 +86,4 @@
 
 </table>
 </div>
-
-
-
-
 <br>
