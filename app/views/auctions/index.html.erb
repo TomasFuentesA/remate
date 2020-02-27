@@ -10,11 +10,11 @@
 <%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
 <div class="form-row">
     <div class="col-auto">
-        <%= f.text_field :date_gteq, class: "form-control", data:{provide:'datepicker'}, placeholder: "Desde:" %>
+        <%= f.text_field :date_gteq, class: "form-control", data:{provide:'datepicker'}, placeholder: "Desde:",autocomplete: "off" %>
     </div>
     <div> <p>_</P> </div>
     <div class="col-auto">
-      <%= f.text_field :date_lteq, class: "form-control",data:{provide:'datepicker'}, placeholder:"Hasta:" %>
+      <%= f.text_field :date_lteq, class: "form-control",data:{provide:'datepicker'}, placeholder:"Hasta:",autocomplete: "off" %>
     </div>
     <div class="col-auto">
        <%= f.submit "Buscar", class: "btn btn-success mb-2" %>

@@ -38,6 +38,7 @@ ActiveAdmin.register User do
       input :name
       input :email
       input :password
+      input :role, as: :select
    end
    actions
  end
