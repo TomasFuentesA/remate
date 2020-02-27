@@ -15,7 +15,7 @@ ActiveAdmin.register User do
   #   permitted
   # end
 
- permit_params :name, :email, :password
+ permit_params :name, :email, :password, :role
 
  index do
    column :id
@@ -34,12 +34,12 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    inputs 'Agregando un nuevo usuario' do
+    inputs 'Agregar Nuevo Usuario' do
       input :name
       input :email
       input :password
       input :role, as: :select
-   end
+    end
    actions
  end
 

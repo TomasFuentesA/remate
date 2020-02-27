@@ -1,4 +1,5 @@
 class LegalPeopleController < ApplicationController
+  before_action :authenticate_user!
   def index
     @legalPeople = LegalPerson.all
   end
