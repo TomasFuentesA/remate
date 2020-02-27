@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'people/index'
 
 
-  get 'dashboard/index'
+  get 'dashboard/', to:'dashboard#index' 
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
