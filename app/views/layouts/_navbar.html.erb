@@ -8,8 +8,10 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <%if current_user %>
       <li class="nav-item ">
         <%=link_to "remate", auctions_path,class:"nav-link" %> <span class="sr-only">(current)</span>
       </li>
@@ -20,14 +22,17 @@
       <li class="nav-item">
         <%=link_to "Configuracion", admin_dashboard_path,class:"nav-link" %>
       </li>
+      <%end%>
     </ul>
+
+
     <div class="navbar-nav ">
     <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <% if user_signed_in? %>
-            <%= current_user.email %>
+            hola, <%= current_user.email %>
           <% else %>
-            Ingresar a cta
+          ingresar a cta
           <% end %>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
