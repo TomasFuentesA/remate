@@ -62,9 +62,9 @@
 
   <div class="field">
     <%= form.label :cost, "Costas" %>
-    <%= form.number_field :cost, id: :cost %>
+    <%= form.number_field :cost, id: :cost, value: 0  %>
   </div>
-  
+
   <div class="field" >
     <%= form.label :pesos, "Pesos" %>
     <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>

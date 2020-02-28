@@ -23,6 +23,7 @@
           <%= link_to 'Show', auctionnotice %>
           <%= link_to 'Edit', edit_auctionnotice_path(auctionnotice) %>
           <%= link_to 'Seleccionar Aviso', action_selection_path(auctionnotice), method: :post %>
+          <%= link_to 'Destroy', auctionnotice, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>
