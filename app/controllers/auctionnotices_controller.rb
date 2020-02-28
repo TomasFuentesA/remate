@@ -1,6 +1,8 @@
 class AuctionnoticesController < ApplicationController
-
+  before_action :authenticate_user!
   load_and_authorize_resource
+
+  #crud auctionnotice
 
   def index
     @auctionnotices = Auctionnotice.all
@@ -17,6 +19,7 @@ class AuctionnoticesController < ApplicationController
   end
 
   def show
+    @auctionnotice = Auctionnotice.find(params[:id])
 
   end
 
@@ -31,32 +34,19 @@ class AuctionnoticesController < ApplicationController
   end
 
   def destroy
-    @auctionnotice.destroy
-    redirect_to auctionnotices_path
+    if @auctionnotice.status == 2
+      @auctionnotice.destroy
+      redirect_to auctionnotices_path
+    end
   end
+
+
+  ##actions to selection, rejected, pending and  joined
 
   def action_selection
       auction = Auctionnotice.find(params[:id])
       auction.update(status: 1)
       redirect_to auctionnotices_selected_path
-
-
-  end
-
-  def pending
-     @auctionnotices = Auctionnotice.where(status: 0)
-  end
-
-  def selected
-     @auctionnotices = Auctionnotice.where(status: 1)
-  end
-
-  def rejected
-     @auctionnotices = Auctionnotice.where(status: 2)
-  end
-
-  def joined
-     @auctionnotices = Auctionnotice.where(status: 3)
   end
 
   def action_rejection
@@ -70,6 +60,24 @@ class AuctionnoticesController < ApplicationController
     auction.update(status: 3)
     redirect_to auctionnotices_joined_path
   end
+##show auctionnotices by status
+
+
+    def pending
+       @auctionnotices = Auctionnotice.where(status: 0)
+    end
+
+    def selected
+       @auctionnotices = Auctionnotice.where(status: 1)
+    end
+
+    def rejected
+       @auctionnotices = Auctionnotice.where(status: 2)
+    end
+
+    def joined
+       @auctionnotices = Auctionnotice.where(status: 3)
+    end
 
   private
 

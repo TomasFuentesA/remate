@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_185058) do
+ActiveRecord::Schema.define(version: 2020_02_28_142449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "rut"
+    t.string "code"
+    t.string "name_activity"
+    t.string "afect_iva"
+    t.integer "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -108,6 +118,46 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+  end
+
+  create_table "directions", force: :cascade do |t|
+    t.string "rut"
+    t.string "directiona"
+    t.string "directionb"
+    t.string "directionc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.string "rut_owner"
+    t.string "type_modality"
+    t.integer "inscription_id"
+    t.integer "price"
+    t.date "date_posetion"
+    t.text "name_realty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "rut"
+    t.string "email_a"
+    t.string "email_b"
+    t.string "email_c"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "rut"
+    t.string "position"
+    t.integer "salary"
+    t.string "business"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "legal_people", force: :cascade do |t|
@@ -140,6 +190,35 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
+    t.integer "actividad_id"
+    t.string "last_name1"
+    t.string "last_name2"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.string "direction_id"
+    t.string "photo"
+    t.string "e_civil"
+    t.string "profesion"
+    t.date "birth_date"
+    t.string "nacionality"
+    t.string "passport"
+    t.integer "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.string "rut"
+    t.string "phone_a"
+    t.string "phone_b"
+    t.string "phone_c"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
@@ -154,6 +233,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -173,6 +253,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
+    t.integer "province_id"
+    t.integer "region_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -180,6 +262,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -188,6 +271,11 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
@@ -197,6 +285,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_185058) do
     t.string "address"
     t.string "provider"
     t.string "uid"
+    t.string "rut"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

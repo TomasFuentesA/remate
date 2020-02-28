@@ -10,6 +10,10 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'devise', git: 'https://github.com/plataformatec/devise.git'
 gem 'jquery-datatables'
 gem 'jquery-ui-rails'
+gem 'arctic_admin'
+gem 'ransack'
+
+
 
 
 
@@ -20,6 +24,7 @@ gem 'docx'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+gem 'csv'
 
 gem 'activeadmin'
 gem 'rails-i18n'

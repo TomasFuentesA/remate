@@ -1,10 +1,22 @@
 class AuctionsController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource
 
   def index
-      @auctions = Auction.all.order(date: :desc,hour: :desc)
+      @search = Auction.search(params[:q])
+      if @search
+        @auctions = @search.result
+      else
+        @auctions = Auction.all.order(date: :desc,hour: :desc)
+      end
+
 
   end
+
+  def search
+  index
+  render :index
+end
 
   def new
 

@@ -15,6 +15,7 @@
 //= require underscore
 
 //= require bootstrap-datepicker
+//= require arctic_admin/base
 
 //= require activestorage
 //= require turbolinks

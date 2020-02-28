@@ -1,4 +1,5 @@
 class NaturalPeopleController < ApplicationController
+  before_action :authenticate_user!
   def index
     @naturalPeople = NaturalPerson.all
   end

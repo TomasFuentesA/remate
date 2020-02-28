@@ -1,6 +1,8 @@
 class RealtiesController < ApplicationController
 
   load_and_authorize_resource
+  before_action :authenticate_user!
+
 
   def index
 =begin
@@ -51,7 +53,7 @@ class RealtiesController < ApplicationController
   end
 
   def edit
-    @realty = Realty.find(params[:id]) 
+    @realty = Realty.find(params[:id])
   end
 
   def update

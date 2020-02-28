@@ -4,16 +4,52 @@
 
 <br>
 <h1>Listado Aviso Remate</h1>
+<br>
+
+<!-- filter between dates -->
+<%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+<div class="form-row">
+    <div class="col-auto">
+        <%= f.text_field :date_gteq, class: "form-control", data:{provide:'datepicker'}, placeholder: "Desde:",autocomplete: "off" %>
+    </div>
+    <div> <p>_</P> </div>
+    <div class="col-auto">
+      <%= f.text_field :date_lteq, class: "form-control",data:{provide:'datepicker'}, placeholder:"Hasta:",autocomplete: "off" %>
+    </div>
+    <div class="col-auto">
+       <%= f.submit "Buscar", class: "btn btn-success mb-2" %>
+    </div>
+    <div class="col-auto ">
+      <%= link_to 'refresh', auctions_path , class:"btn btn-outline-info mb-2" %>
+    </div>
+  </div>
+<% end %>
 
 <br>
-<form>
+<!-- filter today  and tomorrow -->
+<%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+  <div class="form-row">
+    <div class="col-auto">
+      <%= f.hidden_field :date_eq, :value =>  Date.today%>
+      <%= f.submit "Hoy", class: "btn btn-success mb-2" %>
+    </div>
+<% end %>
 
- <input name=”searchs” <%= @searchs %> >
- <button type=”submit”>Buscar</button>
-</form>
-
+    <%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+      <div class="form-row">
+        <div class="col-auto">
+          <%= f.hidden_field :date_eq, :value =>  Date.tomorrow%>
+          <%= f.submit "Mañana", class: "btn btn-success mb-2" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <br>
 </div>
+
+
+
+
 <div class="table-responsive">
 <table id="myTable" class="table">
   <thead>
@@ -33,41 +69,25 @@
     </tr>
   </thead>
 
-
-
   <tbody>
-
-
     <% @auctions.each_with_index do |auction, i| %>
-
       <tr>
         <td><%= i + 1 %></td>
         <td><%= auction.date %></td>
         <td><%= auction.hour %></td>
         <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
-
         <td><%= auction.realty.address %></td>
         <td><%= auction.total_minimum %></td>
         <td><%= auction.warranty %></td>
         <td><%= auction.fee %></td>
-
         <td>
           <%= link_to 'Ver', auction %>
           <%= link_to 'Editar', edit_auction_path(auction) %>
-
-
         </td>
       </tr>
     <% end %>
   </tbody>
-
-
-
 </table>
 </div>
-
-
-
-
 <br>

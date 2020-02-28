@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
 
-
-
-  get 'dashboard/index'
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -18,6 +15,9 @@ Rails.application.routes.draw do
     :omniauth_callbacks => "users/omniauth_callbacks",
     registrations: 'users/registrations'
   }
+
+  get 'people/', to: 'people#index'
+  get 'dashboard/', to:'dashboard#index'
 
 
   resources :auctionlistings
@@ -36,7 +36,11 @@ Rails.application.routes.draw do
       resources :auctions
   end
 
-  resources :auctions
+  resources :auctions do
+    collection do
+       match 'search' => 'auctions#search', via: [:get, :post], as: :search
+    end
+  end
 
   resources :realties
 
