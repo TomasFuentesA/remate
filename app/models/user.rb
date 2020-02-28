@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :posts
+  has_many :people
 
   enum role: [:admin, :analyzer, :lawyer, :appraiser, :visit]
 

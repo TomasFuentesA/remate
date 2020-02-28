@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
 
 
-
-
-  get 'people/index'
-
-
-  get 'dashboard/', to:'dashboard#index' 
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -21,6 +15,9 @@ Rails.application.routes.draw do
     :omniauth_callbacks => "users/omniauth_callbacks",
     registrations: 'users/registrations'
   }
+
+  get 'people/', to: 'people#index'
+  get 'dashboard/', to:'dashboard#index'
 
 
   resources :auctionlistings

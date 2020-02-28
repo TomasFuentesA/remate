@@ -1,4 +1,5 @@
 class Activity < ApplicationRecord
-  has_many :people
+  belongs_to :person
   has_many :natural_people
+  has_many :legal_people
 end
