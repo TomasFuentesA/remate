@@ -49,6 +49,7 @@
   <div class="field">
     <%= form.label :is_uf, "Opcion" %>
     <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
+  
   </div>
 
 
@@ -64,7 +65,7 @@
     <%= form.label :cost, "Costas" %>
     <%= form.number_field :cost, id: :cost %>
   </div>
-  
+
   <div class="field" >
     <%= form.label :pesos, "Pesos" %>
     <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
