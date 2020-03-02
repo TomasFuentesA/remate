@@ -1,11 +1,7 @@
 
 body {
 
-  color: #000;
-  margin: 10px;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 15px;
-  line-height: 18px;
+
 }
 
 
@@ -30,7 +26,7 @@ p, ol, ul, td {
   line-height: 18px;
 }
 
-
+/*
 pre {
   background-color: #eee;
   padding: 10px;
@@ -42,7 +38,7 @@ div {
   &.field, &.actions {
     margin-bottom: 10px;
   }
-}
+} */
 /*
 h2 {
 text-align: center;
@@ -64,10 +60,18 @@ ul li {
 }
 
 
+
 label {
-display: block;
+
+font-weight: normal;
+  margin-top: 15px;
 }
 
+.btn {
+  border: 0;
+  border-radius: 3px;
+  margin-top: 20px;
+}
 
 
 
