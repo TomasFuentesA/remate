@@ -10,6 +10,11 @@ module Remate
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    # Permitted locales available for the application
+    config.i18n.available_locales = [:en, :es]
+
+  #  config.i18n.available_locales = [:en, :pt]
     config.i18n.default_locale = :es
 
 

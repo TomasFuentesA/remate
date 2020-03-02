@@ -12,6 +12,8 @@ gem 'jquery-datatables'
 gem 'jquery-rails'
 gem 'arctic_admin'
 gem 'ransack'
+gem 'bootstrap', '~> 4.4.1'
+
 
 
 
