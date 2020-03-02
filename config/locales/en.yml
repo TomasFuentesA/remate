@@ -12,7 +12,7 @@
 #
 # To use a different locale, set it with `I18n.locale`:
 #
-#   I18n.locale = :es
+#  I18n.locale = :es
 #
 # This would use the information in config/locales/es.yml.
 #
@@ -30,8 +30,65 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 ###### change hour format to HORA:MINUTO #####
 es:
+  date:
+    abbr_day_names:
+      - lun
+      - mar
+      - mié
+      - jue
+      - vie
+      - sáb
+      - dom
+    abbr_month_names:
+      -
+      - ene
+      - feb
+      - mar
+      - abr
+      - may
+      - jun
+      - jul
+      - ago
+      - sep
+      - oct
+      - nov
+      - dic
+    day_names:
+      - lunes
+      - martes
+      - miércoles
+      - jueves
+      - viernes
+      - sábado
+      - domingo
+    formats:
+      default: "%d-%m-%Y"
+      long: "%A %d de %B de %Y"
+      short: "%d de %b"
+    month_names:
+      -
+      - enero
+      - febrero
+      - marzo
+      - abril
+      - mayo
+      - junio
+      - julio
+      - agosto
+      - septiembre
+      - octubre
+      - noviembre
+      - diciembre
+    order:
+      - :day
+      - :month
+      - :year
   time:
+    am: am
     formats:
       default: "%H:%M"
+    pm: pm
+
+
 en:
   hello: "Hello world"

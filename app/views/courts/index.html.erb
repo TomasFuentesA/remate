@@ -1,9 +1,12 @@
-
+<br>
 <table id="myTable" class="table">
   <thead>
     <tr>
       <th>Seleccionar Tribunal</th>
-      <th>Nº Tribunal</th>
+      <th>Rut</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Nº Cuenta</th>
       <th>Opciones</th>
     </tr>
   </thead>
@@ -20,10 +23,11 @@
         <td><%= court.address %></td>
         <td><%= court.phone %></td>
         <td><%= court.account %></td>
+        <td> <%= link_to 'Show', court %>
+        <%= link_to 'Edit', edit_court_path(court) %>
+        <%= link_to 'Destroy', court, method: :delete, data: { confirm: 'Are you sure?' } %>
+</td>
 
-          <%= link_to 'Show', court %>
-          <%= link_to 'Edit', edit_court_path(court) %>
-          <%= link_to 'Destroy', court, method: :delete, data: { confirm: 'Are you sure?' } %>
 
       </tr>
     <% end %>

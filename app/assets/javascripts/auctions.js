@@ -1,17 +1,5 @@
-document.addEventListener('turbolinks:before-cache', function(){
-   //$('#myTable').DataTable().destroy();
-})
 
-document.addEventListener('turbolinks:load', function(){
-   //$('#myTable').DataTable();
-})
-
-var i = 0;
-document.addEventListener('turbolinks:load', function () {
-    //console.log(i);
-    //i = i + 1;
-})
-
+$('.datepicker').datepicker({dateFormat: 'dd-mm-yyyy'});
 
 function habilite_money(selector){
 
@@ -86,11 +74,6 @@ function calculateTotalMinimum(){
    var pesos = $('#pesos').val()
    var costas = $('#cost').val()
    $('#total_minimum').val(parseInt(pesos) + parseInt(costas));
-
-
-
-
-
 
 
 
