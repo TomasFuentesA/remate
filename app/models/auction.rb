@@ -4,6 +4,8 @@ class Auction < ApplicationRecord
   belongs_to :court
 
   enum status: [:in_progress, :suspendend, :discarded]
+  
+
 
 
 

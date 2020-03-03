@@ -216,3 +216,5 @@ es:
       long: "%A %d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm
+  will_paginate:
+    page_gap: '...'

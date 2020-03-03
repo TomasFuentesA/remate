@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'people/', to: 'people#index'
   get 'dashboard/', to:'dashboard#index'
+  get 'calendario/', to: 'calendars#index'
 
 
   resources :auctionlistings

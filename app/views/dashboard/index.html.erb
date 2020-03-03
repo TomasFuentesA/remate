@@ -1,7 +1,114 @@
-<h1>Dashboard#index</h1>
+<h1>Navegación Sistema</h1>
 <p>Añadir opciones como en altitud ltda</p>
 
 <div class="container">
-  <h1><%= Date.today.strftime("%d de %B,%y")%> </h1>
+  <table>
+    <tr>
+      <td>
+        <p ><%= l(Date.today, format: "%d de %B,%Y")%> <p id="uf">
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Inversiones
+        </div>
+
+        <div class="card-body">
+          <p class="card-text">Link 1.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <p class="card-text">Link 2.</p>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+
+        <div class="card-body">
+          <p class="card-text">link 3.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-sm">
+    <div class="card" style="width: 18rem;">
+
+      <div class="card-body">
+        <p class="card-text">link 4.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-sm">
+    <div class="card" style="width: 18rem;">
+
+    <div class="card-body">
+        <p class="card-text">link 5.</p>
+    </div>
+  </div>
+  </div>
+  <div class="col-sm">
+    <div class="card" style="width: 18rem;">
+
+      <div class="card-body">
+        <p class="card-text">link 6.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="container">
+<div class="row">
+  <div class="col-sm">
+    <div class="card" style="width: 18rem;">
+
+      <div class="card-body">
+        <p class="card-text">link 7.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-sm">
+    <div class="card" style="width: 18rem;">
+
+    <div class="card-body">
+      <p class="card-text">link 8.</p>
+    </div>
+  </div>
+  </div>
+  <div class="col-sm">
+    <div class="card" style="width: 18rem;">
+
+      <div class="card-body">
+        <p class="card-text">link 9.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<%= I18n.locale %>
+
+
+
+
+
+
 
 </div>
+<script  > new ufApi()</script>

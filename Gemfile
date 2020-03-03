@@ -12,14 +12,7 @@ gem 'jquery-datatables'
 gem 'jquery-rails'
 gem 'arctic_admin'
 gem 'ransack'
-gem 'bootstrap', '~> 4.4.1'
-
-
-
-
-
-
-
+gem 'will_paginate','3.1.7'
 gem 'cancancan'
 # Use jQuery
 gem 'docx'
@@ -27,13 +20,11 @@ gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
 gem 'csv'
-
 gem 'activeadmin'
 gem 'rails-i18n'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'bootstrap-datepicker-rails'
-
 gem 'chartkick'
 gem 'groupdate'
 # Use para ver diagrama pdf
@@ -59,6 +50,7 @@ gem 'omniauth-facebook'
 gem 'rubyzip', '>= 1.3.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
+gem 'event-calendar', :require => 'event_calendar'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -71,9 +63,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
 end
-group :assets do
+
   gem 'jquery-ui-rails', '~> 5.0.5'
-end
+
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

@@ -13,7 +13,6 @@
 
 //= require gmaps/google
 //= require underscore
-
 //= require bootstrap-datepicker
 //= require arctic_admin/base
 //= require activestorage

@@ -3,7 +3,8 @@ class CommunesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @communes = Commune.all
+    @communes = Commune.order("name").page(params[:page]).per_page(5)
+
   end
 
   def new
