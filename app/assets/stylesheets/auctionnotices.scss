@@ -8,3 +8,18 @@
 #actionNoticeTable {
   background-color: #f5f976;
 }
+
+#auctionnoticenew {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  justify-content: space-around;
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
+   padding: 10px 0;
+}
+
+.form-group {
+  margin-bottom: 0;
+  text-align: left;
+}
