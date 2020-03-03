@@ -52,10 +52,20 @@
 
  <%= form.submit "Guardar" %>
 <% end %>
+
+<div>
+
+
+<%= @auctionnotice.id%>
+<%= @auctionnotice.auction %>
+</div>
+
+
   <div>
     <h3>
  <%= link_to 'Nueva Propiedad', new_realty_path %>
    </div>
+    </h3>
 
    <div class="accordion" id="accordionExample">
      <div class="card">
@@ -76,13 +86,3 @@
        </div>
      </div>
   </div>
-
-
-
-
-<div>
-
-
-<%= @auctionnotice.id%>
-<%= @auctionnotice.auction %>
-</div>

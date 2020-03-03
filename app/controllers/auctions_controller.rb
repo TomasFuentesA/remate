@@ -14,9 +14,9 @@ class AuctionsController < ApplicationController
   end
 
   def search
-  index
-  render :index
-end
+    index
+    render :index
+  end
 
   def new
 
@@ -43,10 +43,6 @@ end
   def edit
 
     @auction = Auction.find(params[:id])
-
-
-
-
 
   end
 

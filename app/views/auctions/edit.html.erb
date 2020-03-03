@@ -49,7 +49,7 @@
   <div class="field">
     <%= form.label :is_uf, "Opcion" %>
     <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
-  
+
   </div>
 
 
@@ -104,6 +104,15 @@
  <%= form.submit "Guardar" %>
 <% end %>
 
+<div>
+
+
+<%= @auction.id %>
+<%= @auction.auctionnotice.auction %>
+</div>
+
+
+
 <br>
   <div>
     <h3>
@@ -129,13 +138,3 @@
        </div>
      </div>
   </div>
-
-
-
-
-<div>
-
-
-<%= @auction.id %>
-<%= @auction.auctionnotice.auction %>
-</div>
