@@ -1,88 +1,115 @@
+<br>
 <h1>  Asociar Aviso de Remate a Propiedad </h1>
 
-<%= form_with model: Auction.new  do |form| %>
-  <%= form.label :name, "Seleccion de Avisos de Remate" %>
+<div class="container-fluid" id="auctionnoticenew" >
 
-  <div class="field">
-    <%= form.label :date, "Fecha" %>
-    <%= form.text_field :date %>
+  <div class="row justify-content-md-center"">
+
+    <div class="col">
+      <%= form_with model: Auction.new  do |form| %>
+        <%= form.label :name, "Seleccion de Avisos de Remate" %>
+
+        <div class="field">
+          <%= form.label :date, "Fecha" %>
+          <%= form.text_field :date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
+        </div>
+
+        <div class="field">
+          <%= form.label :hour, "Hora" %>
+          <%= form.text_field :hour %>
+        </div>
+
+
+        <div class="field">
+          <%= form.label :name %>
+          <%= form.text_field :name, id: :name %>
+        </div>
+
+        <div class="field">
+          <%= form.label :court_id, "Seleccionar Tribunal" %>
+          <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
+        </div>
+
+        <div class="field">
+          <%= form.label :lyrics, "Letra" %>
+          <%= form.text_field :lyrics, id: :lyrics %>
+        </div>
+
+        <div class="field">
+          <%= form.label :number, "Rol" %>
+          <%= form.number_field :number, id: :number %>
+        </div>
+
+        <div class="field">
+          <%= form.label :year, "Año" %>
+          <%= form.number_field :year, id: :year %>
+        </div>
+
+
+        <div class="field">
+          <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
+        </div>
+
+        <div class="field">
+          <%= form.label :realty_id, "Seleccionar Propiedad" %>
+          <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+        </div>
+
+
+       <%= form.submit "Guardar" %>
+      <% end %>
+    </div>
+    <div class="col">
+      <br>
+      <div class="row justify-content-md-center"">
+
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <br>
+      <div class="row justify-content-md-center">
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ingreso de Propiedad:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <%= render "realties/form" %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :hour, "Hora" %>
-    <%= form.text_field :hour %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :court_id, "Seleccionar Tribunal" %>
-    <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :lyrics, "Letra" %>
-    <%= form.text_field :lyrics, id: :lyrics %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number, "Rol" %>
-    <%= form.number_field :number, id: :number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :year, "Año" %>
-    <%= form.number_field :year, id: :year %>
-  </div>
-
-
-  <div class="field">
-    <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :realty_id, "Seleccionar Propiedad" %>
-    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
-  </div>
-
-
- <%= form.submit "Guardar" %>
-<% end %>
-  <div>
-    <h3>
- <%= link_to 'Nueva Propiedad', new_realty_path %>
-   </div>
-
-   <div class="accordion" id="accordionExample">
-     <div class="card">
-       <div class="card-header" id="headingOne">
-         <h2 class="mb-0">
-           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-             Collapsible Group Item #1
-           </button>
-         </h2>
-       </div>
-
-       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-         <div class="card-body">
-
-           <%= render "realties/form" %>
-
-         </div>
-       </div>
-     </div>
-  </div>
-
-
-
-
-<div>
-
-
-<%= @auctionnotice.id%>
-<%= @auctionnotice.auction %>
 </div>
+
+
+
+
+<br><br>
