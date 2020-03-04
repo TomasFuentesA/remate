@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_142449) do
+ActiveRecord::Schema.define(version: 2020_03_04_192959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,12 +102,12 @@ ActiveRecord::Schema.define(version: 2020_02_28_142449) do
 
   create_table "communes", force: :cascade do |t|
     t.string "name"
-    t.integer "province_id"
-    t.integer "region_id"
     t.integer "cod_treasury"
     t.integer "conara_sii"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "region_id"
+    t.integer "province_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -230,14 +230,13 @@ ActiveRecord::Schema.define(version: 2020_02_28_142449) do
 
   create_table "provinces", force: :cascade do |t|
     t.string "name"
-    t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "province_id"
+    t.integer "region_id"
   end
 
   create_table "realties", force: :cascade do |t|
-    t.integer "commune_id"
     t.string "street"
     t.integer "number_unit"
     t.string "unit_estate"
@@ -253,6 +252,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_142449) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
+    t.integer "commune_id"
     t.integer "province_id"
     t.integer "region_id"
   end

@@ -1,10 +1,9 @@
 class CourtsController < ApplicationController
   before_action :authenticate_user!
-
   load_and_authorize_resource
 
   def index
-    @courts = Court.all
+    @courts = Court.order("name").page(params[:page]).per_page(10)
   end
 
   def new

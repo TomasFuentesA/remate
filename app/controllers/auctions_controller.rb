@@ -2,12 +2,14 @@ class AuctionsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
+
   def index
+      @auctions = Auction.order(date: :desc,hour: :desc).page(params[:page]).per_page(6)
       @search = Auction.search(params[:q])
       if @search
         @auctions = @search.result
       else
-        @auctions = Auction.all.order(date: :desc,hour: :desc)
+        @auctions = Auction.order(date: :desc,hour: :desc).page(params[:page]).per_page(6)
       end
 
 
@@ -23,14 +25,15 @@ end
     @auction = Auction.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
 
+
+
+
   end
 
 
 
   def create
     @auction = Auction.new(auction_params)
-
-
     @auction.save
     redirect_to auctions_path
   end
@@ -41,14 +44,12 @@ end
   end
 
   def edit
-
     @auction = Auction.find(params[:id])
 
-
-
-
-
   end
+
+
+
 
   def update
     @auction.update(auction_params)

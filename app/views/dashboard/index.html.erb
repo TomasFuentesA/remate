@@ -20,89 +20,43 @@
         </div>
 
         <div class="card-body">
-          <p class="card-text">Link 1.</p>
+          <li class="list-group-item "><%= link_to 'Remates', auctions_path %></li>
+          <li class="list-group-item"><%= link_to 'Calendario de Remates ', calendario_path %></li>
         </div>
       </div>
 
     </div>
     <div class="col-sm">
       <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Propiedades
+        </div>
+
         <div class="card-body">
-        <p class="card-text">Link 2.</p>
+        <li class="list-group-item "><%= link_to 'Listado de Propiedades', realties_path %></li>
+        <li class="list-group-item"><%= link_to 'Nueva Propiedad', new_realty_path %></li>
       </div>
     </div>
     </div>
     <div class="col-sm">
       <div class="card" style="width: 18rem;">
-
+        <div class="card-header">
+          Avisos
+        </div>
         <div class="card-body">
-          <p class="card-text">link 3.</p>
+          <li class="list-group-item "><%= link_to 'Todos los avisos', auctionnotices_path %></li>
+          <li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
+          <li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
+          <li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
+          <li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
+          <li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container">
-<div class="row">
-  <div class="col-sm">
-    <div class="card" style="width: 18rem;">
 
-      <div class="card-body">
-        <p class="card-text">link 4.</p>
-      </div>
-    </div>
-
-  </div>
-  <div class="col-sm">
-    <div class="card" style="width: 18rem;">
-
-    <div class="card-body">
-        <p class="card-text">link 5.</p>
-    </div>
-  </div>
-  </div>
-  <div class="col-sm">
-    <div class="card" style="width: 18rem;">
-
-      <div class="card-body">
-        <p class="card-text">link 6.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<div class="container">
-<div class="row">
-  <div class="col-sm">
-    <div class="card" style="width: 18rem;">
-
-      <div class="card-body">
-        <p class="card-text">link 7.</p>
-      </div>
-    </div>
-
-  </div>
-  <div class="col-sm">
-    <div class="card" style="width: 18rem;">
-
-    <div class="card-body">
-      <p class="card-text">link 8.</p>
-    </div>
-  </div>
-  </div>
-  <div class="col-sm">
-    <div class="card" style="width: 18rem;">
-
-      <div class="card-body">
-        <p class="card-text">link 9.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<%= I18n.locale %>
 
 
 

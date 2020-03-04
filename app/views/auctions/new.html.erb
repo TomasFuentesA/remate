@@ -6,12 +6,12 @@
   <div class="row justify-content-md-center"">
 
     <div class="col">
-      <%= form_with model: Auction.new  do |form| %>
+      <%= form_with model: @auction  do |form| %>
         <%= form.label :name, "Seleccion de Avisos de Remate" %>
 
         <div class="field">
           <%= form.label :date, "Fecha" %>
-          <%= form.text_field :date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
+          <%= form.text_field :date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"} ,autocomplete: "off"%>
         </div>
 
         <div class="field">
@@ -57,6 +57,8 @@
 
 
        <%= form.submit "Guardar" %>
+
+
       <% end %>
     </div>
     <div class="col">
@@ -65,7 +67,7 @@
 
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
+            <h5 class="card-title">Notificacion de Aviso</h5>
             <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>

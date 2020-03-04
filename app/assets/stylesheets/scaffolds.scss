@@ -1,9 +1,23 @@
 
 body {
+  display: block;
+  margin: 8px;
+  line-height: normal;
 
 
 }
+*, :after, :before {
+    box-sizing: border-box;
+}
 
+div {
+  display: block;
+
+}
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
 
 /*
 a {
@@ -23,7 +37,7 @@ p, ol, ul, td {
   color: #000;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 15px;
-  line-height: 18px;
+  line-height: normal;
 }
 
 /*
