@@ -50,29 +50,10 @@
           <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
         </div>
 
-<<<<<<< HEAD
- <%= form.submit "Guardar" %>
-<% end %>
-
-<div>
-
-
-<%= @auctionnotice.id%>
-<%= @auctionnotice.auction %>
-</div>
-
-
-  <div>
-    <h3>
- <%= link_to 'Nueva Propiedad', new_realty_path %>
-   </div>
-    </h3>
-=======
         <div class="field">
           <%= form.label :realty_id, "Seleccionar Propiedad" %>
           <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
         </div>
->>>>>>> 9f530db78da0608a5991b93c9e790d65ca8d30d5
 
 
        <%= form.submit "Guardar" %>
@@ -90,12 +71,6 @@
           </div>
         </div>
 
-<<<<<<< HEAD
-         </div>
-       </div>
-     </div>
-  </div>
-=======
 
 
 
@@ -138,4 +113,3 @@
 
 
 <br><br>
->>>>>>> 9f530db78da0608a5991b93c9e790d65ca8d30d5
