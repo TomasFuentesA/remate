@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   get 'auctionnotices/selected'
   get 'auctionnotices/rejected'
   post 'auctionnotice/:id/select', to: 'auctionnotices#action_selection', as: 'action_selection'
+  post 'auctionnotice/:id/joined', to: 'auctionnotices#action_joined', as: 'action_joined'
+  get 'auctionnotices/joined'
 
 
   get 'auctionnotice/:id/auctions', to: 'auctionnotices#auctions', as: 'auctionnotice_auction'

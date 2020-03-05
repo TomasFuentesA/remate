@@ -1,0 +1,59 @@
+<div class="container">
+<%= form_with model: Realty.new  do |form| %>
+  <%= form.label :name, "Ingreso de Propiedad:" %>
+
+  <div class="form-group">
+    <%= form.label :name_realty, "Nombre de propiedad" %>
+    <%= form.text_field :name_realty, id: :name_realty%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :street_type_id, "Tipo de Calle" %>
+    <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :type_property_id, "Tipo de Propiedad" %>
+    <%= form.select :type_property_id, options_for_select([["Casa", 0],["Dpto.", 1],["Local", 2], ["Oficina", 3], ["Bodega", 4], ["Sitio", 5], ["Box", 6], ["Parcela", 7]]), {include_blank: "Seleccione"} %>
+  </div>
+  <p> dirección </p>
+
+  <div class="form-group">
+    <%= form.label :street, "Calle" %>
+    <%= form.text_field :street, id: :street %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :number_unit, "Numero" %>
+    <%= form.number_field :number_unit, id: :number_unit %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :unit_estate, "Unidad" %>
+    <%= form.text_field :unit_estate, id: :unit_estate %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :population_villa, "villa/población" %>
+    <%= form.text_field :population_villa, id: :population_villa %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :region_id, "Region" %>
+    <%= form.collection_select :region_id, Region.order(:name), :id,:name%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :province_id, "Provincia" %>
+    <%= form.grouped_collection_select :province_id, Region.order(:name),:provinces, :name ,:id,:name, include_blank: true, value: Region.find_by(name: 'Santiago'	) %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :commune_id, "Comuna" %>
+    <%= form.grouped_collection_select :commune_id, Province.order(:province_id),:communes,:name, :id,:name, include_blank: true %>
+  </div>
+
+ <%= form.submit "Ingresar" %>
+
+<% end %>
+</div>

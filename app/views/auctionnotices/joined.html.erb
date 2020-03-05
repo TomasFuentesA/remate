@@ -1,0 +1,30 @@
+<h1>  Avisos Asociados a Propiedad</h1>
+
+
+<table id="myTable" class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Avisos Asociados</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @auctionnotices.each_with_index do |auctionnotice, i| %>
+
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= auctionnotice.auction %></td>
+        <td>
+          <%= link_to 'Ver', auctionnotice %>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post, class:"fa fa-trash" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %>

@@ -42,7 +42,15 @@ class RealtiesController < ApplicationController
     @realty = Realty.new(realty_params)
     @realty.save
     redirect_to realties_path
+    #@realtymodal = Realty.new(realty_params)
+    #if @realtymodal
+  #    @realtymodal.save
+#      flash.message("Propiedad Ingresada")
+
+
   end
+
+
 
   def show
       @realty = Realty.find(params[:id])
@@ -54,6 +62,7 @@ class RealtiesController < ApplicationController
 
   def edit
     @realty = Realty.find(params[:id])
+#    @realtymodal = Realty.find(params[:id])
   end
 
   def update

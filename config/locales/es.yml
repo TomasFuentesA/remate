@@ -213,7 +213,7 @@ es:
     am: am
     formats:
       default: "%H:%M"
-      long: "%A %d de %B de %Y %H:%M"
+      long: "Dia %d de %B de %Y, A las %H Horas" 
       short: "%d de %b %H:%M"
     pm: pm
   will_paginate:

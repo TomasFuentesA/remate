@@ -1,5 +1,8 @@
 <br>
+<%= link_to 'Nuevo Tribunal', new_court_path ,class: "btn btn-primary"%>
+<br>
 <table id="myTable" class="table">
+
   <thead>
     <tr>
       <th>Seleccionar Tribunal</th>
@@ -23,9 +26,12 @@
         <td><%= court.address %></td>
         <td><%= court.phone %></td>
         <td><%= court.account %></td>
-        <td> <%= link_to 'Show', court %>
-        <%= link_to 'Edit', edit_court_path(court) %>
-        <%= link_to 'Destroy', court, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+        <td> <%= link_to 'Ver', court %>
+        <% if can? :access, :admin_users, :lawyers %>
+        <%= link_to 'Editar', edit_court_path(court) %>
+        <%= link_to 'Eliminar', court, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end%>
 </td>
 
 
@@ -34,6 +40,18 @@
   </tbody>
 </table>
 
-<br>
 
-  <%= link_to 'Nuevo Tribunal', new_court_path %>
+<%= will_paginate @courts , previous_label: h("<"), next_label: h(">")%>
+
+
+
+<!-- or custom pagination -->
+<% if @courts.previous_page %>
+  <%= link_to "< Anterior", params.merge(page: @courts.previous_page).permit(:page) %>
+<% end %>
+Página <%= @courts.current_page %> de <%= @courts.total_pages %>
+<% if @courts.next_page %>
+  <%= link_to "Siguiente>", params.merge(page: @courts.next_page).permit(:page) %>
+<% end %>
+
+<br>

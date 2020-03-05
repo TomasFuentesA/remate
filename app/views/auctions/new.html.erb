@@ -6,12 +6,12 @@
   <div class="row justify-content-md-center"">
 
     <div class="col">
-      <%= form_with model: Auction.new  do |form| %>
-        <%= form.label :name, "Seleccion de Avisos de Remate" %>
+      <%= form_with model: @auction  do |form| %>
+        <%= form.label :name, "Ingresar nuevo Remate" %>
 
-        <div class="field">
+        <div class="field" >
           <%= form.label :date, "Fecha" %>
-          <%= form.text_field :date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
+          <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
         </div>
 
         <div class="field">
@@ -21,13 +21,18 @@
 
 
         <div class="field">
-          <%= form.label :name %>
+          <%= form.label :name, "Nombre" %>
           <%= form.text_field :name, id: :name %>
         </div>
 
         <div class="field">
           <%= form.label :court_id, "Seleccionar Tribunal" %>
           <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
+        </div>
+
+        <div class="field">
+          <%= form.label :type_judgment, "Seleccionar Juicio" %>
+          <%= form.select :type_judgment, options_for_select(Auction.type_judgments.keys.to_a), { include_blank: "Seleccione"}  %>
         </div>
 
         <div class="field">
@@ -45,6 +50,43 @@
           <%= form.number_field :year, id: :year %>
         </div>
 
+        <div class="field">
+          <%= form.label :cost, "Costas" %>
+          <%= form.number_field :cost, id: :cost, value: 0  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :is_uf, "Opcion" %>
+          <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
+        </div>
+
+        <div class="field" >
+          <%= form.label :uf, "UF" %>
+          <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
+          <script > new ufApi()</script>
+        </div>
+
+
+
+        <div class="field" >
+          <%= form.label :pesos, "Pesos" %>
+          <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :total_minimum, "Total Minimo" %>
+          <%= form.number_field :total_minimum, id: :total_minimum %>
+        </div>
+
+        <div class="field">
+          <%= form.label :warranty, "Garantia" %>
+          <%= form.number_field :warranty, id: :warranty %>
+        </div>
+
+        <div class="field">
+          <%= form.label :fee, "Derechos" %>
+          <%= form.number_field :fee, id: :fee %>
+        </div>
 
         <div class="field">
           <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
@@ -57,15 +99,17 @@
 
 
        <%= form.submit "Guardar" %>
+
+
       <% end %>
     </div>
     <div class="col">
       <br>
-      <div class="row justify-content-md-center"">
+      <div class="row justify-content-md-center">
 
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
+            <h5 class="card-title">Notificacion de Aviso</h5>
             <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
@@ -90,7 +134,7 @@
                 </button>
               </div>
               <div class="modal-body">
-              <%= render "realties/form" %>
+              <%= render "auctions/formModal" %>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

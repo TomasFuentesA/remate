@@ -4,7 +4,8 @@ class Auction < ApplicationRecord
   belongs_to :court
 
   enum status: [:in_progress, :suspendend, :discarded]
-  
+  enum type_judgment: [:ejecutivo,:hipotecario,:tesoreria,:laboral,:familia,:arbitral,:quiebra,:voluntario]
+
 
 
 

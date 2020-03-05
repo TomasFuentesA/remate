@@ -1,8 +1,8 @@
 <br>
-<div class="container">
+<div class="container" id="auctionnoticenew">
 
 
-  <%= form_with model: Realty.new do |form| %>
+  <%= form_for @realty do |form| %>
     <%= form.label :name, "Ingreso de Propiedad:" %>
 
     <div class="form-group">
