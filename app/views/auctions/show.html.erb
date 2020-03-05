@@ -2,38 +2,51 @@
 
 <p></p>
 
-
-<div>
-  <h2>
-    Remate nº  <%= @auction.id %> : <%= @auction.realty.address %>
-    </h2>
-</div>
-<h4>Informacion del Remate</h4>
-
-
-  <div>
-    Fecha Remate:  <%= @auction.date %>, <%= @auction.hour %>
-  </div>
-   <div>
-     Tribunal: <%= @auction.court.name %>
-   </div>
-  <div>
-     Rol:     <%= @auction.rol_trial %>
-   </div>
-
-   <div>
-      Garantia:   <%= @auction.warranty %>
+<div class="row" id="fileview">
+  <div class="col-principal col-md-8">
+    <div>
+      <h2>
+        Remate nº  <%= @auction.id %> : <%= @auction.realty.address %>
+        </h2>
     </div>
+    <h4>Informacion del Remate</h4>
+
+
+      <div>
+        Fecha Remate:  <%= @auction.date %>, <%= @auction.hour %>
+      </div>
+       <div>
+         Tribunal: <%= @auction.court.name %>
+       </div>
+      <div>
+         Rol:     <%= @auction.rol_trial %>
+       </div>
+
+       <div>
+          Garantia:   <%= @auction.warranty %>
+        </div>
+
+        <div>
+           Minimo:     <%= @auction.total_minimum %>
+         </div>
 
     <div>
-       Minimo:     <%= @auction.total_minimum %>
-     </div>
+      <p></p>
+    <p>Aviso</p>
+    <p></p>
+    <%= @auction.auctionnotice.auction %>
 
-<div>
-  <p></p>
-<p>Aviso</p>
-<p></p>
-<%= @auction.auctionnotice.auction %>
+
+
+    </div>
+
+  </div>
+
+  <div class="col-lateral col-md-4"">
+    algo
+
+  </div>
+
 
 
 

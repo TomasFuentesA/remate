@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_192959) do
+ActiveRecord::Schema.define(version: 2020_03_05_171210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_192959) do
     t.datetime "updated_at", null: false
     t.float "minimum"
     t.integer "status"
+    t.integer "type_judgment"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["court_id"], name: "index_auctions_on_court_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"

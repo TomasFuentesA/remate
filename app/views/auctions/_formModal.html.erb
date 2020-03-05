@@ -1,5 +1,5 @@
 <div class="container">
-<%= form_for @realty  do |form| %>
+<%= form_with model: Realty.new  do |form| %>
   <%= form.label :name, "Ingreso de Propiedad:" %>
 
   <div class="form-group">

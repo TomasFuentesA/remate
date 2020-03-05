@@ -25,9 +25,6 @@ end
     @auction = Auction.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
 
-
-
-
   end
 
 
@@ -102,7 +99,7 @@ end
   private
 
   def auction_params
-    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year, :realty_id, :auctionnotice_id, :status)
+    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year, :realty_id, :auctionnotice_id, :status,:type_judgement)
   end
 
 end
