@@ -4,84 +4,86 @@
   <div class="row justify-content-md-center">
     <div class="col">
       <%= form_with model: @auction  do |form| %>
-      <%= form.label :name, "Editar Remate" %>
+        <%= form.label :name, "Editar Remate" %>
 
-      <div class="field" >
-        <%= form.label :date, "Fecha" %>
-        <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
-      </div>
-      <div class="field">
-        <%= form.label :hour, "Hora" %>
-        <%= form.text_field :hour %>
-      </div>
-      <div class="field">
-        <%= form.label :name, "Nombre" %>
-        <%= form.text_field :name, id: :name %>
-      </div>
+        <div class="field" >
+          <%= form.label :date, "Fecha" %>
+          <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
+        </div>
+        <div class="field">
+          <%= form.label :hour, "Hora" %>
+          <%= form.text_field :hour %>
+        </div>
+        <div class="field">
+          <%= form.label :name, "Nombre" %>
+          <%= form.text_field :name, id: :name %>
+        </div>
+        <div class="field">
+          <%= form.label :court_id, "Seleccionar Tribunal" %>
+          <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}, @auction.court_id), { include_blank: "Seleccione"} %>
+        </div>
+        <div class="field">
+          <%= form.label :type_judgment, "Seleccionar Juicio" %>
+          <%= form.select :type_judgment, options_for_select(Auction.type_judgments.keys.to_a), { include_blank: "Seleccione"}  %>
+        </div>
+        <div class="field">
+          <%= form.label :lyrics, "Letra" %>
+          <%= form.text_field :lyrics, id: :lyrics %>
+        </div>
+        <div class="field">
+          <%= form.label :number, "Rol" %>
+          <%= form.number_field :number, id: :number %>
+        </div>
+        <div class="field">
+          <%= form.label :year, "Año" %>
+          <%= form.number_field :year, id: :year %>
+        </div>
 
-      <div class="field">
-        <%= form.label :court_id, "Seleccionar Tribunal" %>
-        <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}, @auction.court_id), { include_blank: "Seleccione"} %>
-      </div>
+        <div class="field" >
+        <%= form.fields_for :parts, @parts do |c| %>
+          <%= c.label :name, "parte 1" %>
+          <%= c.text_field :name %>
 
-      <div class="field">
-        <%= form.label :type_judgment, "Seleccionar Juicio" %>
-        <%= form.select :type_judgment, options_for_select(Auction.type_judgments.keys.to_a), { include_blank: "Seleccione"}  %>
-      </div>
+          <%= c.label :name, "parte 2" %>
+          <%= c.text_field :name %>
+          <% end %>
+        <div class="field" >
 
-      <div class="field">
-        <%= form.label :lyrics, "Letra" %>
-        <%= form.text_field :lyrics, id: :lyrics %>
-      </div>
-      <div class="field">
-        <%= form.label :number, "Rol" %>
-        <%= form.number_field :number, id: :number %>
-      </div>
-      <div class="field">
-        <%= form.label :year, "Año" %>
-        <%= form.number_field :year, id: :year %>
-      </div>
-      <div class="field">
-        <%= form.label :is_uf, "Opcion" %>
-        <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
-      </div>
-
-      <div class="field" >
-        <%= form.label :uf, "UF" %>
-        <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
-        <script > new ufApi()</script>
-      </div>
-      <div class="field">
-        <%= form.label :cost, "Costas" %>
-        <%= form.number_field :cost, id: :cost, value: 0  %>
-      </div>
-      <div class="field" >
-        <%= form.label :pesos, "Pesos" %>
-        <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
-      </div>
-      <div class="field">
-        <%= form.label :total_minimum, "Total Minimo" %>
-        <%= form.number_field :total_minimum, id: :total_minimum %>
-      </div>
-      <div class="field">
-        <%= form.label :warranty, "Garantia" %>
-        <%= form.number_field :warranty, id: :warranty %>
-      </div>
-      <div class="field">
-        <%= form.label :fee, "Derechos" %>
-        <%= form.number_field :fee, id: :fee %>
-      </div>
-      <div class="field">
-        <%= form.hidden_field :auctionnotice_id, value: @auction.auctionnotice_id %>
-      </div>
-      <div class="field">
-        <%= form.label :realty_id, "Seleccionar Propiedad" %>
-        <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}, @auction.realty_id), { include_blank: "Seleccione"} %>
-      </div>
-      <%= form.submit "Guardar" %>
-    <% end %>
-    </div>
-
+        <div class="field" >
+          <%= form.label :uf, "UF" %>
+          <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
+        </div>
+        <div class="field">
+          <%= form.label :is_uf, "Opcion" %>
+          <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
+        </div>
+        <div class="field">
+          <%= form.label :cost, "Costas" %>
+          <%= form.number_field :cost, id: :cost, value: 0  %>
+        </div>
+        <div class="field" >
+          <%= form.label :pesos, "Pesos" %>
+          <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
+        </div>
+        <div class="field">
+          <%= form.label :total_minimum, "Total Minimo" %>
+          <%= form.number_field :total_minimum, id: :total_minimum %>
+        </div>
+        <div class="field">
+          <%= form.label :warranty, "Garantia" %>
+          <%= form.number_field :warranty, id: :warranty %>
+        </div>
+        <div class="field">
+          <%= form.label :fee, "Derechos" %>
+          <%= form.number_field :fee, id: :fee %>
+        </div>
+        <div class="field">
+          <%= form.label :realty_id, "Seleccionar Propiedad" %>
+          <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}, @auction.realty_id), { include_blank: "Seleccione"} %>
+        </div>
+        <%= form.submit "Guardar" %>
+        <% end %>
+        </div>
 
     <div class="col">
       <br>
@@ -96,11 +98,6 @@
           </div>
         </div>
 
-  <div class="field">
-    <%= form.label :is_uf, "Opcion" %>
-    <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
-
-  </div>
 
 
 
@@ -129,26 +126,8 @@
             </div>
           </div>
         </div>
-
-
-
-
-
       </div>
     </div>
-
-
-
-
 </div>
-
-<div>
-
-
-<%= @auction.id %>
-<%= @auction.auctionnotice.auction %>
-</div>
-
-
 
 <br>

@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   create_table "directions", force: :cascade do |t|
@@ -188,6 +189,14 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
     t.integer "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "parts", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "auction_id"
+    t.index ["auction_id"], name: "index_parts_on_auction_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -263,6 +272,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -271,6 +281,11 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
@@ -290,5 +305,6 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
   add_foreign_key "auctions", "courts"
   add_foreign_key "auctions", "realties"
   add_foreign_key "comments", "posts"
+  add_foreign_key "parts", "auctions"
   add_foreign_key "posts", "users"
 end

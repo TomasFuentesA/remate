@@ -21,8 +21,11 @@ class AuctionsController < ApplicationController
   end
 
   def new
-
     @auction = Auction.new
+    2.times do
+      @auction.parts.build
+    end
+
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
 
   end
@@ -30,9 +33,10 @@ class AuctionsController < ApplicationController
 
 
   def create
-
     @auction = Auction.new(auction_params)
-    @auction.save
+    if @auction.save
+      @auction.auctionnotice.update(status: 3)
+    end
     redirect_to auctions_path
   end
 
@@ -43,7 +47,6 @@ class AuctionsController < ApplicationController
 
   def edit
     @auction = Auction.find(params[:id])
-
   end
 
   def update
@@ -98,7 +101,7 @@ class AuctionsController < ApplicationController
   private
 
   def auction_params
-    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year, :realty_id, :auctionnotice_id, :status,:type_judgement)
+    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year, :realty_id, :auctionnotice_id, :status,:type_judgement,:parts_attributes =>[:id, :name])
   end
 
 end
