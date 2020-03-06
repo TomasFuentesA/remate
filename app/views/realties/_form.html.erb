@@ -56,6 +56,12 @@
       <%= form.grouped_collection_select :commune_id, Province.order(:province_id),:communes,:name, :id,:name, include_blank: true %>
     </div>
 
+    <%= form.fields_for :characteristic do |f| %>
+      <%= form.label :mt2_land, "Metros cuadrados" %>
+        <%= form.number_field :mt2_land %>
+        <%end %>
+
+
    <%= form.submit "Ingresar" %>
 
   <% end %>
