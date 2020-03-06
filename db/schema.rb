@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_06_165810) do
+ActiveRecord::Schema.define(version: 2020_03_06_165837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,17 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
   end
 
+  create_table "characteristics", force: :cascade do |t|
+    t.float "m2_land"
+    t.float "m2_built"
+    t.string "material"
+    t.date "built_year"
+    t.bigint "realty_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["realty_id"], name: "index_characteristics_on_realty_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "post_id"
     t.text "content"
@@ -103,12 +114,12 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
 
   create_table "communes", force: :cascade do |t|
     t.string "name"
-    t.integer "province_id"
-    t.integer "region_id"
     t.integer "cod_treasury"
     t.integer "conara_sii"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "region_id"
+    t.integer "province_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -247,7 +258,6 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
   end
 
   create_table "realties", force: :cascade do |t|
-    t.integer "commune_id"
     t.string "street"
     t.integer "number_unit"
     t.string "unit_estate"
@@ -263,6 +273,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
+    t.integer "commune_id"
     t.integer "province_id"
     t.integer "region_id"
   end
@@ -304,6 +315,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_165810) do
   add_foreign_key "auctions", "auctionnotices"
   add_foreign_key "auctions", "courts"
   add_foreign_key "auctions", "realties"
+  add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
   add_foreign_key "parts", "auctions"
   add_foreign_key "posts", "users"

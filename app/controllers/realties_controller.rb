@@ -32,6 +32,7 @@ class RealtiesController < ApplicationController
 
   def new
       @realty = Realty.new
+      @realty.build_characteristic
       @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
       marker.lat realty.latitude
       marker.lng realty.longitude
@@ -81,7 +82,9 @@ class RealtiesController < ApplicationController
   private
 
   def realty_params
-    params.require(:realty).permit(:street, :number_unit, :commune_id, :population_villa, :unit_estate, :apple, :property, :latitude, :longitude, :address, :street_type_id, :type_property_id)
+    params.require(:realty).permit(:street, :number_unit, :commune_id, :population_villa, :unit_estate, :apple, :property, :latitude, :longitude, :address,
+      :street_type_id, :type_property_id,
+      characteristic_attributes: [:id,:m2_land,:m2_built,:material,:built_year] )
   end
 
 
