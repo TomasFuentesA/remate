@@ -30,6 +30,7 @@ end
 
 
   def create
+
     @auction = Auction.new(auction_params)
     @auction.save
     redirect_to auctions_path
@@ -92,6 +93,7 @@ end
       auction.update(status: 2)
       redirect_to auctions_path
   end
+
 
 
 

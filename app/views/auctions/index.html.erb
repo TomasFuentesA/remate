@@ -58,13 +58,11 @@
       <th id="auctionsTable">Nº</th>
 
       <th id="auctionsTable">Fecha</th>
-      <th id="auctionsTable">Hora</th>
+
       <th id="auctionsTable">Tribunal</th>
       <th id="auctionsTable">Rol</th>
       <th id="auctionsTable">Propiedad</th>
-      <th id="auctionsTable">Minimo</th>
-      <th id="auctionsTable">Garantia</th>
-      <th id="auctionsTable">Derechos</th>
+
       <th id="auctionsTable">Opciones</th>
 
     </tr>
@@ -74,14 +72,10 @@
     <% @auctions.each_with_index do |auction, i| %>
       <tr>
         <td><%= i + 1 %></td>
-        <td><%= auction.date %></td>
-        <td><%= auction.hour %></td>
+        <td><%= auction.date %> a las: <%= auction.hour %> hrs.</td>
         <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
         <td><%= auction.realty.address %></td>
-        <td><%= auction.total_minimum %></td>
-        <td><%= auction.warranty %></td>
-        <td><%= auction.fee %></td>
         <td>
           <%= link_to 'Ver', auction %>
           <%= link_to 'Editar', edit_auction_path(auction) %>

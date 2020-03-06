@@ -58,7 +58,8 @@ class AuctionnoticesController < ApplicationController
   def action_joined
     auction = Auctionnotice.find(params[:id])
     auction.update(status: 3)
-    redirect_to auctionnotices_joined_path
+    #redirect_to auctionnotices_joined_path
+
   end
 ##show auctionnotices by status
 
@@ -82,7 +83,7 @@ class AuctionnoticesController < ApplicationController
   private
 
   def auctionnotice_params
-    params.require(:auctionnotice).permit(:name, :status, :auction)
+    params.require(:auctionnotice).permit(:name, :status, :auction, :realty_id)
   end
 
 end
