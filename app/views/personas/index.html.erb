@@ -1,8 +1,9 @@
-<h1>People#index</h1>
-<p>Find me in app/views/people/index.html.erb</p>
+<h1>Personas#index</h1>
+<p>Find me in app/views/personas/index.html.erb</p>
+
 
 <br>
-<%= link_to 'Nueva Persona', new_person_path ,class: "btn btn-primary"%>
+<%= link_to 'Nueva Persona', personas_new_path ,class: "btn btn-primary"%>
 <br>
 <table id="myTable" class="table">
 
@@ -31,7 +32,7 @@
 
 
   <tbody>
-    <% @people.each do |people| %>
+    <% @personas.each do |people| %>
 
       <tr>
         <td><%= people.rut %></td>
@@ -41,26 +42,22 @@
         <td><%= people.last_name2 %></td>
         <td><%= people.e_civil %></td>
         <td><%= people.profesion %></td>
-        <td><%= people.actividad_id %></td>
         <td><%= people.birth_date %></td>
         <td><%= people.nacionality %></td>
         <td><%= people.passport %></td>
-        <td><%= people.job_id %></td>
 
 
 
+        <td> <%= link_to 'Ver', personas_path %>
 
+        
 
-        <td> <%= link_to 'Ver', people %>
-        <% if can? :access, :admin_users, :lawyers %>
-        <%= link_to 'Editar', edit_people_path(people) %>
-        <%= link_to 'Eliminar', people, method: :delete, data: { confirm: 'Are you sure?' } %>
         <%end%>
 </td>
 
 
       </tr>
-    <% end %>
+
   </tbody>
 </table>
 

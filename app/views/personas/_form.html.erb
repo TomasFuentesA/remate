@@ -1,6 +1,6 @@
 <br>
 <div class="container-fluid" id="wrapper" >
-<%= form_for  @people do |form| %>
+<%= form_for  @persona do |form| %>
   <%= form.label :name, "Ingreso de nueva Persona" %>
 
   <div class="field">
@@ -30,11 +30,7 @@
     <%= form.text_field :last_name2, id: :last_name2 %>
   </div>
 
-  <div class="field">
-    <%= form.label :photo %>
-    <%= form.text_field :photo, id: :photo %>
-  </div>
-
+  
   <div class="field">
     <%= form.label :e_civil %>
     <%= form.text_field :e_civil, id: :e_civil %>
