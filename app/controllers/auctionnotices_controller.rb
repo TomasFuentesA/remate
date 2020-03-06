@@ -55,12 +55,6 @@ class AuctionnoticesController < ApplicationController
       redirect_to auctionnotices_pending_path
   end
 
-  def action_joined
-    auction = Auctionnotice.find(params[:id])
-    auction.update(status: 3)
-    #redirect_to auctionnotices_joined_path
-
-  end
 ##show auctionnotices by status
 
 

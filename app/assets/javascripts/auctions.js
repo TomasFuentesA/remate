@@ -1,5 +1,5 @@
 
-$('.datepicker').datepicker({dateFormat: 'dd-mm-yyyy'});
+
 
 function habilite_money(selector){
 
@@ -60,7 +60,7 @@ function ufApi(){
 
 
     $("<p/>", {
-        html: 'El valor actual de la UF es $' + dailyIndicators.uf.valor 
+        html: 'El valor actual de la UF es $' + dailyIndicators.uf.valor
     }).appendTo("#uf");
 }).fail(function() {
     console.log('Error al consumir la API!');

@@ -30,6 +30,21 @@
            Minimo:     <%= @auction.total_minimum %>
          </div>
 
+         <div >
+           Partes: 
+             <% if @auction.parts.any? %>
+             <ul>
+               <% @auction.parts.each do |parts| %>
+               <li> . <%= parts.name %></li>
+             <% end %>
+           </ul>
+           <% else %>
+           <p>no hay partes</p>
+           <% end %>
+
+
+         </div>
+
     <div>
       <p></p>
     <p>Aviso</p>
@@ -43,8 +58,7 @@
   </div>
 
   <div class="col-lateral col-md-4"">
-    algo
-
+  algo
   </div>
 
 
