@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  get 'people/', to: 'people#index'
+  get 'people/', to: 'peoples#index'
   get 'dashboard/', to:'dashboard#index'
   get 'calendario/', to: 'calendars#index'
 
@@ -28,9 +28,10 @@ Rails.application.routes.draw do
   get 'auctionnotices/pending'
   get 'auctionnotices/selected'
   get 'auctionnotices/rejected'
+  get 'auctionnotices/joined'
   post 'auctionnotice/:id/select', to: 'auctionnotices#action_selection', as: 'action_selection'
   post 'auctionnotice/:id/joined', to: 'auctionnotices#action_joined', as: 'action_joined'
-  get 'auctionnotices/joined'
+
 
 
   get 'auctionnotice/:id/auctions', to: 'auctionnotices#auctions', as: 'auctionnotice_auction'
@@ -54,7 +55,7 @@ Rails.application.routes.draw do
   resources :legal_people
   resources :natural_people
   resources :courts
-
+  resources :peoples
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'

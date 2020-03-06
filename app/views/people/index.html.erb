@@ -1,2 +1,75 @@
 <h1>People#index</h1>
 <p>Find me in app/views/people/index.html.erb</p>
+
+<br>
+<%= link_to 'Nueva Persona', new_people_path ,class: "btn btn-primary"%>
+<br>
+<table id="myTable" class="table">
+
+  <thead>
+    <tr>
+      <th>Seleccionar Persona</th>
+      <th>Nombre</th>
+      <th>Rut</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Nº Cuenta</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @peoples.each do |people| %>
+
+      <tr>
+        <td><%= people.name %></td>
+        <td><%= people.rut %></td>
+        <td><%= people.actividad_id %></td>
+        <td><%= people.last_name1 %></td>
+        <td><%= people.last_name2 %></td>
+        <td><%= people.phone_id %></td>
+        <td><%= people.mail_id %></td>
+        <td><%= people.direction_id %></td>
+        <td><%= people.photo %></td>
+        <td><%= people.e_civil %></td>
+        <td><%= people.profesion %></td>
+        <td><%= people.birth_date %></td>
+        <td><%= people.nacionality %></td>
+        <td><%= people.passport %></td>
+        <td><%= people.job_id %></td> 
+
+
+
+
+
+        <td> <%= link_to 'Ver', people %>
+        <% if can? :access, :admin_users, :lawyers %>
+        <%= link_to 'Editar', edit_people_path(people) %>
+        <%= link_to 'Eliminar', people, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end%>
+</td>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= will_paginate @peoples , previous_label: h("<"), next_label: h(">")%>
+
+
+
+<!-- or custom pagination -->
+<% if @peoples.previous_page %>
+  <%= link_to "< Anterior", params.merge(page: @peoples.previous_page).permit(:page) %>
+<% end %>
+Página <%= @peoples.current_page %> de <%= @peoples.total_pages %>
+<% if @peoples.next_page %>
+  <%= link_to "Siguiente>", params.merge(page: @peoples.next_page).permit(:page) %>
+<% end %>
+
+<br>
