@@ -96,6 +96,11 @@
           </div>
         </div>
 
+  <div class="field">
+    <%= form.label :is_uf, "Opcion" %>
+    <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
+
+  </div>
 
 
 
@@ -136,5 +141,14 @@
 
 
 </div>
+
+<div>
+
+
+<%= @auction.id %>
+<%= @auction.auctionnotice.auction %>
+</div>
+
+
 
 <br>
