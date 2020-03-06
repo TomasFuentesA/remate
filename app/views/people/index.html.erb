@@ -1,2 +1,68 @@
 <h1>People#index</h1>
 <p>Find me in app/views/people/index.html.erb</p>
+
+<br>
+<%= link_to 'Nueva Persona', new_person_path ,class: "btn btn-primary"%>
+<br>
+<table id="myTable" class="table">
+
+  <thead>
+    <tr>
+      <th>Seleccionar Persona</th>
+      <th>Rut</th>
+      <th>Nombre1</th>
+      <th>Nombre2</th>
+      <th>Apellido1</th>
+      <th>Apellido2</th>
+      <th>Telefono</th>
+      <th>Mail</th>
+      <th>Direccion</th>
+      <th>Photo</th>
+      <th>Estado Civil</th>
+      <th>Profesion</th>
+      <th>Actividad</th>
+      <th>Nacionalidad</th>
+      <th>Pasaporte</th>
+      <th>Trabajo</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @people.each do |people| %>
+
+      <tr>
+        <td><%= people.rut %></td>
+        <td><%= people.name %></td>
+        <td><%= people.name2 %></td>
+        <td><%= people.last_name1 %></td>
+        <td><%= people.last_name2 %></td>
+        <td><%= people.e_civil %></td>
+        <td><%= people.profesion %></td>
+        <td><%= people.actividad_id %></td>
+        <td><%= people.birth_date %></td>
+        <td><%= people.nacionality %></td>
+        <td><%= people.passport %></td>
+        <td><%= people.job_id %></td>
+
+
+
+
+
+        <td> <%= link_to 'Ver', people %>
+        <% if can? :access, :admin_users, :lawyers %>
+        <%= link_to 'Editar', edit_people_path(people) %>
+        <%= link_to 'Eliminar', people, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end%>
+</td>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br>

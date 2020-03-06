@@ -2,6 +2,12 @@ Rails.application.routes.draw do
 
 
 
+  get 'people/index'
+  get 'people/edit'
+  get 'people/create'
+  get 'people/show'
+  get 'people/new'
+  get 'people/update'
   resources :comments
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -17,9 +23,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  get 'people/', to: 'people#index'
+  get 'person/', to: 'people#index', as: 'person_index'
   get 'dashboard/', to:'dashboard#index'
   get 'calendario/', to: 'calendars#index'
+
 
 
   resources :auctionlistings
@@ -28,9 +35,10 @@ Rails.application.routes.draw do
   get 'auctionnotices/pending'
   get 'auctionnotices/selected'
   get 'auctionnotices/rejected'
+  get 'auctionnotices/joined'
   post 'auctionnotice/:id/select', to: 'auctionnotices#action_selection', as: 'action_selection'
   post 'auctionnotice/:id/joined', to: 'auctionnotices#action_joined', as: 'action_joined'
-  get 'auctionnotices/joined'
+
 
 
   get 'auctionnotice/:id/auctions', to: 'auctionnotices#auctions', as: 'auctionnotice_auction'
@@ -54,7 +62,7 @@ Rails.application.routes.draw do
   resources :legal_people
   resources :natural_people
   resources :courts
-
+  resources :people
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'

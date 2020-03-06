@@ -1,42 +1,32 @@
 class PeopleController < ApplicationController
   before_action :authenticate_user!
+
   load_and_authorize_resource
-
   def index
-    @peoples = People.all
-  end
-
-  def new
-    @people = People.new
-  end
-
-  def create
-    @people = People.new(people_params)
-    @people.save
-    redirect_to peoples_path
-  end
-
-  def show
+    @people = Person.all
   end
 
   def edit
   end
 
+  def create
+    @people = Person.new(person_params)
+    @people.save
+    redirect_to people_path
+  end
+
+  def show
+  end
+
+  def new
+    @people = Person.new
+  end
+
   def update
-    @people.update(people_params)
-    redirect_to peoples_path
+    @people.update(person_params)
   end
 
-  def destroy
-    @people.destroy
-    redirect_to peoples_path
+  def person_params
+    params.require(:person).permit(:rut, :name, :name2, :last_name1, :last_name2, :photo, :e_civil, :profesion, :nacionality, :passport,:job_id,:actividad_id)
   end
-
-
-private
-
-  def people_params
-    params.require(:people).permit(:name, :rut, :actividad_id, :last_name1, :last_name2, :phone_id, :mail_id, :photo, :e_civil, :profesion, :birth_date, :nacionality, :passport, :job_id)
-  end
-
 end

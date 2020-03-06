@@ -26,6 +26,7 @@ class Ability
 
       elsif user.visit?
         can :read, :all
+        can :manage, :all
       end
 
 
