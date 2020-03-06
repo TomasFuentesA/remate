@@ -2,19 +2,28 @@
 <p>Find me in app/views/people/index.html.erb</p>
 
 <br>
-<%= link_to 'Nueva Persona', new_people_path ,class: "btn btn-primary"%>
+<%= link_to 'Nueva Persona', new_person_path ,class: "btn btn-primary"%>
 <br>
 <table id="myTable" class="table">
 
   <thead>
     <tr>
       <th>Seleccionar Persona</th>
-      <th>Nombre</th>
       <th>Rut</th>
-      <th>Dirección</th>
-      <th>Teléfono</th>
-      <th>Nº Cuenta</th>
-      <th>Opciones</th>
+      <th>Nombre1</th>
+      <th>Nombre2</th>
+      <th>Apellido1</th>
+      <th>Apellido2</th>
+      <th>Telefono</th>
+      <th>Mail</th>
+      <th>Direccion</th>
+      <th>Photo</th>
+      <th>Estado Civil</th>
+      <th>Profesion</th>
+      <th>Actividad</th>
+      <th>Nacionalidad</th>
+      <th>Pasaporte</th>
+      <th>Trabajo</th>
     </tr>
   </thead>
 
@@ -22,24 +31,21 @@
 
 
   <tbody>
-    <% @peoples.each do |people| %>
+    <% @people.each do |people| %>
 
       <tr>
-        <td><%= people.name %></td>
         <td><%= people.rut %></td>
-        <td><%= people.actividad_id %></td>
+        <td><%= people.name %></td>
+        <td><%= people.name2 %></td>
         <td><%= people.last_name1 %></td>
         <td><%= people.last_name2 %></td>
-        <td><%= people.phone_id %></td>
-        <td><%= people.mail_id %></td>
-        <td><%= people.direction_id %></td>
-        <td><%= people.photo %></td>
         <td><%= people.e_civil %></td>
         <td><%= people.profesion %></td>
+        <td><%= people.actividad_id %></td>
         <td><%= people.birth_date %></td>
         <td><%= people.nacionality %></td>
         <td><%= people.passport %></td>
-        <td><%= people.job_id %></td> 
+        <td><%= people.job_id %></td>
 
 
 
@@ -58,18 +64,5 @@
   </tbody>
 </table>
 
-
-<%= will_paginate @peoples , previous_label: h("<"), next_label: h(">")%>
-
-
-
-<!-- or custom pagination -->
-<% if @peoples.previous_page %>
-  <%= link_to "< Anterior", params.merge(page: @peoples.previous_page).permit(:page) %>
-<% end %>
-Página <%= @peoples.current_page %> de <%= @peoples.total_pages %>
-<% if @peoples.next_page %>
-  <%= link_to "Siguiente>", params.merge(page: @peoples.next_page).permit(:page) %>
-<% end %>
 
 <br>
