@@ -26,6 +26,8 @@ class PeopleController < ApplicationController
     @people.update(person_params)
   end
 
+private
+
   def person_params
     params.require(:person).permit(:rut, :name, :name2, :last_name1, :last_name2, :photo, :e_civil, :profesion, :nacionality, :passport,:job_id,:actividad_id)
   end
