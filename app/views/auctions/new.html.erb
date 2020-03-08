@@ -102,10 +102,12 @@
           <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
         </div>
         <%= form.fields_for :parts  do |c| %>
-          <%= c.label :name, "Parte 1:" %>
-          <%= c.text_field :name %>
-          <%= c.label :name, "Parte 2:" %>
-          <%= c.text_field :name%>
+          <%= c.label :name, "Parte :" %>
+          <%= c.select :name, options_for_select(["Particular", "Banco Bci","Banco de Chile","Banco Estado",
+          "Banco Santander"," Banco BICE","Banco Condell","Banco CrediChile ",
+          " Banco Edwards Citi", "Banco Falabella","Banco Internacional",
+          "Banco Itaú "," Banco Ripley ","Banco Security ","Banco CorpBanca ","Banco Santander Banefe ","Banco Scotiabank ",
+          "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ]) %>
 
           <% end %>
 
