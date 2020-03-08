@@ -8,8 +8,9 @@
 <table>
   <thead>
     <tr>
-      <th>Nombre</th>
+
       <th>RUt</th>
+      <th>Nombre</th>
 
     </tr>
   </thead>
@@ -17,8 +18,9 @@
   <tbody>
     <% @naturalPeople.each do |naturalPerson| %>
       <tr>
-        <td><%= naturalPerson.name %></td>
+
         <td><%= naturalPerson.rut %></td>
+        <td><%= naturalPerson.name %></td>
 
       </tr>
     <% end %>

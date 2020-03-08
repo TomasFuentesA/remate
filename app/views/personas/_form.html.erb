@@ -4,36 +4,36 @@
   <%= form.label :name, "Ingreso de nueva Persona" %>
 
   <div class="field">
-    <%= form.label :rut %>
+    <%= form.label :rut, "Rut" %>
     <%= form.text_field :rut %>
   </div>
 
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :name, "Nombre" %>
     <%= form.text_field :name, id: :name %>
   </div>
 
 
   <div class="field">
-    <%= form.label :name2 %>
+    <%= form.label :name2, "Segundo Nombre" %>
     <%= form.text_field :name2, id: :name2 %>
   </div>
 
   <div class="field">
-    <%= form.label :last_name1 %>
+    <%= form.label :last_name1, "Apellido" %>
     <%= form.text_field :last_name1, id: :last_name1 %>
   </div>
 
   <div class="field">
-    <%= form.label :last_name2 %>
+    <%= form.label :last_name2, "Segundo Apellido" %>
     <%= form.text_field :last_name2, id: :last_name2 %>
   </div>
 
-  
+
   <div class="field">
-    <%= form.label :e_civil %>
-    <%= form.text_field :e_civil, id: :e_civil %>
+    <%= form.label :e_civil, "Estado Civil" %>
+    <%= form.select :e_civil, options_for_select(["Soltero","Casado con Separacion","Casado Sociedad Conyugal" ,"Divorciado", "Viudo", "Conviviente"]), {include_blank: "Seleccione"} %>
   </div>
 
 

@@ -209,6 +209,27 @@ ActiveRecord::Schema.define(version: 2020_03_06_184749) do
     t.index ["auction_id"], name: "index_parts_on_auction_id"
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
+    t.integer "actividad_id"
+    t.string "last_name1"
+    t.string "last_name2"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.string "direction_id"
+    t.string "photo"
+    t.string "e_civil"
+    t.string "profesion"
+    t.date "birth_date"
+    t.string "nacionality"
+    t.string "passport"
+    t.integer "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name2"
+  end
+
   create_table "personas", force: :cascade do |t|
     t.string "name"
     t.string "name2"
