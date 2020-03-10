@@ -75,8 +75,42 @@ function calculateTotalMinimum(){
    var pesos = $('#pesos').val()
    var costas = $('#cost').val()
    $('#total_minimum').val(parseInt(pesos) + parseInt(costas));
+}
 
 
+function habilite_part(selector){
+
+
+  console.log($(selector).find(':selected').val())
+
+
+  if($(selector).find(':selected').val() == 'Particular'){
+    $('#auction_parts_attributes_0_name').prop('disabled', false);
+  }
+  else {
+    $('#auction_parts_attributes_0_name').prop('disabled', true);
+    $("#auction_parts_attributes_0_name").val($(selector).find(':selected').val())
+
+  }
+
+
+}
+
+
+function habilite_part2(selector){
+
+
+  console.log($(selector).find(':selected').val())
+
+
+  if($(selector).find(':selected').val() == 'Particular'){
+    $('#auction_parts_attributes_1_name').prop('disabled', false);
+  }
+  else {
+    $('#auction_parts_attributes_1_name').prop('disabled', true);
+    $("#auction_parts_attributes_1_name").val($(selector).find(':selected').val())
+
+  }
 
 
 }

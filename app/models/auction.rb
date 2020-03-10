@@ -4,10 +4,11 @@ class Auction < ApplicationRecord
   belongs_to :court
   has_many :parts
   accepts_nested_attributes_for :parts
-  
+
 
   enum status: [:in_progress, :suspendend, :discarded]
   enum type_judgment: [:ejecutivo,:hipotecario,:tesoreria,:laboral,:familia,:arbitral,:quiebra,:voluntario]
+  
 
 
 

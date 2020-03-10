@@ -2,7 +2,9 @@ class Realty < ApplicationRecord
     after_create :set_latlon
     belongs_to :commune
     has_one :characteristic
+    has_one :type_realty
     accepts_nested_attributes_for :characteristic
+    accepts_nested_attributes_for :type_realty
 
     has_many :auctions
 

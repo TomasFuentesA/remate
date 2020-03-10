@@ -14,11 +14,16 @@
       <%= form.label :street_type_id, "Tipo de Calle" %>
       <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} %>
     </div>
-
     <div class="form-group">
-      <%= form.label :type_property_id, "Tipo de Propiedad" %>
-      <%= form.select :type_property_id, options_for_select([["Casa", 0],["Dpto.", 1],["Local", 2], ["Oficina", 3], ["Bodega", 4], ["Sitio", 5], ["Box", 6], ["Parcela", 7]]), {include_blank: "Seleccione"} %>
-    </div>
+    <%= form.fields_for :type_realty do |f| %>
+      <%= f.label :type, "tipo de propiedad" %>
+        <%= f.select :type, options_for_select(["Calle", "Avenida", "Pasaje", "Camino"]),{include_blank: "Seleccione"} %>
+        <%= f.label :comment, "Especificaciones" %>
+          <%= f.text_field :comment %>
+        <%end %>
+        </div>
+
+    
     <p> dirección </p>
 
     <div class="form-group">
@@ -56,9 +61,11 @@
       <%= form.grouped_collection_select :commune_id, Province.order(:province_id),:communes,:name, :id,:name, include_blank: true %>
     </div>
 
-    <%= form.fields_for :characteristic do |f| %>
+    <%= form.fields_for :characteristic do |form| %>
       <%= form.label :mt2_land, "Metros cuadrados" %>
-        <%= form.number_field :mt2_land %>
+        <%= form.number_field :m2_land %>
+        <%= form.label :mt2_land, "Metros construidos" %>
+          <%= form.number_field :m2_built %>
         <%end %>
 
 

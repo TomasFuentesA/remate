@@ -67,12 +67,6 @@
           <script > new ufApi()</script>
         </div>
 
-
-
-
-
-
-
         <div class="field" >
           <%= form.label :pesos, "Pesos" %>
           <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
@@ -101,13 +95,30 @@
           <%= form.label :realty_id, "Seleccionar Propiedad" %>
           <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
         </div>
+        <div class="field">
+          <%= form.label :is_particular, "Opcion" %>
+          <%= form.select :is_particular, ["Particular", "Banco Bci","Banco de Chile","Banco Estado",
+                  "Banco Santander"," Banco BICE","Banco Condell","Banco CrediChile ",
+                  " Banco Edwards Citi", "Banco Falabella","Banco Internacional",
+                  "Banco Itaú "," Banco Ripley ","Banco Security ","Banco CorpBanca ","Banco Santander Banefe ","Banco Scotiabank ",
+                  "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ], {include_blank: "Seleccione Parte"}, {onchange: "habilite_part(this)"} %>
+        </div>
+        <div class="field">
+          <%= form.label :is_particular2, "Opcion 2" %>
+          <%= form.select :is_particular2, ["Particular", "Banco Bci","Banco de Chile","Banco Estado",
+                  "Banco Santander"," Banco BICE","Banco Condell","Banco CrediChile ",
+                  " Banco Edwards Citi", "Banco Falabella","Banco Internacional",
+                  "Banco Itaú "," Banco Ripley ","Banco Security ","Banco CorpBanca ","Banco Santander Banefe ","Banco Scotiabank ",
+                  "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ], {include_blank: "Seleccione Parte"}, {onchange: "habilite_part2(this)"} %>
+        </div>
+
         <%= form.fields_for :parts  do |c| %>
-          <%= c.label :name, "Parte :" %>
-          <%= c.select :name, options_for_select(["Particular", "Banco Bci","Banco de Chile","Banco Estado",
-          "Banco Santander"," Banco BICE","Banco Condell","Banco CrediChile ",
-          " Banco Edwards Citi", "Banco Falabella","Banco Internacional",
-          "Banco Itaú "," Banco Ripley ","Banco Security ","Banco CorpBanca ","Banco Santander Banefe ","Banco Scotiabank ",
-          "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ]) %>
+          <%= c.label :name, "Parte:" %>
+          <%= c.text_field :name , :disabled => true  %>
+
+
+
+
 
           <% end %>
 

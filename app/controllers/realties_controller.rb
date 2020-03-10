@@ -33,6 +33,7 @@ class RealtiesController < ApplicationController
   def new
       @realty = Realty.new
       @realty.build_characteristic
+      @realty.build_type_realty
       @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
       marker.lat realty.latitude
       marker.lng realty.longitude
