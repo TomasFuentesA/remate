@@ -1,6 +1,6 @@
-class CreateLegalPeople < ActiveRecord::Migration[5.2]
+class CreateLegalPersonas < ActiveRecord::Migration[5.2]
   def change
-    create_table :legal_people do |t|
+    create_table :legal_personas do |t|
       t.string :rut
       t.string :name
       t.string :fantasy_name

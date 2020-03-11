@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
 
 
+  get 'characteristics/destroy'
+  get 'type_realties/destroy'
+  get 'natural_personas/index'
+  get 'legal_personas/index'
   get 'personas/index'
   get 'personas/new'
   get 'personas/edit'

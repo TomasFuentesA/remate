@@ -22,8 +22,8 @@ class Region < ApplicationRecord
 
 
 
-  def comuna
-    "#{self.region.province.commune.name}, #{(self.region.province.name).to_s}, #{self.region.name}"
+  def direction
+    "#{self.name}"
   end
 
 

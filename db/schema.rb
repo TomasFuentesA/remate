@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_133748) do
+ActiveRecord::Schema.define(version: 2020_03_11_190733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.integer "status"
     t.integer "type_judgment"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
-    t.index ["court_id"], name: "index_auctions_on_court_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
   end
 
@@ -97,10 +96,10 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.float "m2_land"
     t.float "m2_built"
     t.string "material"
-    t.date "built_year"
     t.bigint "realty_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "built_year"
     t.index ["realty_id"], name: "index_characteristics_on_realty_id"
   end
 
@@ -131,6 +130,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.bigint "judgement_id"
+    t.index ["judgement_id"], name: "index_courts_on_judgement_id"
   end
 
   create_table "directions", force: :cascade do |t|
@@ -140,6 +141,10 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.string "directionc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "legal_personas_id"
+    t.bigint "natural_personas_id"
+    t.index ["legal_personas_id"], name: "index_directions_on_legal_personas_id"
+    t.index ["natural_personas_id"], name: "index_directions_on_natural_personas_id"
   end
 
   create_table "domains", force: :cascade do |t|
@@ -160,6 +165,10 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.string "email_c"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "legal_personas_id"
+    t.bigint "natural_personas_id"
+    t.index ["legal_personas_id"], name: "index_emails_on_legal_personas_id"
+    t.index ["natural_personas_id"], name: "index_emails_on_natural_personas_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -170,6 +179,10 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "legal_personas_id"
+    t.bigint "natural_personas_id"
+    t.index ["legal_personas_id"], name: "index_jobs_on_legal_personas_id"
+    t.index ["natural_personas_id"], name: "index_jobs_on_natural_personas_id"
   end
 
   create_table "judgements", force: :cascade do |t|
@@ -177,10 +190,11 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["court_id"], name: "index_judgements_on_court_id"
+    t.bigint "auction_id"
+    t.index ["auction_id"], name: "index_judgements_on_auction_id"
   end
 
-  create_table "legal_people", force: :cascade do |t|
+  create_table "legal_personas", force: :cascade do |t|
     t.string "rut"
     t.string "name"
     t.string "fantasy_name"
@@ -188,6 +202,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.string "web"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "personas_id"
+    t.index ["personas_id"], name: "index_legal_personas_on_personas_id"
   end
 
   create_table "legal_represents", force: :cascade do |t|
@@ -195,26 +211,27 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.string "rut"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "personery"
+    t.bigint "legal_persona_id"
+    t.index ["legal_persona_id"], name: "index_legal_represents_on_legal_persona_id"
   end
 
-  create_table "natural_people", force: :cascade do |t|
+  create_table "natural_personas", force: :cascade do |t|
     t.string "rut"
     t.string "name"
+    t.string "name2"
     t.string "apellido_pat"
     t.string "apellido_mat"
-    t.integer "phone_id"
-    t.integer "mail_id"
-    t.integer "direction_id"
-    t.string "photo"
     t.string "e_civil"
     t.string "profesion"
     t.date "fecha_nac"
     t.string "alias"
     t.string "nacionality"
     t.string "passport"
-    t.integer "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "personas_id"
+    t.index ["personas_id"], name: "index_natural_personas_on_personas_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -222,7 +239,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "auction_id"
-    t.index ["auction_id"], name: "index_parts_on_auction_id"
+    t.bigint "judgement_id"
+    t.index ["judgement_id"], name: "index_parts_on_judgement_id"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -247,6 +265,10 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
     t.string "phone_c"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "legal_personas_id"
+    t.bigint "natural_personas_id"
+    t.index ["legal_personas_id"], name: "index_phones_on_legal_personas_id"
+    t.index ["natural_personas_id"], name: "index_phones_on_natural_personas_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -294,11 +316,16 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
   end
 
   create_table "type_realties", force: :cascade do |t|
-    t.string "type"
+    t.string "tipo"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "realty_id"
+    t.integer "bathroom"
+    t.integer "parking_lot"
+    t.integer "cellar"
+    t.integer "bedroom"
+    t.integer "ambient"
     t.index ["realty_id"], name: "index_type_realties_on_realty_id"
   end
 
@@ -329,15 +356,25 @@ ActiveRecord::Schema.define(version: 2020_03_11_133748) do
 
   add_foreign_key "auctionnotices", "realties"
   add_foreign_key "auctions", "auctionnotices"
-  add_foreign_key "auctions", "courts"
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
   add_foreign_key "communes", "provinces"
-  add_foreign_key "judgements", "courts"
-  add_foreign_key "parts", "auctions"
+  add_foreign_key "courts", "judgements"
+  add_foreign_key "directions", "legal_personas", column: "legal_personas_id"
+  add_foreign_key "directions", "natural_personas", column: "natural_personas_id"
+  add_foreign_key "emails", "legal_personas", column: "legal_personas_id"
+  add_foreign_key "emails", "natural_personas", column: "natural_personas_id"
+  add_foreign_key "jobs", "legal_personas", column: "legal_personas_id"
+  add_foreign_key "jobs", "natural_personas", column: "natural_personas_id"
+  add_foreign_key "judgements", "auctions"
+  add_foreign_key "legal_personas", "personas", column: "personas_id"
+  add_foreign_key "legal_represents", "legal_personas"
+  add_foreign_key "natural_personas", "personas", column: "personas_id"
+  add_foreign_key "parts", "judgements"
+  add_foreign_key "phones", "legal_personas", column: "legal_personas_id"
+  add_foreign_key "phones", "natural_personas", column: "natural_personas_id"
   add_foreign_key "posts", "users"
   add_foreign_key "provinces", "regions"
-  add_foreign_key "realties", "communes"
   add_foreign_key "type_realties", "realties"
 end

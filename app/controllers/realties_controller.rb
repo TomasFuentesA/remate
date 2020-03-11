@@ -32,7 +32,7 @@ class RealtiesController < ApplicationController
 
   def new
       @realty = Realty.new
-      @realty.build_commune
+
       @realty.build_characteristic
       @realty.build_type_realty
 
@@ -88,8 +88,9 @@ class RealtiesController < ApplicationController
   def realty_params
     params.require(:realty).permit(:street, :number_unit, :commune_id, :population_villa, :unit_estate, :apple, :property, :latitude, :longitude, :address,
       :street_type_id, :type_property_id,
-      characteristic_attributes: [:id,:m2_land,:m2_built,:material,:built_year],
-    communes_attributes: [:id,:name,:conara_sii,:cod_treasury] )
+      characteristic_attributes: [:id,:m2_land,:m2_built,:material,:built_year,:_destroy],
+
+  type_realty_attributes: [:id,:tipo,:ambient,:bathroom,:bedroom,:parking_lot,:cellar,:_destroy] )
   end
 
 
