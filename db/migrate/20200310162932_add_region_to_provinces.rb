@@ -1,6 +1,6 @@
 class AddRegionToProvinces < ActiveRecord::Migration[5.2]
   def change
-    remove_column :regions , :province_id
+    
     remove_column :provinces , :region_id
     remove_column :provinces , :province_id
     remove_column :communes , :province_id
