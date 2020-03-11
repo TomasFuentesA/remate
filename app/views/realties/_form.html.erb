@@ -5,6 +5,7 @@
   <%= form_for @realty do |form| %>
     <%= form.label :name, "Ingreso de Propiedad:" %>
 
+
     <div class="form-group">
       <%= form.label :name_realty, "Nombre de propiedad" %>
       <%= form.text_field :name_realty, id: :name_realty%>
@@ -23,7 +24,7 @@
         <%end %>
         </div>
 
-    
+
     <p> dirección </p>
 
     <div class="form-group">
@@ -45,21 +46,16 @@
       <%= form.label :population_villa, "villa/población" %>
       <%= form.text_field :population_villa, id: :population_villa %>
     </div>
-
-    <div class="form-group">
-      <%= form.label :region_id, "Region" %>
-      <%= form.collection_select :region_id, Region.order(:name), :id,:name%>
+    <div class="field">
+      <%= form.fields_for :communes do |form| %>
+      <%= form.label :commune_id, "comuna" %>
+      <%= form.select :commune_id, options_for_select(Commune.all.collect {|c| [c.name, c.id]}), {include_blank: "Seleccione"}  %>
+    <%end%>
     </div>
 
-    <div class="form-group">
-      <%= form.label :province_id, "Provincia" %>
-      <%= form.grouped_collection_select :province_id, Region.order(:name),:provinces, :name ,:id,:name, include_blank: true, value: Region.find_by(name: 'Santiago'	) %>
-    </div>
 
-    <div class="form-group">
-      <%= form.label :commune_id, "Comuna" %>
-      <%= form.grouped_collection_select :commune_id, Province.order(:province_id),:communes,:name, :id,:name, include_blank: true %>
-    </div>
+
+
 
     <%= form.fields_for :characteristic do |form| %>
       <%= form.label :mt2_land, "Metros cuadrados" %>

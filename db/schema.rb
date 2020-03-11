@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_150300) do
+ActiveRecord::Schema.define(version: 2020_03_11_133748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(version: 2020_03_10_150300) do
     t.integer "conara_sii"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "region_id"
-    t.integer "province_id"
+    t.bigint "province_id"
+    t.index ["province_id"], name: "index_communes_on_province_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -172,12 +172,27 @@ ActiveRecord::Schema.define(version: 2020_03_10_150300) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "judgements", force: :cascade do |t|
+    t.bigint "court_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["court_id"], name: "index_judgements_on_court_id"
+  end
+
   create_table "legal_people", force: :cascade do |t|
     t.string "rut"
     t.string "name"
     t.string "fantasy_name"
     t.string "alias"
     t.string "web"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "legal_represents", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -247,8 +262,8 @@ ActiveRecord::Schema.define(version: 2020_03_10_150300) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "province_id"
-    t.integer "region_id"
+    t.bigint "region_id"
+    t.index ["region_id"], name: "index_provinces_on_region_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -267,9 +282,8 @@ ActiveRecord::Schema.define(version: 2020_03_10_150300) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
-    t.integer "commune_id"
-    t.integer "province_id"
-    t.integer "region_id"
+    t.bigint "commune_id"
+    t.index ["commune_id"], name: "index_realties_on_commune_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -277,7 +291,6 @@ ActiveRecord::Schema.define(version: 2020_03_10_150300) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "province_id"
   end
 
   create_table "type_realties", force: :cascade do |t|
@@ -320,7 +333,11 @@ ActiveRecord::Schema.define(version: 2020_03_10_150300) do
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
+  add_foreign_key "communes", "provinces"
+  add_foreign_key "judgements", "courts"
   add_foreign_key "parts", "auctions"
   add_foreign_key "posts", "users"
+  add_foreign_key "provinces", "regions"
+  add_foreign_key "realties", "communes"
   add_foreign_key "type_realties", "realties"
 end

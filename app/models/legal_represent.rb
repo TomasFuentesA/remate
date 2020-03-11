@@ -1,0 +1,2 @@
+class LegalRepresent < ApplicationRecord
+end

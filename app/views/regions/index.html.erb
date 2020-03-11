@@ -31,4 +31,14 @@
 
 <br>
 
+<%= flash[:notice] %>
+<div>
+  <h4>Import data!</h4>
+  <%= form_tag regions_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import from file" %>
+  <% end %>
+</div>
+
+
   <%= link_to 'Nueva Region', new_region_path %>
