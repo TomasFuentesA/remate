@@ -3,8 +3,9 @@ class Realty < ApplicationRecord
     belongs_to :commune
     has_one :characteristic
     has_one :type_realty
-    accepts_nested_attributes_for :characteristic
-    accepts_nested_attributes_for :type_realty
+    accepts_nested_attributes_for :characteristic , allow_destroy: true
+    accepts_nested_attributes_for :type_realty , allow_destroy: true
+
 
     has_many :auctions
 

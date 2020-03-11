@@ -1,5 +1,5 @@
 class Part < ApplicationRecord
-  belongs_to :auction
+  belongs_to :judgement
 
-  
+
 end

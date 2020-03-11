@@ -1,4 +1,4 @@
-<%= form_with model: Region.new, local: true do |form| %>
+<%= form_with model: @region, local: true do |form| %>
   <%= form.label :name, "Ingreso de nueva Region" %>
 
   <div class="field">
@@ -10,6 +10,19 @@
     <%= form.label :number_region %>
     <%= form.number_field :number_region, id: :number_region %>
   </div>
+
+  <%= form.fields_for :provinces do |s| %>
+    <%= s.label :name %>
+    <%= s.number_field :name %>
+    <%= s.fields_for :communes do |e| %>
+      <%= e.label :name %>
+      <%= e.text_field :name %>
+    <% end %>
+    <% end %>
+
+
+
+
 
 
  <%= form.submit "Guardar" %>

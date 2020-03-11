@@ -26,15 +26,6 @@
           <%= form.text_field :name, id: :name %>
         </div>
 
-        <div class="field">
-          <%= form.label :court_id, "Seleccionar Tribunal" %>
-          <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-        </div>
-
-        <div class="field">
-          <%= form.label :type_judgment, "Seleccionar Juicio" %>
-          <%= form.select :type_judgment, options_for_select(Auction.type_judgments.keys.to_a), { include_blank: "Seleccione"}  %>
-        </div>
 
         <div class="field">
           <%= form.label :lyrics, "Letra" %>
@@ -112,15 +103,6 @@
                   "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ], {include_blank: "Seleccione Parte"}, {onchange: "habilite_part2(this)"} %>
         </div>
 
-        <%= form.fields_for :parts  do |c| %>
-          <%= c.label :name, "Parte:" %>
-          <%= c.text_field :name , :disabled => true  %>
-
-
-
-
-
-          <% end %>
 
 
        <%= form.submit "Guardar" %>

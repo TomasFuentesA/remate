@@ -1,5 +1,5 @@
 class Domain < ApplicationRecord
-  belongs_to :natural_person
-  belongs_to :legal_person
-  
+  belongs_to :natural_persona
+  belongs_to :legal_persona
+
 end

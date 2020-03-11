@@ -1,3 +1,3 @@
 class Court < ApplicationRecord
-  has_many :auctions
+  belongs_to :judgement
 end

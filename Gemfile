@@ -20,6 +20,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
 gem 'csv'
+gem 'activerecord-import'
 gem 'activeadmin'
 gem 'rails-i18n'
 # Use Puma as the app server
