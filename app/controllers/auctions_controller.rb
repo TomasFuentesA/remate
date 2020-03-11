@@ -22,9 +22,7 @@ class AuctionsController < ApplicationController
 
   def new
     @auction = Auction.new
-    2.times do
-      @auction.parts.build
-    end
+    
 
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
 

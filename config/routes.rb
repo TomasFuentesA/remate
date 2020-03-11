@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'judgements/index'
+  get 'judgements/new'
   get 'characteristics/destroy'
   get 'type_realties/destroy'
   get 'natural_personas/index'
