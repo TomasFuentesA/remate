@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_190733) do
 
   create_table "communes", force: :cascade do |t|
     t.string "name"
+    t.integer "province_id"
+    t.integer "region_id"
     t.integer "cod_treasury"
     t.integer "conara_sii"
     t.datetime "created_at", null: false
@@ -243,6 +245,27 @@ ActiveRecord::Schema.define(version: 2020_03_11_190733) do
     t.index ["judgement_id"], name: "index_parts_on_judgement_id"
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
+    t.integer "actividad_id"
+    t.string "last_name1"
+    t.string "last_name2"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.string "direction_id"
+    t.string "photo"
+    t.string "e_civil"
+    t.string "profesion"
+    t.date "birth_date"
+    t.string "nacionality"
+    t.string "passport"
+    t.integer "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name2"
+  end
+
   create_table "personas", force: :cascade do |t|
     t.string "name"
     t.string "name2"
@@ -289,6 +312,7 @@ ActiveRecord::Schema.define(version: 2020_03_11_190733) do
   end
 
   create_table "realties", force: :cascade do |t|
+    t.integer "commune_id"
     t.string "street"
     t.integer "number_unit"
     t.string "unit_estate"
@@ -335,11 +359,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_190733) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
