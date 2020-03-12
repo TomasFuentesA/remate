@@ -1,135 +1,135 @@
 <br>
 <h1>  Asociar Aviso de Remate a Propiedad </h1>
 
-<div class="container-fluid" id="auctionnoticenew" >
 
-  <div class="row justify-content-md-center"">
-
-    <div class="col">
+<div class="container">
+  <div class="row">
+    <div class="col-8">
       <%= form_with model: @auction  do |form| %>
-
-        <%= form.label :name, "Ingresar nuevo Remate" %>
-
-        <div class="field" >
-          <%= form.label :date, "Fecha" %>
-          <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
-        </div>
-
-        <div class="field">
-          <%= form.label :hour, "Hora" %>
-          <%= form.text_field :hour %>
-        </div>
-
-
-        <div class="field">
-          <%= form.label :name, "Nombre" %>
-          <%= form.text_field :name, id: :name %>
-        </div>
-
-
-        <div class="field">
-          <%= form.label :lyrics, "Letra" %>
-          <%= form.text_field :lyrics, id: :lyrics %>
-        </div>
-
-        <div class="field">
-          <%= form.label :number, "Rol" %>
-          <%= form.number_field :number, id: :number %>
-        </div>
-
-        <div class="field">
-          <%= form.label :year, "Año" %>
-          <%= form.number_field :year, id: :year %>
-        </div>
-
-        <div class="field">
-          <%= form.label :cost, "Costas" %>
-          <%= form.number_field :cost, id: :cost, value: 0  %>
-        </div>
-
-        <div class="field">
-          <%= form.label :is_uf, "Opcion" %>
-          <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
-        </div>
-
-        <div class="field" >
-          <%= form.label :uf, "UF" %>
-          <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
-          <script > new ufApi()</script>
-        </div>
-
-        <div class="field" >
-          <%= form.label :pesos, "Pesos" %>
-          <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
-        </div>
-
-        <div class="field">
-          <%= form.label :total_minimum, "Total Minimo" %>
-          <%= form.number_field :total_minimum, id: :total_minimum %>
-        </div>
-
-        <div class="field">
-          <%= form.label :warranty, "Garantia" %>
-          <%= form.number_field :warranty, id: :warranty %>
-        </div>
-
-        <div class="field">
-          <%= form.label :fee, "Derechos" %>
-          <%= form.number_field :fee, id: :fee %>
-        </div>
-
-        <div class="field">
-          <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
-        </div>
-
-        <div class="field">
-          <%= form.label :realty_id, "Seleccionar Propiedad" %>
-          <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
-        </div>
-        <div class="field">
-          <%= form.label :is_particular, "Opcion" %>
-          <%= form.select :is_particular, ["Particular", "Banco Bci","Banco de Chile","Banco Estado",
-                  "Banco Santander"," Banco BICE","Banco Condell","Banco CrediChile ",
-                  " Banco Edwards Citi", "Banco Falabella","Banco Internacional",
-                  "Banco Itaú "," Banco Ripley ","Banco Security ","Banco CorpBanca ","Banco Santander Banefe ","Banco Scotiabank ",
-                  "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ], {include_blank: "Seleccione Parte"}, {onchange: "habilite_part(this)"} %>
-        </div>
-        <div class="field">
-          <%= form.label :is_particular2, "Opcion 2" %>
-          <%= form.select :is_particular2, ["Particular", "Banco Bci","Banco de Chile","Banco Estado",
-                  "Banco Santander"," Banco BICE","Banco Condell","Banco CrediChile ",
-                  " Banco Edwards Citi", "Banco Falabella","Banco Internacional",
-                  "Banco Itaú "," Banco Ripley ","Banco Security ","Banco CorpBanca ","Banco Santander Banefe ","Banco Scotiabank ",
-                  "Bank of Tokyo-Mitsubishi "," Credit Suisse "," Deutsche Bank ","HSBC"," J.P. Morgan "," UBS ","Doble Impacto" ], {include_blank: "Seleccione Parte"}, {onchange: "habilite_part2(this)"} %>
-        </div>
-
-
-
-       <%= form.submit "Guardar" %>
-
-      <% end %>
-    </div>
-    <div class="col">
-      <br>
-      <div class="row justify-content-md-center">
-
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Notificacion de Aviso</h5>
-            <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+      <%= form.label :name, "Ingresar nuevo Remate" %>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <%= form.label :date, "Fecha" %>
+            <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+          </div>
+          <div class="form-group col-md-4">
+            <%= form.label :hour, "Hora" %>
+            <%= form.text_field :hour %>
+          </div>
+          <div class="form-group col-md-4">
+            <%= form.label :name, "Nombre" %>
+            <%= form.text_field :name, id: :name %>
           </div>
         </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <%= form.label :lyrics, "Letra" %>
+            <%= form.text_field :lyrics, id: :lyrics %>
+          </div>
+
+          <div class="form-group col-md-2">
+            <%= form.label :number, "Rol" %>
+            <%= form.number_field :number, id: :number %>
+          </div>
+
+          <div class="form-group col-md-2">
+            <%= form.label :year, "Año" %>
+            <%= form.number_field :year, id: :year %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <%= form.label :realty_id, "Seleccionar Propiedad" %>
+            <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+          </div>
+          <div class="form-group col-md-5">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <%= form.label :is_uf, "Valorización:" %>
+            <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <%= form.label :cost, "Costas" %>
+            <%= form.number_field :cost, id: :cost, value: 0  %>
+          </div>
+          <div class="form-group col-md-3">
+            <%= form.label :uf, "UF " %>
+            <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
+            <script > new ufApi()</script>
+          </div>
+          <div class="form-group col-md-3">
+            <%= form.label :pesos, "Pesos" %>
+            <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
+          </div>
+          <div class="form-group col-md-3">
+            <%= form.label :total_minimum, "Total Mínimo:" %>
+            <%= form.number_field :total_minimum, id: :total_minimum %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <%= form.label :warranty, "Garantia" %>
+            <%= form.number_field :warranty, id: :warranty %>
+          </div>
+
+          <div class="form-group col-md-2">
+            <%= form.label :fee, "Derechos" %>
+            <%= form.number_field :fee, id: :fee %>
+          </div>
+        </div>
+        <div class="form-row">
+          <%= form.fields_for :judgements do |form| %>
+          <div class="form-group col-md-2">
+            <%= form.label :name, "Tipo de Juicio" %>
+            <%= form.text_field :name %>
+          </div>
+          <%= form.fields_for :parts do |form| %>
+          <%= form.label :name, "Parte" %>
+          <%= form.text_field :name %>
+          <% end %>
+          <%= form.fields_for :court do |form| %>
+          <%= form.label :name, "Nombre tribunal" %>
+          <%= form.text_field :name %>
+          <% end %>
+          <%end %>
 
 
 
 
+        </div>
+        <br>
+        <div class="form-row">
+          <div class=" col-5">
+            <%= form.submit "Guardar" %>
+            <% end %>
+          </div>
+
+        </div>
       </div>
-      <br>
+    </div>
+
+  <div class="col-4">
+    <div class="row justify-content-md-center">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Notificacion de Aviso</h5>
+          <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="col">
       <div class="row justify-content-md-center">
-
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -150,16 +150,8 @@
           </div>
         </div>
 
-
-
-
-
       </div>
     </div>
-  </div>
-</div>
 
 
-
-
-<br><br>
+    </div>

@@ -72,9 +72,16 @@
 
           <div>
             <h4>Construido mt2 </h4>
-            <%= @realty.mt2_built %>
+            <%= @realty.characteristic.m2_built %>
             <h4>Terreno mt2 </h4>
-            <%= @realty.mt2_land %>
+            <%= @realty.characteristic.m2_land %>
+          </div>
+
+          <div>
+            <h4>Tipo de propiedad </h4>
+            <%= @realty.type_realty.tipo %>
+
+
           </div>
 
 
