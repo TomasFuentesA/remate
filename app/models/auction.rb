@@ -2,8 +2,8 @@ class Auction < ApplicationRecord
   belongs_to :auctionnotice
   belongs_to :realty
   belongs_to :court
-  has_one :judgement
-  accepts_nested_attributes_for :judgement
+  has_many :judgements
+  accepts_nested_attributes_for :judgements
 
 
   enum status: [:in_progress, :suspendend, :discarded]
