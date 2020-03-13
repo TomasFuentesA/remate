@@ -32,11 +32,8 @@ class RealtiesController < ApplicationController
 
   def new
       @realty = Realty.new
-
       @realty.build_characteristic
       @realty.build_type_realty
-
-
       @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
       marker.lat realty.latitude
       marker.lng realty.longitude
@@ -47,13 +44,7 @@ class RealtiesController < ApplicationController
     @realty = Realty.new(realty_params)
     @realty.save
     redirect_to realties_path
-    #@realtymodal = Realty.new(realty_params)
-    #if @realtymodal
-  #    @realtymodal.save
-#      flash.message("Propiedad Ingresada")
-
-
-  end
+end
 
 
 
