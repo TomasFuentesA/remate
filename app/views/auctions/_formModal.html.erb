@@ -1,5 +1,5 @@
 <div class="container">
-<%= form_with model: Realty.new  do |form| %>
+<%=  form_with model: @realtymodal do |form| %>
   <%= form.label :name, "Ingreso de Propiedad:" %>
 
   <div class="form-group">
@@ -36,6 +36,11 @@
   <div class="form-group">
     <%= form.label :population_villa, "villa/población" %>
     <%= form.text_field :population_villa, id: :population_villa %>
+  </div>
+  <div class="form-group ">
+    <%= form.label :commune_id, "comuna" %>
+    <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"}  %>
+
   </div>
 
 

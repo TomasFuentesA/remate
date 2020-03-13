@@ -5,10 +5,6 @@ class JudgementsController < ApplicationController
 
   def new
     @judgements = Judgement.new
-
-    2.times do
-      @judgement.parts.build
-    end
   end
 
 
@@ -16,7 +12,8 @@ class JudgementsController < ApplicationController
   private
 
   def judgements_params
-    params.require(:judgement).permit()
+    params.require(:judgement).permit(:name,:part1, :part2,
+      :court_attributes => [:id,:name,:adress,:rut,:phone,:account,:email])
 
   end
 end

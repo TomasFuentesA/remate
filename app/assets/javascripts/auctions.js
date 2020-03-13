@@ -85,11 +85,11 @@ function habilite_part(selector){
 
 
   if($(selector).find(':selected').val() == 'Particular'){
-    $('#auction_parts_attributes_0_name').prop('disabled', false);
+    $('#auction_judgements_attributes_0_part1').prop('disabled', false);
   }
   else {
-    $('#auction_parts_attributes_0_name').prop('disabled', true);
-    $("#auction_parts_attributes_0_name").val($(selector).find(':selected').val())
+    $('#auction_judgements_attributes_0_part1').prop('disabled', true);
+    $("#auction_judgements_attributes_0_part1").val($(selector).find(':selected').val())
 
   }
 
@@ -104,12 +104,11 @@ function habilite_part2(selector){
 
 
   if($(selector).find(':selected').val() == 'Particular'){
-    $('#auction_parts_attributes_1_name').prop('disabled', false);
+    $('#auction_judgements_attributes_0_part2').prop('disabled', false);
   }
   else {
-    $('#auction_parts_attributes_1_name').prop('disabled', true);
-    $("#auction_parts_attributes_1_name").val($(selector).find(':selected').val())
-
+    $('#auction_judgements_attributes_0_part2').prop('disabled', true);
+    $("#auction_judgements_attributes_0_part2").val($(selector).find(':selected').val())
   }
 
 

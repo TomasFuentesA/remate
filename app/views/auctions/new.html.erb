@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row">
     <div class="col-8">
-      <%= form_with model: @auction  do |form| %>
+      <%= form_for @auction  do |form| %>
       <%= form.label :name, "Ingresar nuevo Remate" %>
       <div class="form-group">
         <div class="form-row">
@@ -43,14 +43,11 @@
             <%= form.label :realty_id, "Seleccionar Propiedad" %>
             <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
           </div>
-          <div class="form-group col-md-5">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
-          </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-2">
             <%= form.label :is_uf, "Valorización:" %>
-            <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
+            <%= select_tag "is uf", options_for_select([["uf", true], ["pesos", false]]),  onchange: "habilite_money(this)",prompt: "seleccione" %>
           </div>
         </div>
         <div class="form-row">
@@ -82,37 +79,46 @@
             <%= form.label :fee, "Derechos" %>
             <%= form.number_field :fee, id: :fee %>
           </div>
+          <div class="form-group col-md-2">
+             <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
+          </div>
         </div>
         <div class="form-row">
           <%= form.fields_for :judgements do |form| %>
-          <div class="form-group col-md-2">
-            <%= form.label :name, "Tipo de Juicio" %>
-            <%= form.text_field :name %>
-          </div>
-          <%= form.fields_for :parts do |form| %>
-          <%= form.label :name, "Parte" %>
-          <%= form.text_field :name %>
-          <% end %>
-          <%= form.fields_for :court do |form| %>
-          <%= form.label :name, "Nombre tribunal" %>
-          <%= form.text_field :name %>
-          <% end %>
-          <%end %>
+          <div class="form-group col-md-3">
+            <%= form.label :name, "tipo de juicio" %>
+            <%= form.select :name, options_for_select(Judgement.type_judgments.keys.to_a),prompt: "seleccione"  %>
+            </div>
+            <div class="form-group col-md-3">
+            <%= form.label :part1, "parte 1" %>
+            <%= select_tag "parte 1", options_for_select(Judgement.parts.keys.to_a),prompt: "seleccione", onchange:"habilite_part(this)" %>
+            <%= form.text_field :part1 %>
+            </div>
+            <div class="form-group col-md-3">
+            <%= form.label :part2, "parte 2" %>
+            <%= select_tag "parte 2", options_for_select(Judgement.parts.keys.to_a),prompt: "seleccione", onchange:"habilite_part2(this)" %>
+            <%= form.text_field :part2 %>
+            </div>
+            <div class="form-group col-md-3">
+            <%= form.label :court_id, "seleccione tribunal" %>
+            <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+            </div>
 
-
-
+        
+            <% end %>
 
         </div>
-        <br>
         <div class="form-row">
           <div class=" col-5">
+            <br>
             <%= form.submit "Guardar" %>
             <% end %>
           </div>
-
         </div>
       </div>
     </div>
+
+
 
   <div class="col-4">
     <div class="row justify-content-md-center">
@@ -120,11 +126,12 @@
         <div class="card-body">
           <h5 class="card-title">Notificacion de Aviso</h5>
           <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 

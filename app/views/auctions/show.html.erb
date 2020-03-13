@@ -16,7 +16,7 @@
         Fecha Remate:  <%= @auction.date %>, <%= @auction.hour %>
       </div>
        <div>
-         Tribunal: <%= @auction.court.name %>
+         Tribunal: <%= @auction.judgements.inspect %>
        </div>
       <div>
          Rol:     <%= @auction.rol_trial %>
@@ -30,7 +30,7 @@
            Minimo:     <%= @auction.total_minimum %>
          </div>
 
-        
+
     <div>
       <p></p>
     <p>Aviso</p>

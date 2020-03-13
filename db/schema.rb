@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_165307) do
+ActiveRecord::Schema.define(version: 2020_03_13_163423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,8 @@ ActiveRecord::Schema.define(version: 2020_03_12_165307) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "auction_id"
+    t.string "part1"
+    t.string "part2"
     t.index ["auction_id"], name: "index_judgements_on_auction_id"
   end
 
@@ -242,15 +244,6 @@ ActiveRecord::Schema.define(version: 2020_03_12_165307) do
     t.datetime "updated_at", null: false
     t.bigint "personas_id"
     t.index ["personas_id"], name: "index_natural_personas_on_personas_id"
-  end
-
-  create_table "parts", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "auction_id"
-    t.bigint "judgement_id"
-    t.index ["judgement_id"], name: "index_parts_on_judgement_id"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -382,7 +375,6 @@ ActiveRecord::Schema.define(version: 2020_03_12_165307) do
   add_foreign_key "legal_personas", "personas", column: "personas_id"
   add_foreign_key "legal_represents", "legal_personas"
   add_foreign_key "natural_personas", "personas", column: "personas_id"
-  add_foreign_key "parts", "judgements"
   add_foreign_key "phones", "legal_personas", column: "legal_personas_id"
   add_foreign_key "phones", "natural_personas", column: "natural_personas_id"
   add_foreign_key "posts", "users"

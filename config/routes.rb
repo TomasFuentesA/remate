@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'realttymodals/new'
+  get 'realttymodals/create'
   get 'judgements/index'
   get 'judgements/new'
   get 'characteristics/destroy'
