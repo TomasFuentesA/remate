@@ -67,9 +67,9 @@ Rails.application.routes.draw do
   resources :communes
   resources :provinces
   resources :regions
-  resources :legal_people
   resources :natural_personas
   resources :courts
+  resources :legal_personas
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

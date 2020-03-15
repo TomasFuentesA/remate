@@ -1,2 +1,50 @@
 <h1>LegalPersonas#index</h1>
 <p>Find me in app/views/legal_personas/index.html.erb</p>
+
+<br>
+<%= link_to 'Nueva Persona Juridica', new_legal_persona_path ,class: "btn btn-primary"%>
+<br>
+<table id="myTable" class="table">
+
+  <thead>
+    <tr>
+      <th>Seleccionar Persona Juridica</th>
+      <th>Rut</th>
+      <th>Nombre</th>
+      <th>Nombre de Fantasia</th>
+      <th>Alias</th>
+      <th>Web</th>
+      
+
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @legalPersonas.each do |legalpersona| %>
+
+      <tr>
+        <td><%= legalpersona.rut %></td>
+        <td><%= legalpersona.name %></td>
+        <td><%= legalpersona.fantasy_name %></td>
+        <td><%= legalpersona.alias %></td>
+        <td><%= legalpersona.web %></td>
+
+
+        <td> <%= link_to 'Ver', legalpersonas_path %>
+
+
+
+        <%end%>
+</td>
+
+
+      </tr>
+
+  </tbody>
+</table>
+
+
+<br>
