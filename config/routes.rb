@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   resources :provinces
   resources :regions
   resources :legal_people
-  resources :natural_people
+  resources :natural_personas
   resources :courts
 
 

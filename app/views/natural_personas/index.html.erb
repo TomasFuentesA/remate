@@ -1,2 +1,60 @@
 <h1>NaturalPersonas#index</h1>
 <p>Find me in app/views/natural_personas/index.html.erb</p>
+
+<br>
+<%= link_to 'Nueva Persona Natural', new_natural_persona_path ,class: "btn btn-primary"%>
+<br>
+<table id="myTable" class="table">
+
+  <thead>
+    <tr>
+      <th>Seleccionar Persona Natural</th>
+      <th>Rut</th>
+      <th>Nombre1</th>
+      <th>Nombre2</th>
+      <th>Apellido1</th>
+      <th>Apellido2</th>
+      <th>Estado civil</th>
+      <th>Profesion</th>
+      <th>Actividad</th>
+      <th>Nacionalidad</th>
+      <th>Pasaporte</th>
+
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @naturalPersonas.each do |naturalpersona| %>
+
+      <tr>
+        <td><%= naturalpersona.rut %></td>
+        <td><%= naturalpersona.name %></td>
+        <td><%= naturalpersona.name2 %></td>
+        <td><%= naturalpersona.last_name1 %></td>
+        <td><%= naturalpersona.last_name2 %></td>
+        <td><%= naturalpersona.e_civil %></td>
+        <td><%= naturalpersona.profesion %></td>
+        <td><%= naturalpersona.birth_date %></td>
+        <td><%= naturalpersona.nacionality %></td>
+        <td><%= naturalpersona.passport %></td>
+
+
+
+        <td> <%= link_to 'Ver', naturalpersonas_path %>
+
+
+
+        <%end%>
+</td>
+
+
+      </tr>
+
+  </tbody>
+</table>
+
+
+<br>
