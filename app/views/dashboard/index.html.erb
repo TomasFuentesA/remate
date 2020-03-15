@@ -57,12 +57,24 @@
   </div>
 </div>
 
+<div class="col-sm">
+  <div class="card" style="width: 25rem;">
+    <div class="card-header">
+      Estadisticas
+    </div>
 
+    <div class="card-body">
+      <li class=""><%= "Avisos Remates Ingresados: #{Auctionnotice.count}" %></li>
+      <li class=""><%= "Avisos Remates Seleccionados: #{Auctionnotice.selected.count}" %></li>
+      <li class=""><%= "Avisos Remates Pendientes por Revisar: #{Auctionnotice.pending.count}" %></li>
+      <li class=""><%= "Avisos Remates Descartados: #{Auctionnotice.rejected.count}" %></li>
+      <li class=""><%= "Avisos Remates Asociados: #{Auctionnotice.joined.count}" %></li>
+      <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
+      <li class=""><%= "Personas Ingresadas: #{Persona.count}" %></li>
+    </div>
+  </div>
 
-
-
-
-
+</div>
 
 
 </div>
