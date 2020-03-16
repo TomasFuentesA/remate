@@ -246,6 +246,27 @@ ActiveRecord::Schema.define(version: 2020_03_13_163423) do
     t.index ["personas_id"], name: "index_natural_personas_on_personas_id"
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
+    t.integer "actividad_id"
+    t.string "last_name1"
+    t.string "last_name2"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.string "direction_id"
+    t.string "photo"
+    t.string "e_civil"
+    t.string "profesion"
+    t.date "birth_date"
+    t.string "nacionality"
+    t.string "passport"
+    t.integer "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name2"
+  end
+
   create_table "personas", force: :cascade do |t|
     t.string "name"
     t.string "name2"
@@ -374,9 +395,6 @@ ActiveRecord::Schema.define(version: 2020_03_13_163423) do
   add_foreign_key "judgements", "auctions"
   add_foreign_key "legal_personas", "personas", column: "personas_id"
   add_foreign_key "legal_represents", "legal_personas"
-  add_foreign_key "natural_personas", "personas", column: "personas_id"
-  add_foreign_key "phones", "legal_personas", column: "legal_personas_id"
-  add_foreign_key "phones", "natural_personas", column: "natural_personas_id"
   add_foreign_key "posts", "users"
   add_foreign_key "provinces", "regions"
   add_foreign_key "type_realties", "realties"
