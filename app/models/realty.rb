@@ -9,7 +9,7 @@ class Realty < ApplicationRecord
 
     has_many :auctions
 
-    enum street_type: [:street, :avenue, :passage,]
+    enum street_type: [:street, :avenue, :passage]
     enum type_property: [:house, :department, :local, :office, :cellar, :site, :box, :parcela]
 
     geocoded_by :address

@@ -22,7 +22,7 @@ class AuctionsController < ApplicationController
 
   def new
     @auction = Auction.new
-    @auction.judgements.build.build_court
+    @auction.judgements.build.parts.build
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
   end
 
@@ -99,9 +99,9 @@ class AuctionsController < ApplicationController
   def auction_params
     params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year,
       :realty_id, :auctionnotice_id,
-       :status,:judgements_attributes =>[:id,:name,:part1,:part2,
-         :court_attributes => [:id,:name,:adress,:rut,:phone,:account,:email]
-      ])
+       :status,:judgements_attributes =>[:id,:type_judgement,
+       :parts_attributes => [:id,:name,:part1,:part2,:partes]]
+         )
   end
 
 end

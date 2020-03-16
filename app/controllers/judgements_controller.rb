@@ -4,7 +4,9 @@ class JudgementsController < ApplicationController
   end
 
   def new
+
     @judgements = Judgement.new
+  
   end
 
 
@@ -12,8 +14,8 @@ class JudgementsController < ApplicationController
   private
 
   def judgements_params
-    params.require(:judgement).permit(:name,:part1, :part2,
-      :court_attributes => [:id,:name,:adress,:rut,:phone,:account,:email])
+    params.require(:judgement).permit(:type_judgement,
+      :parts_attributes => [:id,:part1,:part2])
 
   end
 end
