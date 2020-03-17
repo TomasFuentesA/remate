@@ -87,7 +87,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_172945) do
     t.datetime "updated_at", null: false
     t.float "minimum"
     t.integer "status"
-    t.integer "type_judgment"
     t.bigint "judgement_id"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
@@ -131,8 +130,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_172945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
-    t.bigint "judgement_id"
-    t.index ["judgement_id"], name: "index_courts_on_judgement_id"
   end
 
   create_table "directions", force: :cascade do |t|
@@ -201,9 +198,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_172945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "auction_id"
-    t.string "part1"
-    t.string "part2"
-    t.integer "court_id"
     t.index ["auction_id"], name: "index_judgements_on_auction_id"
   end
 
@@ -224,7 +218,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_172945) do
     t.string "rut"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "personery"
     t.bigint "legal_persona_id"
     t.index ["legal_persona_id"], name: "index_legal_represents_on_legal_persona_id"
   end
@@ -376,7 +369,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_172945) do
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
   add_foreign_key "communes", "provinces"
-  add_foreign_key "courts", "judgements"
   add_foreign_key "directions", "legal_personas", column: "legal_personas_id"
   add_foreign_key "directions", "natural_personas", column: "natural_personas_id"
   add_foreign_key "emails", "legal_personas", column: "legal_personas_id"
