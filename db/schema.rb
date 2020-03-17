@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.integer "conara_sii"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "province_id"
-    t.index ["province_id"], name: "index_communes_on_province_id"
+    t.integer "region_id"
+    t.integer "province_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -291,8 +291,8 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "region_id"
-    t.index ["region_id"], name: "index_provinces_on_region_id"
+    t.integer "province_id"
+    t.integer "region_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -368,7 +368,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
-  add_foreign_key "communes", "provinces"
   add_foreign_key "directions", "legal_personas", column: "legal_personas_id"
   add_foreign_key "directions", "natural_personas", column: "natural_personas_id"
   add_foreign_key "emails", "legal_personas", column: "legal_personas_id"
@@ -384,6 +383,5 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   add_foreign_key "phones", "legal_personas", column: "legal_personas_id"
   add_foreign_key "phones", "natural_personas", column: "natural_personas_id"
   add_foreign_key "posts", "users"
-  add_foreign_key "provinces", "regions"
   add_foreign_key "type_realties", "realties"
 end
