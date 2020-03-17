@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_155744) do
+ActiveRecord::Schema.define(version: 2020_03_11_133748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,9 +87,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.datetime "updated_at", null: false
     t.float "minimum"
     t.integer "status"
-    t.bigint "judgement_id"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
-    t.index ["judgement_id"], name: "index_auctions_on_judgement_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
   end
 
@@ -100,7 +98,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.bigint "realty_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "built_year"
+    t.date "built_year"
     t.index ["realty_id"], name: "index_characteristics_on_realty_id"
   end
 
@@ -153,7 +151,8 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.date "date_posetion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "percentage"
+    t.string "rut_owner"
+    t.string "name_realty"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -167,17 +166,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.bigint "natural_personas_id"
     t.index ["legal_personas_id"], name: "index_emails_on_legal_personas_id"
     t.index ["natural_personas_id"], name: "index_emails_on_natural_personas_id"
-  end
-
-  create_table "inscriptions", force: :cascade do |t|
-    t.integer "foja"
-    t.integer "number"
-    t.integer "year"
-    t.string "cbrs"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "domain_id"
-    t.index ["domain_id"], name: "index_inscriptions_on_domain_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -227,8 +215,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.string "rut"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "legal_persona_id"
-    t.index ["legal_persona_id"], name: "index_legal_represents_on_legal_persona_id"
   end
 
   create_table "natural_people", force: :cascade do |t|
@@ -270,14 +256,11 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   end
 
   create_table "parts", force: :cascade do |t|
-    t.string "part1"
-    t.string "part2"
-    t.bigint "persona_id"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "judgement_id"
-    t.index ["judgement_id"], name: "index_parts_on_judgement_id"
-    t.index ["persona_id"], name: "index_parts_on_persona_id"
+    t.bigint "auction_id"
+    t.index ["auction_id"], name: "index_parts_on_auction_id"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -354,16 +337,11 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   end
 
   create_table "type_realties", force: :cascade do |t|
-    t.string "tipo"
+    t.string "type"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "realty_id"
-    t.integer "bathroom"
-    t.integer "parking_lot"
-    t.integer "cellar"
-    t.integer "bedroom"
-    t.integer "ambient"
     t.index ["realty_id"], name: "index_type_realties_on_realty_id"
   end
 
@@ -394,7 +372,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
 
   add_foreign_key "auctionnotices", "realties"
   add_foreign_key "auctions", "auctionnotices"
-  add_foreign_key "auctions", "judgements"
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
@@ -402,14 +379,10 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   add_foreign_key "directions", "natural_personas", column: "natural_personas_id"
   add_foreign_key "emails", "legal_personas", column: "legal_personas_id"
   add_foreign_key "emails", "natural_personas", column: "natural_personas_id"
-  add_foreign_key "inscriptions", "domains"
   add_foreign_key "jobs", "legal_personas", column: "legal_personas_id"
   add_foreign_key "jobs", "natural_personas", column: "natural_personas_id"
   add_foreign_key "legal_personas", "personas", column: "personas_id"
-  add_foreign_key "legal_represents", "legal_personas"
   add_foreign_key "natural_personas", "personas", column: "personas_id"
-  add_foreign_key "parts", "judgements"
-  add_foreign_key "parts", "personas"
   add_foreign_key "phones", "legal_personas", column: "legal_personas_id"
   add_foreign_key "phones", "natural_personas", column: "natural_personas_id"
   add_foreign_key "posts", "users"
