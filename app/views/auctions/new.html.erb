@@ -6,118 +6,114 @@
   <div class="row">
     <div class="col-8">
       <%= form_for @auction  do |form| %>
-      <%= form.label :name, "Ingresar nuevo Remate" %>
-      <div class="form-group">
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <%= form.label :date, "Fecha" %>
-            <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+        <%= form.label :name, "Ingresar nuevo Remate" %>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <%= form.label :date, "Fecha" %>
+              <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= form.label :hour, "Hora" %>
+              <%= form.text_field :hour %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= form.label :name, "Nombre" %>
+              <%= form.text_field :name, id: :name %>
+            </div>
           </div>
-          <div class="form-group col-md-4">
-            <%= form.label :hour, "Hora" %>
-            <%= form.text_field :hour %>
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <%= form.label :lyrics, "Letra" %>
+              <%= form.text_field :lyrics, id: :lyrics %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= form.label :number, "Rol" %>
+              <%= form.number_field :number, id: :number %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= form.label :year, "Año" %>
+              <%= form.number_field :year, id: :year %>
+            </div>
           </div>
-          <div class="form-group col-md-4">
-            <%= form.label :name, "Nombre" %>
-            <%= form.text_field :name, id: :name %>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <%= form.label :realty_id, "Seleccionar Propiedad" %>
+              <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+            </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-2">
-            <%= form.label :lyrics, "Letra" %>
-            <%= form.text_field :lyrics, id: :lyrics %>
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <%= form.label :is_uf, "Valorización:" %>
+              <%= select_tag "is uf", options_for_select([["uf", true], ["pesos", false]]),  onchange: "habilite_money(this)",prompt: "seleccione" %>
+            </div>
           </div>
-
-          <div class="form-group col-md-2">
-            <%= form.label :number, "Rol" %>
-            <%= form.number_field :number, id: :number %>
-          </div>
-
-          <div class="form-group col-md-2">
-            <%= form.label :year, "Año" %>
-            <%= form.number_field :year, id: :year %>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-5">
-            <%= form.label :realty_id, "Seleccionar Propiedad" %>
-            <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-2">
-            <%= form.label :is_uf, "Valorización:" %>
-            <%= select_tag "is uf", options_for_select([["uf", true], ["pesos", false]]),  onchange: "habilite_money(this)",prompt: "seleccione" %>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-3">
-            <%= form.label :cost, "Costas" %>
-            <%= form.number_field :cost, id: :cost, value: 0  %>
-          </div>
-          <div class="form-group col-md-3">
-            <%= form.label :uf, "UF " %>
-            <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
-            <script > new ufApi()</script>
-          </div>
-          <div class="form-group col-md-3">
-            <%= form.label :pesos, "Pesos" %>
-            <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
-          </div>
-          <div class="form-group col-md-3">
-            <%= form.label :total_minimum, "Total Mínimo:" %>
-            <%= form.number_field :total_minimum, id: :total_minimum %>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-2">
-            <%= form.label :warranty, "Garantia" %>
-            <%= form.number_field :warranty, id: :warranty %>
-          </div>
-
-          <div class="form-group col-md-2">
-            <%= form.label :fee, "Derechos" %>
-            <%= form.number_field :fee, id: :fee %>
-          </div>
-          <div class="form-group col-md-2">
-             <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
-          </div>
-        </div>
-        <div class="form-row">
-          <%= form.fields_for :judgements do |form| %>
-          <div class="form-group col-md-3">
-            <%= form.label :name, "tipo de juicio" %>
-            <%= form.select :name, options_for_select(Judgement.type_judgments.keys.to_a),prompt: "seleccione"  %>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <%= form.label :cost, "Costas" %>
+              <%= form.number_field :cost, id: :cost, value: 0  %>
             </div>
             <div class="form-group col-md-3">
-            <%= form.label :part1, "parte 1" %>
-            <%= select_tag "parte 1", options_for_select(Judgement.parts.keys.to_a),prompt: "seleccione", onchange:"habilite_part(this)" %>
-            <%= form.text_field :part1 %>
+              <%= form.label :uf, "UF " %>
+              <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
             </div>
             <div class="form-group col-md-3">
-            <%= form.label :part2, "parte 2" %>
-            <%= select_tag "parte 2", options_for_select(Judgement.parts.keys.to_a),prompt: "seleccione", onchange:"habilite_part2(this)" %>
-            <%= form.text_field :part2 %>
+              <%= form.label :pesos, "Pesos" %>
+              <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
             </div>
             <div class="form-group col-md-3">
-            <%= form.label :court_id, "seleccione tribunal" %>
-            <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+              <%= form.label :total_minimum, "Total Mínimo:" %>
+              <%= form.number_field :total_minimum, id: :total_minimum %>
             </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <%= form.label :warranty, "Garantia" %>
+              <%= form.number_field :warranty, id: :warranty %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= form.label :fee, "Derechos" %>
+              <%= form.number_field :fee, id: :fee %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= form.label :court_id, "seleccione tribunal" %>
+              <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+            </div>
+          </div>
+          <div class="form-row">
+            <%= form.fields_for :judgements  do |form| %>
+              <div class="form-group col-md-3">
+                  <%= form.label :type_judgement, "tipo de juicio" %>
+                  <%= form.select :type_judgement, options_for_select(Judgement.type_judgements.keys.to_a),prompt: "seleccione"  %>
+              </div>
+              <%= form.fields_for :parts  do |form| %>
 
-        
-            <% end %>
+              <div class="form-group col-md-3">
+                <%= form.label :part1, "parte 1" %>
+                <%= select_tag "parte 1", options_for_select(Part.parts.values),prompt: "seleccione", onchange:"habilite_part(this)" %>
+                <%= form.text_field :part1 %>
+              </div>
+              <div class="form-group col-md-3">
+                <%= form.label :part2, "parte 2" %>
+                <%= select_tag "parte 2", options_for_select(Part.parts.values),prompt: "seleccione", onchange:"habilite_part2(this)" %>
+                <%= form.text_field :part2 %>
+              </div>
+              <% end %>
 
-        </div>
-        <div class="form-row">
-          <div class=" col-5">
-            <br>
-            <%= form.submit "Guardar" %>
-            <% end %>
+              <% end %>
+            </div>
+            <div class="form-row">
+              <div class=" col-5">
+                <br>
+                <%= form.submit "Guardar" %>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-
 
 
   <div class="col-4">
@@ -147,7 +143,7 @@
                 </button>
               </div>
               <div class="modal-body">
-              
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
