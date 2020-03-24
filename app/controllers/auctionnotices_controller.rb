@@ -40,6 +40,12 @@ class AuctionnoticesController < ApplicationController
     end
   end
 
+  def discontinue
+    Auctionnotice.update_all(status: 1)
+    redirect_to auctionnotices_url
+end
+
+
 
   ##actions to selection, rejected, pending and  joined
 

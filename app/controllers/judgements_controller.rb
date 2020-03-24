@@ -4,9 +4,7 @@ class JudgementsController < ApplicationController
   end
 
   def new
-
     @judgements = Judgement.new
-  
   end
 
 

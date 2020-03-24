@@ -2,22 +2,10 @@ Rails.application.routes.draw do
 
 
 
+
   get 'realttymodals/new'
   get 'realttymodals/create'
-  get 'judgements/index'
-  get 'judgements/new'
-  get 'characteristics/destroy'
-  get 'type_realties/destroy'
-  get 'natural_personas/index'
-  get 'legal_personas/index'
-  get 'personas/index'
-  get 'personas/new'
-  get 'personas/edit'
-  get 'personas/show'
   get 'regions/import' => 'regions#my_import'
-  resources :personas
-  resources :comments
-  resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'geocoder/findaddress'
@@ -37,7 +25,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :auctionlistings
+
 
   post 'auctionnotice/:id/reject', to: 'auctionnotices#action_rejection', as: 'rejection'
   get 'auctionnotices/pending'
@@ -54,6 +42,9 @@ Rails.application.routes.draw do
 
   resources :auctionnotices do
       resources :auctions
+      collection do
+        put :discontinue
+      end
   end
 
   resources :auctions do
@@ -63,13 +54,21 @@ Rails.application.routes.draw do
   end
 
   resources :realties
-
   resources :communes
   resources :provinces
   resources :regions
-  resources :natural_personas
   resources :courts
+  resources :natural_personas
+  resources :characteristics
+  resources :judgements
+  resources :type_realties
   resources :legal_personas
+  resources :personas
+  resources :comments
+  resources :posts
+  resources :auctionlistings
+  resources :inscriptions
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

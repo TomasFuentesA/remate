@@ -3,24 +3,23 @@
 
 
 <br>
-<%= link_to 'Nueva Persona', personas_new_path ,class: "btn btn-primary"%>
+<%= link_to 'Nueva Persona', new_persona_path ,class: "btn btn-primary"%>
 <br>
 <table id="myTable" class="table">
 
   <thead>
     <tr>
-      <th>Seleccionar Persona</th>
       <th>Rut</th>
-      <th>Nombre1</th>
-      <th>Nombre2</th>
+      <th>Nombre</th>
+      <th>Segundo Nombre</th>
       <th>Apellido1</th>
       <th>Apellido2</th>
       <th>Estado civil</th>
       <th>Profesion</th>
-      <th>Actividad</th>
+      <th>Fecha de Nacimiento</th>
       <th>Nacionalidad</th>
       <th>Pasaporte</th>
-      
+
     </tr>
   </thead>
 
@@ -28,28 +27,21 @@
 
 
   <tbody>
-    <% @personas.each do |people| %>
+    <% @personas.each do |persona| %>
 
       <tr>
-        <td><%= people.rut %></td>
-        <td><%= people.name %></td>
-        <td><%= people.name2 %></td>
-        <td><%= people.last_name1 %></td>
-        <td><%= people.last_name2 %></td>
-        <td><%= people.e_civil %></td>
-        <td><%= people.profesion %></td>
-        <td><%= people.birth_date %></td>
-        <td><%= people.nacionality %></td>
-        <td><%= people.passport %></td>
-
-
-
-        <td> <%= link_to 'Ver', personas_path %>
-
-
-
-        <%end%>
-</td>
+        <td><%= persona.rut %></td>
+        <td><%= persona.name %></td>
+        <td><%= persona.name2 %></td>
+        <td><%= persona.last_name1 %></td>
+        <td><%= persona.last_name2 %></td>
+        <td><%= persona.e_civil %></td>
+        <td><%= persona.profesion %></td>
+        <td><%= persona.birth_date %></td>
+        <td><%= persona.nacionality %></td>
+        <td><%= persona.passport %></td>
+        <td> <%= link_to 'Ver', persona %>
+            <%end%></td>
 
 
       </tr>

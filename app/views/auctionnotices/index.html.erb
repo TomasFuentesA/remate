@@ -22,11 +22,11 @@
 
 
   <tbody>
-
+<%= form_tag discontinue_auctionnotices_path, method: :put do %>
     <% @auctionnotices.each_with_index do |auctionnotice, i| %>
 
       <tr>
-        <td><%= i + 1 %></td>
+        <td><%=check_box_tag "auctionnotice_ids[]",auctionnotice.id %></td>
         <td><%= auctionnotice.auction %></td>
         <td><%= auctionnotice.status %></td>
 
@@ -40,6 +40,8 @@
     <% end %>
   </tbody>
 </table>
+<%= submit_tag "seleccionados" ,class:"button"%>
+<% end %>
 
 <br>
 </div>
