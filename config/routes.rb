@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'auctionnotice/:id/auctions', to: 'auctionnotices#auctions', as: 'auctionnotice_auction'
+  
 
 
   resources :auctionnotices do

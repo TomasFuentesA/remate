@@ -8,8 +8,6 @@ class AuctionsController < ApplicationController
       @search = Auction.search(params[:q])
       if @search
         @auctions = @search.result
-      else
-        @auctions = Auction.order(date: :desc,hour: :desc).page(params[:page]).per_page(6)
       end
 
 

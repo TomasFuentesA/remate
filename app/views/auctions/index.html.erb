@@ -7,7 +7,7 @@
 <br>
 
 <!-- filter between dates -->
-<%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+<%= search_form_for @search do |f| %>
 <div class="form-row">
     <div class="col-auto">
         <%= f.text_field :date_gteq,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"}, placeholder: "Desde:",autocomplete: "off"  %>
@@ -27,7 +27,7 @@
 
 <br>
 <!-- filter today  and tomorrow -->
-<%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+<%= search_form_for @search do |f| %>
   <div class="form-row">
     <div class="col-auto">
       <%= f.hidden_field :date_eq, :value =>  Date.today%>
@@ -35,7 +35,7 @@
     </div>
 <% end %>
 
-    <%= search_form_for @search, url: search_auctions_path,  method: :post do |f| %>
+    <%= search_form_for @search do |f| %>
       <div class="form-row">
         <div class="col-auto">
           <%= f.hidden_field :date_eq, :value =>  Date.tomorrow%>
@@ -73,7 +73,7 @@
       <tr>
         <td><%= i + 1 %></td>
         <td><%= auction.date %> a las: <%= auction.hour %> hrs.</td>
-        
+
         <td><%= auction.rol_trial %></td>
         <td><%= auction.realty.address %></td>
         <td>

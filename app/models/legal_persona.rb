@@ -5,6 +5,8 @@ class LegalPersona < ApplicationRecord
   has_one :direction
   has_many :legal_represents
   has_many :domains
+  has_many :activities
+  accepts_nested_attributes_for :activities
   accepts_nested_attributes_for :legal_represents
   accepts_nested_attributes_for :phone
   accepts_nested_attributes_for :direction
