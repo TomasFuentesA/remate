@@ -1,7 +1,7 @@
 <br>
 <div class="container-fluid" id="wrapper" >
 <%= form_for  @naturalpersona do |form| %>
-  <%= form.label :name, "Ingreso de nueva Persona" %>
+  <%= form.label :name "Ingreso de nueva Persona" %>
 
   <div class="field">
     <%= form.label :rut, "Rut" %>
@@ -21,13 +21,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :last_name1, "Apellido" %>
-    <%= form.text_field :last_name1, id: :last_name1 %>
+    <%= form.label :apellido_pat, "Apellido" %>
+    <%= form.text_field :apellido_pat, id: :last_name1 %>
   </div>
 
   <div class="field">
-    <%= form.label :last_name2, "Segundo Apellido" %>
-    <%= form.text_field :last_name2, id: :last_name2 %>
+    <%= form.label :apellido_mat, "Segundo Apellido" %>
+    <%= form.text_field :apellido_mat, id: :last_name2 %>
   </div>
 
 

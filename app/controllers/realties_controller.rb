@@ -58,7 +58,6 @@ end
 
   def edit
     @realty = Realty.find(params[:id])
-#    @realtymodal = Realty.find(params[:id])
   end
 
   def update

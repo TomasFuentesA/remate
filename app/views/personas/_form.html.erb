@@ -47,6 +47,10 @@
     <%= form.label :nacionality %>
     <%= form.text_field :nacionality, id: :nacionality %>
   </div>
+  <div class="field" >
+    <%= form.label :birth_date, "Fecha de Naciomiento" %>
+    <%= form.text_field :birth_date ,id: :date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
+  </div>
 
 
   <div class="field">

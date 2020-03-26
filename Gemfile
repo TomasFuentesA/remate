@@ -8,8 +8,11 @@ gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'devise', git: 'https://github.com/plataformatec/devise.git'
-gem 'jquery-datatables'
-gem 'jquery-rails'
+group :assets do
+  gem 'jquery-datatables'
+  gem 'jquery-rails'
+  gem 'jquery-ui-rails', '~> 5.0.5'
+end
 gem 'arctic_admin'
 gem 'ransack'
 gem 'will_paginate','3.1.7'
@@ -65,7 +68,7 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-  gem 'jquery-ui-rails', '~> 5.0.5'
+
 
 
 group :development do

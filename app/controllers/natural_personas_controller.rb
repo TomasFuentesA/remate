@@ -24,7 +24,7 @@ class NaturalPersonasController < ApplicationController
 
   private
   def naturalpersona_params
-      params.require(:naturalpersona).permit(:rut, :name, :name2, :last_name1, :last_name2, :e_civil, :profesion, :nacionality, :passport)
+      params.require(:naturalpersona).permit(:rut, :name, :name2, :apellido_pat, :apellido_mat, :e_civil, :profesion, :nacionality, :passport,:fecha_nac,:alias)
   end
 
 end

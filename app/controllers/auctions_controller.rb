@@ -8,8 +8,6 @@ class AuctionsController < ApplicationController
       @search = Auction.search(params[:q])
       if @search
         @auctions = @search.result
-      else
-        @auctions = Auction.order(date: :desc,hour: :desc).page(params[:page]).per_page(6)
       end
 
 
@@ -24,6 +22,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.new
     @auction.judgements.build.parts.build
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
+
   end
 
 
@@ -97,9 +96,10 @@ class AuctionsController < ApplicationController
   private
 
   def auction_params
-    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year,
-      :realty_id, :auctionnotice_id,
-       :status,:judgements_attributes =>[:id,:type_judgement,
+    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
+      :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year,:judgement_id,
+      :realty_id, :auctionnotice_id,:status,
+      :judgements_attributes =>[:id,:type_judgement,
        :parts_attributes => [:id,:name,:part1,:part2,:partes]]
          )
   end

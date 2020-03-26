@@ -10,7 +10,7 @@ class LegalPersonasController < ApplicationController
   def create
     @legalpersona = LegalPersona.new(legalpersona_params)
     @legalpersona.save
-    redirect_to legalpersonas_index_path
+    redirect_to legal_personas_path
   end
 
 
@@ -24,7 +24,7 @@ class LegalPersonasController < ApplicationController
 
   private
   def legalpersona_params
-      params.require(:legalpersona).permit(:rut, :name, :fantasy_name, :alias, :web)
+      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web)
   end
 
 end
