@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
 
 
-  
+
 
 
   resources :auctionnotices do
@@ -58,12 +58,14 @@ Rails.application.routes.draw do
   resources :provinces
   resources :regions
   resources :courts
-  resources :natural_personas
+
   resources :characteristics
   resources :judgements
   resources :type_realties
   resources :legal_personas
   resources :personas
+  resources :natural_personas
+
   resources :comments
   resources :posts
   resources :auctionlistings

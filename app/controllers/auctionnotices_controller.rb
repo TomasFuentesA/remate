@@ -6,6 +6,11 @@ class AuctionnoticesController < ApplicationController
 
   def index
     @auctionnotices = Auctionnotice.all
+    @search = Auctionnotice.search(params[:q])
+    if @search
+      @auctionnotices = @search.result
+    end
+
   end
 
   def new

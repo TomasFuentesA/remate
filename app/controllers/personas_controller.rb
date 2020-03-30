@@ -10,7 +10,7 @@ class PersonasController < ApplicationController
   def create
     @persona = Persona.new(persona_params)
     @persona.save
-    redirect_to personas_index_path
+    redirect_to personas_path
   end
 
 

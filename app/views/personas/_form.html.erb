@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :e_civil, "Estado Civil" %>
-    <%= form.select :e_civil, options_for_select(["Soltero","Casado con Separacion","Casado Sociedad Conyugal" ,"Divorciado", "Viudo", "Conviviente"]), {include_blank: "Seleccione"} %>
+    <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"} %>
   </div>
 
 
@@ -49,8 +49,9 @@
   </div>
   <div class="field" >
     <%= form.label :birth_date, "Fecha de Naciomiento" %>
-    <%= form.text_field :birth_date ,id: :date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
+    <%= form.text_field :birth_date , data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
   </div>
+
 
 
   <div class="field">
