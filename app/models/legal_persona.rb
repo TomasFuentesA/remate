@@ -1,16 +1,15 @@
 class LegalPersona < ApplicationRecord
-  has_one :job
-  has_one :email
-  has_one :phone
-  has_one :direction
+  #asociaciones y atributos anidados
+  has_many :jobs, as: :jobable
+  has_many :emails, as: :emailble
+  has_many :phones, as: :phoneable
+  has_many :directions, as: :directionable
   has_many :legal_represents
-  has_many :domains
-  has_many :activities
-  accepts_nested_attributes_for :activities
-  accepts_nested_attributes_for :legal_represents
-  accepts_nested_attributes_for :phone
-  accepts_nested_attributes_for :direction
-  accepts_nested_attributes_for :email
-  accepts_nested_attributes_for :job
+  has_many :domains, as: :domainable
+  has_many :activities, as: :activityable
+
+  #validacion
+  validates :rut,:name, presence: true
+  validates :rut,:name, uniqueness: true
 
 end

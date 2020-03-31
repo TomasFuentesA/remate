@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'realttymodals/new'
-  get 'realttymodals/create'
+
   get 'regions/import' => 'regions#my_import'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -62,14 +61,23 @@ Rails.application.routes.draw do
   resources :characteristics
   resources :judgements
   resources :type_realties
-  resources :legal_personas
+  resources :legal_personas do
+      resources :jobs
+      resources :directions
+      resources :phones
+      resources :emails
+      resources :domains
+  end
   resources :personas
   resources :natural_personas
 
   resources :comments
   resources :posts
   resources :auctionlistings
-  resources :inscriptions
+  resources :domains do
+    resources :inscriptions
+  end
+
 
 
 

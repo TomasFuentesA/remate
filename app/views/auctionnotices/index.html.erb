@@ -46,10 +46,16 @@
         <td><%= auctionnotice.status %></td>
 
         <td>
+
           <%= link_to 'Ver', auctionnotice %>
           <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
+          <% unless auctionnotice.status == "rejected" %>
           <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post %>
+          <% end %>
+          <% unless auctionnotice.status == "selected" ||  auctionnotice.status == "joined"%>
           <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post %>
+
+          <% end %>
         </td>
       </tr>
     <% end %>

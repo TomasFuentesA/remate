@@ -1,0 +1,21 @@
+<h1>New Comment</h1>
+
+<%= form_for [@phoneable, @phone] do |f| %>
+  <% if @phone.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @phone.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :phone_b %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

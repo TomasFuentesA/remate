@@ -1,6 +1,6 @@
 class Domain < ApplicationRecord
-  belongs_to :natural_persona
-  belongs_to :legal_persona
+  attr_accessor :type_modality, :price,:date_posetion,:percentage
+  belongs_to :domainable, polymorphic: true
   has_many :inscriptions
 
 end

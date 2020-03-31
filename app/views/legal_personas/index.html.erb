@@ -32,7 +32,8 @@
         <td><%= legalpersona.web %></td>
 
 
-        <td> <%= link_to 'Ver', legalpersona %>
+        <td> <%= link_to 'Ver', legalpersona %>,
+          <%= link_to 'Destroy', legalpersona, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 
 

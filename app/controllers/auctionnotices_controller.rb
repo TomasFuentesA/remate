@@ -32,6 +32,9 @@ class AuctionnoticesController < ApplicationController
     @auctionnotice = Auctionnotice.find(params[:id])
 
   end
+  def is_select
+    @auctionnotice = Auctionnotice.find(params[:id])
+  end
 
   def update
     @auctionnotice.update(auctionnotice_params)
@@ -49,6 +52,8 @@ class AuctionnoticesController < ApplicationController
     Auctionnotice.update_all(status: 1)
     redirect_to auctionnotices_url
 end
+
+
 
 
 
@@ -72,6 +77,7 @@ end
     def pending
        @auctionnotices = Auctionnotice.where(status: 0)
     end
+
 
     def selected
        @auctionnotices = Auctionnotice.where(status: 1)
