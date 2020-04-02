@@ -1,0 +1,9 @@
+<h1>Trabajos</h1>
+
+<div >
+  <% @jobs.each do |job| %>
+    <div >
+      <%= simple_format job.position %>
+    </div>
+  <% end %>
+</div>

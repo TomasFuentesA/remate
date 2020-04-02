@@ -1,18 +1,17 @@
 class LegalPersonasController < ApplicationController
+  load_and_authorize_resource
+  before_action :authenticate_user!
   def index
     @legalPersonas = LegalPersona.all
   end
-
   def new
     @legalpersona = LegalPersona.new
   end
-
   def create
-    @legalpersona = LegalPersona.new(legalpersona_params)
+    @legalpersona = LegalPersona.new(legal_persona_params)
     @legalpersona.save
     redirect_to legal_personas_path
   end
-
 
   def edit
       @legalpersona = LegalPersona.find(params[:id])
@@ -20,7 +19,10 @@ class LegalPersonasController < ApplicationController
 
   def show
       @legalpersona = LegalPersona.find(params[:id])
+      @phoneable = @legalpersona
+      @phones = @phoneable.phones
   end
+
   def destroy
     @legalpersona = LegalPersona.find(params[:id])
     if @legalpersona.present?
@@ -28,10 +30,11 @@ class LegalPersonasController < ApplicationController
     end
     redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
   end
+private
 
-  private
-  def legalpersona_params
+  def legal_persona_params
       params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web)
   end
+
 
 end

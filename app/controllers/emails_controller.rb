@@ -1,12 +1,12 @@
-class DirectionsController < ApplicationController
+class EmailsController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_directionable
+  before_action :load_emailable
   def index
-    @directions = @directionable.directions
+    @emails = @emailable.emails
   end
 
   def new
-    @direction = @directionable.directions.new
+    @email = @emailable.emails.new
   end
 
   def create

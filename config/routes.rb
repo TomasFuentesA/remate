@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'emails/index'
+  get 'emails/new'
   get 'regions/import' => 'regions#my_import'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
