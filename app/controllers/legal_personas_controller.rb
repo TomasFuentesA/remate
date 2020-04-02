@@ -19,8 +19,11 @@ class LegalPersonasController < ApplicationController
 
   def show
       @legalpersona = LegalPersona.find(params[:id])
-      @phoneable = @legalpersona
-      @phones = @phoneable.phones
+      @able = @legalpersona
+      @directions = @able.directions
+      @phones = @able.phones
+      @emails = @able.emails
+
   end
 
   def destroy
