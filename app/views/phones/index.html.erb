@@ -1,0 +1,11 @@
+<h1>teléfonos</h1>
+
+<div >
+  <% @phones.each do |phone| %>
+    <div class="comment">
+      <%= simple_format phone.phone_a %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'nuevo telefono', new_legal_persona_phone_path ,class:"button"%>

@@ -1,2 +1,37 @@
-<h1>Personas#show</h1>
-<p>Find me in app/views/personas/show.html.erb</p>
+<br>
+<div class="row" id="fileview">
+  <div class="col-principal col-md-8">
+    <div>
+      <h2>Información Personal:</h2>
+    </div>
+    <h4>Informacion</h4>
+    <div>
+      Nombre: <%= @persona.name %> <%= @persona.name2 %> <%= @persona.last_name1 %> <%= @persona.last_name2 %>
+    </div>
+    <div>
+      rut:  <%= @persona.rut %>
+    </div>
+    <div>
+      Estado Civil: <%= @persona.e_civil %>
+    </div>
+    <div>
+      profesion: <%= @persona.profesion %>
+    </div>
+    <div>
+      Nacionalidad: <%= @persona.nacionality %>
+    </div>
+    <div>
+      Passaporte: <%= @persona.passport %>
+    </div>
+    <div>
+      Fecha de nacimiento: <%= @persona.birth_date %>
+    </div>
+
+
+  </div>
+  <div class="col-lateral col-md-4"">
+    opciones:
+
+    persona natural
+  </div>
+</div>

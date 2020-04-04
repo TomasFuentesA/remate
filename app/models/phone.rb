@@ -1,4 +1,3 @@
 class Phone < ApplicationRecord
-  belongs_to :natural_persona
-  belongs_to :legal_persona
+  belongs_to :phoneable, polymorphic: true, optional: true
 end

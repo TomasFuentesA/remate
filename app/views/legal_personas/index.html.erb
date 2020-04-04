@@ -6,12 +6,13 @@
 
   <thead>
     <tr>
-      <th>Seleccionar Persona Juridica</th>
+
       <th>Rut</th>
       <th>Nombre</th>
       <th>Nombre de Fantasia</th>
       <th>Alias</th>
       <th>Web</th>
+      <th>opciones</th>
 
 
     </tr>
@@ -31,7 +32,8 @@
         <td><%= legalpersona.web %></td>
 
 
-        <td> <%= link_to 'Ver', legalpersona %>
+        <td> <%= link_to 'Ver', legalpersona %>,
+          <%= link_to 'Destroy', legalpersona, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 
 

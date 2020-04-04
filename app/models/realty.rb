@@ -1,13 +1,20 @@
 class Realty < ApplicationRecord
+    #validacion de campos
+    validates :street,:number_unit, presence: true
+    validates :street,:number_unit,:unit_estate, uniqueness: true
+
     after_create :set_latlon
+    #asociacion de modelos
+    has_many :auctions
+    has_one :characteristic,dependent: :destroy
+    has_one :type_realty,dependent: :destroy
     belongs_to :commune
-    has_one :characteristic
-    has_one :type_realty
-    accepts_nested_attributes_for :characteristic , allow_destroy: true
+    #atributos anidados
+    accepts_nested_attributes_for :characteristic,  allow_destroy: true
     accepts_nested_attributes_for :type_realty , allow_destroy: true
 
 
-    has_many :auctions
+
 
     enum street_type: [:street, :avenue, :passage]
     enum type_property: [:house, :department, :local, :office, :cellar, :site, :box, :parcela]

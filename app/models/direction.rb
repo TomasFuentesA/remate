@@ -1,4 +1,4 @@
 class Direction < ApplicationRecord
-  belongs_to :natural_persona
-  belongs_to :legal_persona
+  attr_accessor :direction_a, :direction_b,:direction_c  
+  belongs_to :directionable, polymorphic: true
 end

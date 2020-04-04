@@ -19,6 +19,7 @@
       <th>Fecha de Nacimiento</th>
       <th>Nacionalidad</th>
       <th>Pasaporte</th>
+      <th>Opciones</th>
 
     </tr>
   </thead>
@@ -41,7 +42,8 @@
         <td><%= persona.nacionality %></td>
         <td><%= persona.passport %></td>
         <td> <%= link_to 'Ver', persona %>
-            <%end%></td>
+            ,<%= link_to 'Eliminar', persona, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <%end%></td>
 
 
       </tr>

@@ -21,6 +21,13 @@ class LegalPersonasController < ApplicationController
   def show
       @legalpersona = LegalPersona.find(params[:id])
   end
+  def destroy
+    @legalpersona = LegalPersona.find(params[:id])
+    if @legalpersona.present?
+      @legalpersona.destroy
+    end
+    redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
+  end
 
   private
   def legalpersona_params

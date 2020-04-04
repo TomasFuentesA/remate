@@ -1,4 +1,4 @@
 class Email < ApplicationRecord
-  belongs_to :natural_persona
-  belongs_to :legal_persona
+  attr_accessor :email_a, :email_b,:email_c
+  belongs_to :emailable, polymorphic: true
 end

@@ -77,7 +77,7 @@ end
 
   def realty_params
     params.require(:realty).permit(:street, :number_unit, :commune_id, :population_villa, :unit_estate, :apple, :property, :latitude, :longitude, :address,
-      :street_type_id, :type_property_id,
+      :street_type_id, :type_property_id,:name_realty,
       characteristic_attributes: [:id,:m2_land,:m2_built,:material,:built_year,:_destroy],
 
   type_realty_attributes: [:id,:tipo,:ambient,:bathroom,:bedroom,:parking_lot,:cellar,:_destroy] )
