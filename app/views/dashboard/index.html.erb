@@ -62,7 +62,6 @@
         </div>
         <div class="card-body">
           <li class="list-group-item "><%= link_to 'Personas', personas_path %></li>
-          <li class="list-group-item "><%= link_to 'Persona Natural', natural_personas_path %></li>
           <li class="list-group-item"><%= link_to 'Persona Juridica', legal_personas_path %></li>
         </div>
       </div>
@@ -85,8 +84,7 @@
       <li class=""><%= "Avisos Remates Descartados: #{Auctionnotice.rejected.count}" %></li>
       <li class=""><%= "Avisos Remates Asociados: #{Auctionnotice.joined.count}" %></li>
       <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
-      <li class=""><%= "Personas Ingresadas: #{Persona.count}" %></li>
-      <li class=""><%= "Persona Natural Ingresadas: #{NaturalPersona.count}" %></li>
+      <li class=""><%= "Personas Natural Ingresadas: #{Persona.count}" %></li>
       <li class=""><%= "Persona Juridicas Ingresadas: #{LegalPersona.count}" %></li>
 
     </div>

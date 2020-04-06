@@ -20,6 +20,10 @@ class PersonasController < ApplicationController
 
   def show
       @persona = Persona.find(params[:id])
+      @able = @persona
+      @phones = @able.phones
+      @emails = @able.emails
+      @directions = @able.directions
   end
 
   def destroy

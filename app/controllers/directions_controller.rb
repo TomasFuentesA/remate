@@ -12,6 +12,15 @@ class DirectionsController < ApplicationController
     @direction = @directionable.directions.new
   end
 
+  def edit
+    @direction = @directionable.directions.find(params[:id])
+  end
+
+  def update
+    @direction.update(direction_params)
+    redirect_to legal_persona_path
+  end
+
   def create
     @direction = @directionable.directions.new(direction_params)
     if @direction.save
@@ -21,13 +30,15 @@ class DirectionsController < ApplicationController
     end
   end
 
+
+
     private
     def direction_params
-      params.require(:direction).permit(:rut,:directiona, :directionb,:directionc)
+      params.require(:direction).permit(:directiona, :directionb,:directionc,:rut)
     end
 
     def load_directionable
-      klass = [LegalPersona, NaturalPersona].detect { |c| params["#{c.name.underscore}_id"]}
+      klass = [LegalPersona, Persona].detect { |c| params["#{c.name.underscore}_id"]}
       @directionable = klass.find(params["#{klass.name.underscore}_id"])
     end
 

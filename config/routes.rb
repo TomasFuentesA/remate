@@ -64,14 +64,19 @@ Rails.application.routes.draw do
   resources :judgements
   resources :type_realties
   resources :legal_personas do
-      resources :jobs
       resources :directions
       resources :phones
       resources :emails
       resources :domains
   end
-  resources :personas
-  resources :natural_personas
+  resources :personas do
+    resources :jobs
+    resources :directions
+    resources :phones
+    resources :emails
+    resources :domains
+  end
+  
 
   resources :comments
   resources :posts
