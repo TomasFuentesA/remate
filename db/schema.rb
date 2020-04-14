@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_174853) do
+ActiveRecord::Schema.define(version: 2020_04_12_004211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,15 @@ ActiveRecord::Schema.define(version: 2020_03_17_174853) do
     t.index ["auction_id"], name: "index_judgements_on_auction_id"
   end
 
+  create_table "legal_members", force: :cascade do |t|
+    t.bigint "legal_persona_id"
+    t.bigint "legal_asociado_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["legal_asociado_id"], name: "index_legal_members_on_legal_asociado_id"
+    t.index ["legal_persona_id"], name: "index_legal_members_on_legal_persona_id"
+  end
+
   create_table "legal_personas", force: :cascade do |t|
     t.string "rut"
     t.string "name"
@@ -254,6 +263,15 @@ ActiveRecord::Schema.define(version: 2020_03_17_174853) do
     t.datetime "updated_at", null: false
     t.bigint "judgement_id"
     t.index ["judgement_id"], name: "index_parts_on_judgement_id"
+  end
+
+  create_table "persona_members", force: :cascade do |t|
+    t.bigint "persona_id", null: false
+    t.bigint "legal_persona_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["legal_persona_id"], name: "index_persona_members_on_legal_persona_id"
+    t.index ["persona_id"], name: "index_persona_members_on_persona_id"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -376,9 +394,13 @@ ActiveRecord::Schema.define(version: 2020_03_17_174853) do
   add_foreign_key "comments", "posts"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "judgements", "auctions"
+  add_foreign_key "legal_members", "legal_personas"
+  add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
   add_foreign_key "legal_personas", "personas", column: "personas_id"
   add_foreign_key "natural_personas", "personas", column: "personas_id"
   add_foreign_key "parts", "judgements"
+  add_foreign_key "persona_members", "legal_personas"
+  add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
   add_foreign_key "type_realties", "realties"
 end

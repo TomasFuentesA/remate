@@ -7,7 +7,11 @@ class LegalPersona < ApplicationRecord
   has_many :domains, as: :domainable, dependent: :destroy
   has_many :activities, as: :activityable
   has_many :legal_represents, dependent: :destroy
-  
+  has_many :persona_members
+  has_many :personas, through: :persona_members
+  has_many :legal_members
+  has_many :legal_asociados, through: :legal_members 
+
 
   #validacion
   validates :rut,:name, presence: true

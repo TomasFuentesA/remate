@@ -1,45 +1,50 @@
-<h1>Navegación Sistema</h1>
-<p>Añadir opciones como en altitud ltda</p>
 
-<div class="container">
-  <table>
-    <tr>
-      <td>
-        <p ><%= l(Date.today, format: "%d de %B,%Y")%> <p id="uf">
-        </p>
-      </td>
-    </tr>
-  </table>
 
-  <div class="container">
+<div class="container fluid">
+  <div class="row">
+    <div class="col card">
+      <ul>
+        <p ><%= l(Date.today, format: "%d de %B,%Y")%></p>
+      </ul>
+      <ul>
+        <div id="uf">
+          <script> new ufApi()</script>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+<br>
+
+
+<div class="container fluid">
   <div class="row">
     <div class="col-sm">
-      <div class="card" style="width: 18rem;">
+      <div class="card">
         <div class="card-header">
           Inversiones
         </div>
-
         <div class="card-body">
           <li class="list-group-item "><%= link_to 'Remates', auctions_path %></li>
           <li class="list-group-item"><%= link_to 'Calendario de Remates ', calendario_path %></li>
         </div>
       </div>
-
     </div>
+
     <div class="col-sm">
-      <div class="card" style="width: 18rem;">
+      <div class="card">
         <div class="card-header">
           Propiedades
         </div>
-
         <div class="card-body">
-        <li class="list-group-item "><%= link_to 'Listado de Propiedades', realties_path %></li>
-        <li class="list-group-item"><%= link_to 'Nueva Propiedad', new_realty_path %></li>
+          <li class="list-group-item "><%= link_to 'Listado de Propiedades', realties_path %></li>
+          <li class="list-group-item"><%= link_to 'Nueva Propiedad', new_realty_path %></li>
+        </div>
       </div>
     </div>
-    </div>
+
     <div class="col-sm">
-      <div class="card" style="width: 18rem;">
+      <div class="card">
         <div class="card-header">
           Avisos
         </div>
@@ -48,15 +53,18 @@
           <li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
           <li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
           <li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
-            <li class="list-group-item"><%= link_to 'Listados Avisos Asociados', auctionnotices_joined_path %></li>
+          <li class="list-group-item"><%= link_to 'Listados Avisos Asociados', auctionnotices_joined_path %></li>
           <li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
           <li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-sm">
-      <div class="card" style="width: 18rem;">
+
+  <div class="row">
+    <div class="col sm">
+      <div class="card">
         <div class="card-header">
           Entidades
         </div>
@@ -66,32 +74,52 @@
         </div>
       </div>
     </div>
-
-
+    <div class="col sm">
+      <div class="card">
+        <div class="card-header">
+          Estadisticas
+        </div>
+        <div class="card-body">
+          <li class=""><%= "Avisos Ingresados: #{Auctionnotice.count}" %></li>
+          <li class=""><%= "Avisos Seleccionados: #{Auctionnotice.selected.count}" %></li>
+          <li class=""><%= "Avisos Pendientes por Revisar: #{Auctionnotice.pending.count}" %></li>
+          <li class=""><%= "Avisos Descartados: #{Auctionnotice.rejected.count}" %></li>
+          <li class=""><%= "Avisos Asociados: #{Auctionnotice.joined.count}" %></li>
+          <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
+          <li class=""><%= "Personas Natural Ingresadas: #{Persona.count}" %></li>
+          <li class=""><%= "Persona Juridicas Ingresadas: #{LegalPersona.count}" %></li>
+        </div>
+      </div>
+    </div>
+    <div class="col sm">
+      <div class="card">
+        <div class="card-header">
+          algo 6
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col sm">
+      <div class="card">
+        <div class="card-header">
+          algo 7
+        </div>
+      </div>
+    </div>
+    <div class="col sm">
+      <div class="card">
+        <div class="card-header">
+          algo 8
+        </div>
+      </div>
+    </div>
+    <div class="col sm">
+      <div class="card">
+        <div class="card-header">
+          algo 9
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<div class="col-sm">
-  <div class="card" style="width: 25rem;">
-    <div class="card-header">
-      Estadisticas
-    </div>
-
-    <div class="card-body">
-      <li class=""><%= "Avisos Remates Ingresados: #{Auctionnotice.count}" %></li>
-      <li class=""><%= "Avisos Remates Seleccionados: #{Auctionnotice.selected.count}" %></li>
-      <li class=""><%= "Avisos Remates Pendientes por Revisar: #{Auctionnotice.pending.count}" %></li>
-      <li class=""><%= "Avisos Remates Descartados: #{Auctionnotice.rejected.count}" %></li>
-      <li class=""><%= "Avisos Remates Asociados: #{Auctionnotice.joined.count}" %></li>
-      <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
-      <li class=""><%= "Personas Natural Ingresadas: #{Persona.count}" %></li>
-      <li class=""><%= "Persona Juridicas Ingresadas: #{LegalPersona.count}" %></li>
-
-    </div>
-  </div>
-
-</div>
-
-
-</div>
-<script  > new ufApi()</script>

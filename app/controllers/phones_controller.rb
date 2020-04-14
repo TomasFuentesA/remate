@@ -1,6 +1,5 @@
 class PhonesController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!
   before_action :load_phoneable
 
   def index
@@ -17,13 +16,13 @@ class PhonesController < ApplicationController
 
   def update
     @phone.update(phone_params)
-    redirect_to legal_persona_path
+    redirect_to @phoneable
   end
 
   def create
     @phone = @phoneable.phones.new(phone_params)
     if @phone.save
-      redirect_to [@phoneable, :phones], notice: "telefono añadido."
+      redirect_to @phoneable, notice: "telefono añadido."
       else
         render :new
     end

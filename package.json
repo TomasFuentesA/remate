@@ -2,11 +2,13 @@
   "name": "remate",
   "private": true,
   "dependencies": {
+    "bootstrap": "4.3.1",
     "datatables.net-bs4": "^1.10.20",
     "fullcalendar": "^3.10.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-backstretch": "^2.1.18",
     "moment": "^2.24.0",
+    "popper.js": "^1.16.1",
     "underscore": "^1.9.1"
   }
 }

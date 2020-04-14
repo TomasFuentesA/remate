@@ -1,7 +1,7 @@
 class EmailsController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!
   before_action :load_emailable
+
   def index
     @emails = @emailable.emails
   end
@@ -13,7 +13,7 @@ class EmailsController < ApplicationController
   def create
     @email = @emailable.emails.new(email_params)
     if @email.save
-      redirect_to [@emailable, :emails], notice: "correo añadido."
+      redirect_to @emailable, notice: "correo añadido."
     else
       render :new
     end
@@ -24,11 +24,11 @@ class EmailsController < ApplicationController
 
   def update
     @email.update(email_params)
-    redirect_to legal_persona_path
+    redirect_to @emailable
   end
   def destroy
     @email = @emailable.emails.find(params[:id])
-    redirect_to legal_persona_path
+    redirect_to @emailable
   end
 
     private

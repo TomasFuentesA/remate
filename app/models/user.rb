@@ -5,12 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook],
          :authentication_keys => [:rut]
-  validates :email, uniqueness: true
-  validates :rut, uniqueness: true
+
+  validates :email,presence: true, uniqueness: {case_sensitive: false}
+  validates :rut,presence: true, uniqueness: {case_sensitive: false}
+
 
   has_many :posts
-  has_one :person
-
   enum role: [:admin, :analyzer, :lawyer, :appraiser, :visit]
 
   geocoded_by :address

@@ -6,6 +6,8 @@ class Persona < ApplicationRecord
   has_many :directions, as: :directionable,dependent: :destroy
   has_many :domains, as: :domainable
   has_many :activities, as: :activityable
+  has_many :persona_members
+  has_many :legal_personas, through: :persona_members
 
   #validacion
   validates :rut,:name, presence: true

@@ -13,6 +13,9 @@
 
 //= require gmaps/google
 //= require underscore
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require arctic_admin/base
 //= require activestorage

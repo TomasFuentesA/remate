@@ -1,0 +1,23 @@
+@import "bootstrap-datepicker3";
+@import 'bootstrap';
+
+body {
+  display: block;
+  margin: 8px;
+  line-height: normal;
+  background-color: #eee;
+
+
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+div {
+  display: block;
+
+}
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
