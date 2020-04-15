@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :persona_members
+
   get 'emails/index'
   get 'emails/new'
   get 'regions/import' => 'regions#my_import'
@@ -86,6 +86,7 @@ Rails.application.routes.draw do
     resources :inscriptions
   end
   resources :persona_members
+   get 'my_members', to: 'legal_persona#my_members'
 
 
 

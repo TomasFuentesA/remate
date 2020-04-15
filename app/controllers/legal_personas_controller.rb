@@ -1,6 +1,6 @@
 class LegalPersonasController < ApplicationController
   load_and_authorize_resource
-  
+
 
   def index
     @legalPersonas = LegalPersona.all
@@ -26,6 +26,7 @@ class LegalPersonasController < ApplicationController
       @phones = @able.phones
       @emails = @able.emails
       @directions = @able.directions
+      @persona_members = @legalpersona.personas
   end
 
   def destroy
@@ -33,6 +34,9 @@ class LegalPersonasController < ApplicationController
     @legalpersona.delete
     redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
   end
+
+
+  
 private
 
   def legal_persona_params

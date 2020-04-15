@@ -43,7 +43,7 @@
     <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <% if user_signed_in? %>
-            hola, <%= current_user.email %>
+            hola, <%= current_user.name %>
           <% else %>
           ingresar a cta
           <% end %>

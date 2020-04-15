@@ -2,7 +2,6 @@
   <h1>Remates</h1>
   <div class="container-md">
     <li class="list-group-item "><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
-
   <br>
   </div>
 </div>
@@ -10,29 +9,28 @@
 <br>
 <%= render "search" %>
 
-
+<br>
 <br>
 
-<br>
 
 
 
 
 
 
-<div class="table-responsive">
-<table id="myTable" class="table">
-  <thead>
-    <tr >
-      <th id="auctionsTable">Nº</th>
+<table  class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nº</th>
 
-      <th id="auctionsTable">Fecha</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Hora</th>
 
-      <th id="auctionsTable">Tribunal</th>
-      <th id="auctionsTable">Rol</th>
-      <th id="auctionsTable">Propiedad</th>
+      <th scope="col">Tribunal</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Propiedad</th>
 
-      <th id="auctionsTable">Opciones</th>
+      <th scope="col">Opciones</th>
 
     </tr>
   </thead>
@@ -40,14 +38,16 @@
   <tbody>
     <% @auctions.each_with_index do |auction, i| %>
       <tr>
-        <td><%= i + 1 %></td>
-        <td><%= auction.date %> a las: <%= auction.hour %> hrs.</td>
+        <td scope="row"><%= i + 1 %></td>
+        <td><%= auction.date %> </td>
+        <td><%= auction.hour %> hrs.</td>
 
         <td><%= auction.rol_trial %></td>
         <td><%= auction.realty.address %></td>
+        <td>propiedad</td>
         <td>
-          <%= link_to 'Ver', auction %>
-          <%= link_to 'Editar', edit_auction_path(auction) %>
+              <%= link_to 'Ver', auction ,class: "btn btn-info"%>
+              <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
         </td>
       </tr>
     <% end %>
@@ -55,5 +55,5 @@
 </table>
 
 
-</div>
+
 <br>

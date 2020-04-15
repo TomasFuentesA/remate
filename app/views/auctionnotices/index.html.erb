@@ -1,36 +1,18 @@
 <h1>Todos los avisos</h1>
 
-
-
-
-
-
 <br>
 
-<%= search_form_for @search do |form|  %>
-<div class="field">
-  <%=form.label :auction_cont, "texto" %>
-  <%=form.text_field :auction_cont %>
-</div>
-<div class="actions">
-  <%= form.submit "buscar"%>
-
-</div>
-
-
-<% end %>
-
+<%= render "search" %>
 
 
 <div class="table-responsive">
-<table id="myTable" class="table">
-  <thead>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th id = "actionNoticeTable">Nº</th>
-      <th id = "actionNoticeTable">Aviso</th>
-      <th id = "actionNoticeTable">Estado</th>
-      <th id = "actionNoticeTable">Opciones</th>
-
+      <th scope="col">Nº</th>
+      <th scope="col">Aviso</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
@@ -47,13 +29,13 @@
 
         <td>
 
-          <%= link_to 'Ver', auctionnotice %>
-          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
+          <%= link_to 'Ver', auctionnotice , class:"btn btn-info"%>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) , class:"btn btn-warning"%>
           <% unless auctionnotice.status == "rejected" %>
-          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post %>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post , class:"btn btn-danger" %>
           <% end %>
           <% unless auctionnotice.status == "selected" ||  auctionnotice.status == "joined"%>
-          <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post %>
+          <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post, class:"btn btn-success" %>
 
           <% end %>
         </td>
