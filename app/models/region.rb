@@ -1,7 +1,7 @@
 class Region < ApplicationRecord
-  has_many :provinces
+  has_many :provinces, dependent: :destroy
   accepts_nested_attributes_for :provinces
-  
+
 
 
   def direction

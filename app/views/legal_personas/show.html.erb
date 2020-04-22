@@ -91,6 +91,8 @@
              <%= link_to 'editar correo', edit_legal_persona_email_path(@legal_persona,@emails.ids) ,class:"btn btn-secondary"%>
              </div>
           <% end %>
+            <%= link_to 'Añadir nuevo miembro', new_persona_member_path(@legal_persona) ,class:"btn btn-primary"%>
+
 
          </div>
       </div>
@@ -112,8 +114,8 @@
           <tr>
 
             <th scope="col">Nombre</th>
-            <th scope="col">Opciones</th>
             <th scope="col">Participación</th>
+            <th scope="col">Opciones</th>
           </tr>
         </thead>
         <tbody class="rounded-pill">
@@ -121,14 +123,13 @@
             <tr>
               <td scope="row"><%= member.rut %>, <%= member.name%></td>
               <td>
-                quitar miembro
+                 %
 
-
-            <%end%>
               </td>
-              <td>% de participacion</td>
+              <td> opciones</td>
             </tr>
         </tbody>
+        <%end%>
       </table>
 
 

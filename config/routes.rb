@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
 
 
+
   post 'auctionnotice/:id/reject', to: 'auctionnotices#action_rejection', as: 'rejection'
   get 'auctionnotices/pending'
   get 'auctionnotices/selected'
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
   resources :auctionnotices do
       resources :auctions
       collection do
+
         put :discontinue
       end
   end
@@ -69,6 +71,7 @@ Rails.application.routes.draw do
       resources :phones
       resources :emails
       resources :domains
+      resources :persona_members
   end
   resources :personas do
     resources :jobs
@@ -85,8 +88,8 @@ Rails.application.routes.draw do
   resources :domains do
     resources :inscriptions
   end
-  resources :persona_members
-   get 'my_members', to: 'legal_persona#my_members'
+
+
 
 
 

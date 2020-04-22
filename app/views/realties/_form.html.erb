@@ -1,99 +1,103 @@
 <br>
-<div class="container">
+<div class="container-fluid ">
+
+  <div class="row">
+    <div class="col-md-auto">
+      <form>
 
 
-  <%= form_for @realty do |form| %>
-    <%= form.label :name, "Ingreso de Propiedad:" %>
 
-
-    <div class="form-group">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <%= form.label :name_realty, "Nombre de propiedad" %>
-          <%= form.text_field :name_realty, id: :name_realty%>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-3">
-            <%= form.label :street_type_id, "Tipo de Calle" %>
-            <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} %>
-          </div>
+      <%= form_for @realty do |form| %>
+        <div class="form-group">
           <div class="form-row">
-            <div class="form-group col-md-9">
-              <%= form.label :commune_id, "comuna" %>
-              <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"}  %>
+            <div class="form-group col-md-4">
+              <%= form.label :name_realty, "Nombre de propiedad:" %>
+              <%= form.text_field :name_realty, class:"form-control border" ,autofocus: true%>
+            </div>
 
+
+
+              <div class="form-group col-md-3">
+                <%= form.label :street_type_id, "Tipo de Calle:" %>
+                <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+              </div>
+
+                <div class="form-group col-md-4">
+                  <%= form.label :commune_id, "Comuna:" %>
+                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+
+                </div>
+
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <%= form.label :street, "Calle:" %>
+              <%= form.text_field :street, id: :street , class:"form-control border" ,autofocus: true%>
+            </div>
+            <div class="form-group col-md-2">
+              <%= form.label :number_unit, "Numero:" %>
+              <%= form.number_field :number_unit, id: :number_unit , class:"form-control border" ,autofocus: true%>
+            </div>
+            <div class="form-group col-md-2">
+              <%= form.label :unit_estate, "Unidad:" %>
+              <%= form.text_field :unit_estate, id: :unit_estate , class:"form-control border" ,autofocus: true%>
+            </div>
+            <div class="form-group col-md-3">
+              <%= form.label :population_villa, "villa/población:" %>
+              <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
             </div>
           </div>
-        </div>
-      </div>
+          <div class="form-row">
+            <%= form.fields_for :characteristic do |form| %>
+              <div class="form-group col-md-2">
+                <%= form.label :mt2_land, "Sup.Terreno:" %>
+                <%= form.number_field :m2_land , class:"form-control border" ,autofocus: true %>
+              </div>
+              <div class="col-md-2">
+                <%= form.label :mt2_land, "Sup.Construida:" %>
+                <%= form.number_field :m2_built , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-2">
+                <%= form.label :material, "Material:" %>
+                <%= form.text_field :material , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-2">
+                <%= form.label :built_year, "Año Construccion:" %>
+                <%= form.number_field :built_year , class:"form-control border" ,autofocus: true%>
+              </div>
+            <% end %>
+          </div>
+          <div class="form-row">
+            <%= form.fields_for :type_realty do |f| %>
+            <div class="form-group col-md-2">
+              <%= f.label :tipo, "tipo de propiedad:" %>
+              <%= f.select :tipo,options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+            </div>
+            <div class="form-group col-md-6">
 
-      <div class="form-row">
-        <div class="form-group col-md-2">
-          <%= form.label :street, "Calle" %>
-          <%= form.text_field :street, id: :street %>
-        </div>
-        <div class="form-group col-md-2">
-          <%= form.label :number_unit, "Numero" %>
-          <%= form.number_field :number_unit, id: :number_unit %>
-        </div>
-        <div class="form-group col-md-2">
-          <%= form.label :unit_estate, "Unidad" %>
-          <%= form.text_field :unit_estate, id: :unit_estate %>
-        </div>
-        <div class="form-group col-md-3">
-          <%= form.label :population_villa, "villa/población" %>
-          <%= form.text_field :population_villa, id: :population_villa %>
-        </div>
-      </div>
-      <div class="form-row">
-        <%= form.fields_for :characteristic do |form| %>
-          <div class="form-group col-md-2">
-            <%= form.label :mt2_land, "Sup.Terreno:" %>
-            <%= form.number_field :m2_land %>
+              <%= f.label :comment, "Comentarios:" %>
+              <%= f.text_field :comment , class:"form-control border" ,autofocus: true%>
+            </div>
           </div>
-          <div class="col-md-2">
-            <%= form.label :mt2_land, "Sup.Construida:" %>
-            <%= form.number_field :m2_built %>
-          </div>
-          <div class="col-md-2">
-            <%= form.label :material, "Material:" %>
-            <%= form.text_field :material %>
-          </div>
-          <div class="col-md-2">
-            <%= form.label :built_year, "Año Construccion:" %>
-            <%= form.number_field :built_year %>
-          </div>
-        <% end %>
-      </div>
-      <div class="form-row">
-        <%= form.fields_for :type_realty do |f| %>
-        <div class="form-group col-md-2">
-          <%= f.label :tipo, "tipo de propiedad" %>
-          <%= f.select :tipo,options_for_select(TypeRealty.properties.keys.to_a),{include_blank: "Seleccione"} %>
+            <% end %>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-row">
+          <div class="col">
+            <%= form.submit "Añadir Propiedad",class: "btn btn-success" %>
 
-          <%= f.label :comment, "Comentarios" %>
-          <%= f.text_field :comment %>
+            <% end %>
+          </div>
         </div>
-      </div>
-        <% end %>
+      </form>
     </div>
-    <div class="form-row">
-      <div class="col">
-        <%= form.submit "añadir",class: "btn btn-primary" %>
 
-        <% end %>
-
-
-      </div>
-
+    <div class="col">
 
     </div>
+
   </div>
-
-
-
-
 </div>

@@ -1,11 +1,11 @@
 class Realty < ApplicationRecord
     #validacion de campos
     validates :street,:number_unit, presence: true
-    validates :street,:number_unit,:unit_estate, uniqueness: true
+    validates :street,:number_unit, uniqueness: true
 
     after_create :set_latlon
     #asociacion de modelos
-    has_many :auctions
+    has_many :auctions, dependent: :destroy
     has_one :characteristic,dependent: :destroy
     has_one :type_realty,dependent: :destroy
     belongs_to :commune

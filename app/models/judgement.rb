@@ -1,5 +1,5 @@
 class Judgement < ApplicationRecord
-  has_many :parts
+  has_many :parts, dependent: :destroy
   belongs_to :auction
   accepts_nested_attributes_for :parts
 

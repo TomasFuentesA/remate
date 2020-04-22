@@ -1,7 +1,7 @@
 class RealtiesController < ApplicationController
 
   load_and_authorize_resource
-  
+
 
 
   def index
@@ -31,12 +31,13 @@ class RealtiesController < ApplicationController
   end
 
   def new
+
       @realty = Realty.new
       @realty.build_characteristic
       @realty.build_type_realty
       @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
-      marker.lat realty.latitude
-      marker.lng realty.longitude
+        marker.lat realty.latitude
+        marker.lng realty.longitude
       end
   end
 
@@ -58,6 +59,8 @@ end
 
   def edit
     @realty = Realty.find(params[:id])
+    @realty.build_characteristic if @realty.characteristic.nil?
+    @realty.build_type_realty if @realty.type_realty.nil?
   end
 
   def update
@@ -79,8 +82,7 @@ end
     params.require(:realty).permit(:street, :number_unit, :commune_id, :population_villa, :unit_estate, :apple, :property, :latitude, :longitude, :address,
       :street_type_id, :type_property_id,:name_realty,
       characteristic_attributes: [:id,:m2_land,:m2_built,:material,:built_year,:_destroy],
-
-  type_realty_attributes: [:id,:tipo,:ambient,:bathroom,:bedroom,:parking_lot,:cellar,:_destroy] )
+      type_realty_attributes: [:id,:comment,:tipo] )
   end
 
 

@@ -1,12 +1,29 @@
 <br>
-<ul class="list-group">
-  <%= link_to 'Ir a Listado Avisos', auctionnotices_path %>
-</ul>
-  <div style='width: 800px;'>
-    <div id="map" style='width: 700px; height: 300px;'></div>
 
 
-</div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div style='width: 800px;'>
+          <div id="map" style='width: 700px; height: 300px;'></div>
+      </div>
+
+      </div>
+
+      <div class="col">
+        <%= link_to 'Ir a Listado Avisos', auctionnotices_path,  class: "btn btn-info" %>
+        <%= link_to 'Ir a Comuna', communes_path, class: "btn btn-info" %>
+        <%= link_to 'Nueva Propiedad', new_realty_path, class: "btn btn-info" %>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+
 
 
 <script>
@@ -44,17 +61,17 @@ handler.buildMap({
 <h1>Listado de Propiedades</h1>
 <div id="realties">
 
-<table id="myTable" class="table">
-  <thead>
-    <tr id="realtiesTable">
-      <th>Direccion</th>
-      <th>Departamento/Oficina</th>
-      <th>Opciones</th>
+<table  class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col" >Direccion</th>
+      <th scope="col">Departamento/Oficina</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
 
-  <tbody id="realties-xyz">
+  <tbody id="realties-xyz" >
     <%= render @realties %>
 
   </tbody>
@@ -63,9 +80,3 @@ handler.buildMap({
 </div>
 
 <br>
-<ul class="list-group">
-  <li class="list-group-item "> <%= link_to 'Ir a Comuna', communes_path %> </li>
-  <li class="list-group-item "> <%= link_to 'Nueva Propiedad', new_realty_path %> </li>
-
-
-</ul>

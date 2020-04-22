@@ -12,8 +12,11 @@ group :assets do
   gem 'jquery-datatables'
   gem 'jquery-rails'
   gem 'jquery-ui-rails', '~> 5.0.5'
-  gem "font-awesome-rails"
+
+
 end
+gem "font-awesome-rails"
+
 gem 'arctic_admin'
 gem 'ransack'
 gem 'will_paginate','3.1.7'

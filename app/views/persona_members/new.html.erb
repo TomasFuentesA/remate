@@ -1,0 +1,46 @@
+<%= form_tag '#', method: :get do %>
+<%= text_field_tag :personas , params[:persona] %>
+<%= button_tag :submit  %>
+<%end%>
+
+<table id="myTable" class="table table-bordered table-hover">
+
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Rut</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Estado civil</th>
+      <th scope="col">Profesion</th>
+      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Nacionalidad</th>
+
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @personas.each do |persona| %>
+
+      <tr>
+        <td scope="row"><%= persona.rut %></td>
+        <td><%= persona.name %>
+        <%= persona.name2 %>
+        <%= persona.last_name1 %>
+        <%= persona.last_name2 %></td>
+        <td><%= persona.e_civil %></td>
+        <td><%= persona.profesion %></td>
+        <td><%= persona.birth_date %></td>
+        <td><%= persona.nacionality %></td>
+
+        <td> <%= link_to 'Ver', persona ,class: "btn btn-info" %>
+          <%= link_to 'Eliminar', persona, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger" %>
+                <%end%></td>
+      </tr>
+
+  </tbody>
+
+</table>
+<%@legalpersona.name %>

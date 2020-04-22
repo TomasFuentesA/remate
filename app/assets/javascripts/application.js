@@ -20,4 +20,5 @@
 //= require arctic_admin/base
 //= require activestorage
 //= require turbolinks
+
 //= require_tree .

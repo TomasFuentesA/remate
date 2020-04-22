@@ -1,15 +1,19 @@
 class AuctionnoticesController < ApplicationController
-  
+  before_action :find_params, only: [:show, :edit,:is_select]
+
   load_and_authorize_resource
 
   #crud auctionnotice
 
   def index
-    @auctionnotices = Auctionnotice.all
     @search = Auctionnotice.search(params[:q])
     if @search
       @auctionnotices = @search.result
+    else
+      @auctionnotices = Auctionnotice.all
+
     end
+
 
   end
 
@@ -24,16 +28,11 @@ class AuctionnoticesController < ApplicationController
   end
 
   def show
-    @auctionnotice = Auctionnotice.find(params[:id])
-
   end
 
   def edit
-    @auctionnotice = Auctionnotice.find(params[:id])
-
   end
   def is_select
-    @auctionnotice = Auctionnotice.find(params[:id])
   end
 
   def update
@@ -92,6 +91,9 @@ end
     end
 
   private
+  def find_params
+    @auctionnotice = Auctionnotice.find(params[:id])
+  end
 
   def auctionnotice_params
     params.require(:auctionnotice).permit(:name, :status, :auction, :realty_id)

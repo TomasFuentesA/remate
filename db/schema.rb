@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
   end
 
   create_table "judgements", force: :cascade do |t|
-    t.integer "type_judgement"
+    t.integer "type_judgement", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "auction_id"

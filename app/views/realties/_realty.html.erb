@@ -1,16 +1,15 @@
 <tr>
-
   <td>
-  <%#= realty.street + " " + (realty.number_unit).to_s + " " + realty.unit_estate+ " " + realty.commune.name %>
-<%#= "#{realty.street} #{(realty.number_unit).to_s}  #{realty.unit_estate}  #{realty.commune.name}" %>
+    <%#= realty.street + " " + (realty.number_unit).to_s + " " + realty.unit_estate+ " " + realty.commune.name %>
+    <%#= "#{realty.street} #{(realty.number_unit).to_s}  #{realty.unit_estate}  #{realty.commune.name}" %>
     <%= realty.address %>
   </td>
-  <td> <%= "#{realty.unit_estate}, #{realty.type_property_id}"%></td>
+  <td> <%= "#{realty.unit_estate}, #{realty.type_realty.tipo}"%></td>
 
 
   <td>
-    <%= link_to 'Ver', realty %>
-    <%= link_to 'Editar', edit_realty_path(realty) %>
-    <%= link_to 'Eliminar', realty, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Ver', realty,class: "btn btn-info" %>
+    <%= link_to 'Editar', edit_realty_path(realty) ,class: "btn btn-warning" %>
+    <%= link_to 'Eliminar', realty, method: :delete, data: { confirm: "desea eliminar #{realty.name_realty} ?" },class: "btn btn-danger" %>
   </td>
 </tr>

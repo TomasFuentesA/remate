@@ -56,6 +56,9 @@ Rails.application.configure do
   # Raises error for missing translations
   config.assets.precompile += %w[active_admin.scss active_admin.js jquery.rut.js]
 
+  #url root
+   
+
 
   # config.action_view.raise_on_missing_translations = true
 

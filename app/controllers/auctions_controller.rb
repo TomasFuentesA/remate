@@ -1,6 +1,7 @@
 class AuctionsController < ApplicationController
-
   load_and_authorize_resource
+  before_action :set_auction, only: [:show,:edit,:destroy]
+  before_action :set_auctionnotice, only: [:modal, :new]
 
 
   def index
@@ -9,8 +10,6 @@ class AuctionsController < ApplicationController
       if @search
         @auctions = @search.result
       end
-
-
   end
 
   def search
@@ -21,7 +20,8 @@ class AuctionsController < ApplicationController
   def new
     @auction = Auction.new
     @auction.judgements.build.parts.build
-    @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
+
+
 
   end
 
@@ -36,12 +36,9 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    @auction = Auction.find(params[:id])
-
   end
 
   def edit
-    @auction = Auction.find(params[:id])
   end
 
   def update
@@ -50,8 +47,16 @@ class AuctionsController < ApplicationController
   end
 
   def destroy
-    @auction.destroy
-    redirect_to auctions_path
+      @auction.auctionnotice.update(status: 0)
+      @auction.destroy
+
+
+      #flash[:notice] = "remate #{@auction.inspect} Eliminado con exito"
+      redirect_to auctions_path
+
+    #flash[:notice] = "remate #{@auction} no se pudo eliminar"
+
+
   end
 
   def auctions
@@ -93,13 +98,23 @@ class AuctionsController < ApplicationController
 
 
 
+
   private
+
+
+  def set_auctionnotice
+    @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
+  end
+
+  def set_auction
+    @auction = Auction.find(params[:id])
+  end
 
   def auction_params
     params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
       :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year,:judgement_id,
       :realty_id, :auctionnotice_id,:status,
-      :judgements_attributes =>[:id,:type_judgement,
+      :judgement_attributes =>[:id,:type_judgement,
        :parts_attributes => [:id,:name,:part1,:part2,:partes]]
          )
   end

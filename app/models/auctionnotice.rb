@@ -1,7 +1,5 @@
 class Auctionnotice < ApplicationRecord
-
-  has_many :auctions
-  
+  has_many :auctions, dependent: :destroy
   enum status: [:pending, :selected, :rejected, :joined]
 
   def self.created_by_day
