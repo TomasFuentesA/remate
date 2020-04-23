@@ -63,7 +63,7 @@ Rails.application.routes.draw do
   resources :regions
   resources :courts
 
-  resources :characteristics
+
   resources :judgements
   resources :type_realties
   resources :legal_personas do

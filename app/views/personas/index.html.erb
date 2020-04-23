@@ -3,7 +3,9 @@
 
 
 <br>
-<%= link_to 'Nueva Persona', new_persona_path ,class: "btn btn-primary"%>
+<%= link_to  new_persona_path ,class: "btn btn-primary" do%>
+<%= fa_icon "plus"%> Nueva Persona
+<% end %>
 <br>
 <table id="myTable" class="table table-bordered table-hover">
 
@@ -37,8 +39,13 @@
         <td><%= persona.birth_date %></td>
         <td><%= persona.nacionality %></td>
         <td><%= persona.passport %></td>
-        <td> <%= link_to 'Ver', persona ,class: "btn btn-info" %>
-          <%= link_to 'Eliminar', persona, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger" %>
+        <td> <%= link_to   persona ,class:"btn btn-info"  do %>
+           <%= fa_icon "address-card"%> Ver
+          <% end %>
+
+          <%= link_to  persona, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger"  do%>
+          <%= fa_icon "ban"%> Eliminar
+         <% end %>
                 <%end%></td>
       </tr>
 

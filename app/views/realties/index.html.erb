@@ -5,16 +5,19 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-        <div style='width: 800px;'>
-          <div id="map" style='width: 700px; height: 300px;'></div>
-      </div>
-
+        <%= render 'map' %>
       </div>
 
       <div class="col">
-        <%= link_to 'Ir a Listado Avisos', auctionnotices_path,  class: "btn btn-info" %>
-        <%= link_to 'Ir a Comuna', communes_path, class: "btn btn-info" %>
-        <%= link_to 'Nueva Propiedad', new_realty_path, class: "btn btn-info" %>
+        <%= link_to  auctionnotices_path,  class: "btn btn-primary" do %>
+        <%= fa_icon "backspace"%>Ir al listado de avisos
+        <% end %>
+
+        <%= link_to 'Ir a Comuna', communes_path, class: "btn btn-primary" %>
+        <%= link_to  new_realty_path, class: "btn btn-primary"  do%>
+        <%= fa_icon "Plus"%>Nueva Propiedad
+        <% end %>
+
 
 
       </div>
@@ -26,44 +29,14 @@
 
 
 
-<script>
-
-handler = Gmaps.build('Google');
-handler.buildMap({
-    provider: {
-      center: new google.maps.LatLng({lat: -33.43, lng: -70.65 }),
-      zoom: 14
-    },
-    internal: {
-      id: 'map'
-    }
-  }, function(){
-  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-  google.maps.event.addListener(handler.getMap(), "click", function(){
-    console.log("hola");
-
-    });
-  google.maps.event.addListener(handler.getMap(), 'center_changed', function(){
-    var latitude = handler.getMap().getCenter().lat();
-    var longitude = handler.getMap().getCenter().lng();
-    $.ajax({
-      url: '/realties',
-      type: 'GET',
-      dataType: 'script',
-      data: {latitude: latitude, longitude: longitude}
-    })
-  });
-}
-);
-</script>
 
 
 <h1>Listado de Propiedades</h1>
 <div id="realties">
 
-<table  class="table table-bordered table-hover">
+<table id="mytable"  class="table table-bordered table-hover">
   <thead  class="thead-dark">
-    <tr>
+    <tr id="realtiesTable">
       <th scope="col" >Direccion</th>
       <th scope="col">Departamento/Oficina</th>
       <th scope="col">Opciones</th>
@@ -80,3 +53,4 @@ handler.buildMap({
 </div>
 
 <br>
+home

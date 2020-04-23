@@ -1,6 +1,11 @@
 class RealtiesController < ApplicationController
-
   load_and_authorize_resource
+
+
+  before_action :set_hash , only: [:show,:new]
+  before_action :set_realty , only: [:edit,:show,:destroy]
+
+
 
 
 
@@ -32,17 +37,14 @@ class RealtiesController < ApplicationController
 
   def new
 
-      @realty = Realty.new
-      @realty.build_characteristic
-      @realty.build_type_realty
-      @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
-        marker.lat realty.latitude
-        marker.lng realty.longitude
-      end
+    @realty = Realty.new
+    #@realty.build_characteristic
+    #@realty.build_type_realty
   end
 
   def create
     @realty = Realty.new(realty_params)
+    @realty.inspect
     @realty.save
     redirect_to realties_path
 end
@@ -50,17 +52,11 @@ end
 
 
   def show
-      @realty = Realty.find(params[:id])
-      @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
-      marker.lat realty.latitude
-      marker.lng realty.longitude
-    end
   end
 
   def edit
-    @realty = Realty.find(params[:id])
-    @realty.build_characteristic if @realty.characteristic.nil?
-    @realty.build_type_realty if @realty.type_realty.nil?
+    #@realty.build_characteristic if @realty.characteristic.nil?
+    #@realty.build_type_realty if @realty.type_realty.nil?
   end
 
   def update
@@ -77,12 +73,20 @@ end
   end
 
   private
+  def set_realty
+    @realty = Realty.find(params[:id])
+  end
+
+  def set_hash
+    @hash = Gmaps4rails.build_markers(@realty) do |realty, marker|
+    marker.lat realty.latitude
+    marker.lng realty.longitude
+    end
+  end
 
   def realty_params
-    params.require(:realty).permit(:street, :number_unit, :commune_id, :population_villa, :unit_estate, :apple, :property, :latitude, :longitude, :address,
-      :street_type_id, :type_property_id,:name_realty,
-      characteristic_attributes: [:id,:m2_land,:m2_built,:material,:built_year,:_destroy],
-      type_realty_attributes: [:id,:comment,:tipo] )
+    params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
+       :type_property_id,:name_realty)
   end
 
 
