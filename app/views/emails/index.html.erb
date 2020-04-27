@@ -1,0 +1,13 @@
+<h1>Correos</h1>
+
+
+<div >
+  <% @emails.each do |email| %>
+    <div >
+      <%= simple_format email.email_a %>
+      <%= simple_format email.email_b %>
+      <%= simple_format email.email_c %>
+    </div>
+  <% end %>
+</div>
+<%= link_to 'nuevo correo', new_legal_persona_email_path ,class:"button"%>

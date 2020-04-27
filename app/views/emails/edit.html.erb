@@ -1,0 +1,28 @@
+<h1>Nuevo Correo</h1>
+
+<%= form_for [@emailable, @email] do |f| %>
+  <% if @email.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @email.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.text_field :email_a %>
+  </div>
+  <div class="field">
+    <%= f.text_field :email_b %>
+  </div>
+  <div class="field">
+    <%= f.text_field :email_c %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

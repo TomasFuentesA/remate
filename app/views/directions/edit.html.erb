@@ -1,13 +1,13 @@
-<h1>Nuevo Télefono</h1>
+<h1>Nueva Dirección</h1>
 <div class="container">
 
 
-<%= form_for [@phoneable, @phone] do |f| %>
-  <% if @phone.errors.any? %>
+<%= form_for [@directionable, @direction] do |f| %>
+  <% if @direction.errors.any? %>
     <div class="error_messages">
       <h2>Please correct the following errors.</h2>
       <ul>
-      <% @phone.errors.full_messages.each do |msg| %>
+      <% @direction.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -16,26 +16,26 @@
   <div class="form-group">
     <div class="form-row">
       <div class="form-group">
-        
+
         <%= f.hidden_field :rut , value: @legal_persona.rut %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <%= f.label :phone_a, "Teléfono 1" %>
-        <%= f.text_field :phone_a %>
+        <%= f.label :direction_a, "Dirección 1" %>
+        <%= f.text_field :direction_a %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <%= f.label :phone_b, "Teléfono 2" %>
-        <%= f.text_field :phone_b %>
+        <%= f.label :direction_b, "Dirección 2" %>
+        <%= f.text_field :direction_b %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <%= f.label :phone_c, "Teléfono 3" %>
-        <%= f.text_field :phone_c %>
+        <%= f.label :direction_c, "Dirección 3" %>
+        <%= f.text_field :direction_c %>
       </div>
     </div>
     <div class="form-row">

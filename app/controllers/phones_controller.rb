@@ -1,4 +1,5 @@
 class PhonesController < ApplicationController
+  load_and_authorize_resource
   before_action :authenticate_user!
   before_action :load_phoneable
 
@@ -9,6 +10,12 @@ class PhonesController < ApplicationController
 
   def new
     @phone = @phoneable.phones.new
+
+  end
+  def edit
+    @phone = @phoneable.phones.find(params[:id])
+    @legal_persona = LegalPersona.find(params[:legal_persona_id])
+
   end
 
   def create

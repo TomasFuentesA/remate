@@ -1,4 +1,3 @@
 class Email < ApplicationRecord
-  attr_accessor :email_a, :email_b,:email_c
-  belongs_to :emailable, polymorphic: true
+  belongs_to :emailable, polymorphic: true, optional: true
 end

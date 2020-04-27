@@ -1,0 +1,11 @@
+<h1>teléfonos</h1>
+
+<div >
+  <% @directions.each do |direction| %>
+    <div class="comment">
+      <%= simple_format direction.directiona %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'nuevo correo', new_legal_persona_direction_path ,class:"button"%>

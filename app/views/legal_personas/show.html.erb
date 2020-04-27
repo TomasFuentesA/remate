@@ -1,1 +1,77 @@
-hola
+<div class="row" id="fileview">
+  <div class="col-principal col-md-8">
+
+    <div class="field">
+      <%= @legal_persona.rut %>
+
+    </div>
+    <div class="field">
+      <%= @legal_persona.name %>
+
+    </div>
+    <div class="field">
+      <%= @legal_persona.fantasy_name %>
+
+    </div>
+    <% if @legal_persona.phones.any? %>
+    <div class="field">
+      <% @phones.each do |phone| %>
+        <%= phone.phone_a %>
+        <%= phone.phone_b %>
+        <%= phone.phone_c %>
+        </div>
+
+      <% end %>
+      <% end %>
+      <% if @legal_persona.emails.any? %>
+      <div class="field">
+        <% @emails.each do |email| %>
+          <%= email.email_a %>
+          <%= email.email_b %>
+          <%= email.email_c %>
+          </div>
+
+        <% end %>
+        <% end %>
+        <% if @legal_persona.directions.any? %>
+        <div class="field">
+          <% @directions.each do |direction| %>
+            <%= direction.direction_a %>
+            <%= direction.direction_b %>
+            <%= direction.direction_c %>
+            </div>
+
+          <% end %>
+          <% end %>
+    </div>
+
+
+
+  <div class="col-lateral col-md-4"">
+    <% unless @legal_persona.phones.any? %>
+    <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"button"%>
+  </div>
+  <% else %>
+  <div class="col-lateral col-md-4"">
+    <%= link_to 'editar telefono',   edit_legal_persona_phone_path(@legal_persona,@phones.ids) ,class:"button"%>
+  </div>
+<% end %>
+<% unless @legal_persona.emails.any? %>
+<%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"button"%>
+</div>
+<% else %>
+<div class="col-lateral col-md-4"">
+<%= link_to 'editar correo',   edit_legal_persona_email_path(@legal_persona,@emails.ids) ,class:"button"%>
+</div>
+<% end %>
+
+<% unless @legal_persona.directions.any? %>
+<%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"button"%>
+</div>
+<% else %>
+<div class="col-lateral col-md-4"">
+<%= link_to 'editar direccion',   edit_legal_persona_direction_path(@legal_persona,@directions.ids) ,class:"button"%>
+</div>
+<% end %>
+
+</div>
