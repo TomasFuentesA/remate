@@ -97,7 +97,7 @@
     <%= form.fields_for :type_realty do |f| %>
     <div class="form-group col-md-2">
       <%= f.label :tipo, "tipo de propiedad" %>
-      <%= f.select :tipo,options_for_select(TypeRealty.properties.keys.to_a),{include_blank: "Seleccione"} %>
+      <%= f.select :tipo,options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} %>
     </div>
     <div class="form-group col-md-6">
 

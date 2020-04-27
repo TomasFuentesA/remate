@@ -5,7 +5,9 @@
     <%= realty.address %>
   </td>
   <td> <%= "#{realty.unit_estate}, "%></td>
-
+  <td> <%= realty.population_villa %></td>
+  <td> <%= realty.type_realty.id %></td>
+  <td> <%= realty.appraisal_role %></td>
 
   <td>
     <%= link_to  realty,class: "btn btn-info" do %>

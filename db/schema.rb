@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_004211) do
+ActiveRecord::Schema.define(version: 2020_04_27_191246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.float "longitude"
     t.integer "type_property_id"
     t.bigint "commune_id"
+    t.string "fiscal_destination"
     t.index ["commune_id"], name: "index_realties_on_commune_id"
   end
 

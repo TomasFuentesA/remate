@@ -13,7 +13,9 @@ class Auction < ApplicationRecord
 
 
 
-
+  def horary
+    "#{self.date} / #{self.hour} hrs."
+  end
 
 
   def rol_trial
@@ -21,7 +23,7 @@ class Auction < ApplicationRecord
   end
 
   def name_of_the_judgment
-    "#{self.judgement.part1} / #{self.judgement.part2}"
+    "#{self.judgements.first.part1} / #{self.judgements.first.part2}"
   end
 
 
