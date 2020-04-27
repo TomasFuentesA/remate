@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.datetime "updated_at", null: false
     t.float "minimum"
     t.integer "status"
+    t.integer "type_judgment"
     t.bigint "judgement_id"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["judgement_id"], name: "index_auctions_on_judgement_id"
@@ -122,8 +123,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.integer "conara_sii"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "region_id"
-    t.integer "province_id"
+    t.bigint "province_id"
+    t.index ["province_id"], name: "index_communes_on_province_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -134,7 +135,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
+    t.bigint "judgement_id"
+    t.index ["judgement_id"], name: "index_courts_on_judgement_id"
   end
 
   create_table "directions", force: :cascade do |t|
@@ -207,6 +209,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "auction_id"
+    t.string "part1"
+    t.string "part2"
     t.index ["auction_id"], name: "index_judgements_on_auction_id"
   end
 
@@ -227,8 +231,6 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.string "web"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "personas_id"
-    t.index ["personas_id"], name: "index_legal_personas_on_personas_id"
   end
 
   create_table "legal_represents", force: :cascade do |t|
@@ -236,6 +238,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.string "rut"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "legal_persona_id"
+    t.index ["legal_persona_id"], name: "index_legal_represents_on_legal_persona_id"
   end
 
   create_table "natural_personas", force: :cascade do |t|
@@ -252,8 +256,6 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.string "passport"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "personas_id"
-    t.index ["personas_id"], name: "index_natural_personas_on_personas_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -315,8 +317,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "province_id"
-    t.integer "region_id"
+    t.bigint "region_id"
+    t.index ["region_id"], name: "index_provinces_on_region_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -335,9 +337,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
-    t.integer "commune_id"
-    t.integer "region_id"
-    t.integer "province_id"
+    t.bigint "commune_id"
+    t.index ["commune_id"], name: "index_realties_on_commune_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -367,11 +368,6 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
@@ -392,6 +388,8 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
+  add_foreign_key "communes", "provinces"
+  add_foreign_key "courts", "judgements"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "judgements", "auctions"
   add_foreign_key "legal_members", "legal_personas"
@@ -402,5 +400,6 @@ ActiveRecord::Schema.define(version: 2020_04_12_004211) do
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
+  add_foreign_key "provinces", "regions"
   add_foreign_key "type_realties", "realties"
 end
