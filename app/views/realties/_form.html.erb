@@ -24,11 +24,7 @@
               <%= form.label :commune_id, "Comuna:" %>
               <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
             </div>
-            <div class="form-group col-md-4">
-              <%= form.label :fiscal_destination, "destino sii:" %>
-              <%= form.select :fiscal_destination, options_for_select(Realty.fiscal_destinations.keys.to_s), prompt: "Seleccione" ,class:"custom-select mr-sm-2"%>
-            </div>
-          </div>
+
 
           <div class="form-row">
             <div class="form-group col-md-2">
@@ -48,14 +44,7 @@
               <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
             </div>
           </div>
-          <div class="form-row">
-            <%= form.fields_for :characteristic do |form| %>
-            <div class="form-group col-md-2">
-              <%= form.label :material, "Material:" %>
-              <%= form.text_field :material, class:"form-control border" ,autofocus: true%>
-            </div>
-            <% end %>
-            </div>
+          
             <div class="form-row">
               <%= form.fields_for :type_realty do |f| %>
               <div class="form-group col-md-2">
