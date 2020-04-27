@@ -24,6 +24,10 @@
               <%= form.label :commune_id, "Comuna:" %>
               <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
             </div>
+            <div class="form-group col-md-4">
+              <%= form.label :fiscal_destination, "destino sii:" %>
+              <%= form.select :fiscal_destination, options_for_select(Realty.fiscal_destinations.keys.to_s), prompt: "Seleccione" ,class:"custom-select mr-sm-2"%>
+            </div>
           </div>
 
           <div class="form-row">

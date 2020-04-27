@@ -18,6 +18,7 @@ class Realty < ApplicationRecord
 
     enum street_type: [:street, :avenue, :passage]
     enum type_property: [:house, :department, :local, :office, :cellar, :site, :box, :parcela]
+    enum destination: [:habitacional, :comercio, :oficina, :industria, :bodega, :estacionamiento, :educacion, :culto, :eriazo, :agricola ]
 
     geocoded_by :address
     after_validation :geocode

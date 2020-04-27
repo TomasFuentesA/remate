@@ -55,6 +55,10 @@
     <%= form.number_field :property, id: :property %>
   </div>
 
+  <div class="field">
+    <%= form.label :fiscal_destination, "Destino Sii" %>
+    <%= form.select :fiscal_destination, options_for_select(Realty.destinations.keys.to_a), prompt: "Seleccionar" %>
+  </div>
 
   <div class="field">
     <%= form.label :mt2_built, "mt2 Construido" %>

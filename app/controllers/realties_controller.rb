@@ -86,7 +86,7 @@ end
 
   def realty_params
     params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
-       :type_property_id,:name_realty,characteristic_atributes: [:id,:m2_land,:m2_built , :material], type_realty_attributes: [:id,:tipo,:comment] )
+       :type_property_id, :name_realty, :fiscal_destination, :mt2_land, :mt2_built, characteristic_atributes: [:id,:m2_land,:m2_built , :material], type_realty_attributes: [:id,:tipo,:comment] )
   end
 
 
