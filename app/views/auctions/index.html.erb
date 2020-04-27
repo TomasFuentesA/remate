@@ -28,8 +28,15 @@
 
       <th scope="col">Tribunal</th>
       <th scope="col">Rol</th>
+      <th scope="col">Nombre Juicio</th>
+      <th scope="col">Tipo Juicio</th>
       <th scope="col">Propiedad</th>
-
+      <th scope="col">Villa Poblacion </th>
+      <th scope="col">Condominio/edificio</th>
+      <th scope="col">Minimo</th>
+      <th scope="col">Garantia</th>
+      <th scope="col">mt2.Construido</th>
+      <th scope="col">mt2.Terreno</th>
       <th scope="col">Opciones</th>
 
     </tr>
@@ -41,10 +48,19 @@
         <td scope="row"><%= i + 1 %></td>
         <td><%= auction.date %> </td>
         <td><%= auction.hour %> hrs.</td>
-
+        <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
+        <td><%= auction.name_of_the_judgment %></td>
+        <td><%= auction.judgement.name %></td>
         <td><%= auction.realty.address %></td>
-        <td>propiedad</td>
+        <td><%= auction.realty.population_villa %></td>
+        <td><%= auction.total_minimum %></td>
+        <td><%= auction.warranty %></td>
+        <td><%= auction.realty.mt2_built %></td>
+        <td><%= auction.realty.mt2_land %></td>
+        <td><%= auction.status %></td>
+
+
         <td>
               <%= link_to 'Ver', auction ,class: "btn btn-info"%>
               <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>

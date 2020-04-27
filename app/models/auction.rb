@@ -20,6 +20,9 @@ class Auction < ApplicationRecord
     "#{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s}"
   end
 
+  def name_of_the_judgment
+    "#{self.judgement.part1} / #{self.judgement.part2}"
+  end
 
 
 
