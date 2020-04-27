@@ -3,7 +3,7 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable,
-         :authentication_keys => [:rut]
+         :authentication_keys => [:email]
          validates :email, uniqueness: true
-         validates :rut, uniqueness: true
+         
 end

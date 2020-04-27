@@ -1,2 +1,43 @@
-<h1>Domains#index</h1>
-<p>Find me in app/views/inscriptions/index.html.erb</p>
+<h1>Dominios</h1>
+
+
+
+<br>
+<%= link_to 'Nuevo Dominio', new_legal_persona_domain_path ,class: "btn btn-primary"%>
+<br>
+<table id="myTable" class="table">
+
+  <thead>
+    <tr>
+      <th>Modalidad</th>
+      <th>Precio</th>
+      <th>Fecha de Poseción</th>
+      <th>Porcentaje</th>
+      <th>Opciones</th>
+
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @domains.each do |domain| %>
+
+      <tr>
+        <td><%= domain.type_modality %></td>
+        <td><%= domain.price %></td>
+        <td><%= domain.date_posetion %></td>
+        <td><%= domain.percentage %></td>
+        <td> <%= link_to 'Ver', domain %>
+            ,<%= link_to 'Eliminar', domain, method: :delete, data: { confirm: 'Estas seguro?' } %>
+                <%end%></td>
+
+
+      </tr>
+
+  </tbody>
+</table>
+
+
+<br>

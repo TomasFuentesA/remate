@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_155744) do
+ActiveRecord::Schema.define(version: 2020_04_12_004211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,14 +205,22 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   end
 
   create_table "judgements", force: :cascade do |t|
-    t.bigint "court_id"
-    t.string "name"
+    t.integer "type_judgement", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "auction_id"
     t.string "part1"
     t.string "part2"
     t.index ["auction_id"], name: "index_judgements_on_auction_id"
+  end
+
+  create_table "legal_members", force: :cascade do |t|
+    t.bigint "legal_persona_id"
+    t.bigint "legal_asociado_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["legal_asociado_id"], name: "index_legal_members_on_legal_asociado_id"
+    t.index ["legal_persona_id"], name: "index_legal_members_on_legal_persona_id"
   end
 
   create_table "legal_personas", force: :cascade do |t|
@@ -259,25 +267,13 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
     t.index ["judgement_id"], name: "index_parts_on_judgement_id"
   end
 
-  create_table "people", force: :cascade do |t|
-    t.string "name"
-    t.string "rut"
-    t.integer "actividad_id"
-    t.string "last_name1"
-    t.string "last_name2"
-    t.integer "phone_id"
-    t.integer "mail_id"
-    t.string "direction_id"
-    t.string "photo"
-    t.string "e_civil"
-    t.string "profesion"
-    t.date "birth_date"
-    t.string "nacionality"
-    t.string "passport"
-    t.integer "job_id"
+  create_table "persona_members", force: :cascade do |t|
+    t.bigint "persona_id", null: false
+    t.bigint "legal_persona_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name2"
+    t.index ["legal_persona_id"], name: "index_persona_members_on_legal_persona_id"
+    t.index ["persona_id"], name: "index_persona_members_on_persona_id"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -396,8 +392,13 @@ ActiveRecord::Schema.define(version: 2020_03_16_155744) do
   add_foreign_key "courts", "judgements"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "judgements", "auctions"
-  add_foreign_key "legal_represents", "legal_personas"
+  add_foreign_key "legal_members", "legal_personas"
+  add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
+  add_foreign_key "legal_personas", "personas", column: "personas_id"
+  add_foreign_key "natural_personas", "personas", column: "personas_id"
   add_foreign_key "parts", "judgements"
+  add_foreign_key "persona_members", "legal_personas"
+  add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
   add_foreign_key "provinces", "regions"
   add_foreign_key "type_realties", "realties"

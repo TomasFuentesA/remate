@@ -4,14 +4,39 @@ class LegalPersona < ApplicationRecord
   has_many :emails, as: :emailable,dependent: :destroy
   has_many :phones, as: :phoneable,dependent: :destroy
   has_many :directions, as: :directionable,dependent: :destroy
-  has_many :legal_represents,dependent: :destroy
-  has_many :domains, as: :domainable
+  has_many :domains, as: :domainable, dependent: :destroy
   has_many :activities, as: :activityable
-  accepts_nested_attributes_for :legal_represents, allow_destroy: true
+  has_many :legal_represents, dependent: :destroy
+
+  #asociation inter personas
+  has_many :persona_members, dependent: :destroy
+  has_many :personas, through: :persona_members
+  has_many :legal_members
+  has_many :legal_asociados, through: :legal_members
+
 
   #validacion
   validates :rut,:name, presence: true
   validates :rut,:name, uniqueness: true
+
+
+
+  def persona_already_added?(persona)
+    personas.where(id: persona.id).exists?
+  end
+
+  def personas_limit?
+    personas.count < 6
+  end
+
+  def can_track_stock?(ticker_symbol)
+    personas_limit? && !persona_already_added?(persona)
+  end
+
+
+
+
+
 
 
 

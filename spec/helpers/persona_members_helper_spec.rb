@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
-# the NaturalPersonasHelper. For example:
+# the PersonaMembersHelper. For example:
 #
-# describe NaturalPersonasHelper do
+# describe PersonaMembersHelper do
 #   describe "string concat" do
 #     it "concats two strings with spaces" do
 #       expect(helper.concat_strings("this","that")).to eq("this that")
 #     end
 #   end
 # end
-RSpec.describe NaturalPersonasHelper, type: :helper do
+RSpec.describe PersonaMembersHelper, type: :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -1,0 +1,34 @@
+<div style='width: 800px;'>
+  <div id="map" style='width: 700px; height: 300px;'></div>
+</div>
+
+<script>
+
+handler = Gmaps.build('Google');
+handler.buildMap({
+  provider: {
+    center: new google.maps.LatLng({lat: -33.43, lng: -70.65 }),
+    zoom: 14
+  },
+  internal: {
+    id: 'map'
+  }
+}, function(){
+markers = handler.addMarkers(<%= raw @hash.to_json %>);
+google.maps.event.addListener(handler.getMap(), "click", function(){
+  console.log("hola");
+
+  });
+google.maps.event.addListener(handler.getMap(), 'center_changed', function(){
+  var latitude = handler.getMap().getCenter().lat();
+  var longitude = handler.getMap().getCenter().lng();
+  $.ajax({
+    url: '/realties',
+    type: 'GET',
+    dataType: 'script',
+    data: {latitude: latitude, longitude: longitude}
+  })
+});
+}
+);
+</script>

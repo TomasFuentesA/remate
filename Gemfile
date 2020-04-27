@@ -12,7 +12,11 @@ group :assets do
   gem 'jquery-datatables'
   gem 'jquery-rails'
   gem 'jquery-ui-rails', '~> 5.0.5'
+
+
 end
+gem "font-awesome-rails"
+
 gem 'arctic_admin'
 gem 'ransack'
 gem 'will_paginate','3.1.7'
@@ -22,6 +26,8 @@ gem 'docx'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+gem 'devise-i18n'
+gem 'devise-bootstrap-views', '~> 1.0'
 gem 'csv'
 gem 'activerecord-import'
 gem 'activeadmin'
@@ -61,7 +67,7 @@ gem 'event-calendar', :require => 'event_calendar'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
+gem 'bootstrap', '~> 4.4.1'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

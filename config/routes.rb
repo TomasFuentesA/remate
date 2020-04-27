@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 
 
+
   get 'emails/index'
   get 'emails/new'
   get 'regions/import' => 'regions#my_import'
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
 
 
 
+
   post 'auctionnotice/:id/reject', to: 'auctionnotices#action_rejection', as: 'rejection'
   get 'auctionnotices/pending'
   get 'auctionnotices/selected'
@@ -44,6 +46,7 @@ Rails.application.routes.draw do
   resources :auctionnotices do
       resources :auctions
       collection do
+
         put :discontinue
       end
   end
@@ -60,18 +63,24 @@ Rails.application.routes.draw do
   resources :regions
   resources :courts
 
-  resources :characteristics
+
   resources :judgements
   resources :type_realties
   resources :legal_personas do
-      resources :jobs
       resources :directions
       resources :phones
       resources :emails
       resources :domains
+      resources :persona_members
   end
-  resources :personas
-  resources :natural_personas
+  resources :personas do
+    resources :jobs
+    resources :directions
+    resources :phones
+    resources :emails
+    resources :domains
+  end
+
 
   resources :comments
   resources :posts
@@ -79,6 +88,8 @@ Rails.application.routes.draw do
   resources :domains do
     resources :inscriptions
   end
+
+
 
 
 

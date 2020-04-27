@@ -1,12 +1,17 @@
 class LegalPersonasController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!
+  before_action :set_legalpersona, only: [:edit,:show,:destroy]
+  before_action :display_values, only: [:show]
+
+
   def index
     @legalPersonas = LegalPersona.all
   end
+
   def new
     @legalpersona = LegalPersona.new
   end
+
   def create
     @legalpersona = LegalPersona.new(legal_persona_params)
     @legalpersona.save
@@ -14,30 +19,34 @@ class LegalPersonasController < ApplicationController
   end
 
   def edit
-      @legalpersona = LegalPersona.find(params[:id])
   end
 
   def show
-      @legalpersona = LegalPersona.find(params[:id])
-      @able = @legalpersona
-      @directions = @able.directions
-      @phones = @able.phones
-      @emails = @able.emails
-
   end
 
   def destroy
-    @legalpersona = LegalPersona.find(params[:id])
-    if @legalpersona.present?
-      @legalpersona.destroy
-    end
+    @legalpersona.delete
     redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
   end
+
+
+
+
+
 private
+  def display_values
+    @able = @legalpersona
+    @phones = @able.phones
+    @emails = @able.emails
+    @directions = @able.directions
+    @persona_members = @able.personas
+  end
+
+  def set_legalpersona
+      @legalpersona = LegalPersona.find(params[:id])
+  end
 
   def legal_persona_params
       params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web)
   end
-
-
 end
