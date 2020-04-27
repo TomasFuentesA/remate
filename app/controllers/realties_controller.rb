@@ -38,8 +38,8 @@ class RealtiesController < ApplicationController
   def new
 
     @realty = Realty.new
-    #@realty.build_characteristic
-    #@realty.build_type_realty
+    @realty.build_characteristic
+    @realty.build_type_realty
   end
 
   def create
@@ -55,8 +55,8 @@ end
   end
 
   def edit
-    #@realty.build_characteristic if @realty.characteristic.nil?
-    #@realty.build_type_realty if @realty.type_realty.nil?
+    @realty.build_characteristic if @realty.characteristic.nil?
+    @realty.build_type_realty if @realty.type_realty.nil?
   end
 
   def update
@@ -86,7 +86,7 @@ end
 
   def realty_params
     params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
-       :type_property_id,:name_realty)
+       :type_property_id,:name_realty,characteristic_atributes: [:id,:m2_land,:m2_built , :material], type_realty_attributes: [:id,:tipo,:comment] )
   end
 
 

@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   get 'admins/update_role/:user_id/:role_id', to: 'admins#update_role', as: 'admins_update_role'
   get 'admins/index'
 
+
+
+
+
   # devise_for :users, controllers: {{     }
   #   registrations: 'users/registrations'}
   devise_for :users, :controllers => {
@@ -71,8 +75,12 @@ Rails.application.routes.draw do
       resources :phones
       resources :emails
       resources :domains
-      resources :persona_members
-  end
+
+      end
+
+
+
+
   resources :personas do
     resources :jobs
     resources :directions
@@ -80,6 +88,7 @@ Rails.application.routes.draw do
     resources :emails
     resources :domains
   end
+
 
 
   resources :comments

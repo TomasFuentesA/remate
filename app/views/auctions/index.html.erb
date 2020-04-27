@@ -41,11 +41,13 @@
         <td scope="row"><%= i + 1 %></td>
         <td><%= auction.date %> </td>
         <td><%= auction.hour %> hrs.</td>
+         %>
 
         <td><%= auction.rol_trial %></td>
         <td><%= auction.realty.address %></td>
         <td>propiedad</td>
         <td>
+          <%= auction.court.name %>
               <%= link_to 'Ver', auction ,class: "btn btn-info"%>
               <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
               <%= link_to 'Eliminar',auction, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger" %>
