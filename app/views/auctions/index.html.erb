@@ -62,6 +62,7 @@
 
 
         <td>
+          <%= auction.court.name %>
               <%= link_to 'Ver', auction ,class: "btn btn-info"%>
               <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
               <%= link_to 'Eliminar',auction, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger" %>

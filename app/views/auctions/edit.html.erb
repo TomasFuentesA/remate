@@ -22,10 +22,7 @@
           <%= form.label :court_id, "Seleccionar Tribunal" %>
           <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}, @auction.court_id), { include_blank: "Seleccione"} %>
         </div>
-        <div class="field">
-          <%= form.label :type_judgment, "Seleccionar Juicio" %>
-          <%= form.select :type_judgment, options_for_select(Auction.type_judgments.keys.to_a), { include_blank: "Seleccione"}  %>
-        </div>
+
         <div class="field">
           <%= form.label :lyrics, "Letra" %>
           <%= form.text_field :lyrics, id: :lyrics %>
@@ -40,12 +37,18 @@
         </div>
 
         <div class="field" >
-        <%= form.fields_for :parts, @parts do |c| %>
+          <%= form.fields_for :judgements do |form| %>
+          <div class="field">
+            <%= form.label :type_judgment, "Seleccionar Juicio" %>
+            <%= form.collection_select :type_judgement, Judgement.type_judgements.map { |c| [c.first, c.first] },  :first, :second ,prompt: "seleccione"  %>
+          </div>
+        <%= form.fields_for :parts do |c| %>
           <%= c.label :name, "parte 1" %>
-          <%= c.text_field :name %>
+          <%= c.text_field :part1 %>
 
           <%= c.label :name, "parte 2" %>
-          <%= c.text_field :name %>
+          <%= c.text_field :part2 %>
+          <% end %>
           <% end %>
         <div class="field" >
 
@@ -117,7 +120,7 @@
                 </button>
               </div>
               <div class="modal-body">
-              <%= render "auctions/formModal" %>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

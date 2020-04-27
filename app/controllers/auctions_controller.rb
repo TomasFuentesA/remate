@@ -1,7 +1,8 @@
 class AuctionsController < ApplicationController
   load_and_authorize_resource
   before_action :set_auction, only: [:show,:edit,:destroy]
-  before_action :set_auctionnotice, only: [:modal, :new]
+  before_action :set_auctionnotice, only: [:new]
+  before_action :set_nested_judgements, only: [:edit,:new]
 
 
   def index
@@ -19,9 +20,6 @@ class AuctionsController < ApplicationController
 
   def new
     @auction = Auction.new
-    @auction.judgements.build.parts.build
-
-
 
   end
 
@@ -101,6 +99,11 @@ class AuctionsController < ApplicationController
 
   private
 
+  def set_nested_judgements
+    @auction.judgements.build.parts.build
+
+  end
+
 
   def set_auctionnotice
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
@@ -113,10 +116,8 @@ class AuctionsController < ApplicationController
   def auction_params
     params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
       :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year,:judgement_id,
-      :realty_id, :auctionnotice_id,:status,
-      :judgement_attributes =>[:id,:type_judgement,
-       :parts_attributes => [:id,:name,:part1,:part2,:partes]]
-         )
+      :realty_id, :auctionnotice_id,:status,judgements_attributes: [:id, :type_judgement, parts_attributes: [:id, :part1,:part2]]
+       )
   end
 
 end
