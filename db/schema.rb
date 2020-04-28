@@ -220,8 +220,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_155456) do
     t.string "rut"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "legal_persona_id"
-    t.index ["legal_persona_id"], name: "index_legal_represents_on_legal_persona_id"
   end
 
   create_table "natural_personas", force: :cascade do |t|
@@ -394,7 +392,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_155456) do
   add_foreign_key "judgements", "auctions"
   add_foreign_key "legal_members", "legal_personas"
   add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
-  add_foreign_key "legal_represents", "legal_personas"
   add_foreign_key "parts", "judgements"
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
