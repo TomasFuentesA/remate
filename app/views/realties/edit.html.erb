@@ -61,16 +61,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :mt2_built, "mt2 Construido" %>
-    <%= form.number_field :mt2_built, id: :mt2_built %>
-  </div>
-
-  <div class="field">
-    <%= form.label :mt2_land, "mt2 Terreno" %>
-    <%= form.number_field :mt2_land, id: :mt2_land %>
-  </div>
-
-  <div class="field">
     <%= form.label :latitude, "Latitud" %>
     <%= form.number_field :latitude, id: :latitude %>
   </div>
@@ -81,11 +71,11 @@
   </div>
   <%= form.fields_for :characteristic do |form| %>
     <div class="form-group col-md-2">
-      <%= form.label :mt2_land, "Sup.Terreno:" %>
+      <%= form.label :m2_land, "Sup.Terreno:" %>
       <%= form.number_field :m2_land %>
     </div>
     <div class="col-md-2">
-      <%= form.label :mt2_land, "Sup.Construida:" %>
+      <%= form.label :m2_land, "Sup.Construida:" %>
       <%= form.number_field :m2_built %>
     </div>
     <div class="col-md-2">

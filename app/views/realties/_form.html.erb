@@ -57,21 +57,7 @@
                 <% end %>
               </div>
             </div>
-            <div class="form-row">
-              <%= form.fields_for :characteristics do |c| %>
-              <div class="form-group col-md-2">
-                <%= c.label :m2_land, "Sup.Terreno:" %>
-           <%= c.number_field :m2_land %>
-              </div>
-              <div class="form-group col-md-6">
-                <%= c.label :m2_built, "Sup.Construida:" %>
-                <%= c.number_field :m2_built %>
-                <%= c.label :material, "Material:" %>
-                <%= c.text_field :material %>
-                <%= c.label :built_year, "Año Construccion:" %>
-                <%= c.number_field :built_year %>
-                <% end %>
-              </div>
+            
             </div>
           </div>
         </div>
