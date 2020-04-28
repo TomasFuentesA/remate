@@ -348,7 +348,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_155456) do
   end
 
   create_table "type_realties", force: :cascade do |t|
-    t.string "tipo"
+    t.integer "tipo"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

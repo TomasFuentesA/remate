@@ -1,7 +1,7 @@
 class CreateTypeRealties < ActiveRecord::Migration[5.2]
   def change
     create_table :type_realties do |t|
-      t.string :type
+      t.integer :type
       t.text :comment
 
       t.timestamps
