@@ -1,4 +1,5 @@
 <tr>
+  <td> <%= realty.name_realty %> </td>
   <td>
     <%#= realty.street + " " + (realty.number_unit).to_s + " " + realty.unit_estate+ " " + realty.commune.name %>
     <%#= "#{realty.street} #{(realty.number_unit).to_s}  #{realty.unit_estate}  #{realty.commune.name}" %>
@@ -8,6 +9,7 @@
   <td> <%= realty.population_villa %></td>
   <td> <%= realty.type_realty %></td>
   <td> <%= realty.appraisal_role %></td>
+  <td> <%= realty.fiscal_destination %></td>
 
   <td>
     <%= link_to  realty,class: "btn btn-info" do %>

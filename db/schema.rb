@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_191246) do
+ActiveRecord::Schema.define(version: 2020_04_28_155456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 2020_04_27_191246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "domain_id"
+    t.date "date"
     t.index ["domain_id"], name: "index_inscriptions_on_domain_id"
   end
 
