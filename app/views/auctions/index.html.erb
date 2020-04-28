@@ -47,7 +47,7 @@
         <td><%= auction.horary %> </td>
         <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
-        <td><%= auction.name_of_the_judgment %></td>
+        <td></td>
         <td><%= auction.judgements.name %></td>
         <td><%= auction.realty.address %></td>
         <td><%= auction.realty.population_villa %></td>
@@ -60,7 +60,7 @@
 
 
         <td>
-          
+
               <%= link_to 'Ver', auction ,class: "btn btn-info"%>
               <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
               <%= link_to 'Eliminar',auction, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger" %>
