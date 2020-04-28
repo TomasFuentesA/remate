@@ -23,7 +23,7 @@ class Auction < ApplicationRecord
   end
 
   def name_of_the_judgment
-    "#{self.judgements.first.part1} / #{self.judgements.first.part2}"
+    "#{self.judgements.first.parts.first.part1} / #{self.judgements.first.parts.first.part2}"
   end
 
 

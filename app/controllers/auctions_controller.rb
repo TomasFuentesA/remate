@@ -2,7 +2,7 @@ class AuctionsController < ApplicationController
   load_and_authorize_resource
   before_action :set_auction, only: [:show,:edit,:destroy]
   before_action :set_auctionnotice, only: [:new]
-  before_action :set_nested_judgements, only: [:edit,:new]
+
 
 
   def index
@@ -20,6 +20,7 @@ class AuctionsController < ApplicationController
 
   def new
     @auction = Auction.new
+    @auction.judgements.build.parts.build
 
   end
 
@@ -30,7 +31,8 @@ class AuctionsController < ApplicationController
     if @auction.save
       @auction.auctionnotice.update(status: 3)
     end
-    redirect_to auctions_path, notice: @auction.errors
+
+    redirect_to auctions_path
   end
 
   def show
@@ -99,10 +101,6 @@ class AuctionsController < ApplicationController
 
   private
 
-  def set_nested_judgements
-    @auction.judgements.build.parts.build
-
-  end
 
 
   def set_auctionnotice
@@ -115,8 +113,11 @@ class AuctionsController < ApplicationController
 
   def auction_params
     params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
-      :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year,:judgement_id,
-      :realty_id, :auctionnotice_id,:status,judgements_attributes: [:id, :type_judgement, parts_attributes: [:id, :part1,:part2]]
+      :minimum, :total_minimum, :cost,
+       :uf, :pesos, :court_id, :lyrics, :number, :year,
+        :realty_id, :auctionnotice_id,:status,
+        :judgements_attributes => [:id, :type_judgement,
+           :parts_attributes => [:id, :part1,:part2]]
        )
   end
 

@@ -85,10 +85,10 @@ function habilite_part(selector){
 
 
   if($(selector).find(':selected').val() == 'Particular'){
-    $('#auction_judgements_attributes_0_parts_attributes_0_part1').prop('disabled', false);
+    $('#auction_judgements_parts_part1').prop('disabled', false);
   }
   else {
-    $("#auction_judgements_attributes_0_parts_attributes_0_part1").val($("#parte_1 option:selected").val())
+    $("#auction_parts_part1").val($("#parte_1 option:selected").val())
     }
 
 
@@ -102,10 +102,10 @@ function habilite_part2(selector){
 
 
   if($(selector).find(':selected').val() == 'Particular'){
-    $('#auction_judgements_attributes_0_parts_attributes_0_part2').prop('disabled', false);
+    $('#auction_parts_part2').prop('disabled', false);
   }
   else {
-    $("#auction_judgements_attributes_0_parts_attributes_0_part2").val($("#parte_2 option:selected").text())
+    $("#auction_parts_part2").val($("#parte_2 option:selected").text())
     }
 
 

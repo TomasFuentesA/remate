@@ -6,7 +6,6 @@
   <div class="row">
     <div class="col-8">
       <%= form_for @auction  do |form| %>
-        <%= form.label :name, "Ingresar nuevo Remate" %>
         <div class="form-group">
           <div class="form-row">
             <div class="form-group col-md-4">
@@ -84,31 +83,34 @@
             </div>
           </div>
           <div class="form-row">
-            <%= form.fields_for :judgements  do |form| %>
+            <%= form.fields_for :judgements  do |f| %>
               <div class="form-group col-md-3">
-                  <%= form.label :type_judgement, "tipo de juicio" %>
-                  <%= form.collection_select :type_judgement, Judgement.type_judgements.map { |c| [c.first, c.first] },  :first, :second ,prompt: "seleccione"  %>
+                  <%= f.label :type_judgement, "tipo de juicio" %>
+                  <%= f.select :type_judgement, options_for_select(Judgement.type_judgements.keys.to_a), { include_blank: "Seleccione"}  %>
               </div>
-              <%= form.fields_for :parts  do |form| %>
+              <%= f.fields_for :parts  do |c| %>
 
               <div class="form-group col-md-3">
-                <%= form.label :part1, "parte 1" %>
+                <%= c.label :part1, "parte 1" %>
                 <%= select_tag "parte 1", options_for_select(Part.parts.values),prompt: "seleccione", onchange:"habilite_part(this)" %>
-                <%= form.text_field :part1 %>
+                <%= c.text_field :part1 %>
               </div>
               <div class="form-group col-md-3">
-                <%= form.label :part2, "parte 2" %>
+                <%= c.label :part2, "parte 2" %>
                 <%= select_tag "parte 2", options_for_select(Part.parts.values),prompt: "seleccione", onchange:"habilite_part2(this)" %>
-                <%= form.text_field :part2 %>
+                <%= c.text_field :part2 %>
               </div>
-              <% end %>
+                      <% end %>
+                    <% end %>
 
-              <% end %>
             </div>
             <div class="form-row">
               <div class=" col-5">
                 <br>
                 <%= form.submit "Guardar" %>
+
+
+
                 <% end %>
               </div>
             </div>
