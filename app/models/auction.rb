@@ -23,13 +23,10 @@ class Auction < ApplicationRecord
   end
 
   def name_of_the_judgment
-    if self.judgements.empty?
+
       "#{self.judgements.first.parts.first.part1} / #{self.judgements.first.parts.first.part2}"
 
-else
-  "#{self.judgements}"
 end
-  end
 
 
 

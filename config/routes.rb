@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'geocoder/findaddress'
   get 'admins/update_role/:user_id/:role_id', to: 'admins#update_role', as: 'admins_update_role'
   get 'admins/index'
+  post 'modal_auction', to: 'auctions#modal'
 
 
 

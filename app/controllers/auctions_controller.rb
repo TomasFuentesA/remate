@@ -59,6 +59,8 @@ class AuctionsController < ApplicationController
 
   end
 
+  
+
   def auctions
       auction = Auctionnotice.find(params[:id])
   end
