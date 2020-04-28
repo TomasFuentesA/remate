@@ -26,10 +26,10 @@
 
         <td >
 
-          <%= link_to 'Ver', auctionnotice %>
-          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
-          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post %>
-          <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post %>
+          <%= link_to 'Ver', auctionnotice , class:"btn btn-info"%>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) , class:"btn btn-warning" %>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post , class:"btn btn-danger"%>
+          <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post, class:"btn btn-success" %>
         </td>
       </tr>
     <% end %>
@@ -38,5 +38,5 @@
 
 </div>
 
-<%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %>
-<%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %>
+<%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path , class:"btn btn-secondary" %>
+<%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path , class:"btn btn-secondary"%>

@@ -25,15 +25,34 @@
             </button>
           </div>
           <div class="modal-body">
-            
+
+
+
 
 
           </div>
           <div class="modal-footer">
 
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <%= form_with model: Realty.new, remote: true do |f|%>
+              <div class="form-group row">
+                <div class="col-sm-9 no-right-padding">
+                  <%= f.text_field :name_realty, id: :name_realty , placeholder: "Nombre de la propiedad", class:"form-control border" ,autofocus: true%>
+                  <%= f.text_field :street, id: :street , class:"form-control border" , placeholder: "calle",autofocus: true%>
+                  <%= f.number_field :number_unit, id: :number_unit , class:"form-control border", placeholder: "numero" ,autofocus: true%>
+                  <%= f.text_field :unit_estate, id: :unit_estate , class:"form-control border", placeholder: "unidad" ,autofocus: true%>
+                </div>
+                <div class="col-sm-3 no-left-padding">
+                  <%=f.submit do %>
+                  <%= fa_icon 'search 2x' %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
 
-            <button type="button" class="btn btn-primary">Crear</button>
+
+
+
           </div>
         </div>
 
