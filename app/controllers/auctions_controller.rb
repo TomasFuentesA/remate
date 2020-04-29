@@ -22,7 +22,11 @@ class AuctionsController < ApplicationController
     @auction = Auction.new
     @auction.judgements.build.parts.build
 
+
   end
+
+
+
 
 
 
@@ -102,8 +106,6 @@ class AuctionsController < ApplicationController
 
 
   private
-
-
 
   def set_auctionnotice
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])

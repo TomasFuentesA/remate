@@ -3,13 +3,7 @@
 
   <div class="row">
     <div class="col-md-auto">
-
-
-
-
-      <%= form_for @realty do |form| %>
-          <%= render 'messages' %>
-
+      <%= form_with model:  @realty  do |form| %>
         <div class="form-group">
           <div class="form-row">
             <div class="form-group col-md-4">
@@ -24,8 +18,6 @@
               <%= form.label :commune_id, "Comuna:" %>
               <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
             </div>
-
-
           <div class="form-row">
             <div class="form-group col-md-2">
               <%= form.label :street, "Calle:" %>
@@ -44,9 +36,8 @@
               <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
             </div>
           </div>
-
-            <div class="form-row">
-              <%= form.fields_for :type_realty do |f| %>
+          <div class="form-row">
+            <%= form.fields_for :type_realty do |f| %>
               <div class="form-group col-md-2">
                 <%= f.label :tipo, "tipo de propiedad" %>
                 <%= f.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} %>
@@ -55,27 +46,12 @@
                 <%= f.label :comment, "Comentarios" %>
                 <%= f.text_field :comment %>
                 <% end %>
+                <%= form.submit "Añadir Propiedad",class: "btn btn-success" %>
+                <% end %>
               </div>
-            </div>
-            
             </div>
           </div>
         </div>
       </div>
-
-        <div class="form-row">
-          <div class="col">
-            <%= form.submit "Añadir Propiedad",class: "btn btn-success" %>
-            <% end %>
-
-          </div>
-        </div>
-
     </div>
-
-    <div class="col">
-
-    </div>
-
   </div>
-</div>

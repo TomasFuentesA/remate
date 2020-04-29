@@ -60,15 +60,7 @@
     <%= form.select :fiscal_destination, options_for_select(Realty.destinations.keys.to_a), prompt: "Seleccionar" %>
   </div>
 
-  <div class="field">
-    <%= form.label :latitude, "Latitud" %>
-    <%= form.number_field :latitude, id: :latitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :longitude, "Longitud" %>
-    <%= form.number_field :longitude, id: :longitude %>
-  </div>
+  
   <%= form.fields_for :characteristic do |form| %>
     <div class="form-group col-md-2">
       <%= form.label :m2_land, "Sup.Terreno:" %>

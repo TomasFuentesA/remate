@@ -1,7 +1,5 @@
 class RealtiesController < ApplicationController
   load_and_authorize_resource
-
-
   before_action :set_hash , only: [:show,:new]
   before_action :set_realty , only: [:edit,:show,:destroy]
 
@@ -43,10 +41,9 @@ class RealtiesController < ApplicationController
 
   def create
     @realty = Realty.new(realty_params)
-    @realty.inspect
     @realty.save
     redirect_to realties_path
-end
+  end
 
 
 
@@ -68,8 +65,6 @@ end
     redirect_to realties_path
   end
 
-  def address
-  end
 
   private
   def set_realty
@@ -85,7 +80,7 @@ end
 
   def realty_params
     params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
-       :type_property_id, :name_realty, :fiscal_destination, characteristic_attributes: [:id, :m2_land, :m2_built , :material], type_realty_attributes: [:id,:tipo,:comment] )
+       :type_property_id, :name_realty, :fiscal_destination, characteristic_attributes: [ :m2_land, :m2_built , :material], type_realty_attributes: [:tipo,:comment] )
   end
 
 
