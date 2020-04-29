@@ -37,13 +37,24 @@ class RealtiesController < ApplicationController
 
     @realty = Realty.new
     @realty.build_type_realty
+
   end
 
   def create
     @realty = Realty.new(realty_params)
-    @realty.save
-    redirect_to realties_path
-  end
+    if @realty.save
+      if request.fullpath == '/auctionnotices/12/auctions/new' #si se crea desde modal
+        respond_to do |format|
+          format.js {render partial: 'realty', alert:"#{@realty} creado"}
+        end
+        else #si se crea desde new
+          redirect_to realties_path
+        end
+        else
+          flash[:alert] = "error"
+        end
+    end
+
 
 
 
