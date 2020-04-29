@@ -1,0 +1,43 @@
+<h1>Condominios y/o Edificios #index</h1>
+<p>Find me in app/views/condominios/index.html.erb</p>
+
+<br>
+<%= link_to 'Nuevo Condominio', new_condominio_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Condominio/Edificio</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">Comuna</th>
+      <th scope="col">Administrador</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Conserjeria</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @condominios.each do |condominio| %>
+
+      <tr>
+        <td><%= condominio.realty.name_realty %></td>
+        <td><%= condominio.commune %></td>
+        <td><%= condominio.persona %></td>
+
+
+
+        <td>
+          <%= link_to 'Ver', condominio , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_condominio_path(condominio) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', condominio, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

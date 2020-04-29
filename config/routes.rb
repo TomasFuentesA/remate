@@ -104,7 +104,7 @@ Rails.application.routes.draw do
     resources :inscriptions
   end
 
-
+   resources :condominios
 
 
 

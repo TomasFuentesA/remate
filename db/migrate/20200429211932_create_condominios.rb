@@ -4,7 +4,6 @@ class CreateCondominios < ActiveRecord::Migration[5.2]
       t.string :name
       t.references :persona, foreign_key: true
       t.references :legal_persona, foreign_key: true
-      t.references :realty, foreign_key: true
       t.references :commune, foreign_key: true
 
       t.timestamps

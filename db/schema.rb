@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_211932) do
+ActiveRecord::Schema.define(version: 2020_04_29_215452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,10 +140,10 @@ ActiveRecord::Schema.define(version: 2020_04_29_211932) do
     t.string "name"
     t.bigint "persona_id"
     t.bigint "legal_persona_id"
-    t.bigint "realty_id"
     t.bigint "commune_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "realty_id"
     t.index ["commune_id"], name: "index_condominios_on_commune_id"
     t.index ["legal_persona_id"], name: "index_condominios_on_legal_persona_id"
     t.index ["persona_id"], name: "index_condominios_on_persona_id"
