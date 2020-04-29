@@ -1,0 +1,2 @@
+class CondominiosController < ApplicationController
+end

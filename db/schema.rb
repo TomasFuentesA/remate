@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_160554) do
+ActiveRecord::Schema.define(version: 2020_04_29_211932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,20 @@ ActiveRecord::Schema.define(version: 2020_04_29_160554) do
     t.datetime "updated_at", null: false
     t.integer "region_id"
     t.integer "province_id"
+  end
+
+  create_table "condominios", force: :cascade do |t|
+    t.string "name"
+    t.bigint "persona_id"
+    t.bigint "legal_persona_id"
+    t.bigint "realty_id"
+    t.bigint "commune_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commune_id"], name: "index_condominios_on_commune_id"
+    t.index ["legal_persona_id"], name: "index_condominios_on_legal_persona_id"
+    t.index ["persona_id"], name: "index_condominios_on_persona_id"
+    t.index ["realty_id"], name: "index_condominios_on_realty_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -405,6 +419,14 @@ ActiveRecord::Schema.define(version: 2020_04_29_160554) do
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
+<<<<<<< HEAD
+=======
+  add_foreign_key "communes", "provinces"
+  add_foreign_key "condominios", "communes"
+  add_foreign_key "condominios", "legal_personas"
+  add_foreign_key "condominios", "personas"
+  add_foreign_key "condominios", "realties"
+>>>>>>> add206e2c3196bc1d6d3acbed8a4f4f01f3bd2cb
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "judgements", "auctions"
   add_foreign_key "legal_members", "legal_personas"
