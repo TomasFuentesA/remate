@@ -84,6 +84,7 @@
           </div>
           <div class="form-row">
             <%= form.fields_for :judgements  do |f| %>
+
               <div class="form-group col-md-3">
                   <%= f.label :type_judgement, "tipo de juicio" %>
                   <%= f.select :type_judgement, options_for_select(Judgement.type_judgements.keys.to_a), { include_blank: "Seleccione"}  %>
