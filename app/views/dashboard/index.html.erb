@@ -41,6 +41,8 @@
         <div class="card-body">
           <li class="list-group-item "><%= link_to 'Listado de Propiedades', realties_path %></li>
           <li class="list-group-item"><%= link_to 'Nueva Propiedad', new_realty_path %></li>
+          <li class="list-group-item"><%= link_to 'Listado Tasaciones', appraisals_path %></li>
+
         </div>
       </div>
     </div>
@@ -90,6 +92,7 @@
           <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
           <li class=""><%= "Personas Natural Ingresadas: #{Persona.count}" %></li>
           <li class=""><%= "Persona Juridicas Ingresadas: #{LegalPersona.count}" %></li>
+          <li class=""><%= "Tasaciones: #{Appraisal.count}" %></li>
         </div>
       </div>
     </div>
