@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_155456) do
+ActiveRecord::Schema.define(version: 2020_04_29_160554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 2020_04_28_155456) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "appraisals", force: :cascade do |t|
+    t.date "date"
+    t.string "entity"
+    t.float "price_uf"
+    t.float "price_clp"
+    t.float "price_usd"
+    t.string "observation"
+    t.bigint "realty_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["realty_id"], name: "index_appraisals_on_realty_id"
   end
 
   create_table "auctionlistings", force: :cascade do |t|
@@ -377,6 +390,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_155456) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appraisals", "realties"
   add_foreign_key "auctionnotices", "realties"
   add_foreign_key "auctions", "auctionnotices"
   add_foreign_key "auctions", "realties"

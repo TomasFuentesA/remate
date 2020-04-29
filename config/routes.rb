@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
 
 
+  get 'appraisals/index'
   get 'emails/index'
   get 'emails/new'
   get 'regions/import' => 'regions#my_import'
@@ -67,6 +68,7 @@ Rails.application.routes.draw do
   resources :provinces
   resources :regions
   resources :courts
+  resources :appraisals
 
 
   resources :judgements
