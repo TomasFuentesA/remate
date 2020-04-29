@@ -29,11 +29,4 @@ class InscriptionsController < ApplicationController
 
   end
 
-
-
-
-
-
-
-
 end
