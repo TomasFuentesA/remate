@@ -63,15 +63,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :realties
-  resources :communes
-  resources :provinces
-  resources :regions
+  resources :realties 
+  resources  :communes, :provinces, :regions
+
   resources :courts
   resources :appraisals
 
 
-  resources :judgements
+  resources :judgements, :type_realties
   resources :type_realties
   resources :legal_personas do
       resources :directions
@@ -83,16 +82,12 @@ Rails.application.routes.draw do
 
 
 
-  resources :persona_members do
-    get 'persona_members/new/:legal_persona_id', to: 'persona_members#new'
+  resources :persona_members
 
-  end
+
+
   resources :personas do
-    resources :jobs
-    resources :directions
-    resources :phones
-    resources :emails
-    resources :domains
+    resources :jobs,:directions,:phones,:emails,:domains
   end
 
 

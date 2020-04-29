@@ -21,8 +21,8 @@ class AuctionsController < ApplicationController
   def new
     @auction = Auction.new
     @auction.judgements.build.parts.build
-
-
+    @realty = Realty.new
+    @realty.build_type_realty
   end
 
 
