@@ -17,7 +17,7 @@
    <% end %>
     <%= link_to 'Editar', edit_realty_path(realty) ,class: "btn btn-warning" %>
 
-    <%= link_to  realty, method: :delete, data: { confirm: "desea eliminar #{realty.name_realty} ?" },class: "btn btn-danger" do %>
+    <%= link_to  realty, method: :delete, data: { confirm: "desea eliminar #{realty.name_realty} ?" },remote:true ,class: "btn btn-danger" do %>
     <%= fa_icon "ban"%> Eliminar
    <% end %>
   </td>

@@ -1,4 +1,5 @@
 class PersonasController < ApplicationController
+  load_and_authorize_resource
   def index
     @personas = Persona.all
   end

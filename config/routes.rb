@@ -81,7 +81,10 @@ Rails.application.routes.draw do
 
 
 
+  resources :persona_members do
+    get 'persona_members/new/:legal_persona_id', to: 'persona_members#new'
 
+  end
   resources :personas do
     resources :jobs
     resources :directions

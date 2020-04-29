@@ -1,16 +1,16 @@
 <br>
 <%= link_to 'Nuevo Tribunal', new_court_path ,class: "btn btn-primary"%>
 <br>
-<table id="myTable" class="table">
+<table class="table table-bordered table-hover">
 
-  <thead>
+  <thead class="thead-dark">
     <tr>
-      <th>Seleccionar Tribunal</th>
-      <th>Rut</th>
-      <th>Dirección</th>
-      <th>Teléfono</th>
-      <th>Nº Cuenta</th>
-      <th>Opciones</th>
+      <th scope="col">Seleccionar Tribunal</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Dirección</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Nº Cuenta</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
@@ -27,10 +27,10 @@
         <td><%= court.phone %></td>
         <td><%= court.account %></td>
 
-        <td> <%= link_to 'Ver', court %>
+        <td> <%= link_to 'Ver', court , class:"btn btn-info" %>
         <% if can? :access, :admin_users, :lawyers %>
-        <%= link_to 'Editar', edit_court_path(court) %>
-        <%= link_to 'Eliminar', court, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Editar', edit_court_path(court), class: "btn btn-warning" %>
+        <%= link_to 'Eliminar', court, method: :delete, data: { confirm: 'Are you sure?' } , class:"btn btn-danger", remote: true %>
         <%end%>
 </td>
 
@@ -42,7 +42,6 @@
 
 
 <%= will_paginate @courts , previous_label: h("<"), next_label: h(">")%>
-
 
 
 <!-- or custom pagination -->

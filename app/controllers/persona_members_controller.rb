@@ -1,9 +1,11 @@
 class PersonaMembersController < ApplicationController
-  
+  load_and_authorize_resource
+
+
 
 
   def new
-    @legalpersona = LegalPersona.find(params[:legal_persona])
+    
     @personas = Persona.all
   end
   def create
@@ -17,6 +19,7 @@ class PersonaMembersController < ApplicationController
 
 
   private
+
 
 
 end
