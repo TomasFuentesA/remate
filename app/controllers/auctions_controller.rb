@@ -99,7 +99,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.new
     @realty = Realty.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
-    @auction.judgements.build.parts.build
+  
     @realty.build_type_realty
   end
 
@@ -112,8 +112,7 @@ class AuctionsController < ApplicationController
       :minimum, :total_minimum, :cost,
        :uf, :pesos, :court_id, :lyrics, :number, :year,
         :realty_id, :auctionnotice_id,:status,
-        :judgements_attributes => [:id, :type_judgement,
-           :parts_attributes => [:id, :part1,:part2]]
+        :judgements_attributes => [:id, :type_judgement]
        )
   end
 

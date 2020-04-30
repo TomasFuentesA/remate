@@ -1,0 +1,11 @@
+<%= form_with model: @judgement do |form| %>
+  <%= form.label :type_judgement, "Nuevo juicio" %>
+
+  <div class="field">
+    <%= form.label :type_judgement %>
+    <%= form.select :type_judgement, options_for_select(Judgement.type_judgements.keys.to_a), { include_blank: "Seleccione"}  %>
+  </div>
+
+ <%= form.submit "Guardar" %>
+
+<% end %>

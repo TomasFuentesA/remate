@@ -17,8 +17,8 @@ class LegalPersona < ApplicationRecord
 
 
   #validacion
-  validates :rut,:name, presence: true
-  validates :rut,:name, uniqueness: true
+  validates :rut,:name, presence: true, uniqueness: true
+  
 
 
 

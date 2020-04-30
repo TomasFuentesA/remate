@@ -8,7 +8,6 @@
 
 <br>
 <%= render "search" %>
-
 <br>
 <br>
 
@@ -48,8 +47,7 @@
         <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
         <%if auction.judgements.empty? %>
-        <td><%= auction.name_of_the_judgment %></td>
-        <td><%= auction.judgements.first.type_judgement %></td>
+
         <%end %>
         <td><%= auction.realty.address %></td>
         <td><%= auction.realty.population_villa %></td>
