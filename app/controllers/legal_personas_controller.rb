@@ -6,6 +6,12 @@ class LegalPersonasController < ApplicationController
 
   def index
     @legalPersonas = LegalPersona.all
+    @legalPersonas = @legalPersonas.where("name like ?", "%#{params[:term]}%") if params[:term]
+
+  respond_to do |format|
+    format.html  # index.html.erb
+    format.json  { render :json => @legalPersonas.map(&:name) }
+  end
   end
 
   def new

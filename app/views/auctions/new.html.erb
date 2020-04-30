@@ -82,29 +82,7 @@
               <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
             </div>
           </div>
-          <div class="form-row">
-            <%= form.fields_for :judgements  do |f| %>
-
-              <div class="form-group col-md-3">
-                  <%= f.label :type_judgement, "tipo de juicio" %>
-                  <%= f.select :type_judgement, options_for_select(Judgement.type_judgements.keys.to_a), { include_blank: "Seleccione"}  %>
-              </div>
-              <%= f.fields_for :parts  do |c| %>
-
-              <div class="form-group col-md-3">
-                <%= c.label :part1, "parte 1" %>
-                <%= select_tag "parte 1", options_for_select(Part.parts.values),prompt: "seleccione", onchange:"habilite_part(this)" %>
-                <%= c.text_field :part1 %>
-              </div>
-              <div class="form-group col-md-3">
-                <%= c.label :part2, "parte 2" %>
-                <%= select_tag "parte 2", options_for_select(Part.parts.values),prompt: "seleccione", onchange:"habilite_part2(this)" %>
-                <%= c.text_field :part2 %>
-              </div>
-                      <% end %>
-                    <% end %>
-
-            </div>
+          
             <div class="form-row">
               <div class=" col-5">
                 <br>

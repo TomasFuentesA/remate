@@ -11,17 +11,13 @@
 
     </tr>
   </thead>
-
-
-
-
   <tbody class="rounded-pill">
     <% @judgements.each do |judgement| %>
 
       <tr>
-        <td><%= judgement.tribunal %></td>
-        <td><%= judgement.date %></td>
-        <td><%= judgement.entity %></td>
+        <td><%= judgement.type_judgement %></td>
+        <td><%= judgement.demandado %></td>
+        <td><%= judgement.demandante %></td>
 
 
 

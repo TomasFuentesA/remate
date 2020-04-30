@@ -5,3 +5,10 @@
 $ ->
   $("a[data-remote].btn-danger").on "ajax:success", (event) ->
     alert "La propiedad ha sido eliminada con éxito."
+
+
+
+
+#$ ->
+#  $("a[data-method=delete].btn-danger").on "ajax:success", (event) ->
+#    alert "se ha eliminado con exito"

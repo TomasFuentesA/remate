@@ -1,6 +1,6 @@
 <br>
 <div class="container-fluid ">
-
+  <%= render partial: 'realties/messages' %>
   <div class="row">
     <div class="col-md-auto">
       <%= form_with model:  @realty,id: :submit, url:realties_path , remote: true do |form| %>
