@@ -1,6 +1,6 @@
 class AppraisalsController < ApplicationController
-
   load_and_authorize_resource
+  before_action :set_appraisal, only:  [:show,:edit]
 
   def index
     @appraisals = Appraisal.all
@@ -17,15 +17,17 @@ class AppraisalsController < ApplicationController
   end
 
   def show
-      @appraisal = Appraisal.find(params[:id])
   end
 
   def edit
-    @appraisal = Appraisal.find(params[:id])
   end
 
 
   private
+
+  def set_appraisal
+    @appraisal = Appraisal.find(params[:id])
+  end
 
   def appraisal_params
     params.require(:appraisal).permit(:realty_id, :date, :entity, :price_uf, :price_clp, :price_usd, :observation )

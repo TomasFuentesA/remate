@@ -1,2 +1,0 @@
-class CondominiosController < ApplicationController
-end

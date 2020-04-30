@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_211932) do
+ActiveRecord::Schema.define(version: 2020_04_29_160554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,20 +137,6 @@ ActiveRecord::Schema.define(version: 2020_04_29_211932) do
     t.integer "province_id"
   end
 
-  create_table "condominios", force: :cascade do |t|
-    t.string "name"
-    t.bigint "persona_id"
-    t.bigint "legal_persona_id"
-    t.bigint "realty_id"
-    t.bigint "commune_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["commune_id"], name: "index_condominios_on_commune_id"
-    t.index ["legal_persona_id"], name: "index_condominios_on_legal_persona_id"
-    t.index ["persona_id"], name: "index_condominios_on_persona_id"
-    t.index ["realty_id"], name: "index_condominios_on_realty_id"
-  end
-
   create_table "courts", force: :cascade do |t|
     t.string "name"
     t.string "rut"
@@ -230,10 +216,17 @@ ActiveRecord::Schema.define(version: 2020_04_29_211932) do
 
   create_table "judgements", force: :cascade do |t|
     t.integer "type_judgement", default: 0
+    t.string "lyrics"
+    t.integer "number"
+    t.integer "year"
     t.bigint "auction_id"
+    t.bigint "court_id"
+    t.bigint "demandante"
+    t.bigint "demandado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["auction_id"], name: "index_judgements_on_auction_id"
+    t.index ["court_id"], name: "index_judgements_on_court_id"
   end
 
   create_table "legal_members", force: :cascade do |t|
@@ -280,15 +273,6 @@ ActiveRecord::Schema.define(version: 2020_04_29_211932) do
     t.datetime "updated_at", null: false
     t.bigint "personas_id"
     t.index ["personas_id"], name: "index_natural_personas_on_personas_id"
-  end
-
-  create_table "parts", force: :cascade do |t|
-    t.string "part1"
-    t.string "part2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "judgement_id"
-    t.index ["judgement_id"], name: "index_parts_on_judgement_id"
   end
 
   create_table "persona_members", force: :cascade do |t|
@@ -419,21 +403,13 @@ ActiveRecord::Schema.define(version: 2020_04_29_211932) do
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
-<<<<<<< HEAD
-=======
-  add_foreign_key "communes", "provinces"
-  add_foreign_key "condominios", "communes"
-  add_foreign_key "condominios", "legal_personas"
-  add_foreign_key "condominios", "personas"
-  add_foreign_key "condominios", "realties"
->>>>>>> add206e2c3196bc1d6d3acbed8a4f4f01f3bd2cb
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "judgements", "auctions"
+  add_foreign_key "judgements", "courts"
   add_foreign_key "legal_members", "legal_personas"
   add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
   add_foreign_key "legal_personas", "personas", column: "personas_id"
   add_foreign_key "natural_personas", "personas", column: "personas_id"
-  add_foreign_key "parts", "judgements"
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"

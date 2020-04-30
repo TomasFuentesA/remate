@@ -3,8 +3,6 @@ class AuctionsController < ApplicationController
   before_action :set_auction, only: [:show,:edit,:destroy]
   before_action :set_auctionnotice, only: [:new]
 
-
-
   def index
       @auctions = Auction.order(date: :desc,hour: :desc).page(params[:page]).per_page(6)
       @search = Auction.search(params[:q])
@@ -19,23 +17,13 @@ class AuctionsController < ApplicationController
   end
 
   def new
-    @auction = Auction.new
-    @auction.judgements.build.parts.build
-    @realty = Realty.new
-    @realty.build_type_realty
   end
-
-
-
-
-
 
   def create
     @auction = Auction.new(auction_params)
     if @auction.save
       @auction.auctionnotice.update(status: 3)
     end
-
     redirect_to auctions_path
   end
 
@@ -108,7 +96,11 @@ class AuctionsController < ApplicationController
   private
 
   def set_auctionnotice
+    @auction = Auction.new
+    @realty = Realty.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
+    @auction.judgements.build.parts.build
+    @realty.build_type_realty
   end
 
   def set_auction

@@ -1,6 +1,6 @@
 
 
-$("<%= j(alert) %>").appendTo("#realty");
+
 function habilite_money(selector){
 
 

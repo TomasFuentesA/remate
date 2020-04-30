@@ -1,4 +1,7 @@
 class InscriptionsController < ApplicationController
+  before_action :set_inscription, only: [:show,:edit]
+
+
   def index
     @inscriptions = Inscription.all
   end
@@ -14,15 +17,16 @@ class InscriptionsController < ApplicationController
   end
 
   def show
-      @inscription = Inscription.find(params[:id])
   end
 
   def edit
-    @inscription = Inscription.find(params[:id])
   end
 
 
   private
+  def set_inscription
+    @inscription = Inscription.find(params[:id])
+  end
 
   def inscription_params
     params.require(:inscription).permit(:foja, :number,:year,:cbrs )
