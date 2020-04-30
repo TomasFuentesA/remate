@@ -1,7 +1,7 @@
 class Realty < ApplicationRecord
     #validacion de campos
     #validates :address, presence: true, uniqueness: true
-    validates :street, :number_unit, :name_realty, presence: true
+    #validates :street, :number_unit, :name_realty, presence: true
 
 
     after_create :set_latlon

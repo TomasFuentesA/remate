@@ -79,7 +79,6 @@ Rails.application.routes.draw do
       resources :domains
 
       end
-  resources :economic_activities
 
 
   resources :persona_members
