@@ -5,9 +5,12 @@
 <table   class="table table-bordered table-hover">
   <thead  class="thead-dark">
     <tr>
+      <th scope="col">Tipo de juicio</th>
       <th scope="col">Tribunal</th>
       <th scope="col">Rol</th>
       <th scope="col">Nombre Juicio</th>
+      <th scope="col">Pertenece al remate:</th>
+      <th scope="col">Opciones</th>
 
     </tr>
   </thead>
@@ -16,10 +19,10 @@
 
       <tr>
         <td><%= judgement.type_judgement %></td>
-        <td><%= judgement.demandado %></td>
-        <td><%= judgement.demandante %></td>
-
-
+        <td><%= judgement.auction.court.name %> </td>
+        <td><%= judgement.auction.rol_trial %>,<%= judgement.auction.date %> </td>
+        <td><%= judgement.demandado %> / <%= judgement.demandante %></td>
+        <td><%= judgement.auction.name %></td>
 
         <td>
           <%= link_to 'Ver', judgement , class: "btn btn-info" %>

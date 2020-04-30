@@ -2,9 +2,9 @@ class Auction < ApplicationRecord
   belongs_to :auctionnotice
   belongs_to :realty
   belongs_to :court
-  has_many :judgements, dependent: :destroy, inverse_of: :auction
+  has_one :judgement, dependent: :destroy, inverse_of: :auction
 
-  accepts_nested_attributes_for :judgements, allow_destroy: true
+  accepts_nested_attributes_for :judgement, allow_destroy: true
   enum status: [:in_progress, :suspendend, :discarded]
 
 

@@ -22,7 +22,12 @@ class AuctionsController < ApplicationController
   def create
     @auction = Auction.new(auction_params)
     if @auction.save
-      @auction.auctionnotice.update(status: 3)
+      @auction.auctionnotice.update(status: 3,realty_id: @auction.realty_id)
+      @auction.judgement.update(lyrics: @auction.lyrics,
+        number: @auction.number,
+        year: @auction.year,
+      court_id: @auction.court_id,
+      auction_id: @auction.id)
     end
     redirect_to auctions_path
   end
@@ -41,8 +46,6 @@ class AuctionsController < ApplicationController
   def destroy
       @auction.auctionnotice.update(status: 0)
       @auction.destroy
-
-
       #flash[:notice] = "remate #{@auction.inspect} Eliminado con exito"
       redirect_to auctions_path
 
@@ -99,8 +102,8 @@ class AuctionsController < ApplicationController
     @auction = Auction.new
     @realty = Realty.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
-  
     @realty.build_type_realty
+    @auction.build_judgement
   end
 
   def set_auction
@@ -112,7 +115,7 @@ class AuctionsController < ApplicationController
       :minimum, :total_minimum, :cost,
        :uf, :pesos, :court_id, :lyrics, :number, :year,
         :realty_id, :auctionnotice_id,:status,
-        :judgements_attributes => [:id, :type_judgement]
+        :judgement_attributes => [:id, :type_judgement, :lyrics, :number, :year,:demandante,:demandado,:court_id, :auction_id]
        )
   end
 
