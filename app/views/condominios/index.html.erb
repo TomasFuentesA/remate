@@ -1,21 +1,16 @@
-<h1>Condominios y/o Edificios #index</h1>
-<p>Find me in app/views/condominios/index.html.erb</p>
-
 <br>
-<%= link_to 'Nuevo Condominio', new_condominio_path ,class: "btn btn-primary"%>
+<%= link_to 'Nueva Condominio/Edificio', new_condominio_path ,class: "btn btn-primary"%>
 </br>
 
 <table   class="table table-bordered table-hover">
   <thead  class="thead-dark">
     <tr>
-      <th scope="col">Condominio/Edificio</th>
+      <th scope="col">Nombre de Condominio/Edificio</th>
       <th scope="col">Direccion</th>
       <th scope="col">Comuna</th>
-      <th scope="col">Administrador</th>
-      <th scope="col">Telefono</th>
-      <th scope="col">Mail</th>
-      <th scope="col">Conserjeria</th>
-      <th scope="col">Opciones</th>
+      <th scope="col">Administracion</th>
+      <th scope="col">administrador</th>
+      
     </tr>
   </thead>
 
@@ -26,11 +21,12 @@
     <% @condominios.each do |condominio| %>
 
       <tr>
-        <td><%= condominio.address %></td>
-        <td><%= condominio.commune %></td>
-        <td><%= condominio.legal_persona %></td>
-        <td><%= condominio.persona %></td>
 
+        <td><%= condominio.name %></td>
+        <td><%= condominio.address %></td>
+        <td><%= condominio.commune.name %></td>
+        <td><%= condominio.legal_persona.name %></td>
+        <td><%= condominio.persona.name%></td>
 
 
 

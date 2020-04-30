@@ -1,4 +1,6 @@
-<%= link_to 'Volver Listado Condominios y/o Edificios', condominio_path %>
+
+
+<%= link_to 'Volver Listado Condominio/Edificio', condominio_path %>
 
 <p></p>
 
@@ -6,21 +8,31 @@
   <div class="col-principal col-md-8">
     <div>
       <h2>
-        Condominio y/o Edificio nº  <%= @condominio.id %> : <%= @condominio.realty.name_realty %>
+        Condominio/Edificio nº  <%= @condominio.id %> 
         </h2>
     </div>
-    <h4>Informacion de Condominios y Edificios</h4>
+    <h4>Informacion del  Condominio/Edificio</h4>
 
 
       <div>
-        Direccion:  <%= @condominio.address %>
+        Nombre:  <%= @condominio.name %>
       </div>
        <div>
-         Administrador: <%= @condominio.persona%>
+         Direccion: <%= @condominio.address%>
        </div>
+
+       <div>
+          Comuna:     <%= @condominio.commune.name %>
+        </div>
+
+
       <div>
-         Nombre:     <%= @condominio.legal_persona %>
+         Administracion:     <%= @condominio.legal_persona.name %>
        </div>
+
+       <div>
+          Administrador:   <%= @condominio.persona.name %>
+        </div>
 
 
   </div>

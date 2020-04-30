@@ -24,6 +24,10 @@ class AppraisalsController < ApplicationController
     @appraisal = Appraisal.find(params[:id])
   end
 
+  def destroy
+    @appraisal.destroy
+    redirect_to appraisals_path
+  end
 
   private
 
