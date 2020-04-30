@@ -261,15 +261,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "parts", force: :cascade do |t|
-    t.string "part1"
-    t.string "part2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "judgement_id"
-    t.index ["judgement_id"], name: "index_parts_on_judgement_id"
-  end
-
   create_table "people", force: :cascade do |t|
     t.string "name"
     t.string "rut"
@@ -417,7 +408,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "judgements", "auctions"
   add_foreign_key "legal_members", "legal_personas"
   add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
-  add_foreign_key "parts", "judgements"
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
