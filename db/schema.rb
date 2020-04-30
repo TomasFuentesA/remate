@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_151043) do
+ActiveRecord::Schema.define(version: 2020_04_30_205807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,16 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "percentage"
+  end
+
+  create_table "economic_activities", force: :cascade do |t|
+    t.string "name"
+    t.integer "codigo"
+    t.string "afecta_iva"
+    t.bigint "legal_persona_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["legal_persona_id"], name: "index_economic_activities_on_legal_persona_id"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -411,6 +421,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "condominios", "communes"
   add_foreign_key "condominios", "legal_personas"
   add_foreign_key "condominios", "personas"
+  add_foreign_key "economic_activities", "legal_personas"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "judgements", "auctions"
   add_foreign_key "judgements", "courts"

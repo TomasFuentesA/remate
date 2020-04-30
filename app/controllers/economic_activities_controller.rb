@@ -1,0 +1,2 @@
+class EconomicActivitiesController < ApplicationController
+end
