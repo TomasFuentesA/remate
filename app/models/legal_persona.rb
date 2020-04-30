@@ -8,6 +8,7 @@ class LegalPersona < ApplicationRecord
   has_many :activities, as: :activityable
   has_many :legal_represents, dependent: :destroy
   has_many :condominios, dependent: :destroy
+  has_many :economic_activity, dependent: :destroy
 
   #asociation inter personas
   has_many :persona_members, dependent: :destroy
@@ -18,7 +19,7 @@ class LegalPersona < ApplicationRecord
 
   #validacion
   validates :rut,:name, presence: true, uniqueness: true
-  
+
 
 
 

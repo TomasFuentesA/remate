@@ -63,7 +63,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :realties 
+  resources :realties
   resources  :communes, :provinces, :regions
 
   resources :courts
@@ -79,7 +79,7 @@ Rails.application.routes.draw do
       resources :domains
 
       end
-
+  resources :economic_activities
 
 
   resources :persona_members

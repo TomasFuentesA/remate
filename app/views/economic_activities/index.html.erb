@@ -1,0 +1,37 @@
+<br>
+<%= link_to 'Nueva Actividad Economica', new_economic_activity_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Actividad</th>
+      <th scope="col">Codigo</th>
+      <th scope="col">Afecta IVA</th>
+
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @economicactivities.each do |economicactivity| %>
+
+      <tr>
+        <td><%= economicactivity.name %></td>
+        <td><%= economicactivity.codigo %></td>
+        <td><%= economicactivity.afecta_iva %></td>
+        <td><%= economicactivity.legal_persona.count %></td>
+
+
+
+        <td>
+          <%= link_to 'Ver', economicactivity , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_economic_activity_path(economicactivity) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', economicactivity, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
