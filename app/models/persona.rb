@@ -6,6 +6,7 @@ class Persona < ApplicationRecord
   has_many :directions, as: :directionable,dependent: :destroy
   has_many :domains, as: :domainable
   has_many :activities, as: :activityable
+  has_many :condominios, dependent: :destroy
 
   #inter relation
   has_many :persona_members

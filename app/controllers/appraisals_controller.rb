@@ -22,6 +22,10 @@ class AppraisalsController < ApplicationController
   def edit
   end
 
+  def destroy
+    @appraisal.destroy
+    redirect_to appraisals_path
+  end
 
   private
 

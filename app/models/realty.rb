@@ -6,10 +6,11 @@ class Realty < ApplicationRecord
     after_create :set_latlon
     #asociacion de modelos
     has_many :auctions, dependent: :destroy
-    has_one :characteristic,dependent: :destroy
-    has_one :type_realty,dependent: :destroy
+    has_one :characteristic, dependent: :destroy
+    has_one :type_realty, dependent: :destroy
     belongs_to :commune
-    has_one :appraisal,dependent: :destroy
+    has_one :appraisal, dependent: :destroy
+    
     #atributos anidados
     accepts_nested_attributes_for :characteristic,  allow_destroy: true
     accepts_nested_attributes_for :type_realty , allow_destroy: true

@@ -7,6 +7,7 @@ class LegalPersona < ApplicationRecord
   has_many :domains, as: :domainable, dependent: :destroy
   has_many :activities, as: :activityable
   has_many :legal_represents, dependent: :destroy
+  has_many :condominios, dependent: :destroy
 
   #asociation inter personas
   has_many :persona_members, dependent: :destroy
