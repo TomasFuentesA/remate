@@ -1,0 +1,28 @@
+<%= link_to 'Volver Listado Condominios y/o Edificios', condominio_path %>
+
+<p></p>
+
+<div class="row" id="fileview">
+  <div class="col-principal col-md-8">
+    <div>
+      <h2>
+        Condominio y/o Edificio nº  <%= @condominio.id %> : <%= @condominio.realty.name_realty %>
+        </h2>
+    </div>
+    <h4>Informacion de Condominios y Edificios</h4>
+
+
+      <div>
+        Direccion:  <%= @condominio.address %>
+      </div>
+       <div>
+         Administrador: <%= @condominio.persona%>
+       </div>
+      <div>
+         Nombre:     <%= @condominio.legal_persona %>
+       </div>
+
+
+  </div>
+
+</div>
