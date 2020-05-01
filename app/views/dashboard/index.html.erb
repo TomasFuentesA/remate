@@ -1,131 +1,33 @@
+<div class="container-fluid">
+  <!-- indicador uf -->
+  <div class="col card">
+      <strong><%= l(Date.today, format: "%d de %B,%Y")%></strong>
 
-
-<div class="container fluid">
-  <div class="row">
-    <div class="col card">
-      <ul>
-        <p ><%= l(Date.today, format: "%d de %B,%Y")%></p>
-      </ul>
-      <ul>
-        <div id="uf">
-          <script> new ufApi()</script>
-        </div>
-      </ul>
-    </div>
-  </div>
-</div>
-<br>
-
-
-
-
-<div class="container fluid">
-  <div class="row">
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-header">
-          Inversiones
-        </div>
-        <div class="card-body">
-          <li class="list-group-item "><%= link_to 'Remates', auctions_path %></li>
-          <li class="list-group-item"><%= link_to 'Calendario de Remates ', calendario_path %></li>
-        </div>
+      <div id="uf">
+        <script> new ufApi()</script>
       </div>
-    </div>
 
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-header">
-          Propiedades
-        </div>
-        <div class="card-body">
-          <li class="list-group-item "><%= link_to 'Listado de Propiedades', realties_path %></li>
-          <li class="list-group-item"><%= link_to 'Nueva Propiedad', new_realty_path %></li>
-          <li class="list-group-item"><%= link_to 'Listado Tasaciones', appraisals_path %></li>
-          <li class="list-group-item"><%= link_to 'Listado Condominios', condominios_path %></li>
-
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-header">
-          Avisos
-        </div>
-        <div class="card-body">
-          <li class="list-group-item "><%= link_to 'Todos los avisos', auctionnotices_path %></li>
-          <li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
-          <li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
-          <li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
-          <li class="list-group-item"><%= link_to 'Listados Avisos Asociados', auctionnotices_joined_path %></li>
-          <li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
-          <li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
-        </div>
-      </div>
-    </div>
   </div>
 
-
   <div class="row">
-    <div class="col sm">
-      <div class="card">
-        <div class="card-header">
-          Entidades
-        </div>
-        <div class="card-body">
-          <li class="list-group-item "><%= link_to 'Personas', personas_path %></li>
-          <li class="list-group-item"><%= link_to 'Persona Juridica', legal_personas_path %></li>
-        </div>
+    <div class="col-4">
+      <!-- List group -->
+      <div class="list-group" id="myList" role="tablist">
+        <%=link_to 'inversiones', '#inversiones', class: 'list-group-item list-group-item-action active', data: {toggle: "list"}, role: 'tab' ,remote: true %>
+        <%=link_to 'inversiones', '#entidades', class: 'list-group-item list-group-item-action', data: {toggle: "list"}, role: 'tab' ,remote: true %>
+        <%= link_to 'propiedades', '#propiedades', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
+        <%=link_to 'avisos', '#avisos', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
+        <%=link_to 'estadisticas', '#estadisticas', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
       </div>
     </div>
-    <div class="col sm">
-      <div class="card">
-        <div class="card-header">
-          Estadisticas
-        </div>
-        <div class="card-body">
-          <li class=""><%= "Avisos Ingresados: #{Auctionnotice.count}" %></li>
-          <li class=""><%= "Avisos Seleccionados: #{Auctionnotice.selected.count}" %></li>
-          <li class=""><%= "Avisos Pendientes por Revisar: #{Auctionnotice.pending.count}" %></li>
-          <li class=""><%= "Avisos Descartados: #{Auctionnotice.rejected.count}" %></li>
-          <li class=""><%= "Avisos Asociados: #{Auctionnotice.joined.count}" %></li>
-          <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
-          <li class=""><%= "Personas Natural Ingresadas: #{Persona.count}" %></li>
-          <li class=""><%= "Persona Juridicas Ingresadas: #{LegalPersona.count}" %></li>
-          <li class=""><%= "Tasaciones: #{Appraisal.count}" %></li>
-        </div>
-      </div>
-    </div>
-    <div class="col sm">
-      <div class="card">
-        <div class="card-header">
-          algo 6
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col sm">
-      <div class="card">
-        <div class="card-header">
-          algo 7
-        </div>
-      </div>
-    </div>
-    <div class="col sm">
-      <div class="card">
-        <div class="card-header">
-          algo 8
-        </div>
-      </div>
-    </div>
-    <div class="col sm">
-      <div class="card">
-        <div class="card-header">
-          algo 9
-        </div>
+    <div class="col-8">
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="inversiones" role="tabpanel"> <%= render partial: 'inversiones', remote: true%></div>
+        <div class="tab-pane fade" id="entidades" role="tabpanel"><%= render partial: 'entidades', remote: true%></div>
+        <div class="tab-pane fade" id="propiedades" role="tabpanel"><%= render partial: 'propiedades', remote: true%></div>
+        <div class="tab-pane fade" id="avisos" role="tabpanel"><%= render partial: 'avisos', remote: true%></div>
+        <div class="tab-pane fade" id="estadisticas" role="tabpanel"><%= render partial: 'estadisticas', remote: true%></div>
       </div>
     </div>
   </div>

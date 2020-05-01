@@ -1,0 +1,11 @@
+<% if @persona.errors.blank? %>
+$('a[data-remote].btn-danger').bind('ajax:success', function(){
+  $(this).closest('tr').fadeOut();
+
+});
+
+<% else %>
+<%= render 'errors' %>
+
+
+<%end %>

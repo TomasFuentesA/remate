@@ -1,75 +1,47 @@
 <br>
-<div class="container-fluid" id="wrapper" >
-<%= form_for  @persona do |form| %>
-  <%= form.label :name, "Ingreso de nueva Persona" %>
+<div class="container-fluid" >
+  <%= render partial: "errors" %>
+</div>
 
-  <div class="field">
-    <%= form.label :rut, "Rut" %>
-    <%= form.text_field :rut , id: :rut%>
-    <script>
-      $(function() {
-        $("#rut").rut().on('rutValido', function(e, rut, dv) {
-          alert("El rut " + rut + "-" + dv + " es correcto");
-          }, { minimumLength: 7} );
-        })
-    </script>
+
+
+<div class="container-fluid" >
+  <div class="form-row-sm-4">
+    <%= form_for  @persona do |form| %>
+      <div class="form-group ">
+
+        <%= form.label :rut, "Rut" %>
+        <%= form.text_field :rut , id: :rut ,class:"form-control border",autofocus: true%>
+
+        <%= form.label :name, "Nombre" %>
+        <%= form.text_field :name, id: :name ,class:"form-control border",autofocus: true%>
+
+        <%= form.label :name2, "Segundo Nombre" %>
+        <%= form.text_field :name2, id: :name2,class:"form-control border",autofocus: true %>
+
+        <%= form.label :last_name1, "Apellido" %>
+        <%= form.text_field :last_name1, id: :last_name1, class:"form-control border",autofocus: true %>
+
+        <%= form.label :last_name2, "Segundo Apellido" %>
+        <%= form.text_field :last_name2, id: :last_name2 ,class:"form-control border",autofocus: true %>
+
+        <%= form.label :e_civil, "Estado Civil" %>
+        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"} %>
+
+        <%= form.label :profesion, "Profesion" %>
+        <%= form.text_field :profesion, id: :profesion ,class:"form-control border",autofocus: true  %>
+
+        <%= form.label :nacionality, "Profesion"  %>
+        <%= form.text_field :nacionality, id: :nacionality ,class:"form-control border",autofocus: true  %>
+
+        <%= form.label :birth_date, "Fecha de Naciomiento" %>
+        <%= form.text_field :birth_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  %>
+
+        <%= form.label :passport, "Pasaporte"  %>
+        <%= form.text_field :passport, id: :passport %>
+
+        <%= form.submit "Guardar" %>
+      <% end %>
+    </div>
   </div>
-
-
-  <div class="field">
-    <%= form.label :name, "Nombre" %>
-    <%= form.text_field :name, id: :name %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :name2, "Segundo Nombre" %>
-    <%= form.text_field :name2, id: :name2 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :last_name1, "Apellido" %>
-    <%= form.text_field :last_name1, id: :last_name1 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :last_name2, "Segundo Apellido" %>
-    <%= form.text_field :last_name2, id: :last_name2 %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :e_civil, "Estado Civil" %>
-    <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"} %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :profesion %>
-    <%= form.text_field :profesion, id: :profesion %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :nacionality %>
-    <%= form.text_field :nacionality, id: :nacionality %>
-  </div>
-  <div class="field">
-      <%= form.label :birth_date, "Fecha de Naciomiento" %>
-      <%= form.text_field :birth_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"}, placeholder: "Desde:",autocomplete: "off"  %>
-  </div>
-
-
-
-  <div class="field">
-    <%= form.label :passport %>
-    <%= form.text_field :passport, id: :passport %>
-  </div>
-
-
-
-
- <%= form.submit "Guardar" %>
-
-<% end %>
 </div>

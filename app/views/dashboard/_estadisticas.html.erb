@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    Estadisticas
+  </div>
+  <div class="card-body">
+    <li class=""><%= "Avisos Ingresados: #{Auctionnotice.count}" %></li>
+    <li class=""><%= "Avisos Seleccionados: #{Auctionnotice.selected.count}" %></li>
+    <li class=""><%= "Avisos Pendientes por Revisar: #{Auctionnotice.pending.count}" %></li>
+    <li class=""><%= "Avisos Descartados: #{Auctionnotice.rejected.count}" %></li>
+    <li class=""><%= "Avisos Asociados: #{Auctionnotice.joined.count}" %></li>
+    <li class=""><%= "Propiedades Ingresadas: #{Realty.count}" %></li>
+    <li class=""><%= "Personas Natural Ingresadas: #{Persona.count}" %></li>
+    <li class=""><%= "Persona Juridicas Ingresadas: #{LegalPersona.count}" %></li>
+    <li class=""><%= "Tasaciones: #{Appraisal.count}" %></li>
+  </div>
+</div>
