@@ -28,6 +28,8 @@ class LegalPersonasController < ApplicationController
   end
 
   def show
+    @legal_member = LegalMember.new
+    @persona_member = PersonaMember.new
   end
 
   def destroy
@@ -41,6 +43,7 @@ class LegalPersonasController < ApplicationController
 
 private
   def display_values
+
     @able = @legalpersona
     @phones = @able.phones
     @emails = @able.emails

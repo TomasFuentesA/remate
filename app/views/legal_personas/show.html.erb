@@ -92,7 +92,9 @@
              </div>
           <% end %>
 
-          <%= link_to 'añadir persona', new_persona_member_path(legal_persona_id: @legal_persona.id), class: "btn btn-primary" %>
+
+          <%= render  'modal' %>
+          <%= render  'modalempresa' %>
 
 
 
@@ -122,7 +124,7 @@
             <tr>
               <td scope="row"><%= member.rut %>, <%= member.name%></td>
               <td>
-                 %
+                 % <%= member.percentage %>
 
               </td>
               <td> opciones</td>
@@ -138,5 +140,36 @@
     </div>
 
   </div>
+
+
+
+
+
+  <div class="row">
+    <div class="col-sm-7 card card-body">
+      Empresas asociadas:
+      <table   class="table table-bordered table-hover">
+
+        <thead  class="thead-dark">
+          <tr>
+
+            <th scope="col">Nombre</th>
+            <th scope="col">Participación</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody class="rounded-pill">
+
+
+
+    </div>
+    <div class="col-sm-5 card card-body">
+
+    </div>
+
+  </div>
+
+
+
 
 </div>

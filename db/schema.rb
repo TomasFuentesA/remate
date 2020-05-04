@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   create_table "legal_members", force: :cascade do |t|
     t.bigint "legal_persona_id"
     t.bigint "legal_asociado_id"
+    t.float "percentage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["legal_asociado_id"], name: "index_legal_members_on_legal_asociado_id"
@@ -292,6 +293,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   create_table "persona_members", force: :cascade do |t|
     t.bigint "persona_id", null: false
     t.bigint "legal_persona_id", null: false
+    t.float "percentage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["legal_persona_id"], name: "index_persona_members_on_legal_persona_id"

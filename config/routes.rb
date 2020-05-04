@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
 
 
+  get 'legal_members/new'
+  get 'legal_members/create'
+  get 'legal_members/destroy'
   get 'appraisals/index'
   get 'emails/index'
   get 'emails/new'
@@ -82,6 +85,7 @@ Rails.application.routes.draw do
 
 
   resources :persona_members
+  resources :legal_members
 
 
 

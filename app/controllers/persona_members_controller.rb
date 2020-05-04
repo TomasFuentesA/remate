@@ -5,20 +5,25 @@ class PersonaMembersController < ApplicationController
 
 
   def new
-    
-    @personas = Persona.all
+    @persona_member = PersonaMember.new
   end
+
   def create
-    @persona_members = PersonaMember.create(persona_id: persona.id, legal_persona: legalpersona.id)
-    if @persona_members.save
-      flash[:notice] = "persona #{persona.rut} añadida con exito"
-      redirect_to @legalpersona
+    @persona_member = PersonaMember.create(persona_member_params)
+    if @persona_member.save
+      respond_to do |format|
+        format.js
+        end
     end
   end
 
 
 
-  private
+private
+  def persona_member_params
+    params.require(:persona_member).permit(:persona_id, :legal_persona_id)
+  end
+
 
 
 
