@@ -46,8 +46,13 @@ class AuctionsController < ApplicationController
   def destroy
       @auction.auctionnotice.update(status: 0)
       @auction.destroy
+      respond_to do |format|
+        format.js
+        format.html {redirect_to auctions_path, notice: "#{@auction.name} eliminado exitosamente." }
+        format.json {head :no_content }
+      end
       #flash[:notice] = "remate #{@auction.inspect} Eliminado con exito"
-      redirect_to auctions_path
+      
 
     #flash[:notice] = "remate #{@auction} no se pudo eliminar"
 

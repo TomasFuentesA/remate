@@ -6,10 +6,12 @@ class CreateJobs < ActiveRecord::Migration[5.2]
       t.integer :salary
       t.string :business
       t.text :description
-      t.belongs_to :jobable, polymorphic: true
+      t.references :persona , foreign_key: true
+
 
       t.timestamps
     end
-     add_index :jobs, [:jobable_id, :jobable_type]
+
   end
+  
 end

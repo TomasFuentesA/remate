@@ -356,6 +356,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.float "longitude"
     t.integer "type_property_id"
     t.bigint "commune_id"
+    t.integer "province_id"
     t.string "fiscal_destination"
     t.index ["commune_id"], name: "index_realties_on_commune_id"
   end

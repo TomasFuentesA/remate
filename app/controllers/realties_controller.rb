@@ -4,27 +4,7 @@ class RealtiesController < ApplicationController
   before_action :set_realty , only: [:edit,:show,:destroy]
 
 
-
-
-
   def index
-=begin
-      if params[:latitude].present? && params[:longitude].present?
-        @realties = Realty.near(
-          [params[:latitude], params[:longitude]],
-          200,
-          units: :km
-        )
-      elsif current_user.present?
-        @realties = Realty.near(
-          current_user.address,
-          1000,
-          units: :km
-        )
-      else
-        @realties = Realty.all
-      end
-=end
       @realties = Realty.all
       @hash = Gmaps4rails.build_markers(@realties) do |realty, marker|
         marker.lat realty.latitude
@@ -42,11 +22,11 @@ class RealtiesController < ApplicationController
     if @realty.save
       respond_to do |format|
         format.js
-      end
+        end
     else
       format.js
     end
-    end
+  end
 
 
 
@@ -67,7 +47,12 @@ class RealtiesController < ApplicationController
 
   def destroy
     @realty.destroy
-    redirect_to realties_path
+    respond_to do |format|
+      format.js
+      format.html {redirect_to realties_path, notice: "#{@realty.name_realty} eliminada exitosamente" }
+      format.json {head :no_content }
+    end
+
   end
 
 

@@ -1,9 +1,9 @@
 <br>
 <div class="container-fluid ">
-  <%= render partial: 'realties/messages' %>
+  <%= render partial: 'realties/errors' %>
   <div class="row">
     <div class="col-md-auto">
-      <%= form_with model:  @realty,id: :submit, url:realties_path , remote: true do |form| %>
+      <%= form_with model:  @realty, url: realties_path ,id: :formulary, remote: true do |form| %>
         <div class="form-group">
           <div class="form-row">
             <div class="form-group col-md-4">

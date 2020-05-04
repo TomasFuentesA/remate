@@ -46,7 +46,7 @@
         <td><%= auction.horary %> </td>
         <td><%= auction.court.name %></td>
         <td><%= auction.rol_trial %></td>
-        <%if auction.judgements.empty? %>
+        <%if auction.judgement.nil? %>
 
         <%end %>
         <td><%= auction.realty.address %></td>

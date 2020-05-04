@@ -12,4 +12,6 @@ class CreateDomains < ActiveRecord::Migration[5.2]
     end
     add_index :domains, [:domainable_id, :domainable_type]
   end
+  
+
 end

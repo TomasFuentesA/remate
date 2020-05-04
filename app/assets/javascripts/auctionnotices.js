@@ -18,9 +18,3 @@ $("#results").ready(function(){
 });
 
 */
-
-
-$("#submit").on("ajax:success").event({
-  alert "La propiedad ha sido creada con éxito. "
-$("#exampleModal").css "display","none"  });
-  

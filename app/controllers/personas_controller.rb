@@ -1,5 +1,7 @@
 class PersonasController < ApplicationController
   load_and_authorize_resource
+  before_action :set_persona, only: [:edit,:show,:destroy]
+  before_action :show_actions, only: [:show]
   def index
     @personas = Persona.all
   end
@@ -10,32 +12,45 @@ class PersonasController < ApplicationController
 
   def create
     @persona = Persona.new(persona_params)
-    @persona.save
-    redirect_to personas_path
+    if @persona.save
+      redirect_to personas_path
+    else
+      render "new"
+    end
   end
 
 
   def edit
-      @persona = Persona.find(params[:id])
+
   end
 
   def show
-      @persona = Persona.find(params[:id])
-      @able = @persona
-      @phones = @able.phones
-      @emails = @able.emails
-      @directions = @able.directions
+
   end
 
   def destroy
-    @persona = Persona.find(params[:id])
     if @persona.present?
       @persona.destroy
+      respond_to do |format|
+        format.js
+        format.html {redirect_to personas_path, notice: "Persona eliminada!" }
+        format.json {head :no_content }
+      end
     end
-    redirect_to personas_path, notice: "Persona eliminada!"
   end
 
   private
+
+  def set_persona
+    @persona = Persona.find(params[:id])
+  end
+
+  def show_actions
+    @able = @persona
+    @phones = @able.phones
+    @emails = @able.emails
+    @directions = @able.directions
+  end
   def persona_params
       params.require(:persona).permit(:rut, :name, :name2, :last_name1, :last_name2,:e_civil, :profesion, :nacionality, :passport, :birth_date)
   end
