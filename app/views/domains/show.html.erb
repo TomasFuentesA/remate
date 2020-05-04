@@ -2,11 +2,58 @@
 <div class="row" id="fileview">
   <div class="col-principal col-md-8">
     <div class="field">
-      hola
+      Modalidad:
       <%= @domain.type_modality %>
     </div>
     <div class="field">
-      <%= @persona.percentage %>
+      Porcentaje:
+      <%= @domain.percentage %>
+    </div>
+    <div class="field">
+      precio:
+      <%= @domain.price %>
+    </div>
+    <div class="field">
+      Fecha de posesion:
+      <%= @domain.date_posetion %>
     </div>
     </div>
-  </div>
+
+  <% unless @domain.inscriptions.nil? %>
+  <div class="row" id="fileview">
+    <div class="col-sm-7 card card-body">
+      Inscripciones de dominio
+      <table   class="table table-bordered table-hover">
+        <thead  class="thead-dark">
+          <tr>
+            <th scope="col">foja</th>
+            <th scope="col">número</th>
+            <th scope="col">año</th>
+            <th scope="col">cbrs</th>
+            <th scope="col">Opciones</th>
+          </tr>
+          </thead>
+          <tbody class="rounded-pill">
+            <% @domain.inscriptions.each do |inscription| %>
+            <tr>
+              <td scope="row"><%= inscription.foja %></td>
+              <td><%= inscription.number %></td>
+              <td><%= inscription.year %></td>
+              <td><%= inscription.cbrs %></td>
+              <td><%= link_to "editar",edit_domain_inscription_path(inscription) %> ,<%= link_to "ver",inscription %>
+              </td>
+
+            </tr>
+          </tbody>
+        <%end%>
+      </div>
+    </div>
+  <% end %>
+
+
+
+  <div class="row" id="fileview">
+    <div class="col-principal col-md-8">
+
+    </div>
+    </div>

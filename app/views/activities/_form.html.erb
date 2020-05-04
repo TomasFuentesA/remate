@@ -1,0 +1,51 @@
+<h1>Nueva actividad</h1>
+<div class="container">
+
+
+<%= form_for [@activityable, @activity] do |f| %>
+  <% if @activity.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @activity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :code, "Codigo" %>
+        <%= f.text_field :code %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :name_activity, "Nombre actividad" %>
+        <%= f.text_field :name_activity %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :afect_iva, "afecta iva?" %>
+        <%= f.text_field :afect_iva %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :rubro, "rubro" %>
+        <%= f.text_field :rubro %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.submit "Guardar" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>

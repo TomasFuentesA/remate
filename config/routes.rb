@@ -55,7 +55,6 @@ Rails.application.routes.draw do
   resources :auctionnotices do
       resources :auctions
       collection do
-
         put :discontinue
       end
   end
@@ -79,7 +78,9 @@ Rails.application.routes.draw do
       resources :directions
       resources :phones
       resources :emails
+      resources :activities
       resources :domains
+
 
       end
 
@@ -90,7 +91,7 @@ Rails.application.routes.draw do
 
 
   resources :personas do
-    resources :jobs,:directions,:phones,:emails,:domains
+    resources :jobs,:directions,:phones,:emails,:domains,:activities
   end
 
 
@@ -101,8 +102,9 @@ Rails.application.routes.draw do
   resources :domains do
     resources :inscriptions
   end
+resources :inscriptions
 
-   resources :condominios
+resources :condominios
 
 
 

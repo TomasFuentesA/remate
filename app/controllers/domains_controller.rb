@@ -1,10 +1,9 @@
 class DomainsController < ApplicationController
   load_and_authorize_resource
-  
-  before_action :load_domainable
+  before_action :load_domainable , only: [:new,:create]
 
   def index
-    @domains = @domainable.domains
+    #@domains = @domainable.domains
   end
 
   def new
@@ -14,7 +13,7 @@ class DomainsController < ApplicationController
   def create
     @domain = @domainable.domains.new(domain_params)
     if @domain.save
-      redirect_to [@domainable, :domains], notice: "Dominio Añadida."
+      redirect_to @domainable, notice: "Dominio Añadido."
     else
       render :new
     end
@@ -25,7 +24,7 @@ class DomainsController < ApplicationController
   end
 
   def edit
-    @domain = @domainable.domains.find(params[:id])
+    @domain = Domain.find(params[:id])
   end
 
   def destroy
@@ -33,7 +32,7 @@ class DomainsController < ApplicationController
     if @domain.present?
       @domain.destroy
     end
-    redirect_to domains_path, notice: "Dominio eliminada!"
+    redirect_to domains_path, notice: "Dominio eliminado!"
   end
 
 

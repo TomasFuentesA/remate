@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "name_activity"
     t.string "afect_iva"
     t.integer "category"
+    t.string "rubro"
     t.string "activityable_type"
     t.bigint "activityable_id"
     t.datetime "created_at", null: false
@@ -229,12 +230,10 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.integer "salary"
     t.string "business"
     t.text "description"
-    t.string "jobable_type"
-    t.bigint "jobable_id"
+    t.bigint "persona_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["jobable_id", "jobable_type"], name: "index_jobs_on_jobable_id_and_jobable_type"
-    t.index ["jobable_type", "jobable_id"], name: "index_jobs_on_jobable_type_and_jobable_id"
+    t.index ["persona_id"], name: "index_jobs_on_persona_id"
   end
 
   create_table "judgements", force: :cascade do |t|
@@ -433,6 +432,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "condominios", "personas"
   add_foreign_key "economic_activities", "legal_personas"
   add_foreign_key "inscriptions", "domains"
+  add_foreign_key "jobs", "personas"
   add_foreign_key "judgements", "auctions"
   add_foreign_key "judgements", "courts"
   add_foreign_key "legal_members", "legal_personas"

@@ -6,12 +6,10 @@ class LegalPersonasController < ApplicationController
 
   def index
     @legalPersonas = LegalPersona.all
-    @legalPersonas = @legalPersonas.where("name like ?", "%#{params[:term]}%") if params[:term]
-
-  respond_to do |format|
-    format.html  # index.html.erb
-    format.json  { render :json => @legalPersonas.map(&:name) }
-  end
+    respond_to do |format|
+      format.html  # index.html.erb
+      format.json  { render :json => @legalPersonas.map(&:name) }
+    end
   end
 
   def new
@@ -43,12 +41,14 @@ class LegalPersonasController < ApplicationController
 
 private
   def display_values
-
     @able = @legalpersona
     @phones = @able.phones
     @emails = @able.emails
+    @domains = @able.domains
     @directions = @able.directions
+    @jobs = @able.jobs
     @persona_members = @able.personas
+    @legal_members = @able.legal_asociados
   end
 
   def set_legalpersona

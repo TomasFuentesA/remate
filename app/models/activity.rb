@@ -1,4 +1,3 @@
 class Activity < ApplicationRecord
-  belongs_to :natural_personas
-  belongs_to :legal_personas
+  belongs_to :activityable, polymorphic: true
 end

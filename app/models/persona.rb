@@ -1,6 +1,5 @@
 class Persona < ApplicationRecord
   #relaciones
-  has_many :jobs, as: :jobable, dependent: :destroy
   has_many :emails, as: :emailable,dependent: :destroy
   has_many :phones, as: :phoneable,dependent: :destroy
   has_many :directions, as: :directionable,dependent: :destroy
@@ -11,6 +10,11 @@ class Persona < ApplicationRecord
   #inter relation
   has_many :persona_members
   has_many :legal_personas, through: :persona_members
+
+
+  #nested relation
+  has_one :job, dependent: :destroy
+  accepts_nested_attributes_for :job,  allow_destroy: true
 
   #validacion
   validates :rut,:name, uniqueness: true, presence: true

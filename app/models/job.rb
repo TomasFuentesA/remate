@@ -1,4 +1,3 @@
 class Job < ApplicationRecord
-  attr_accessor :position, :salary,:business,:description
-  belongs_to :jobable, polymorphic: true
+  belongs_to :persona
 end

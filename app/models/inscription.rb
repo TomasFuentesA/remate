@@ -1,3 +1,3 @@
 class Inscription < ApplicationRecord
-  belongs_to :domain
+  belongs_to :domain, inverse_of: :inscriptions
 end

@@ -1,6 +1,16 @@
 <br>
 <div class="container-fluid" id="wrapper" >
-<%= form_for  @domain do |form| %>
+<%= form_for [@domainable, @domain] do |form| %>
+<% if @domain.errors.any? %>
+  <div class="error_messages">
+    <h2>Please correct the following errors.</h2>
+    <ul>
+    <% @domain.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
 
   <div class="field">
@@ -26,7 +36,7 @@
     <%= form.text_field :percentage %>
   </div>
 
-  
+
 
 
 

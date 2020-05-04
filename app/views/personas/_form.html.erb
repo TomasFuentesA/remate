@@ -40,6 +40,25 @@
         <%= form.label :passport, "Pasaporte"  %>
         <%= form.text_field :passport, id: :passport %>
 
+        <%=form.fields_for :job do |f| %>
+        <div class="field">
+          <%= form.label :passport, "Cargo en su trabajo:"  %>
+          <%= f.text_field :position %>
+        </div>
+        <div class="field">
+          <%= form.label :passport, "Salario:"  %>
+          <%= f.number_field :salary %>
+        </div>
+        <div class="field">
+          <%= form.label :passport, "Empresa:"  %>
+          <%= f.text_field :business %>
+        </div>
+        <div class="field">
+          <%= form.label :passport, "Descripcion del cargo:"  %>
+          <%= f.text_field :description %>
+        </div>
+        <%end%>
+
         <%= form.submit "Guardar" %>
       <% end %>
     </div>

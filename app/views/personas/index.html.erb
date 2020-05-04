@@ -42,6 +42,9 @@
         <td> <%= link_to   persona ,class:"btn btn-info"  do %>
            <%= fa_icon "address-card"%> Ver
           <% end %>
+          <%= link_to   edit_persona_path(persona) ,class:"btn btn-warning"  do %>
+             <%= fa_icon "address-card"%> Editar
+            <% end %>
 
           <%= link_to  persona, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger"  do%>
           <%= fa_icon "ban"%> Eliminar

@@ -66,6 +66,24 @@
              <% end %>
           </div>
         <% end %>
+        <% if @legal_persona.activities.any? %>
+          <div class="field">
+            <% @activities.each do |activity| %>
+              <div class="field">
+                actividad:
+                <div class="col">
+                  <%= activity.code %>
+                </div>
+                <div class="col">
+                  <%= activity.afect_iva %>
+                </div>
+                <div class="col">
+                  <%= activity.name_activity %>
+                </div>
+              </div>
+             <% end %>
+          </div>
+        <% end %>
       </div>
       <div class="col-sm-5 card card-body">
         Acciones:
@@ -91,85 +109,105 @@
              <%= link_to 'editar correo', edit_legal_persona_email_path(@legal_persona,@emails.ids) ,class:"btn btn-secondary"%>
              </div>
           <% end %>
+          <% unless @legal_persona.activities.any? %>
+
+              <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary"%>
+           <% else %>
+             <%= link_to 'editar actividad', edit_legal_persona_activity_path(@legal_persona,@emails.ids) ,class:"btn btn-secondary"%>
+             </div>
+          <% end %>
 
 
           <%= render  'modal' %>
           <%= render  'modalempresa' %>
-
-
+          <%=link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" %>
 
          </div>
       </div>
-    </div>
-  </div>
 
+      <div class="container">
+        <% if @persona_members.any? %>
+        <div class="row">
+          <div class="col-sm-7 card card-body">
+            Miembros:
+            <table class="table table-bordered table-hover">
+              <thead  class="thead-dark">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Participación</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+                </thead>
+                <tbody class="rounded-pill">
+                  <% @persona_members.each do |member| %>
+                  <tr>
+                    <td scope="row"><%= member.rut %>, <%= member.name%></td>
+                    <td> % </td>
+                    <td> opciones</td>
+                  </tr>
+                </tbody>
+                <%end%>
+              </table>
+            </div>
+            <div class="col-sm-5 card card-body">
+              </div>
+          </div>
+          <%end%>
+          <% if @legal_members.any? %>
+          <div class="row">
+            <div class="col-sm-7 card card-body">
+              Empresas asociadas:
+              <table   class="table table-bordered table-hover">
+                <thead  class="thead-dark">
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Participación</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                  </thead>
+                  <tbody class="rounded-pill">
+                    <% @legal_members.each do |member| %>
+                    <tr>
+                      <td scope="row"><%= member.rut %>, <%= member.name%></td>
+                      <td>%</td>
+                      <td>opciones</td>
+                    </tr>
+                    </tbody>
+                    <%end%>
+                </div>
+              </div>
+            <% end %>
+            <% if @legal_persona.domains.any? %>
+            <div class="row">
+              <div class="col-sm-7 card card-body">
+                Dominios de <%= @legalpersona.name %>:
+                <table   class="table table-bordered table-hover">
+                  <thead  class="thead-dark">
+                    <tr>
+                      <th scope="col">Modalidad</th>
+                      <th scope="col">precio</th>
+                      <th scope="col">fecha de posecion</th>
+                      <th scope="col">Porcentaje</th>
+                      <th scope="col">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody class="rounded-pill">
+                      <% @domains.each do |domain| %>
+                      <tr>
+                        <td scope="row"><%= domain.type_modality %></td>
+                        <td><%= domain.price %></td>
+                        <td><%= domain.date_posetion %></td>
+                        <td><%= domain.percentage %></td>
+                        <td><%= link_to "editar",edit_domain_path(domain) %>
+                          <%= link_to "ver",domain %>
+                          <%= link_to "crear inscripcion",new_domain_inscription_path(domain) %>
+                        </td>
 
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-7 card card-body">
-      Miembros:
-      <table   class="table table-bordered table-hover">
-
-        <thead  class="thead-dark">
-          <tr>
-
-            <th scope="col">Nombre</th>
-            <th scope="col">Participación</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody class="rounded-pill">
-          <% @persona_members.each do |member| %>
-            <tr>
-              <td scope="row"><%= member.rut %>, <%= member.name%></td>
-              <td>
-                 % <%= member.percentage %>
-
-              </td>
-              <td> opciones</td>
-            </tr>
-        </tbody>
-        <%end%>
-      </table>
-
-
-    </div>
-    <div class="col-sm-5 card card-body">
-
-    </div>
-
-  </div>
-
-
-
-
-
-  <div class="row">
-    <div class="col-sm-7 card card-body">
-      Empresas asociadas:
-      <table   class="table table-bordered table-hover">
-
-        <thead  class="thead-dark">
-          <tr>
-
-            <th scope="col">Nombre</th>
-            <th scope="col">Participación</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody class="rounded-pill">
-
-
-
-    </div>
-    <div class="col-sm-5 card card-body">
-
-    </div>
-
-  </div>
-
-
-
-
-</div>
+                      </tr>
+                    </tbody>
+                  <%end%>
+                </div>
+              </div>
+            <% end %>
+            </div>
+            </div>

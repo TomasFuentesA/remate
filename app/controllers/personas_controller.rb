@@ -2,6 +2,7 @@ class PersonasController < ApplicationController
   load_and_authorize_resource
   before_action :set_persona, only: [:edit,:show,:destroy]
   before_action :show_actions, only: [:show]
+  before_action :set_job, only: [:edit]
   def index
     @personas = Persona.all
   end
@@ -27,6 +28,11 @@ class PersonasController < ApplicationController
   def show
 
   end
+  def update
+    @persona.update(persona_params)
+    redirect_to @persona
+
+  end
 
   def destroy
     if @persona.present?
@@ -45,13 +51,19 @@ class PersonasController < ApplicationController
     @persona = Persona.find(params[:id])
   end
 
+  def set_job
+    @persona.build_job
+  end
+
   def show_actions
     @able = @persona
     @phones = @able.phones
     @emails = @able.emails
     @directions = @able.directions
+    @activities = @able.activities
   end
   def persona_params
-      params.require(:persona).permit(:rut, :name, :name2, :last_name1, :last_name2,:e_civil, :profesion, :nacionality, :passport, :birth_date)
+      params.require(:persona).permit(:rut, :name, :name2, :last_name1, :last_name2,:e_civil, :profesion, :nacionality, :passport, :birth_date,
+      job_attributes: [:position,:salary,:business,:description])
   end
 end
