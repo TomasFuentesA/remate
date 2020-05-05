@@ -11,6 +11,7 @@ class CreatePhones < ActiveRecord::Migration[5.2]
     end
     add_index :phones, [:phoneable_id, :phoneable_type]
   end
-  
+
+
 
 end

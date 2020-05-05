@@ -13,4 +13,6 @@ class CreateActivities < ActiveRecord::Migration[5.2]
      add_index :activities, [:activityable_id, :activityable_type]
   end
   
+
+
 end

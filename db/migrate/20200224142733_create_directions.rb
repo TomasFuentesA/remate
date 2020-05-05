@@ -10,5 +10,6 @@ class CreateDirections < ActiveRecord::Migration[5.2]
     end
      add_index :directions, [:directionable_id, :directionable_type]
   end
-  
+
+
 end

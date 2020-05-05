@@ -6,9 +6,13 @@ class CreateJobs < ActiveRecord::Migration[5.2]
       t.integer :salary
       t.string :business
       t.text :description
-      t.references :persona, foreign_key: true
+      t.references :persona , foreign_key: true
+
+
       t.timestamps
     end
+
   end
+  
 
 end

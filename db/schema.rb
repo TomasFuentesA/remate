@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.bigint "activityable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["activityable_id", "activityable_type"], name: "index_activities_on_activityable_id_and_activityable_type"
+    t.index ["activityable_type", "activityable_id"], name: "index_activities_on_activityable_type_and_activityable_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -169,8 +171,12 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "directiona"
     t.string "directionb"
     t.string "directionc"
+    t.string "directionable_type"
+    t.bigint "directionable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["directionable_id", "directionable_type"], name: "index_directions_on_directionable_id_and_directionable_type"
+    t.index ["directionable_type", "directionable_id"], name: "index_directions_on_directionable_type_and_directionable_id"
   end
 
   create_table "domains", force: :cascade do |t|
@@ -178,9 +184,13 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.integer "inscription_id"
     t.integer "price"
     t.date "date_posetion"
+    t.string "domainable_type"
+    t.bigint "domainable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "percentage"
+    t.index ["domainable_id", "domainable_type"], name: "index_domains_on_domainable_id_and_domainable_type"
+    t.index ["domainable_type", "domainable_id"], name: "index_domains_on_domainable_type_and_domainable_id"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -188,8 +198,12 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "email_a"
     t.string "email_b"
     t.string "email_c"
+    t.string "emailable_type"
+    t.bigint "emailable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["emailable_id", "emailable_type"], name: "index_emails_on_emailable_id_and_emailable_type"
+    t.index ["emailable_type", "emailable_id"], name: "index_emails_on_emailable_type_and_emailable_id"
   end
 
   create_table "inscriptions", force: :cascade do |t|
@@ -325,8 +339,12 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "phone_a"
     t.string "phone_b"
     t.string "phone_c"
+    t.string "phoneable_type"
+    t.bigint "phoneable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["phoneable_id", "phoneable_type"], name: "index_phones_on_phoneable_id_and_phoneable_type"
+    t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
   end
 
   create_table "posts", force: :cascade do |t|

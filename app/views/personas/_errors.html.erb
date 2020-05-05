@@ -2,7 +2,7 @@
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <h4 class="alert-heading">Los siguientes erorres debe corregir antes de guardar</h4>
     <ul>
-      <% @persona.error.full_messages.each do |msg| %>
+      <% @persona.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>
