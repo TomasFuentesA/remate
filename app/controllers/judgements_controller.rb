@@ -30,7 +30,7 @@ class JudgementsController < ApplicationController
   end
 
   def judgement_params
-    params.require(:judgement).permit(:type_judgement,:court_id,:demandante,:demandado,:auction_id)
+    params.require(:judgement).permit(:type_judgement, :court_id, :demandante, :demandado, :auction_id, :lyrics, :number, :year)
 
   end
 end

@@ -13,7 +13,7 @@ class Ability
       can :manage, :all
       can :access, :admin_users
       elsif user.analyzer?
-        can :manage, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court]
+        can :manage, [Auctionlisting, Auction, Auctionnotice, Realty, Commune, Province, Region, Court, Judgement]
       elsif user.lawyer?
         can :create  [Auctionlisting, Auction, Auctionnotice, Realty]
         can :update [Auctionlisting, Auction, Auctionnotice, Realty]

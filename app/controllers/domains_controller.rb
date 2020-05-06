@@ -3,6 +3,7 @@ class DomainsController < ApplicationController
   before_action :load_domainable , only: [:new,:create]
 
   def index
+    #@domains = Domain.all
     #@domains = @domainable.domains
   end
 

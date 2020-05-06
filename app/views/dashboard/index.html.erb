@@ -13,7 +13,7 @@
     <div class="col-4">
       <!-- List group -->
       <div class="list-group" id="myList" role="tablist">
-        <%=link_to 'inversiones', '#inversiones', class: 'list-group-item list-group-item-action active', data: {toggle: "list"}, role: 'tab' ,remote: true %>
+        <%=link_to 'legal', '#legales', class: 'list-group-item list-group-item-action active', data: {toggle: "list"}, role: 'tab' ,remote: true %>
         <%=link_to 'entidades', '#entidades', class: 'list-group-item list-group-item-action', data: {toggle: "list"}, role: 'tab' ,remote: true %>
         <%= link_to 'propiedades', '#propiedades', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
         <%=link_to 'avisos', '#avisos', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
@@ -24,7 +24,7 @@
     <div class="col-8">
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="inversiones" role="tabpanel"> <%= render partial: 'inversiones', remote: true%></div>
+        <div class="tab-pane fade show active" id="legales" role="tabpanel"> <%= render partial: 'legales', remote: true%></div>
         <div class="tab-pane fade" id="entidades" role="tabpanel"><%= render partial: 'entidades', remote: true%></div>
         <div class="tab-pane fade" id="propiedades" role="tabpanel"><%= render partial: 'propiedades', remote: true%></div>
         <div class="tab-pane fade" id="avisos" role="tabpanel"><%= render partial: 'avisos', remote: true%></div>
