@@ -1,12 +1,23 @@
 <div class="container-fluid">
-  <!-- indicador uf -->
+  <!-- indicadores -->
+  <div class="col-4">
+
+
   <div class="col card">
       <strong><%= l(Date.today, format: "%d de %B,%Y")%></strong>
-
+    <p></p>
       <div id="uf">
         <script> new ufApi()</script>
       </div>
 
+      <div id="dolar">
+        <script> new dolarApi()</script>
+      </div>
+
+      <div id="euro">
+        <script> new euroApi()</script>
+      </div>
+    </div>
   </div>
 
   <div class="row">
