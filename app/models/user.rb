@@ -3,10 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, :omniauth_providers => [:facebook],
+         :authentication_keys => [:rut]
+
+  validates :email,presence: true, uniqueness: {case_sensitive: false}
+  validates :rut,presence: true, uniqueness: {case_sensitive: false}
+
 
   has_many :posts
-
   enum role: [:admin, :analyzer, :lawyer, :appraiser, :visit]
 
   geocoded_by :address

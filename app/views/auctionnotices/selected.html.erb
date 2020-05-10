@@ -24,12 +24,12 @@
 
 <h1>  Avisos Seleccionados </h1>
 
-<table id="myTable" class="table">
-  <thead>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th></th>
-      <th>Avisos Seleccionados</th>
-      <th>Opciones</th>
+      <th scope="col"></th>
+      <th scope="col">Avisos Seleccionados</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
@@ -37,19 +37,19 @@
     <% @auctionnotices.each_with_index do |auctionnotice, i| %>
 
       <tr>
-        <td><%= i + 1 %></td>
+        <td scope="row"><%= i + 1 %></td>
         <td><%= auctionnotice.auction %></td>
 
         <td>
-          <%= link_to "Ver", auctionnotice, class:"fa fa-search" %>
-          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
-          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post, class:"fa fa-trash" %>
+          <%= link_to "Ver", auctionnotice, class:"btn btn-info" %>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) ,class:"btn btn-warning"%>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post, class:"btn btn-danger" %>
 
-           <%= link_to 'Asociar a Propiedad', new_auctionnotice_auction_path(auctionnotice) %>
+           <%= link_to 'Asociar a Propiedad', new_auctionnotice_auction_path(auctionnotice), class:"btn btn-success" %>
             </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Listado De Avisos Pendientes ', auctionnotices_pending_path %>
+<%= link_to 'Listado De Avisos Pendientes ', auctionnotices_pending_path , class:"btn btn-secondary"%>

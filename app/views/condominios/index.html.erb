@@ -1,0 +1,42 @@
+<br>
+<%= link_to 'Nueva Condominio/Edificio', new_condominio_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Nombre de Condominio/Edificio</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">Comuna</th>
+      <th scope="col">Administracion</th>
+      <th scope="col">Administrador</th>
+      <th scope="col">Acciones </th>
+
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @condominios.each do |condominio| %>
+
+      <tr>
+
+        <td><%= condominio.name %></td>
+        <td><%= condominio.address %></td>
+        <td><%= condominio.commune.name %></td>
+        <td><%= condominio.legal_persona.name %></td>
+        <td><%= condominio.persona.name%></td>
+
+
+
+        <td>
+          <%= link_to 'Ver', condominio , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_condominio_path(condominio) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', condominio, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,136 @@
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-7 card card-body">
+      <div class="field">
+        Rut: <%= @persona.rut %>
+      </div>
+      <div class="field">
+        Nombre: <%= @persona.name %> <%= @persona.name2 %> <%= @persona.last_name1 %> <%= @persona.last_name2 %>
+      </div>
+      <% if !@persona.job.nil? %>
+      <div class="field">
+        Trabajo: <%= @persona.job.position %>
+        </div>
+        <div class="field">
+        Salario: <%= @persona.job.salary %>
+        </div>
+        <div class="field">
+        Empresa: <%= @persona.job.business %>
+        </div>
+        <div class="field">
+        Descripcion : <%= @persona.job.description%>
+
+      </div>
+      <%end%>
+      <% if @persona.phones.any? %>
+        <div class="field">
+          <% @phones.each do |phone| %>
+            <div class="field">
+              Telefonos:
+              <div class="col">
+                <%= phone.phone_a %>
+              </div>
+              <div class="col">
+                <%= phone.phone_b %>
+              </div>
+              <div class="col">
+                <%= phone.phone_c %>
+              </div>
+          </div>
+        </div>
+          <% end %>
+          <% end %>
+        <% if @persona.directions.any? %>
+          <div class="field">
+            <% @directions.each do |direction| %>
+            <div class="field">
+              Direcciones:
+            <div class="col">
+              <%= direction.directiona %>
+            </div>
+            <div class="col">
+              <%= direction.directionb %>
+            </div>
+            <div class="col">
+              <%= direction.directionc %>
+            </div>
+            </div>
+          </div>
+
+        <% end %>
+        <% end %>
+        <% if @persona.emails.any? %>
+          <div class="field">
+            Correos:
+            <% @emails.each do |email| %>
+            <div class="field">
+              <div class="col">
+              <%= email.email_a %>
+              </div>
+              <div class="col">
+              <%= email.email_b %>
+              </div>
+              <div class="col">
+              <%= email.email_c %>
+              </div>
+            <% end %>
+            <% end %>
+            </div>
+          </div>
+          <% if @persona.activities.any? %>
+            <div class="field">
+              <% @activities.each do |activity| %>
+                <div class="field">
+                  actividad:
+                  <div class="col">
+                    Codigo: <%= activity.code %>
+                  </div>
+                  <div class="col">
+                    afecta iva: <%= activity.afect_iva %>
+                  </div>
+                  <div class="col">
+                    Nombre actividad: <%= activity.name_activity %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          <% end %>
+
+        </div>
+          <div class="col-sm-5 card card-body">
+            Acciones:
+            <div class="row-sm-3">
+              <%= link_to "editar trabajo", edit_persona_path(@persona) ,class:"btn btn-primary"%>
+              <% unless @persona.phones.any? %>
+                <div class="col-sm-8">
+                  <%= link_to 'Nuevo telefono', new_persona_phone_path(@persona) ,class:"btn btn-primary"%>
+                  <% else %>
+                    <%= link_to 'editar telefono',   edit_persona_phone_path(@persona,@phones.ids) ,class:"btn btn-secondary"%>
+              <% end %>
+              <% unless @persona.emails.any? %>
+                <%= link_to 'Nuevo Correo', new_persona_email_path(@persona) ,class:"btn btn-primary"%>
+              <% else %>
+
+                  <%= link_to 'editar correo', edit_persona_email_path(@persona,@emails.ids) ,class:"btn btn-secondary"%>
+                  <%end%>
+                  <% unless @persona.directions.any? %>
+
+                      <%= link_to 'Nueva direccion', new_persona_direction_path(@persona) ,class:"btn btn-primary"%>
+                    <% else %>
+                    <%= link_to 'editar direccion',   edit_persona_direction_path(@persona,@directions.ids) ,class:"btn btn-secondary"%>
+
+                   <% end %>
+                   <% unless @persona.activities.any? %>
+
+                       <%= link_to 'Nueva Actividad', new_persona_activity_path(@persona) ,class:"btn btn-primary"%>
+                     <% else %>
+                     <%= link_to 'Editar Actividad',   edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
+
+                    <% end %>
+                   </div>
+                  </div>
+                </div>
+              </div>
+            </div>

@@ -1,4 +1,5 @@
 class CommentsController < InheritedResources::Base
+  
 
   private
 

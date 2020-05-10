@@ -210,6 +210,9 @@ ActiveAdmin.setup do |config|
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
   #
+  meta_tags_options = { viewport: 'width=device-width, initial-scale=1' }
+  config.meta_tags = meta_tags_options
+  config.meta_tags_for_logged_out_pages = meta_tags_options
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
   #

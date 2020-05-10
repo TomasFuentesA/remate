@@ -1,16 +1,90 @@
+<br>
+<h1>Ficha Propiedad:</h1>
 
 
 
-<h1>Ficha Propiedad</h1>
 
-<div>
-  <%= @realty.id %>
-  <h2><%= @realty.address %>, <%= @realty.unit_estate %></h2>
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 card card-body ">
+        <div>
+          <h2>Dirección: <%= @realty.address %>, <%= @realty.unit_estate %></h2>
+        </div>
+
+        <div style='width: 800px;' >
+          <div id="map" style='width: 700px; height: 300px;'></div>
+        </div>
+        <hr>
+        <h1>Información básica:</h1>
+            <div class="field">
+              <h4> Poblacion, Villa , Conjunto:</h4>
+              <%= @realty.population_villa %>
+            </div>
+
+            <div class="field">
+              <h4>Rol Avaluo</h4>
+              <%= @realty.appraisal_role %>
+            </div>
+
+
+          <div class="field">
+            <h4>Latitud</h4>
+            <%= @realty.latitude %>
+          </div>
+
+          <div class="field">
+            <h4>Longitud</h4>
+              <%= @realty.longitude %>
+          </div>
+
+
+          <% unless @realty.characteristic.nil? %>
+          <div class="field">
+
+            <h4>Construido mt2 </h4>
+            <%= @realty.characteristic.m2_built %>
+
+            <h4>Terreno mt2 </h4>
+            <%= @realty.characteristic.m2_land %>
+          </div>
+          <%else %>
+
+          <div class="field">
+
+          no hay caracteristicas
+          </div>
+          <% end %>
+
+
+
+          <div class="field">
+            <h4>Tipo de propiedad </h4>
+            <%= @realty.type_realty.tipo %>
+          </div>
+
+        <p></p>
+          <div class="field">
+            <h4>Destino Sii</h4>
+            <%= @realty.fiscal_destination %>
+          </div>
+
+      </div>
+      <br>
+      <div class="col-md-4 card dard-body">
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
-</div>
+
+
+
+
+
+
 
 <script>
 
@@ -42,32 +116,3 @@ handler.buildMap({
 }
 );
 </script>
-
-    <div>
-      <h4> Poblacion, Villa , Conjunto</h4>
-      <%= @realty.population_villa %>
-    </div>
-
-    <div>
-      <h4>Rol Avaluo</h4>
-      <%= @realty.appraisal_role %>
-    </div>
-
-
-  <div>
-    <h4>Latitud</h4>
-      <%= @realty.latitude %>
-  </div>
-  <p></p>
-  <div>
-    <h4>Longitud</h4>
-      <%= @realty.longitude %>
-  </div>
-
-
-  <div>
-    <h4>Construido mt2 </h4>
-    <%= @realty.mt2_built %>
-    <h4>Terreno mt2 </h4>
-    <%= @realty.mt2_land %>
-  </div>

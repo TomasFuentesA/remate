@@ -1,7 +1,11 @@
+<br>
 <table id="myTable" class="table">
   <thead>
     <tr>
-      <th>Seleccionar Provincia</th>
+      <th>Seleccionar Provincia: </th>
+      <th>pertenece a Region: </th>
+      <th>N° de Provincia: </th>
+      <th>Opciones</th>
 
     </tr>
   </thead>
@@ -11,7 +15,8 @@
 
       <tr>
         <td><%= province.name %></td>
-        <td><%= province.region_id %></td>
+        <td><%= province.id %></td>
+
 
         <td>
           <%= link_to 'Show', province %>

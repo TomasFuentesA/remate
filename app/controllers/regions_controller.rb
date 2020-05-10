@@ -1,4 +1,5 @@
 class RegionsController < ApplicationController
+  
   load_and_authorize_resource
 
   def index
@@ -7,6 +8,8 @@ class RegionsController < ApplicationController
 
   def new
     @region = Region.new
+    @region.provinces.build
+    @region.provinces.build.communes.build
   end
 
   def create
@@ -21,6 +24,9 @@ class RegionsController < ApplicationController
   def edit
   end
 
+  def comuna
+  end
+
   def update
     @region.update(region_params)
     redirect_to regions_path
@@ -31,10 +37,17 @@ class RegionsController < ApplicationController
     redirect_to regions_path
   end
 
+  def import
+   Region.my_import(params[:file])
+  redirect_to regions_path, notice: "Successfully Imported Data!!!"
+ end
+
   private
 
   def region_params
-    params.require(:region).permit(:name, :number_region )
+    params.require(:region).permit(:name, :number_region,:file , :provinces_attributes => [:id,:name,
+    :communes_attributes => [:id,:name,:cod_treasury,:conara_sii]]
+  )
   end
 
 

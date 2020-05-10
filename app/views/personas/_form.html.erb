@@ -1,0 +1,66 @@
+<br>
+<div class="container-fluid" >
+  <%= render partial: "errors" %>
+</div>
+
+
+
+<div class="container-fluid" >
+  <div class="form-row-sm-4">
+    <%= form_for  @persona do |form| %>
+      <div class="form-group ">
+
+        <%= form.label :rut, "Rut" %>
+        <%= form.text_field :rut , id: :rut ,class:"form-control border",autofocus: true%>
+
+        <%= form.label :name, "Nombre" %>
+        <%= form.text_field :name, id: :name ,class:"form-control border",autofocus: true%>
+
+        <%= form.label :name2, "Segundo Nombre" %>
+        <%= form.text_field :name2, id: :name2,class:"form-control border",autofocus: true %>
+
+        <%= form.label :last_name1, "Apellido" %>
+        <%= form.text_field :last_name1, id: :last_name1, class:"form-control border",autofocus: true %>
+
+        <%= form.label :last_name2, "Segundo Apellido" %>
+        <%= form.text_field :last_name2, id: :last_name2 ,class:"form-control border",autofocus: true %>
+
+        <%= form.label :e_civil, "Estado Civil" %>
+        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"} %>
+
+        <%= form.label :profesion, "Profesion" %>
+        <%= form.text_field :profesion, id: :profesion ,class:"form-control border",autofocus: true  %>
+
+        <%= form.label :nacionality, "Profesion"  %>
+        <%= form.text_field :nacionality, id: :nacionality ,class:"form-control border",autofocus: true  %>
+
+        <%= form.label :birth_date, "Fecha de Naciomiento" %>
+        <%= form.text_field :birth_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  %>
+
+        <%= form.label :passport, "Pasaporte"  %>
+        <%= form.text_field :passport, id: :passport %>
+
+        <%=form.fields_for :job do |f| %>
+        <div class="field">
+          <%= form.label :passport, "Cargo en su trabajo:"  %>
+          <%= f.text_field :position %>
+        </div>
+        <div class="field">
+          <%= form.label :passport, "Salario:"  %>
+          <%= f.number_field :salary %>
+        </div>
+        <div class="field">
+          <%= form.label :passport, "Empresa:"  %>
+          <%= f.text_field :business %>
+        </div>
+        <div class="field">
+          <%= form.label :passport, "Descripcion del cargo:"  %>
+          <%= f.text_field :description %>
+        </div>
+        <%end%>
+
+        <%= form.submit "Guardar" %>
+      <% end %>
+    </div>
+  </div>
+</div>

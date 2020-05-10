@@ -1,8 +1,19 @@
 // Place all the styles related to the auctions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#fileview {
+  display: flex;
+      flex-wrap: wrap;
+      margin-right: 20px;
+      margin-left: 20px;
+}
 
+.col-principal {
+  padding-top: 15px;
+  background-color: white;
+  border-radius: 15px;
+}
 
-#auctionsTable {
-  background-color: #e2e4ea;
+.col-lateral {
+  padding-top: 10px;
 }

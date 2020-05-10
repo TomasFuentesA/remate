@@ -3,7 +3,7 @@
 
 <h1>  Asociar Aviso de Remate a Propiedad </h1>
 
-<%= form_with model: Auction.new  do |form| %>
+<%= form_with model: @auctions  do |form| %>
   <%= form.label :name, "Seleccion de Avisos de Remate" %>
 
   <div class="field">
@@ -37,12 +37,16 @@
       <div class="field"
         <%= form.label :minimum, "Minimo Remate" %>
         <%= form.label :uf, "UF" %>
-        <%= form.number_field :uf, id: :uf %>
+        <%= form.number_field  :uf, id: :uf %>
 
-        <%= form.label :pesos, "Pesos" %>
-        <%= form.number_field :pesos, id: :pesos %>
+
      </div>
     </div>
+
+    <div class="field">
+      <%= form.label :pesos, "Pesos" %>
+      <%= form.number_field :pesos, id: :pesos %>s
+      </div>
 
     <div class="field">
       <%= form.label :cost, "Costas" %>

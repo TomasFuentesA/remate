@@ -1,37 +1,41 @@
 class AuctionsController < ApplicationController
   load_and_authorize_resource
+  before_action :set_auction, only: [:show,:edit,:destroy]
+  before_action :set_auctionnotice, only: [:new]
 
   def index
-    @auctions = Auction.order(params[:date],params[:hour])
-    @auctions = Auction.all
+      @auctions = Auction.order(date: :desc,hour: :desc).page(params[:page]).per_page(6)
+      @search = Auction.search(params[:q])
+      if @search
+        @auctions = @search.result
+      end
+  end
 
-    
+  def search
+    index
+    render :index
   end
 
   def new
-    @auction = Auction.new
-    @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
-
   end
 
   def create
     @auction = Auction.new(auction_params)
-    @auction.save
+    if @auction.save
+      @auction.auctionnotice.update(status: 3,realty_id: @auction.realty_id)
+      @auction.judgement.update(lyrics: @auction.lyrics,
+        number: @auction.number,
+        year: @auction.year,
+      court_id: @auction.court_id,
+      auction_id: @auction.id)
+    end
     redirect_to auctions_path
   end
 
   def show
-    @auction = Auction.find(params[:id])
-
   end
 
   def edit
-    @auction = Auction.find(params[:id])
-
-    sum_total_minimun
-
-
-
   end
 
   def update
@@ -40,9 +44,22 @@ class AuctionsController < ApplicationController
   end
 
   def destroy
-    @auction.destroy
-    redirect_to auctions_path
+      @auction.auctionnotice.update(status: 0)
+      @auction.destroy
+      respond_to do |format|
+        format.js
+        format.html {redirect_to auctions_path, notice: "#{@auction.name} eliminado exitosamente." }
+        format.json {head :no_content }
+      end
+      #flash[:notice] = "remate #{@auction.inspect} Eliminado con exito"
+      
+
+    #flash[:notice] = "remate #{@auction} no se pudo eliminar"
+
+
   end
+
+
 
   def auctions
       auction = Auctionnotice.find(params[:id])
@@ -79,13 +96,6 @@ class AuctionsController < ApplicationController
       redirect_to auctions_path
   end
 
-  def sum_total_minimun
-    @auction.uf ||= 0
-    @auction.cost ||= 0
-    @auction.total_minimum = @auction.cost + @auction.pesos
-
-  end
-
 
 
 
@@ -93,8 +103,25 @@ class AuctionsController < ApplicationController
 
   private
 
+  def set_auctionnotice
+    @auction = Auction.new
+    @realty = Realty.new
+    @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
+    @realty.build_type_realty
+    @auction.build_judgement
+  end
+
+  def set_auction
+    @auction = Auction.find(params[:id])
+  end
+
   def auction_params
-    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty, :minimum, :total_minimum, :cost, :uf, :pesos, :court_id, :lyrics, :number, :year, :realty_id, :auctionnotice_id, :status)
+    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
+      :minimum, :total_minimum, :cost,
+       :uf, :pesos, :court_id, :lyrics, :number, :year,
+        :realty_id, :auctionnotice_id,:status,
+        :judgement_attributes => [:id, :type_judgement, :lyrics, :number, :year,:demandante,:demandado,:court_id, :auction_id]
+       )
   end
 
 end

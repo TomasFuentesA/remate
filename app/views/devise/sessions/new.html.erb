@@ -1,46 +1,44 @@
-<div class="row justify-content-center">
-  <div class="col-4">
+<h1><%= t('.sign_in') %></h1>
+<div class="row">
+  <div class="col-9">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <%= f.label :rut %>
+      <%= f.text_field :rut, autofocus: true,id: :rut,class: 'form-control', placeholder: '11.111.111-1' %>
 
-    <%= form_for(resource,
-    as: resource_name,
-    url: session_path(resource_name),
-    html: {class: 'form'}
-    ) do |f| %>
-
-    <h2>Log in</h2>
-
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email,
-          autofocus: true,
-          class: 'form-control',
-          placeholder: 'your@email.com'
-    %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password %><br />
-    <%= f.password_field :password,
-        autocomplete: "off",
-        class: 'form-control' %>
-  </div>
-
-    <% if devise_mapping.rememberable? -%>
-      <div class="form-check">
-        <%= f.label :remember_me, class: 'form-check-label' do %>
-        <%= f.check_box :remember_me, class: 'form-check-input' %>
-        Remember me
-      <% end %>
-      </div>
-    <% end -%>
-
-    <div class="actions">
-      <%= f.submit "Log in", class: 'btn btn-success'  %>
     </div>
 
-    <%= render "devise/shared/links" %>
 
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="form-group form-check">
+          <%= f.check_box :remember_me, class: 'form-check-input' %>
+          <%= f.label :remember_me, class: 'form-check-label' do %>
+            <%= resource.class.human_attribute_name('remember_me') %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.submit  t('.sign_in'), class: 'btn btn-primary' %>
+      </div>
     <% end %>
+
+    <%= render 'devise/shared/links' %>
+
 
   </div>
 </div>
+
+
+<script>
+  $(function() {
+    $("#rut").rut().on('rutValido', function(e, rut, dv) {
+      alert("El rut " + rut + "-" + dv + " es correcto");
+      }, { minimumLength: 7} );
+    })
+</script>

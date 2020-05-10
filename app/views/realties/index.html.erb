@@ -1,59 +1,60 @@
 <br>
-<ul class="list-group">
-  <li class="list-group-item "><%= link_to 'Ir a Listado Avisos', auctionnotices_path %> </li>
-
-</ul>
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
-</div>
 
 
-<script>
 
-handler = Gmaps.build('Google');
-handler.buildMap({
-    provider: {
-      center: new google.maps.LatLng({lat: -33.43, lng: -70.65 }),
-      zoom: 14
-    },
-    internal: {
-      id: 'map'
-    }
-  }, function(){
-  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-  google.maps.event.addListener(handler.getMap(), "click", function(){
-    console.log("hola");
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div style='width: 800px;'>
+          <div id="map" style='width: 700px; height: 300px;'></div>
+        </div>
 
-    });
-  google.maps.event.addListener(handler.getMap(), 'center_changed', function(){
-    var latitude = handler.getMap().getCenter().lat();
-    var longitude = handler.getMap().getCenter().lng();
-    $.ajax({
-      url: '/realties',
-      type: 'GET',
-      dataType: 'script',
-      data: {latitude: latitude, longitude: longitude}
-    })
-  });
-}
-);
-</script>
+
+      </div>
+
+      <div class="col">
+        <%= link_to  auctionnotices_path,  class: "btn btn-primary" do %>
+        <%= fa_icon "backspace"%>Ir al listado de avisos
+        <% end %>
+
+        <%= link_to 'Ir a Comuna', communes_path, class: "btn btn-primary" %>
+        <%= link_to  new_realty_path, class: "btn btn-primary"  do%>
+        <%= fa_icon "Plus"%>Nueva Propiedad
+        <% end %>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
 
 
 <h1>Listado de Propiedades</h1>
 <div id="realties">
 
-<table id="myTable" class="table">
-  <thead>
-    <tr>
-      <th>Direccion</th>
-      <th>Departamento/Oficina</th>
-      <th>Opciones</th>
+<table id="mytable"  class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr id="realtiesTable">
+      <th scope="col" >Nombre Propiedad</th>
+      <th scope="col" >Direccion</th>
+      <th scope="col">Departamento/Oficina</th>
+      <th scope="col">Poblacion/Villa</th>
+      <th scope="col">Tipo Propiedad</th>
+      <th scope="col">Rol Sii</th>
+      <th scope="col">Destino Sii</th>
+      <th scope="col">Opciones</th>
+
     </tr>
   </thead>
 
 
-  <tbody id="realties-xyz">
+  <tbody id="realties-xyz" >
     <%= render @realties %>
 
   </tbody>
@@ -62,9 +63,34 @@ handler.buildMap({
 </div>
 
 <br>
-<ul class="list-group">
-  <li class="list-group-item "> <%= link_to 'Ir a Comuna', communes_path %> </li>
-  <li class="list-group-item "> <%= link_to 'Nueva Propiedad', new_realty_path %> </li>
+home
+<script>
 
+handler = Gmaps.build('Google');
+handler.buildMap({
+  provider: {
+    center: new google.maps.LatLng({lat: -33.43, lng: -70.65 }),
+    zoom: 14
+  },
+  internal: {
+    id: 'map'
+  }
+}, function(){
+markers = handler.addMarkers(<%= raw @hash.to_json %>);
+google.maps.event.addListener(handler.getMap(), "click", function(){
+  console.log("hola");
 
-</ul>
+  });
+google.maps.event.addListener(handler.getMap(), 'center_changed', function(){
+  var latitude = handler.getMap().getCenter().lat();
+  var longitude = handler.getMap().getCenter().lng();
+  $.ajax({
+    url: '/realties',
+    type: 'GET',
+    dataType: 'script',
+    data: {latitude: latitude, longitude: longitude}
+  })
+});
+}
+);
+</script>

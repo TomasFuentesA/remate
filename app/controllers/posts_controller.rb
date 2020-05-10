@@ -1,4 +1,5 @@
 class PostsController < InheritedResources::Base
+  
 
   private
 

@@ -1,12 +1,13 @@
 <h1> Avisos descartados </h1>
 
 
-<table id="myTable" class="table">
-  <thead>
+<table  class="table table-bordered table-hover">
+  <thead class="thead-dark">
+
     <tr>
-      <th></th>
-      <th>Auction</th>
-      <th>Opciones</th>
+      <th scope="col"></th>
+      <th scope="col">Auction</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
@@ -15,7 +16,7 @@
     <% @auctionnotices.each_with_index do |auctionnotice, i| %>
 
       <tr>
-        <td><%= i + 1 %></td>
+        <td scope="row"><%= i + 1 %></td>
         <td><%= auctionnotice.auction %></td>
 
         <td>
@@ -23,6 +24,7 @@
           <%= link_to 'Show', auctionnotice %>
           <%= link_to 'Edit', edit_auctionnotice_path(auctionnotice) %>
           <%= link_to 'Seleccionar Aviso', action_selection_path(auctionnotice), method: :post %>
+          <%= link_to 'Destroy', auctionnotice, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>

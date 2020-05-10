@@ -1,0 +1,44 @@
+<h1>Nuevo Télefono</h1>
+<div class="container">
+
+
+<%= form_for [@phoneable, @phone] do |f| %>
+  <% if @phone.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @phone.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :phone_a, "Teléfono 1" %>
+        <%= f.text_field :phone_a %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :phone_b, "Teléfono 2" %>
+        <%= f.text_field :phone_b %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :phone_c, "Teléfono 3" %>
+        <%= f.text_field :phone_c %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.submit "Guardar" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>

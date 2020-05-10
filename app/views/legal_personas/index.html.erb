@@ -1,0 +1,34 @@
+
+<br>
+<%= link_to 'Nueva Persona Juridica', new_legal_persona_path ,class: "btn btn-primary"%>
+<br>
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Rut</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Nombre de Fantasia</th>
+      <th scope="col">Alias</th>
+      <th scope="col">Web</th>
+      <th scope="col">opciones</th>
+    </tr>
+  </thead>
+  <tbody class="rounded-pill">
+    <% @legalPersonas.each do |legalpersona| %>
+      <tr>
+        <td scope="row"><%= legalpersona.rut %></td>
+        <td><%= legalpersona.name %></td>
+        <td><%= legalpersona.fantasy_name %></td>
+        <td><%= legalpersona.alias %></td>
+        <td><%= legalpersona.web %></td>
+        <td>
+
+              <%= link_to 'Ver', legalpersona ,class: "btn btn-info"%>
+              <%= link_to 'Borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+      <%end%>
+        </td>
+      </tr>
+  </tbody>
+</table>
+<br>

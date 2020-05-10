@@ -1,10 +1,16 @@
+<br>
+<%= link_to 'Nuevo Tribunal', new_court_path ,class: "btn btn-primary"%>
+<br>
+<table class="table table-bordered table-hover">
 
-<table id="myTable" class="table">
-  <thead>
+  <thead class="thead-dark">
     <tr>
-      <th>Seleccionar Tribunal</th>
-      <th>Nº Tribunal</th>
-      <th>Opciones</th>
+      <th scope="col">Seleccionar Tribunal</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Dirección</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Nº Cuenta</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
@@ -21,15 +27,30 @@
         <td><%= court.phone %></td>
         <td><%= court.account %></td>
 
-          <%= link_to 'Show', court %>
-          <%= link_to 'Edit', edit_court_path(court) %>
-          <%= link_to 'Destroy', court, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <td> <%= link_to 'Ver', court , class:"btn btn-info" %>
+        <% if can? :access, :admin_users, :lawyers %>
+        <%= link_to 'Editar', edit_court_path(court), class: "btn btn-warning" %>
+        <%= link_to 'Eliminar', court, method: :delete, data: { confirm: 'Are you sure?' } , class:"btn btn-danger", remote: true %>
+        <%end%>
+</td>
+
 
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
 
-  <%= link_to 'Nuevo Tribunal', new_court_path %>
+<%= will_paginate @courts , previous_label: h("<"), next_label: h(">")%>
+
+
+<!-- or custom pagination -->
+<% if @courts.previous_page %>
+  <%= link_to "< Anterior", params.merge(page: @courts.previous_page).permit(:page) %>
+<% end %>
+Página <%= @courts.current_page %> de <%= @courts.total_pages %>
+<% if @courts.next_page %>
+  <%= link_to "Siguiente>", params.merge(page: @courts.next_page).permit(:page) %>
+<% end %>
+
+<br>

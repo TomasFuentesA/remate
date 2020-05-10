@@ -1,4 +1,5 @@
 class ProvincesController < ApplicationController
+  
 
   load_and_authorize_resource
 
@@ -35,7 +36,7 @@ class ProvincesController < ApplicationController
   private
 
   def province_params
-    params.require(:province).permit(:name, :region_id )
+    params.require(:province).permit(:name, :region_id,:communes_attributes => [:id,:name,:cod_treasury,:conara_sii] )
   end
 
 

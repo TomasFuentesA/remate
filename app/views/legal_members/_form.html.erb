@@ -1,0 +1,13 @@
+<%= form_with model: @legal_member, url: legal_members_path ,id: :formulary, remote: true do |form| %>
+
+
+<%= form.label "persona jurídica" %>
+<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+
+<%= form.label "seleccione empresa" %>
+<%=  form.select :legal_asociado_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+<%=  form.submit "guardar" %>
+
+<% end %>

@@ -11,7 +11,7 @@ one:
   photo: MyString
   e_civil: MyString
   profesion: MyString
-  fecha_nac: 2020-02-17
+  fecha_nac: 2020-02-19
   alias: MyString
   nacionality: MyString
   passport: MyString
@@ -28,7 +28,7 @@ two:
   photo: MyString
   e_civil: MyString
   profesion: MyString
-  fecha_nac: 2020-02-17
+  fecha_nac: 2020-02-19
   alias: MyString
   nacionality: MyString
   passport: MyString

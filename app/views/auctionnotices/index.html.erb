@@ -1,49 +1,55 @@
-<h1>Listado de Avisos</h1>
-<li class="list-group-item "><%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %></li>
-<li class="list-group-item"><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
-<li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
-<li class="list-group-item"><%= link_to 'Ingresar Avisos x Doc', auctionlistings_path %></li>
-<li class="list-group-item"><%= link_to 'Ingresar Avisos x individual', new_auctionnotice_path %></li>
-<li class="list-group-item"><%= link_to 'Calendario de Remates ', auctions_path %></li>
-<li class="list-group-item"><%= link_to 'Ir a Propiedades', realties_path %></li>
-
-
+<h1>Todos los avisos</h1>
 
 <br>
 
+<%= render "search" %>
 
 
-<div class="limiter">
-<table id="myTable" class="table">
-  <thead>
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th id = "actionNoticeTable">Nº</th>
-      <th id = "actionNoticeTable">Auction</th>
-      <th id = "actionNoticeTable">Opciones</th>
-
+      <th scope="col">Nº</th>
+      <th scope="col">Aviso</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
     </tr>
   </thead>
 
 
 
   <tbody>
-
+<%= form_tag discontinue_auctionnotices_path, method: :put do %>
     <% @auctionnotices.each_with_index do |auctionnotice, i| %>
 
       <tr>
-        <td><%= i + 1 %></td>
+        <td><%=check_box_tag "auctionnotice_ids[]",auctionnotice.id %></td>
         <td><%= auctionnotice.auction %></td>
+        <td><%= auctionnotice.status %></td>
 
         <td>
-          <%= link_to 'Ver', auctionnotice %>
-          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) %>
-          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post %>
-          <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post %>
+
+          <%= link_to 'Ver', auctionnotice , class:"btn btn-info"%>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) , class:"btn btn-warning"%>
+          <% unless auctionnotice.status == "rejected" %>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post , class:"btn btn-danger" %>
+          <% end %>
+          <% unless auctionnotice.status == "selected" ||  auctionnotice.status == "joined"%>
+          <%= link_to 'Seleccionar', action_selection_path(auctionnotice), method: :post, class:"btn btn-success" %>
+
+          <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<div id="search-results">
+
+</div>
+
+
+<%= submit_tag "seleccionados" ,class:"button"%>
+<% end %>
 
 <br>
 </div>

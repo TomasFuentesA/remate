@@ -1,70 +1,70 @@
-<div class="row justify-content-center">
-  <div class="col-4">
-
-    <%= form_for(resource,
-      as: resource_name,
-      url: registration_path(resource_name),
-      html: {class: 'form'}
-      ) do |f| %>
-    <%= devise_error_messages! %>
-
-    <h2>Sign up</h2>
-
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name,
-      class: 'form-control',
-      autofocus: true %>
-
-
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email,
-    class: 'form-control' %>
-
-  <div class="form-group">
-    <%= f.label :address %>
-    <div class="row"
-      <div class="col-md-10">
-        <%= f.text_field :address,
-          class: 'form-control'%>
+<h1><%= t('.sign_up') %></h1>
+<div class="row">
+  <div class="col-9">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= bootstrap_devise_error_messages! %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name,class: 'form-control',autofocus: true %>
       </div>
-      <div class="col-md-2">
-        <%= link_to '#', class:"btn btn-primary", id:"find-address" do %>
+      <div class="form-group">
+        <%= f.label :rut %>
+        <%= f.text_field :rut, id: :rut,class: 'form-control ' ,autocomplete: "off"%>
+
+
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :Dirección %>
+        <%= f.text_field :address, class: 'form-control',autocomplete: "off"%>
+        </div>
+
+        <div class="col-md-2">
+          <%= link_to '#', class:"btn btn-primary", id:"find-address" do %>
             <i class="fa fa-map-marker"> </i>
+      <% end %>
+        </div>
+
+
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
+
+        <% if @minimum_password_length %>
+          <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
         <% end %>
       </div>
-    </div>
-  </div>
 
-  <div class="form-group">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password,
-      autocomplete: "off",
-      class: 'form-control' %>
-  </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control' %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation,
-      autocomplete: "off",
-      class: 'form-control' %>
-  </div>
-
-  <div class="actions">
-      <%= f.submit "Sign up", class: 'btn btn-success' %>
-  </div>
-    <%= render "devise/shared/links" %>
-
+      <div class="form-group">
+        <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
+      </div>
     <% end %>
 
+    <%= render 'devise/shared/links' %>
 
-    </div>
+
+
+
   </div>
 </div>
+
+
+
+
+<br>
+
+
+
 
 <script>
   $("#find-address").click(function(event){
@@ -85,13 +85,14 @@
         url: '/geocoder/findaddress',
         type: 'GET',
         dataType: 'script',
-        data: {latitude: 'latitude', longitude: longitude}
+        data: {latitude: latitude, longitude: longitude}
       })
       .done(function() {
-        console.log("success");
+        console.log(" la dirección es válida");
+
       })
       .fail(function() {
-        console.log("error");
+        console.log("error, dirección no válida");
       })
       .always(function() {
         $("#find-address").html('<i class="fa fa-map-marker"> </i>');
@@ -99,4 +100,13 @@
 
   }
 
+  </script>
+
+
+  <script>
+    $(function() {
+      $("#rut").rut().on('rutValido', function(e, rut, dv) {
+        alert("El rut " + rut + "-" + dv + " es correcto");
+        }, { minimumLength: 7} );
+      })
   </script>

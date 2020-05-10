@@ -1,0 +1,20 @@
+<br>
+<h1>Calendario de Avisos</h1>
+
+<div id="articles">
+  <h2 id="month">
+    <%= link_to "<", date: @date.prev_month %>
+    <%= l(@date, format:"%B, %Y") %>
+    <%= link_to ">", date: @date.next_month %>
+  </h2>
+  <%= calendar @date do |date| %>
+    <%= date.day %>
+    <% if @auctions_by_date[date] %>
+      <ul>
+        <% @auctions_by_date[date].each do |auction| %>
+          <li><%= link_to "#{auction.name}-#{auction.hour}", auction %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+</div>

@@ -8,22 +8,33 @@ gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'devise', git: 'https://github.com/plataformatec/devise.git'
-gem 'jquery-datatables'
-gem 'jquery-ui-rails'
+group :assets do
+  gem 'jquery-datatables'
+  gem 'jquery-rails'
+  gem 'jquery-ui-rails', '~> 5.0.5'
 
 
+end
+gem "font-awesome-rails"
 
+gem 'arctic_admin'
+gem 'ransack'
+gem 'will_paginate','3.1.7'
 gem 'cancancan'
 # Use jQuery
 gem 'docx'
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'underscore-rails'
+gem 'devise-i18n'
+gem 'devise-bootstrap-views', '~> 1.0'
+gem 'csv'
+gem 'activerecord-import'
 gem 'activeadmin'
 gem 'rails-i18n'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'bootstrap-datepicker-rails'
-
 gem 'chartkick'
 gem 'groupdate'
 # Use para ver diagrama pdf
@@ -49,21 +60,28 @@ gem 'omniauth-facebook'
 gem 'rubyzip', '>= 1.3.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
+gem 'event-calendar', :require => 'event_calendar'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
+gem 'bootstrap', '~> 4.4.1'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
 end
+
+
+
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  gem 'meta_request'
+
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

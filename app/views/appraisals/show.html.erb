@@ -1,0 +1,39 @@
+<%= link_to 'Volver Listado Tasaciones', appraisal_path %>
+
+<p></p>
+
+<div class="row" id="fileview">
+  <div class="col-principal col-md-8">
+    <div>
+      <h2>
+        Tasación nº  <%= @appraisal.id %> : <%= @appraisal.realty.name_realty %>
+        </h2>
+    </div>
+    <h4>Informacion de la Tasación</h4>
+
+
+      <div>
+        Fecha:  <%= @appraisal.date %>
+      </div>
+       <div>
+         Entidad: <%= @appraisal.entity%>
+       </div>
+      <div>
+         Valor UF:     <%= @appraisal.price_uf %>
+       </div>
+
+       <div>
+          Valor CLP:   <%= @appraisal.price_clp %>
+        </div>
+
+        <div>
+           Valor USD:     <%= @appraisal.price_usd %>
+         </div>
+
+         <div>
+            Observacion:     <%= @appraisal.observation %>
+          </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,30 @@
+<h1>  Avisos Asociados a Propiedad</h1>
+
+
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Avisos Asociados</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @auctionnotices.each_with_index do |auctionnotice, i| %>
+
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= auctionnotice.auction %></td>
+        <td>
+          <%= link_to 'Ver', auctionnotice , class:"btn btn-info"%>
+          <%= link_to 'Editar', edit_auctionnotice_path(auctionnotice) , class:"btn btn-warning"%>
+          <%= link_to 'Descartar', rejection_path(auctionnotice), method: :post, class:"btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path , class:"btn btn-secondary"%>

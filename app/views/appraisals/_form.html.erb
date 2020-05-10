@@ -1,0 +1,45 @@
+<%= form_with model: Appraisal.new, local: true do |form| %>
+  <%= form.label :name, "Ingreso de nueva Tasacion" %>
+
+
+  <div class="form-group col-md-2">
+    <%= form.label :realty_id %>
+    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.name_realty, p.id]}, { include_blank: "Seleccione"}) %>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= form.label :date, "Fecha" %>
+    <%= form.text_field :date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= form.label :entity, "Entidad" %>
+    <%= form.text_field :entity, id: :entity , class:"form-control border" ,autofocus: true%>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= form.label :price_uf, "Valor UF:" %>
+    <%= form.number_field :price_uf, id: :price_uf , class:"form-control border" ,autofocus: true%>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= form.label :price_clp, "Valor CLP:" %>
+    <%= form.number_field :price_clp, id: :price_clp , class:"form-control border" ,autofocus: true%>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= form.label :price_usd, "Valor USD:" %>
+    <%= form.number_field :price_usd, id: :price_usd , class:"form-control border" ,autofocus: true%>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= form.label :observation %>
+    <%= form.text_field :observation, id: :name %>
+  </div>
+
+
+
+
+ <%= form.submit "Guardar" %>
+
+<% end %>
