@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_190426) do
+ActiveRecord::Schema.define(version: 2020_03_12_165307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,21 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "rut"
+    t.string "code"
+    t.string "name_activity"
+    t.string "afect_iva"
+    t.integer "category"
+    t.string "rubro"
+    t.string "activityable_type"
+    t.bigint "activityable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activityable_id", "activityable_type"], name: "index_activities_on_activityable_id_and_activityable_type"
+    t.index ["activityable_type", "activityable_id"], name: "index_activities_on_activityable_type_and_activityable_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -75,11 +90,22 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.bigint "court_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "minimum"
+    t.float "minimum"
     t.integer "status"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["court_id"], name: "index_auctions_on_court_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
+  end
+
+  create_table "characteristics", force: :cascade do |t|
+    t.float "m2_land"
+    t.float "m2_built"
+    t.string "material"
+    t.bigint "realty_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "built_year"
+    t.index ["realty_id"], name: "index_characteristics_on_realty_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -108,7 +134,79 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
+  end
+
+  create_table "directions", force: :cascade do |t|
+    t.string "rut"
+    t.string "directiona"
+    t.string "directionb"
+    t.string "directionc"
+    t.string "directionable_type"
+    t.bigint "directionable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["directionable_id", "directionable_type"], name: "index_directions_on_directionable_id_and_directionable_type"
+    t.index ["directionable_type", "directionable_id"], name: "index_directions_on_directionable_type_and_directionable_id"
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.string "type_modality"
+    t.integer "inscription_id"
+    t.integer "price"
+    t.date "date_posetion"
+    t.string "domainable_type"
+    t.bigint "domainable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "percentage"
+    t.index ["domainable_id", "domainable_type"], name: "index_domains_on_domainable_id_and_domainable_type"
+    t.index ["domainable_type", "domainable_id"], name: "index_domains_on_domainable_type_and_domainable_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "rut"
+    t.string "email_a"
+    t.string "email_b"
+    t.string "email_c"
+    t.string "emailable_type"
+    t.bigint "emailable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["emailable_id", "emailable_type"], name: "index_emails_on_emailable_id_and_emailable_type"
+    t.index ["emailable_type", "emailable_id"], name: "index_emails_on_emailable_type_and_emailable_id"
+  end
+
+  create_table "inscriptions", force: :cascade do |t|
+    t.integer "foja"
+    t.integer "number"
+    t.integer "year"
+    t.string "cbrs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "domain_id"
+    t.index ["domain_id"], name: "index_inscriptions_on_domain_id"
+  end
+
+  create_table "judgements", force: :cascade do |t|
+    t.integer "type_judgement", default: 0
+    t.string "lyrics"
+    t.integer "number"
+    t.integer "year"
+    t.bigint "auction_id"
+    t.bigint "court_id"
+    t.bigint "demandante"
+    t.bigint "demandado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auction_id"], name: "index_judgements_on_auction_id"
+    t.index ["court_id"], name: "index_judgements_on_court_id"
+  end
+
+  create_table "legal_represents", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "natural_people", force: :cascade do |t|
@@ -131,6 +229,19 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "phones", force: :cascade do |t|
+    t.string "rut"
+    t.string "phone_a"
+    t.string "phone_b"
+    t.string "phone_c"
+    t.string "phoneable_type"
+    t.bigint "phoneable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phoneable_id", "phoneable_type"], name: "index_phones_on_phoneable_id_and_phoneable_type"
+    t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
@@ -145,7 +256,6 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "commune_id"
   end
 
   create_table "realties", force: :cascade do |t|
@@ -165,6 +275,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
+    t.integer "province_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -172,7 +283,20 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.integer "number_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "province_id"
+  end
+
+  create_table "type_realties", force: :cascade do |t|
+    t.integer "tipo"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "realty_id"
+    t.integer "bathroom"
+    t.integer "parking_lot"
+    t.integer "cellar"
+    t.integer "bedroom"
+    t.integer "ambient"
+    t.index ["realty_id"], name: "index_type_realties_on_realty_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -195,6 +319,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
     t.string "address"
     t.string "provider"
     t.string "uid"
+    t.string "rut"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -203,6 +328,11 @@ ActiveRecord::Schema.define(version: 2020_02_17_190426) do
   add_foreign_key "auctions", "auctionnotices"
   add_foreign_key "auctions", "courts"
   add_foreign_key "auctions", "realties"
+  add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
+  add_foreign_key "inscriptions", "domains"
+  add_foreign_key "judgements", "auctions"
+  add_foreign_key "judgements", "courts"
   add_foreign_key "posts", "users"
+  add_foreign_key "type_realties", "realties"
 end
