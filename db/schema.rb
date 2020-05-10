@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_04_30_151043) do
+=======
+ActiveRecord::Schema.define(version: 2020_03_12_165307) do
+>>>>>>> personaNatural
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,8 +166,11 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.bigint "judgement_id"
     t.index ["judgement_id"], name: "index_courts_on_judgement_id"
+=======
+>>>>>>> personaNatural
   end
 
   create_table "directions", force: :cascade do |t|
@@ -214,6 +221,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "domain_id"
+<<<<<<< HEAD
     t.date "date"
     t.index ["domain_id"], name: "index_inscriptions_on_domain_id"
   end
@@ -230,6 +238,11 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.index ["persona_id"], name: "index_jobs_on_persona_id"
   end
 
+=======
+    t.index ["domain_id"], name: "index_inscriptions_on_domain_id"
+  end
+
+>>>>>>> personaNatural
   create_table "judgements", force: :cascade do |t|
     t.integer "type_judgement", default: 0
     t.string "lyrics"
@@ -245,6 +258,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.index ["court_id"], name: "index_judgements_on_court_id"
   end
 
+<<<<<<< HEAD
   create_table "legal_members", force: :cascade do |t|
     t.bigint "legal_persona_id"
     t.bigint "legal_asociado_id"
@@ -253,6 +267,13 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "updated_at", null: false
     t.index ["legal_asociado_id"], name: "index_legal_members_on_legal_asociado_id"
     t.index ["legal_persona_id"], name: "index_legal_members_on_legal_persona_id"
+=======
+  create_table "legal_represents", force: :cascade do |t|
+    t.string "name"
+    t.string "rut"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+>>>>>>> personaNatural
   end
 
   create_table "legal_personas", force: :cascade do |t|
@@ -347,6 +368,19 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
   end
 
+  create_table "phones", force: :cascade do |t|
+    t.string "rut"
+    t.string "phone_a"
+    t.string "phone_b"
+    t.string "phone_c"
+    t.string "phoneable_type"
+    t.bigint "phoneable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phoneable_id", "phoneable_type"], name: "index_phones_on_phoneable_id_and_phoneable_type"
+    t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
@@ -360,8 +394,11 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.bigint "region_id"
     t.index ["region_id"], name: "index_provinces_on_region_id"
+=======
+>>>>>>> personaNatural
   end
 
   create_table "realties", force: :cascade do |t|
@@ -380,10 +417,14 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
+<<<<<<< HEAD
     t.bigint "commune_id"
     t.integer "province_id"
     t.string "fiscal_destination"
     t.index ["commune_id"], name: "index_realties_on_commune_id"
+=======
+    t.integer "province_id"
+>>>>>>> personaNatural
   end
 
   create_table "regions", force: :cascade do |t|
@@ -433,6 +474,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
+<<<<<<< HEAD
   add_foreign_key "communes", "provinces"
   add_foreign_key "condominios", "communes"
   add_foreign_key "condominios", "legal_personas"
@@ -447,5 +489,11 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
   add_foreign_key "provinces", "regions"
+=======
+  add_foreign_key "inscriptions", "domains"
+  add_foreign_key "judgements", "auctions"
+  add_foreign_key "judgements", "courts"
+  add_foreign_key "posts", "users"
+>>>>>>> personaNatural
   add_foreign_key "type_realties", "realties"
 end
