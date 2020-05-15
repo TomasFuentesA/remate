@@ -3,7 +3,6 @@ class CreateRegions < ActiveRecord::Migration[5.2]
     create_table :regions do |t|
       t.string :name
       t.integer :number_region
-
       t.timestamps
     end
   end
