@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: remate_test
+  url: postgres://mkucumvupxeoyd:7bede714219062a574b64f87c573036db70c9042ba6e4fd9c6264b16e43756a5@ec2-54-221-215-228.compute-1.amazonaws.com:5432/dakb168pg2f6ru
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
