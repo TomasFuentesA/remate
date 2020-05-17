@@ -4,7 +4,8 @@ class ProvincesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @provinces = Province.all
+    @provinces = Province.order("name").page(params[:page]).per_page(10)
+
   end
 
   def new

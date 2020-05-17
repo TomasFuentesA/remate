@@ -1,70 +1,55 @@
-<h1><%= t('.sign_up') %></h1>
-<div class="row">
-  <div class="col-9">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= bootstrap_devise_error_messages! %>
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name,class: 'form-control',autofocus: true %>
-      </div>
-      <div class="form-group">
-        <%= f.label :rut %>
-        <%= f.text_field :rut, id: :rut,class: 'form-control ' ,autocomplete: "off"%>
+ <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4"><%= t('.sign_up') %></h3></div>
+                <div class="card-body">
+                 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                <%= bootstrap_devise_error_messages! %>
+                <div class="form-group">
+                  <%= f.label :Nombre %>
+                  <%= f.text_field :name,id: :name,class: 'form-control',autofocus: true %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :rut %>
+                  <%= f.text_field :rut, id: :rut,class: 'form-control ' ,autocomplete: "off"%>
+                </div>
+                <div class="form-group">
+                  <%= f.label :email %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :Dirección %>
+                  <%= f.text_field :address, class: 'form-control',autocomplete: "off"%>
+                </div>
+                  <div class="col-md-2">
+                    <%= link_to '#', class:"btn btn-primary", id:"find-address" do %>
+                      <i class="fa fa-map-marker"> </i>
+                <% end %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :password %>
+                  <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
 
+                  <% if @minimum_password_length %>
+                    <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
+                  <% end %>
+                </div>
 
-      </div>
+                <div class="form-group">
+                  <%= f.label :password_confirmation %>
+                  <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control' %>
+                </div>
 
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :Dirección %>
-        <%= f.text_field :address, class: 'form-control',autocomplete: "off"%>
+                <div class="form-group">
+                  <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
+                </div>
+              <% end %>
+                </div>
+            </div>  
         </div>
-
-        <div class="col-md-2">
-          <%= link_to '#', class:"btn btn-primary", id:"find-address" do %>
-            <i class="fa fa-map-marker"> </i>
-      <% end %>
-        </div>
-
-
-
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
-
-        <% if @minimum_password_length %>
-          <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
-        <% end %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
-      </div>
-    <% end %>
-
-    <%= render 'devise/shared/links' %>
-
-
-
-
-  </div>
+    </div>
 </div>
-
-
-
-
-<br>
-
-
-
 
 <script>
   $("#find-address").click(function(event){

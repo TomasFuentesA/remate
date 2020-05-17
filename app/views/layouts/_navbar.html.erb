@@ -1,9 +1,8 @@
+<% if current_user %>
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ff850b;">
-  <% if current_user %>
+  
     <%=link_to "ALTITUD LTDA:::", dashboard_path,class:"navbar-brand" %>
-  <% else %>
-    <%=link_to "ALTITUD LTDA:::", root_path,class:"navbar-brand" %>
-  <% end %>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -43,22 +42,21 @@
     <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <% if user_signed_in? %>
-            hola, <%= current_user.name %>
+            <% if current_user.name? %>
+              Bienvenido, <%= current_user.name %>
+            <% else %>
+               Bienvenido
+            <% end %>
           <% else %>
-          ingresar a cta
+          Ingresar a cta
           <% end %>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <% if user_signed_in? %>
             <a class="dropdown-item" href="<%= destroy_user_session_path %> " data-method="DELETE">Salir</a>
-          <% else %>
-            <a class="dropdown-item" href="<%= new_user_session_path %> ">Ingreso</a>
-            <a class="dropdown-item" href="<%= new_user_registration_path %> ">Registro</a>
           <% end %>
-        <div class="dropdown-divider"></div>
-        </div>
-
     </li>
     </div>
   </div>
 </nav>
+  <% end %>

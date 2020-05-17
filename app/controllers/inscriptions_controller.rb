@@ -1,6 +1,6 @@
 class InscriptionsController < ApplicationController
   before_action :set_inscription, only: [:show,:edit]
-
+  belongs_to :domains
 
   def index
     @inscriptions = Inscription.all
@@ -14,7 +14,7 @@ class InscriptionsController < ApplicationController
   def create
     @inscription = Inscription.new(inscription_params)
     @inscription.save
-    redirect_to @inscription , notice:  "inscripcion ceada"
+    redirect_to @inscription , notice:  "Inscripción creada"
   end
 
   def show

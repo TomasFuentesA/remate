@@ -34,19 +34,7 @@
 </table>
 
 <br>
-<%= will_paginate @communes , previous_label: h("<"), next_label: h(">")%>
-
-<!-- or custom pagination -->
-<% if @communes.previous_page %>
-  <%= link_to "< Anterior", params.merge(page: @communes.previous_page).permit(:page) %>
-<% end %>
-Página <%= @communes.current_page %> de <%= @communes.total_pages %>
-<% if @communes.next_page %>
-  <%= link_to "Siguiente>", params.merge(page: @communes.next_page).permit(:page) %>
-<% end %>
-
-
-
+<%= will_paginate(@courts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
 
   <%= link_to 'Nueva Comuna', new_commune_path %>
 

@@ -29,6 +29,8 @@
   </tbody>
 </table>
 
+<%= will_paginate(@courts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
+
 <br>
 
 <div>
