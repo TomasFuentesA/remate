@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: remate_development
+  url: postgres://mkucumvupxeoyd:7bede714219062a574b64f87c573036db70c9042ba6e4fd9c6264b16e43756a5@ec2-54-221-215-228.compute-1.amazonaws.com:5432/dakb168pg2f6ru
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
