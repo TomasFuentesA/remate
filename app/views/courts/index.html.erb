@@ -40,17 +40,6 @@
   </tbody>
 </table>
 
-
-<%= will_paginate @courts , previous_label: h("<"), next_label: h(">")%>
-
-
-<!-- or custom pagination -->
-<% if @courts.previous_page %>
-  <%= link_to "< Anterior", params.merge(page: @courts.previous_page).permit(:page) %>
-<% end %>
-Página <%= @courts.current_page %> de <%= @courts.total_pages %>
-<% if @courts.next_page %>
-  <%= link_to "Siguiente>", params.merge(page: @courts.next_page).permit(:page) %>
-<% end %>
+<%= will_paginate(@courts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
 
 <br>

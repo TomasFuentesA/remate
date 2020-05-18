@@ -20,6 +20,7 @@ gem "font-awesome-rails"
 gem 'arctic_admin'
 gem 'ransack'
 gem 'will_paginate','3.1.7'
+gem 'bootstrap-will_paginate'
 gem 'cancancan'
 # Use jQuery
 gem 'docx'

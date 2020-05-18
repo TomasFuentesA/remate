@@ -1,20 +1,20 @@
 class InscriptionsController < ApplicationController
   before_action :set_inscription, only: [:show,:edit]
 
-
   def index
     @inscriptions = Inscription.all
   end
 
   def new
-    @inscription = Inscription.new
     @domain = Domain.find(params[:domain_id])
+    #Rails.logger.info "test"
+    @inscription = Inscription.new
   end
 
   def create
     @inscription = Inscription.new(inscription_params)
     @inscription.save
-    redirect_to @inscription , notice:  "inscripcion ceada"
+    redirect_to @inscription , notice:  "Inscripción creada"
   end
 
   def show

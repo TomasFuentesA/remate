@@ -1,53 +1,52 @@
 class DomainsController < ApplicationController
   load_and_authorize_resource
-  before_action :load_domainable , only: [:new,:create]
+  before_action :set_domain, only: [:edit,:show,:destroy]
+  before_action :display_values, only: [:show]
+
 
   def index
-    #@domains = Domain.all
-    #@domains = @domainable.domains
+    @domains = Domain.all
   end
 
   def new
-    @domain = @domainable.domains.new
+    @domain = Domain.new
   end
 
   def create
-    @domain = @domainable.domains.new(domain_params)
-    if @domain.save
-      redirect_to @domainable, notice: "Dominio Añadido."
-    else
-      render :new
-    end
-  end
-
-  def show
-      @domain = Domain.find(params[:id])
+    @domain = Domain.new(domain_params)
+    @domain.save
+    redirect_to domains_path
   end
 
   def edit
-    @domain = Domain.find(params[:id])
+    
+  end
+
+  def show
+
   end
 
   def destroy
-    @domain = Domain.find(params[:id])
-    if @domain.present?
-      @domain.destroy
-    end
+    @domain.delete
     redirect_to domains_path, notice: "Dominio eliminado!"
   end
 
 
-  private
+private
+  def display_values
+    @able = @domain
+    @type_modality = @able.type_modality
+    @price = @able.price
+    @date_posetion = @able.date_posetion
+    @percentage = @able.percentage 
+  end
+
+  def set_domain
+    @domain = Domain.find(params[:id])
+
+  end
 
   def domain_params
     params.require(:domain).permit(:type_modality,:inscription_id,:price,:date_posetion,:percentage)
-
   end
-  def load_domainable
-    klass = [LegalPersona, Persona].detect { |c| params["#{c.name.underscore}_id"]}
-    @domainable = klass.find(params["#{klass.name.underscore}_id"])
-  end
-
-
-
 end

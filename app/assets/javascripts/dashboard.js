@@ -1,5 +1,6 @@
 function ufApi(){
 
+    document.getElementById("uf").innerHTML = "";
   $.getJSON('https://mindicador.cl/api', function(data) {
     var dailyIndicators = data;
 
@@ -16,6 +17,8 @@ function ufApi(){
 
 function dolarApi(){
 
+    document.getElementById("dolar").innerHTML = "";
+
   $.getJSON('https://mindicador.cl/api', function(data) {
     var dailyIndicators = data;
 
@@ -30,6 +33,7 @@ function dolarApi(){
 }
 
 function euroApi(){
+    document.getElementById("euro").innerHTML = "";
 
   $.getJSON('https://mindicador.cl/api', function(data) {
     var dailyIndicators = data;
