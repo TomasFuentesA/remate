@@ -105,10 +105,8 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "updated_at", null: false
     t.float "minimum"
     t.integer "status"
-    t.integer "type_judgment"
-    t.bigint "judgement_id"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
-    t.index ["judgement_id"], name: "index_auctions_on_judgement_id"
+    t.index ["court_id"], name: "index_auctions_on_court_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
   end
 
@@ -133,12 +131,12 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
 
   create_table "communes", force: :cascade do |t|
     t.string "name"
+    t.integer "province_id"
+    t.integer "region_id"
     t.integer "cod_treasury"
     t.integer "conara_sii"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "province_id"
-    t.index ["province_id"], name: "index_communes_on_province_id"
   end
 
   create_table "condominios", force: :cascade do |t|
@@ -162,8 +160,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.integer "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "judgement_id"
-    t.index ["judgement_id"], name: "index_courts_on_judgement_id"
   end
 
   create_table "directions", force: :cascade do |t|
@@ -272,41 +268,24 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "natural_personas", force: :cascade do |t|
+  create_table "natural_people", force: :cascade do |t|
     t.string "rut"
     t.string "name"
-    t.string "name2"
     t.string "apellido_pat"
     t.string "apellido_mat"
+    t.integer "phone_id"
+    t.integer "mail_id"
+    t.integer "direction_id"
+    t.string "photo"
     t.string "e_civil"
     t.string "profesion"
     t.date "fecha_nac"
     t.string "alias"
     t.string "nacionality"
     t.string "passport"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string "name"
-    t.string "rut"
-    t.integer "actividad_id"
-    t.string "last_name1"
-    t.string "last_name2"
-    t.integer "phone_id"
-    t.integer "mail_id"
-    t.string "direction_id"
-    t.string "photo"
-    t.string "e_civil"
-    t.string "profesion"
-    t.date "birth_date"
-    t.string "nacionality"
-    t.string "passport"
     t.integer "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name2"
   end
 
   create_table "persona_members", force: :cascade do |t|
@@ -347,19 +326,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
   end
 
-  create_table "phones", force: :cascade do |t|
-    t.string "rut"
-    t.string "phone_a"
-    t.string "phone_b"
-    t.string "phone_c"
-    t.string "phoneable_type"
-    t.bigint "phoneable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["phoneable_id", "phoneable_type"], name: "index_phones_on_phoneable_id_and_phoneable_type"
-    t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
@@ -371,13 +337,13 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
 
   create_table "provinces", force: :cascade do |t|
     t.string "name"
+    t.integer "region_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "region_id"
-    t.index ["region_id"], name: "index_provinces_on_region_id"
   end
 
   create_table "realties", force: :cascade do |t|
+    t.integer "commune_id"
     t.string "street"
     t.integer "number_unit"
     t.string "unit_estate"
@@ -393,10 +359,8 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.float "latitude"
     t.float "longitude"
     t.integer "type_property_id"
-    t.bigint "commune_id"
     t.integer "province_id"
     t.string "fiscal_destination"
-    t.index ["commune_id"], name: "index_realties_on_commune_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -426,11 +390,16 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 4
     t.string "name"
-    t.float "latitude"
+    t.float "Latitude"
     t.float "longitude"
     t.string "address"
     t.string "provider"
@@ -443,10 +412,10 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "appraisals", "realties"
   add_foreign_key "auctionnotices", "realties"
   add_foreign_key "auctions", "auctionnotices"
+  add_foreign_key "auctions", "courts"
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
-  add_foreign_key "communes", "provinces"
   add_foreign_key "condominios", "communes"
   add_foreign_key "condominios", "legal_personas"
   add_foreign_key "condominios", "personas"
@@ -459,6 +428,5 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
-  add_foreign_key "provinces", "regions"
   add_foreign_key "type_realties", "realties"
 end
