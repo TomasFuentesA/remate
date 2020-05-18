@@ -1,6 +1,7 @@
 <br>
 <div class="container-fluid" id="wrapper" >
-<%= form_with model: Court.new do |form| %>
+<%= form_for [@court] do |form| %>
+
   <%= form.label :name, "Ingreso de nuevo Tribunal" %>
 
   <div class="field">

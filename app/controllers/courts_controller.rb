@@ -1,6 +1,7 @@
 class CourtsController < ApplicationController
-  
   load_and_authorize_resource
+  before_action :set_court, only: [:edit,:show,:destroy]
+  before_action :display_values, only: [:show]
 
   def index
     @courts = Court.order("name").page(params[:page]).per_page(10)
@@ -33,6 +34,19 @@ class CourtsController < ApplicationController
   end
 
   private
+  def display_values
+    @able = @court
+    @name = @able.name
+    @rut = @able.rut
+    @address = @able.address
+    @phone = @able.phone 
+    @account = @able.account 
+  end
+
+  def set_court
+    @court = Court.find(params[:id])
+
+  end
 
   def court_params
     params.require(:court).permit(:name, :rut, :address, :phone, :account)
