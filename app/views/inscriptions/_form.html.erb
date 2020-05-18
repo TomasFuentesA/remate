@@ -1,18 +1,12 @@
+
 <br>
 <div class="container-fluid" id="wrapper" >
 <%= form_with model: @inscription do |form| %>
-<% if @inscription.errors.any? %>
-  <div class="error_messages">
-    <h2>favor corregir los siguientes errores.</h2>
-    <ul>
-    <% @inscription.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
+
+
+  <div class="field">
+    <%= form.hidden_field :domain_id, value: @domain.id %>
   </div>
-<% end %>
-
-
   <div class="field">
     <%= form.label :foja, "foja:" %>
     <%= form.number_field :foja%>
@@ -20,9 +14,6 @@
   <div class="field">
     <%= form.label :number, "número:" %>
     <%= form.number_field :number%>
-  </div>
-  <div class="field">
-    <%= form.hidden_field :domain_id, value: @domain.id %>
   </div>
 
   <div class="field">

@@ -1,14 +1,14 @@
 class InscriptionsController < ApplicationController
   before_action :set_inscription, only: [:show,:edit]
-  belongs_to :domains
 
   def index
     @inscriptions = Inscription.all
   end
 
   def new
-    @inscription = Inscription.new
     @domain = Domain.find(params[:domain_id])
+    #Rails.logger.info "test"
+    @inscription = Inscription.new
   end
 
   def create

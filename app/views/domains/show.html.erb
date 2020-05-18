@@ -1,9 +1,10 @@
-<br>
+ <br>
 <div class="row" id="fileview">
   <div class="col-principal col-md-8">
     <div class="field">
       Modalidad:
       <%= @domain.type_modality %>
+  
     </div>
     <div class="field">
       Porcentaje:
@@ -21,8 +22,18 @@
 
   <% unless @domain.inscriptions.nil? %>
   <div class="row" id="fileview">
-    <div class="col-sm-7 card card-body">
+    <div class="col-sm-12 card card-body">
       Inscripciones de dominio
+
+
+      <br>
+        <%= link_to new_domain_inscription_path(@domain),class: "btn btn-primary" do%>
+       <%= fa_icon "plus"%> Nueva Inscripcion
+      <% end %>
+      <br>
+
+
+
       <table   class="table table-bordered table-hover">
         <thead  class="thead-dark">
           <tr>
