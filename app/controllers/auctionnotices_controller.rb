@@ -23,8 +23,11 @@ class AuctionnoticesController < ApplicationController
 
   def create
     @auctionnotice = Auctionnotice.new(auctionnotice_params)
-    @auctionnotice.save
-    redirect_to auctionnotices_path
+    if @auctionnotice.save
+      redirect_to auctionnotices_path
+    else
+      render "new"
+    end
   end
 
   def show

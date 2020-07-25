@@ -81,8 +81,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "updated_at", null: false
     t.text "auction"
     t.integer "status", default: 0
-    t.bigint "realty_id"
-    t.index ["realty_id"], name: "index_auctionnotices_on_realty_id"
   end
 
   create_table "auctions", force: :cascade do |t|
@@ -177,7 +175,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
 
   create_table "domains", force: :cascade do |t|
     t.string "type_modality"
-    t.integer "inscription_id"
     t.integer "price"
     t.date "date_posetion"
     t.string "domainable_type"
@@ -268,26 +265,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "natural_people", force: :cascade do |t|
-    t.string "rut"
-    t.string "name"
-    t.string "apellido_pat"
-    t.string "apellido_mat"
-    t.integer "phone_id"
-    t.integer "mail_id"
-    t.integer "direction_id"
-    t.string "photo"
-    t.string "e_civil"
-    t.string "profesion"
-    t.date "fecha_nac"
-    t.string "alias"
-    t.string "nacionality"
-    t.string "passport"
-    t.integer "job_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "persona_members", force: :cascade do |t|
     t.bigint "persona_id", null: false
     t.bigint "legal_persona_id", null: false
@@ -336,6 +313,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   end
 
   create_table "provinces", force: :cascade do |t|
+    t.integer "province_id"
     t.string "name"
     t.integer "region_id"
     t.datetime "created_at", null: false
@@ -410,7 +388,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   end
 
   add_foreign_key "appraisals", "realties"
-  add_foreign_key "auctionnotices", "realties"
   add_foreign_key "auctions", "auctionnotices"
   add_foreign_key "auctions", "courts"
   add_foreign_key "auctions", "realties"

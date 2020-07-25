@@ -22,7 +22,7 @@ class Auctionlisting < ApplicationRecord
     data = Docx::Document.open(self.attached.current_path)
     data.paragraphs.each do |p|
        if p != "\n" and Auctionnotice.where(auction: p.to_s).count == 0
-        Auctionnotice.create(auction: p)
+        Auctionnotice.create(auction: p.to_s)
       end
     end
    end
