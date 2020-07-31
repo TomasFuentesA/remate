@@ -21,14 +21,15 @@ class AuctionsController < ApplicationController
 
   def create
     @auction = Auction.new(auction_params)
-    if @auction.save
-      @auction.auctionnotice.update(status: 3,realty_id: @auction.realty_id)
-      @auction.judgement.update(lyrics: @auction.lyrics,
-        number: @auction.number,
-        year: @auction.year,
-      court_id: @auction.court_id,
-      auction_id: @auction.id)
-    end
+    Rails.logger.info (auction_params)
+   # if @auction.save
+    #  @auction.auctionnotice.update(status: 3)
+    #  @auction.judgement.update(lyrics: @auction.lyrics,
+    #    number: @auction.number,
+    # year: @auction.year,
+    #  court_id: @auction.court_id,
+    #  auction_id: @auction.id)
+    #end
     redirect_to auctions_path
   end
 

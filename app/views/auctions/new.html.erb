@@ -79,8 +79,10 @@
             </div>
             <div class="form-group col-md-3">
               <%= form.label :court_id, "seleccione tribunal" %>
-              <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
+              <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
             </div>
+
+            
 
           </div>
           <div class="row">
@@ -113,6 +115,11 @@
 
   <div class="col-4">
     <%= render "modal" %>
+    <%= render "modaljudment" %>
   </div>
+
+
+
+
 </div>
 </div>

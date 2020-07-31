@@ -1,4 +1,6 @@
-<%= form_with model: @judgement do |form| %>
+
+
+<%= form_with model:  @judgement, url: judgements_path ,id: :formulary, remote: true do |form| %>
   <%= form.label :type_judgement, "Nuevo juicio" %>
 
   <div class="field">

@@ -228,13 +228,11 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.string "lyrics"
     t.integer "number"
     t.integer "year"
-    t.bigint "auction_id"
     t.bigint "court_id"
-    t.bigint "demandante"
-    t.bigint "demandado"
+    t.string "demandante"
+    t.string "demandado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["auction_id"], name: "index_judgements_on_auction_id"
     t.index ["court_id"], name: "index_judgements_on_court_id"
   end
 
@@ -398,7 +396,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
   add_foreign_key "condominios", "personas"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "jobs", "personas"
-  add_foreign_key "judgements", "auctions"
   add_foreign_key "judgements", "courts"
   add_foreign_key "legal_members", "legal_personas"
   add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"

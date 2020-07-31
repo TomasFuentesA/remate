@@ -482,3 +482,6 @@ Court.create!( rut: '65.618.500-7',name: 'Juzgado de Cobranza Laboral y Previsio
 Court.create!( rut: '65.549.030-2',name: '1º Juzgado de Familia de Santiago',address: 'GENERAL MACKENNA N°1477 - PISO N° 7 - SANTIAGO',phone: '224977100',account: 1956485);
 Court.create!( rut: '61.978.020-5',name: '1º Juzgado de Familia de San Miguel',address: 'ÁLVAREZ DE TOLEDO N° 1020 - SAN MIGUEL',phone: '227684500',account: 6368107);
 Court.create!( rut: '61.978.020-5',name: '1º Juzgado de Policia Local de Providencia',address: 'La Concepcion Nº 46 psio 2 - Providencia',phone: '226543100',account: 0);
+
+#User.create!( mail: 'rodpoolazo@gmail.com', rol: "admin", name: 'Rod', latitude: "nil",  longitude: "nil", address: "", provider: "nil", uid: "nil", rut: "11.111.111-1");
+
