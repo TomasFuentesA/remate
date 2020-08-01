@@ -1,8 +1,15 @@
 class JudgementsController < ApplicationController
   before_action :set_judgement, only: [:edit, :show]
+  
   load_and_authorize_resource
   def index
-    @judgements = Judgement.all
+    @validate = false
+    if @validate
+      @search = @judgement = Judgement.find_by(type_judgement: params[:q])
+      render json: @search
+    else
+      @judgement = Judgement.all
+    end  
   end
 
   def new
@@ -10,9 +17,8 @@ class JudgementsController < ApplicationController
   end
 
   def create
-    Rails.logger.info (judgement_params.pop())
-    Rails.logger.info (judgement_params.to_json())
-    @judgement = Judgement.new(judgement_params.pop())
+    Rails.logger.info judgement_params.to_h
+    @judgement = Judgement.new(judgement_params)
     @judgement.save
     redirect_to judgements_path
   end
@@ -24,7 +30,19 @@ class JudgementsController < ApplicationController
 
   end
 
+  def update
+    @judgement.update(judgement_params)
+    redirect_to judgements_path
+  end
 
+  def destroy
+    @judgement.destroy
+    respond_to do |format|
+      format.js
+      format.html {redirect_to judgements_path, notice: "eliminado exitosamente" }
+      format.json {head :no_content }
+    end
+  end
 
   private
   def set_judgement
@@ -32,12 +50,10 @@ class JudgementsController < ApplicationController
   end
 
   def judgement_params
-    params.require(:judgement).permit(:type_judgement, :court_id, :demandante, :demandado, :lyrics, :number, :year)
-
+    begin
+      params.require(:judgement).permit(:type_judgement, :court_id, :demandante, :demandado, :lyrics, :number, :year)
+    rescue Exception => error
+      params.permit(:type_judgement, :court_id, :demandante, :demandado, :lyrics, :number, :year)
+    end
   end
-end
-def region_params
-  params.require(:region).permit(:name, :number_region,:file , :provinces_attributes => [:id,:name,
-  :communes_attributes => [:id,:name,:cod_treasury,:conara_sii]]
-)
 end

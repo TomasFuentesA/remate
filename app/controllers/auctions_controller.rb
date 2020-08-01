@@ -109,7 +109,7 @@ class AuctionsController < ApplicationController
     @realty = Realty.new
     @auctionnotice = Auctionnotice.find(params[:auctionnotice_id])
     @realty.build_type_realty
-    @auction.build_judgement
+    #@auction.build_judgement
   end
 
   def set_auction

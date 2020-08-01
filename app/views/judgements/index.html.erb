@@ -1,33 +1,58 @@
+<script>
+  function myFunction(value) {
+    console.log(value)
+
+    var form = $("#live-search-form"); // grab the form wrapping the search bar.
+  
+    var url = judgements_path; // live_search action.   
+    var formData = form.serialize(); // grab the data in the form   
+
+    console.log(url)
+    console.log(formData)
+
+    $.get(url, formData, function(html) { // perform an AJAX get
+      //$("#live-search-results").html(html); // replace the "results" div with the results
+
+      console.log(html)
+    })
+}
+</script>
 <br>
 <%= link_to 'Nuevo Juicio', new_judgement_path ,class: "btn btn-primary"%>
 </br>
 
-<table   class="table table-bordered table-hover">
-  <thead  class="thead-dark">
-    <tr>
-      <th scope="col">Tipo de juicio</th>
-      <th scope="col">Tribunal</th>
-      <th scope="col">Rol</th>
-      <th scope="col">Nombre Juicio</th>
-      <th scope="col">Opciones</th>
+<form id="live-search-form" method="get" action="<%= judgements_path %>">
+  <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
+</form>
 
-    </tr>
-  </thead>
-  <tbody class="rounded-pill">
-    <% @judgements.each do |judgement| %>
-
+<div id="live-search-results">
+  <table   class="table table-bordered table-hover">
+    <thead  class="thead-dark">
       <tr>
-        <td><%= judgement.type_judgement %></td>
-        <td><%= judgement.court.name %> </td>
-        <td><%= judgement.rol_trial %> </td>
-        <td><%= judgement.demandado %> / <%= judgement.demandante %></td>
-        
-        <td>
-          <%= link_to 'Ver', judgement , class: "btn btn-info" %>
-          <%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %>
-          <%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+        <th scope="col">Tipo de juicio</th>
+        <th scope="col">Tribunal</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Nombre Juicio</th>
+        <th scope="col">Opciones</th>
 
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody class="rounded-pill">
+      <% @judgements.each do |judgement| %>
+
+        <tr>
+          <td><%= judgement.type_judgement %></td>
+          <td><%= judgement.court.name %> </td>
+          <td><%= judgement.rol_trial %> </td>
+          <td><%= judgement.demandado %> / <%= judgement.demandante %></td>
+          
+          <td>
+            <%= link_to 'Ver', judgement , class: "btn btn-info" %>
+            <%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %>
+            <%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
