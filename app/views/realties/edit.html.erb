@@ -57,7 +57,7 @@
 
   <div class="field">
     <%= form.label :fiscal_destination, "Destino Sii" %>
-    <%= form.select :fiscal_destination, options_for_select(Realty.destinations.keys.to_a), prompt: "Seleccionar" %>
+    <%= form.select :fiscal_destination, options_for_select(Realty.destinations.keys.to_a, @realty.fiscal_destination), prompt: "Seleccionar" %>
   </div>
 
   
@@ -83,8 +83,9 @@
     <%= form.fields_for :type_realty do |f| %>
     <div class="form-group col-md-2">
       <%= f.label :tipo, "tipo de propiedad" %>
-      <%= f.select :tipo,options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} %>
+      <%= f.select :tipo,options_for_select(TypeRealty.tipos.keys.to_a, @realty.type_realty),{include_blank: "Seleccione"} %>
     </div>
+    
     <div class="form-group col-md-6">
 
       <%= f.label :comment, "Comentarios" %>
