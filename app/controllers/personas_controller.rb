@@ -45,6 +45,14 @@ class PersonasController < ApplicationController
     end
   end
 
+  def search 
+    Rails.logger.info  "prueba " + params[:q] 
+    @param = "%"+params[:q]+"%"
+    #@judgement = @judgement = Judgement.where("concat(lyrics , number , year) like ?",@param)
+    @persona = Persona.all
+    render json: @persona
+  end
+
   private
 
   def set_persona

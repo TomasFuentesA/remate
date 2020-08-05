@@ -4,7 +4,7 @@
 
     var form = $("#live-search-form"); // grab the form wrapping the search bar.
   
-    var url = judgements_path; // live_search action.   
+    var url = "/judgements/search"; // live_search action.   
     var formData = form.serialize(); // grab the data in the form   
 
     console.log(url)
@@ -21,9 +21,10 @@
 <%= link_to 'Nuevo Juicio', new_judgement_path ,class: "btn btn-primary"%>
 </br>
 
-<form id="live-search-form" method="get" action="<%= judgements_path %>">
-  <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
-</form>
+<%= form_tag judgements_path, :id => "live-search-form" do %>
+
+    <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
+  <% end %>
 
 <div id="live-search-results">
   <table   class="table table-bordered table-hover">

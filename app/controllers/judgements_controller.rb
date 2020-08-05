@@ -44,6 +44,14 @@ class JudgementsController < ApplicationController
     end
   end
 
+  def search 
+    Rails.logger.info  "prueba " + params[:q] 
+    @param = "%"+params[:q]+"%"
+    @judgement = @judgement = Judgement.where("concat(lyrics , number , year) like ?",@param)
+    #@judgement = Judgement.all
+    render json: @judgement
+  end
+
   private
   def set_judgement
     @judgement = Judgement.find(params[:id])

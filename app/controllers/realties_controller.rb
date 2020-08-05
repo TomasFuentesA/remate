@@ -55,6 +55,16 @@ class RealtiesController < ApplicationController
 
   end
 
+  def search 
+    Rails.logger.info  "prueba " + params[:q] 
+    @param = "%"+params[:q]+"%"
+    @realty = @realty = Realty.where("concat( number_unit , name_realty) like ?",@param)
+    #@realty = Realty.all
+    render json: @realty
+  end
+
+
+
 
   private
   def set_realty

@@ -1,6 +1,6 @@
 class LegalPersonasController < ApplicationController
   load_and_authorize_resource
-  before_action :set_legalpersona, only: [:edit,:show,:destroy]
+  before_action :set_legalpersona, only: [:edit,:show,:update,:destroy]
   before_action :display_values, only: [:show]
 
 
@@ -30,11 +30,25 @@ class LegalPersonasController < ApplicationController
     @persona_member = PersonaMember.new
   end
 
+  def update
+    @legalpersona.update(legal_persona_params)
+    redirect_to legal_personas_path
+  end
+
+
+
   def destroy
     @legalpersona.delete
     redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
   end
 
+  def search 
+    Rails.logger.info  "prueba " + params[:q] 
+    @param = "%"+params[:q]+"%"
+    #@legalpersona = @legalpersona = LegalPersona.where("concat(lyrics , number , year) like ?",@param)
+    @legalpersona = LegalPersona.all
+    render json: @legalpersona
+  end
 
 
 

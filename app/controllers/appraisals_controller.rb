@@ -22,6 +22,13 @@ class AppraisalsController < ApplicationController
   def edit
   end
 
+  def update
+    @appraisal.update(appraisal_params)
+    redirect_to appraisals_path
+  end
+
+
+
   def destroy
     @appraisal.destroy
     redirect_to appraisals_path
@@ -34,7 +41,7 @@ class AppraisalsController < ApplicationController
   end
 
   def appraisal_params
-    params.require(:appraisal).permit(:realty_id, :date, :entity, :price_uf, :price_clp, :price_usd, :observation )
+    params.require(:appraisal).permit(:realty_id, :date, :entity, :price_uf, :price_clp, :price_usd, :observation, :address )
 
   end
 

@@ -24,6 +24,10 @@ class InscriptionsController < ApplicationController
     @domain = Domain.find(params[:domain_id])
   end
 
+  def destroy
+    @domain.destroy
+    redirect_to domains_path
+  end
 
   private
   def set_inscription

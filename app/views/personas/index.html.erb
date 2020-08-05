@@ -1,6 +1,29 @@
 <h1>Personas</h1>
 
+<script>
+  function myFunction(value) {
+    console.log(value)
 
+    var form = $("#live-search-form"); // grab the form wrapping the search bar.
+  
+    var url = "/personas/search"; // live_search action.   
+    var formData = form.serialize(); // grab the data in the form   
+
+    console.log(url)
+    console.log(formData)
+
+    $.get(url, formData, function(html) { // perform an AJAX get
+      //$("#live-search-results").html(html); // replace the "results" div with the results
+
+      console.log(html)
+    })
+}
+</script>
+
+<%= form_tag personas_path, :id => "live-search-form" do %>
+
+  <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
+<% end %>
 
 <br>
 <%= link_to  new_persona_path ,class: "btn btn-primary" do%>

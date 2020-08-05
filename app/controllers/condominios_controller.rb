@@ -27,6 +27,13 @@ class CondominiosController < ApplicationController
     @condominio = Condominio.find(params[:id])
   end
 
+  def update
+    @condominio.update(condominio_params)
+    redirect_to condominios_path
+  end
+
+
+
   def destroy
     @condominio.destroy
     redirect_to condominios_path

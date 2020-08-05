@@ -28,4 +28,10 @@ class Persona < ApplicationRecord
     return false unless stock
     stocks.where(id: stock.id).exists?
   end
+
+
+  def full_name_persona
+    "#{self.name} #{self.name2} #{self.last_name1} #{self.last_name2}"
+  end
+
 end
