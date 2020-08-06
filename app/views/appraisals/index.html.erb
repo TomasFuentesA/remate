@@ -26,8 +26,9 @@
     <% @appraisals.each do |appraisal| %>
 
       <tr>
-        <td><%= appraisal.realty.name_realty %></td>
+        
         <td><%= appraisal.date %></td>
+        <td><%= appraisal.realty.name_realty %></td>
         <td><%= appraisal.entity %></td>
         <td><%= appraisal.price_uf %></td>
         <td><%= appraisal.price_clp %></td>

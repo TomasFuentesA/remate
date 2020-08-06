@@ -23,6 +23,13 @@
         </div>
         <hr>
         <h1>Información básica:</h1>
+
+          <div class="field">
+            <h4>Tipo de propiedad </h4>
+             <%= @realty.type_realty.tipo %>
+         </div>
+
+
             <div class="field">
               <h4> Poblacion, Villa , Conjunto:</h4>
               <%= @realty.population_villa %>
@@ -30,50 +37,62 @@
 
             <div class="field">
               <h4>Rol Avaluo</h4>
-              <%= @realty.appraisal_role %>
+               <%= @realty.appraisal_role %>
             </div>
 
 
-          <div class="field">
-            <h4>Latitud</h4>
-            <%= @realty.latitude %>
-          </div>
+             <div class="field">
+               <h4>Latitud</h4>
+                <%= @realty.latitude %>
+             </div>
 
-          <div class="field">
-            <h4>Longitud</h4>
+             <div class="field">
+               <h4>Longitud</h4>
               <%= @realty.longitude %>
-          </div>
+            </div>
 
 
-          <% unless @realty.characteristic.nil? %>
-          <div class="field">
+              <% unless @realty.characteristic.nil? %>
+               <div class="field">
 
-            <h4>Construido mt2 </h4>
-            <%= @realty.characteristic.m2_built %>
+               <h4>Construido mt2 </h4>
+                 <%= @realty.characteristic.m2_built %>
 
-            <h4>Terreno mt2 </h4>
-            <%= @realty.characteristic.m2_land %>
-          </div>
-          <%else %>
+               <h4>Terreno mt2 </h4>
+                 <%= @realty.characteristic.m2_land %>
+              </div>
+             <%else %>
 
-          <div class="field">
+              <div class="field">
 
-          no hay caracteristicas
-          </div>
-          <% end %>
+              no hay caracteristicas
+             </div>
+            <% end %>
 
 
 
-          <div class="field">
-            <h4>Tipo de propiedad </h4>
-            <%= @realty.type_realty.tipo %>
-          </div>
+          
 
         <p></p>
           <div class="field">
             <h4>Destino Sii</h4>
             <%= @realty.fiscal_destination %>
           </div>
+
+        <p></p>
+
+        
+        <h1>Ficha Tasaciones:</h1>
+          <div class="field">
+           <h4>Tasaciones</h4>
+          <%= @realty.appraisal.date %>
+          <%= @realty.appraisal.entity %>
+          <%= @realty.appraisal.price_uf %>
+          <%= @realty.appraisal.price_clp %>
+          <%= @realty.appraisal.price_usd %>
+
+
+      </div>
 
       </div>
       <br>
