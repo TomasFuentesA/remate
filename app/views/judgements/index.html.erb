@@ -52,43 +52,65 @@
 .show {display: block;}
 </style>
 
-
-
-
-
-
-
-
-
-
 <script>
+
+  function elementJudgementList(id){
+    var newList = ''
+        <% @judgements.each do |judgement| %>
+           var judmentId = '<%= judgement.id %>'
+           if(judmentId == id){
+             //console.log('test')
+             var newList = '<a href="#nothing"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>'
+             //console.log(newList)
+           }          
+        <% end %>
+      return newList
+  }
+
   function searchDataJudgement(value) {
-    console.log(value)
+    //console.log(value)
 
     var form = $("#Form_judgement"); // grab the form wrapping the search bar.
   
     var url = "/judgements/search"; // live_search action.   
     var formData = form.serialize(); // grab the data in the form   
 
-    console.log(url)
-    console.log(formData)
+    //console.log(url)
+    //console.log(formData)
 
     $.get(url, formData, function(json) { // perform an AJAX get
       //$("#live-search-results").html(json); // replace the "results" div with the results
+      //console.log(json)
+     // console.log(json[0].id)
+     //$('div#listSearch').text(json[0].id);
+
+        //console.log(json.size)
+        json.forEach(element => 
+          //console.log(element.id)
+         // var newList = elementJudgementList(5)
+        );
+
+        
+        elementJudgementList(5)
+        /*for (var i = 0; i < 9; i++) {
+          n += i;
+          mifuncion(n);
+        }*/
+
       
-      console.log(json)
-     $('a#a_data_judgement').text(json[0].type_judgement);
+        //var newLists;
+
+      
+
+
+
+      $('div#listSearch').html('');
     })
 }
 </script>
 <br>
 <%= link_to 'Nuevo Juicio', new_judgement_path ,class: "btn btn-primary"%>
 </br>
-
-<%= form_tag judgements_path, :id => "live-search-form" do %>
-
-    <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
-  <% end %>
 
   <h2>Search/Filter Dropdown</h2>
   <p>Click on the button to open the dropdown menu, and use the input field to search for a specific dropdown link.</p>
@@ -97,15 +119,13 @@
     <button onclick="displayButton()" class="dropbtn">Dropdown</button>
     <div id="myDropdown" class="dropdown-content">
       <form id="Form_judgement">
-      <input type="text" placeholder="Search.." id="myInput" onkeyup="searchDataJudgement()">
+        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataJudgement()">
       </form>
-
-
-      
-      <a id="a_data_judgement" href="#nothing">new text</a>
-      <% @judgements.each do |judgement| %>
-        <a href="#nothing"><%= judgement.court.name %> <%= judgement.rol_trial %></a>
-     <% end %>
+      <div id="listSearch">
+        <% @judgements.each do |judgement| %>
+          <a href="#nothing"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -132,12 +152,6 @@
     }
   }
   </script>
-
-
- 
-
-
-
 
 <div id="live-search-results">
   <table   class="table table-bordered table-hover">
