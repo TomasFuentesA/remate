@@ -60,12 +60,20 @@
            var judmentId = '<%= judgement.id %>'
            if(judmentId == id){
              //console.log('test')
-             var newList = '<a href="#nothing"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>'
+              newList = '<a href="#nothing" onclick="changeDataTable()"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>'
              //console.log(newList)
-           }          
+           }           
         <% end %>
       return newList
   }
+
+   function changeDataTable(){
+    $('div#live-search-results').html("test");
+    //<tbody id="bodyData" class="rounded-pill">
+
+   }
+
+
 
   function searchDataJudgement(value) {
     //console.log(value)
@@ -80,18 +88,22 @@
 
     $.get(url, formData, function(json) { // perform an AJAX get
       //$("#live-search-results").html(json); // replace the "results" div with the results
-      //console.log(json)
+      console.log(json)
      // console.log(json[0].id)
      //$('div#listSearch').text(json[0].id);
 
         //console.log(json.size)
-        json.forEach(element => 
+        //json.forEach(element => 
           //console.log(element.id)
          // var newList = elementJudgementList(5)
-        );
-
-        
-        elementJudgementList(5)
+        //);
+        var list = []
+    $.each(json, function(i, item) {
+        //elementJudgementList(json[i].id);
+        list.push(elementJudgementList(json[i].id))
+    });
+        console.log(list)
+        //var newList = elementJudgementList(4)
         /*for (var i = 0; i < 9; i++) {
           n += i;
           mifuncion(n);
@@ -104,7 +116,7 @@
 
 
 
-      $('div#listSearch').html('');
+      $('div#listSearch').html(list);
     })
 }
 </script>
@@ -165,7 +177,7 @@
 
       </tr>
     </thead>
-    <tbody class="rounded-pill">
+    <tbody id="bodyData" class="rounded-pill">
       <% @judgements.each do |judgement| %>
 
         <tr>
