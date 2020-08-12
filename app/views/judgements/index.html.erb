@@ -1,56 +1,4 @@
-<style>
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
 
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
-}
-
-#myInput {
-  box-sizing: border-box;
-  background-image: url('searchicon.png');
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 14px 20px 12px 45px;
-  border: none;
-  border-bottom: 1px solid #ddd;
-}
-
-#myInput:focus {outline: 3px solid #ddd;}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f6f6f6;
-  min-width: 230px;
-  overflow: auto;
-  border: 1px solid #ddd;
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown a:hover {background-color: #ddd;}
-
-.show {display: block;}
-</style>
 
 <script>
 
@@ -60,15 +8,31 @@
            var judmentId = '<%= judgement.id %>'
            if(judmentId == id){
              //console.log('test')
-              newList = '<a href="#nothing" onclick="changeDataTable()"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>'
+              newList = '<a href="javascript:void(0)" onclick="changeDataTable('+judmentId+')"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>'
              //console.log(newList)
            }           
         <% end %>
       return newList
   }
 
-   function changeDataTable(){
-    $('div#live-search-results').html("test");
+//esta funcion muestra tabla ya filtrada por id de judment
+  function table(id){
+    var newList = ''
+        <% @judgements.each do |judgement| %>
+           var judmentId = '<%= judgement.id %>'
+           if(judmentId == id){
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Tipo de juicio</th><th scope="col">Tribunal</th><th scope="col">Rol</th><th scope="col">Nombre Juicio</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= judgement.type_judgement %></td><td><%= judgement.court.name %> </td><td><%= judgement.rol_trial %> </td><td><%= judgement.demandado %> / <%= judgement.demandante %></td><td><%= link_to 'Ver', judgement , class: "btn btn-info" %><%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %><%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+           }           
+        <% end %>
+      return newList
+  }
+  
+
+
+   function changeDataTable(id){
+     console.log(id)
+    $('div#live-search-results').html(table(id));
+    displayButton()
     //<tbody id="bodyData" class="rounded-pill">
 
    }
@@ -80,7 +44,7 @@
 
     var form = $("#Form_judgement"); // grab the form wrapping the search bar.
   
-    var url = "/judgements/search"; // live_search action.   
+    var url = "/judgements/searchFilterData"; // live_search action.   
     var formData = form.serialize(); // grab the data in the form   
 
     //console.log(url)
@@ -123,24 +87,24 @@
 <br>
 <%= link_to 'Nuevo Juicio', new_judgement_path ,class: "btn btn-primary"%>
 </br>
-
-  <h2>Search/Filter Dropdown</h2>
-  <p>Click on the button to open the dropdown menu, and use the input field to search for a specific dropdown link.</p>
-  
+</br>
+<%= link_to "Quitar filtros", judgements_path, class:"btn btn-info"%>
+</br>
+</br>
   <div class="dropdown">
-    <button onclick="displayButton()" class="dropbtn">Dropdown</button>
+    <button onclick="displayButton()" class="dropbtn">Buscar Juicio</button>
     <div id="myDropdown" class="dropdown-content">
       <form id="Form_judgement">
         <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataJudgement()">
       </form>
       <div id="listSearch">
         <% @judgements.each do |judgement| %>
-          <a href="#nothing"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>
+          <a href="javascript:void(0)" onclick="changeDataTable(<%= judgement.id %>)"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>
         <% end %>
       </div>
     </div>
   </div>
-
+</br>
   <script>
   /* When the user clicks on the button,
   toggle between hiding and showing the dropdown content */
@@ -164,7 +128,7 @@
     }
   }
   </script>
-
+</br>   
 <div id="live-search-results">
   <table   class="table table-bordered table-hover">
     <thead  class="thead-dark">

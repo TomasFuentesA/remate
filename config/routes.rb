@@ -19,12 +19,12 @@ Rails.application.routes.draw do
   get 'admins/index'
   post 'modal_auction', to: 'auctions#modal'
 
-  get 'judgements/search', to: 'judgements#search'
+  get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
+
+
   get 'personas/search', to: 'personas#search'
   get 'legal_personas/search', to: 'legal_personas#search'
   get 'realties/search', to: 'realties#search'
-
-
 
 
 

@@ -3,13 +3,13 @@ class JudgementsController < ApplicationController
   
   load_and_authorize_resource
   def index
-    @validate = false
-    if @validate
-      @search = @judgement = Judgement.find_by(type_judgement: params[:q])
-      render json: @search
-    else
       @judgement = Judgement.all
-    end  
+  end
+
+  def search
+    respond_to do |format|
+      format.json {render :json => Judgement.all}
+     end
   end
 
   def new
@@ -44,11 +44,10 @@ class JudgementsController < ApplicationController
     end
   end
 
-  def search 
-    Rails.logger.info  "prueba " + params[:q] 
+  def searchFilterData 
+    Rails.logger.info  "searchFilterData " + params[:q] 
     @param = "%"+params[:q]+"%"
     @judgement = Judgement.where("concat(lyrics , number , year, demandante, demandado) like ?",@param)
-    #@judgement = Judgement.all
     render json: @judgement
   end
 
