@@ -48,23 +48,28 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group col-md-3">
-              <%= form.label :cost, "Costas" %>
-              <%= form.number_field :cost, id: :cost, value: 0  %>
-            </div>
+            
             <div class="form-group col-md-3">
               <%= form.label :uf, "UF " %>
               <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
             </div>
+
             <div class="form-group col-md-3">
               <%= form.label :pesos, "Pesos" %>
               <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
             </div>
+
+            <div class="form-group col-md-3">
+              <%= form.label :cost, "Costas" %>
+              <%= form.number_field :cost, id: :cost, value: 0  %>
+            </div>
+
             <div class="form-group col-md-3">
               <%= form.label :total_minimum, "Total Mínimo:" %>
               <%= form.number_field :total_minimum, id: :total_minimum %>
             </div>
           </div>
+          
           <div class="form-row">
             <div class="form-group col-md-2">
               <%= form.label :warranty, "Garantia" %>
@@ -78,26 +83,12 @@
               <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
             </div>
             <div class="form-group col-md-3">
-              <%= form.label :court_id, "seleccione tribunal" %>
-              <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
+              <%= form.label :court_id, "seleccione Juicio" %>
+              <%= form.select :court_id, options_for_select(Judgement.all.collect {|p| [p.rol_trial, p.id]}), { include_blank: "Seleccione"} %>
             </div>
-
-            
-
           </div>
-          <div class="row">
-            <div class="form-group col-md-3">
-               <%= form.fields_for :judgements  do |f| %>
-               <%= f.label :demandante, "seleccione demandante" %>
-               <%= f.select :demandante, options_for_select(LegalPersona.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
 
-               <%= f.label :demandado, "seleccione demandado" %>
-               <%= f.select :demandado, options_for_select(Persona.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-
-               <% end %>
-            </div>
-
-          </div>
+          
 
             <div class="form-row">
               <div class=" col-5">

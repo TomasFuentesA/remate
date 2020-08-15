@@ -20,12 +20,11 @@ Rails.application.routes.draw do
   post 'modal_auction', to: 'auctions#modal'
 
   get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
-
+  get 'realties/searchFilterData', to: 'realties#searchFilterData'
 
   get 'personas/search', to: 'personas#search'
   get 'legal_personas/search', to: 'legal_personas#search'
-  get 'realties/search', to: 'realties#search'
-
+  
 
 
   # devise_for :users, controllers: {{     }

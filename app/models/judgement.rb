@@ -11,11 +11,5 @@ class Judgement < ApplicationRecord
     "#{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s} > #{self.demandante} / #{self.demandado}"
   end
 
-
-
-
-
-
-
-
+  
 end

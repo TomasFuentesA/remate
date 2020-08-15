@@ -41,7 +41,19 @@
       <%= form.text_field :demandado, id: :demandado%>
     </div>
   
-  
+    <div class="row">
+            <div class="form-group col-md-3">
+               <%= form.fields_for :judgements  do |f| %>
+               <%= f.label :demandante, "seleccione demandante" %>
+               <%= f.select :demandante, options_for_select(LegalPersona.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
+
+               <%= f.label :demandado, "seleccione demandado" %>
+               <%= f.select :demandado, options_for_select(Persona.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
+
+               <% end %>
+            </div>
+
+    </div>
   
   
   

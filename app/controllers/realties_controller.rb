@@ -55,11 +55,15 @@ class RealtiesController < ApplicationController
 
   end
 
-  def search 
-    Rails.logger.info  "prueba " + params[:q] 
+  def search
+    respond_to do |format|
+      format.json {render :json => Realty.all}
+     end
+  end 
+
+  def searchFilterData 
     @param = "%"+params[:q]+"%"
-    @realty = @realty = Realty.where("concat( number_unit , name_realty) like ?",@param)
-    #@realty = Realty.all
+    @realty = Realty.where("concat( number_unit , name_realty, address, population_villa, commune, street) like ?",@param)
     render json: @realty
   end
 

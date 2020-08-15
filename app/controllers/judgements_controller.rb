@@ -17,7 +17,6 @@ class JudgementsController < ApplicationController
   end
 
   def create
-    Rails.logger.info judgement_params.to_h
     @judgement = Judgement.new(judgement_params)
     @judgement.save
     redirect_to judgements_path
@@ -45,7 +44,6 @@ class JudgementsController < ApplicationController
   end
 
   def searchFilterData 
-    Rails.logger.info  "searchFilterData " + params[:q] 
     @param = "%"+params[:q]+"%"
     @judgement = Judgement.where("concat(lyrics , number , year, demandante, demandado) like ?",@param)
     render json: @judgement

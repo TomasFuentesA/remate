@@ -1,3 +1,93 @@
+<script>
+
+  function elementRealtyList(id){
+    var newList = ''
+        <% @realties.each do |realty| %>
+           var realtyId = '<%= realty.id %>'
+           if(realtyId == id){
+            
+              newList = '<a href="javascript:void(0)" onclick="changeDataTable('+realtyId+')"><%= realty.id %>-<%= realty.commune.name %>-<%= realty.address %></a>'
+            
+           }           
+        <% end %>
+      return newList
+  }
+
+//esta funcion muestra tabla ya filtrada por id de realty
+  function table(id){
+    var newList = ''
+        <% @realties.each do |realty| %>
+           var realtyId = '<%= realty.id %>'
+           if(realtyId == id){
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Nombre de Propiedad</th><th scope="col">Tipo Propiedad</th><th scope="col">Direccion</th><th scope="col">Dpto/oficina</th><th scope="col">Poblacion/Villa</th><th scope="col">Rol Sii</th><th scope="col">Destino</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= realty.name_realty %></td><td><%= realty.type_realty.tipo %> </td><td><%= realty.address %>  <td><%= realty.unit_estate %> </td> </td><td><%= realty.population_villa %></td> <td><%= realty.appraisal_role %></td> <td><%= realty.fiscal_destination %> </td><td><%= link_to 'Ver', realty , class: "btn btn-info" %><%= link_to 'Edit', edit_realty_path(realty) , class: "btn btn-warning" %><%= link_to 'Borrar', realty, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+           }           
+        <% end %>
+      return newList
+  }
+  
+
+
+   function changeDataTable(id){
+     console.log(id)
+    $('div#live-search-results').html(table(id));
+    displayButton()
+    //<tbody id="bodyData" class="rounded-pill">
+
+   }
+
+
+
+  function searchDataRealty(value) {
+    //console.log(value)
+
+    var form = $("#Form_realty"); // grab the form wrapping the search bar.
+  
+    var url = "/realties/searchFilterData"; // live_search action.   
+    var formData = form.serialize(); // grab the data in the form   
+
+    //console.log(url)
+    //console.log(formData)
+
+    $.get(url, formData, function(json) { // perform an AJAX get
+      //$("#live-search-results").html(json); // replace the "results" div with the results
+      console.log(json)
+     // console.log(json[0].id)
+     //$('div#listSearch').text(json[0].id);
+
+        //console.log(json.size)
+        //json.forEach(element => 
+          //console.log(element.id)
+         // var newList = elementRealtyList(5)
+        //);
+        var list = []
+    $.each(json, function(i, item) {
+        //elementRealtyList(json[i].id);
+        list.push(elementRealtyList(json[i].id))
+    });
+        console.log(list)
+        //var newList = elementRealtyList(4)
+        /*for (var i = 0; i < 9; i++) {
+          n += i;
+          mifuncion(n);
+        }*/
+
+      
+        //var newLists;
+
+      
+
+
+
+      $('div#listSearch').html(list);
+    })
+}
+</script>
+
+
+
+
+
+
 <br>
 
 
@@ -37,53 +127,101 @@
 
 <h1>Listado de Propiedades</h1>
 
-<script>
-  function myFunction(value) {
-    console.log(value)
 
-    var form = $("#live-search-form"); // grab the form wrapping the search bar.
+
+<br>
+<%= link_to 'Nueva Propiedad', new_realty_path ,class: "btn btn-primary"%>
+</br>
+</br>
+<%= link_to "Quitar filtros", realties_path, class:"btn btn-info"%>
+</br>
+
+
+</br>
+  <div class="dropdown">
+    <button onclick="displayButton()" class="dropbtn">Buscar Propiedad</button>
+    <div id="myDropdown" class="dropdown-content">
+      <form id="Form_realty">
+        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataRealty()">
+      </form>
+      <div id="listSearch">
+        <% @realties.each do |realty| %>
+          <a href="javascript:void(0)" onclick="changeDataTable(<%= realty.id %>)"><%= realty.id %>-<%= realty.commune.name %>-<%= realty.name_realty %></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</br>
+  <script>
+  /* When the user clicks on the button,
+  toggle between hiding and showing the dropdown content */
+  function displayButton() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
   
-    var url = "/realties/search"; // live_search action.   
-    var formData = form.serialize(); // grab the data in the form   
+  function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  }
+  </script>
+</br>   
 
-    console.log(url)
-    console.log(formData)
 
-    $.get(url, formData, function(html) { // perform an AJAX get
-      //$("#live-search-results").html(html); // replace the "results" div with the results
 
-      console.log(html)
-    })
-}
-</script>
 
-<%= form_tag realties_path, :id => "live-search-form" do %>
 
-  <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
-<% end %>
-
-<div id="realties">
-
-<table id="mytable"  class="table table-bordered table-hover">
-  <thead  class="thead-dark">
-    <tr id="realtiesTable">
-      <th scope="col" >Nombre Propiedad</th>
-      <th scope="col" >Direccion</th>
-      <th scope="col">Departamento/Oficina</th>
-      <th scope="col">Poblacion/Villa</th>
-      <th scope="col">Tipo Propiedad</th>
-      <th scope="col">Rol Sii</th>
-      <th scope="col">Destino Sii</th>
-      <th scope="col">Opciones</th>
+<div id="live-search-results">
+  <table class="table table-bordered table-hover">
+    <thead  class="thead-dark">
+      <tr>
+       <th scope="col" >Nombre Propiedad</th>
+       <th scope="col">Tipo Propiedad</th>
+        <th scope="col" >Direccion</th>
+       <th scope="col">Departamento/Oficina</th>
+       <th scope="col">Poblacion/Villa</th>
+       <th scope="col">Rol Sii</th>
+       <th scope="col">Destino Sii</th>
+       <th scope="col">Opciones</th>
 
     </tr>
   </thead>
 
+  <tbody id="bodyData" class="rounded-pill">
+  <% @realties.each do |realty| %>
 
-  <tbody id="realties-xyz" >
-    <%= render @realties %>
+    <tr>
+      <td><%= realty.name_realty %></td>
+      <td><%= realty.type_realty.tipo %></td>
+      <td><%= realty.address %> </td>
+      <td><%= realty.unit_estate %> </td>
+      <td><%= realty.population_villa %> </td>
+      <td><%= realty.appraisal_role %> </td>
+      <td><%= realty.fiscal_destination %> </td>
+      
+      <td>
+        <%= link_to 'Ver', realty , class: "btn btn-info" %>
+        <%= link_to 'Edit', edit_realty_path(realty) , class: "btn btn-warning" %>
+        <%= link_to 'Borrar', realty, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
 
-  </tbody>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+
+
+  
 </table>
 
 </div>

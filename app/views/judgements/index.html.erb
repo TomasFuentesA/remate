@@ -7,9 +7,9 @@
         <% @judgements.each do |judgement| %>
            var judmentId = '<%= judgement.id %>'
            if(judmentId == id){
-             //console.log('test')
+            
               newList = '<a href="javascript:void(0)" onclick="changeDataTable('+judmentId+')"><%= judgement.id %>-<%= judgement.court.name %>-<%= judgement.rol_trial %></a>'
-             //console.log(newList)
+            
            }           
         <% end %>
       return newList
@@ -21,7 +21,7 @@
         <% @judgements.each do |judgement| %>
            var judmentId = '<%= judgement.id %>'
            if(judmentId == id){
-              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Tipo de juicio</th><th scope="col">Tribunal</th><th scope="col">Rol</th><th scope="col">Nombre Juicio</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= judgement.type_judgement %></td><td><%= judgement.court.name %> </td><td><%= judgement.rol_trial %> </td><td><%= judgement.demandado %> / <%= judgement.demandante %></td><td><%= link_to 'Ver', judgement , class: "btn btn-info" %><%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %><%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Tipo de juicio</th><th scope="col">Tribunal</th><th scope="col">Rol</th><th scope="col">Nombre Juicio</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= judgement.type_judgement %></td><td><%= judgement.court.name %> </td><td><%= judgement.rol_trial %> </td><td><%= judgement.demandante %> / <%= judgement.demandado %></td><td><%= link_to 'Ver', judgement , class: "btn btn-info" %><%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %><%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
            }           
         <% end %>
       return newList
@@ -76,20 +76,19 @@
       
         //var newLists;
 
-      
-
-
 
       $('div#listSearch').html(list);
     })
 }
 </script>
+
 <br>
 <%= link_to 'Nuevo Juicio', new_judgement_path ,class: "btn btn-primary"%>
 </br>
 </br>
 <%= link_to "Quitar filtros", judgements_path, class:"btn btn-info"%>
 </br>
+
 </br>
   <div class="dropdown">
     <button onclick="displayButton()" class="dropbtn">Buscar Juicio</button>
@@ -148,7 +147,7 @@
           <td><%= judgement.type_judgement %></td>
           <td><%= judgement.court.name %> </td>
           <td><%= judgement.rol_trial %> </td>
-          <td><%= judgement.demandado %> / <%= judgement.demandante %></td>
+          <td><%= judgement.demandante %> / <%= judgement.demandado %></td>
           
           <td>
             <%= link_to 'Ver', judgement , class: "btn btn-info" %>
