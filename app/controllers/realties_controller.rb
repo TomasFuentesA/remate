@@ -63,12 +63,10 @@ class RealtiesController < ApplicationController
 
   def searchFilterData 
     @param = "%"+params[:q]+"%"
-    @realty = Realty.where("concat( number_unit , name_realty, address, population_villa, commune, street) like ?",@param)
+    #Realty.where("concat( number_unit , name_realty, population_villa, street) like ?",@param)
+    @realty = Realty.joins(:commune).where("concat( number_unit , name_realty, population_villa, street, communes.name) like ?",@param)
     render json: @realty
   end
-
-
-
 
   private
   def set_realty
