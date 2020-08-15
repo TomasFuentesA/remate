@@ -38,17 +38,17 @@
 
 
   function searchDataRealty(value) {
-    //console.log(value)
+    console.log(value)
 
     var form = $("#Form_realty"); // grab the form wrapping the search bar.
   
     var url = "/realties/searchFilterData"; // live_search action.   
     var formData = form.serialize(); // grab the data in the form   
-
+    var formDataLowerCase = formData.toLowerCase();
     //console.log(url)
-    //console.log(formData)
+    //console.log(formData.toLowerCase())
 
-    $.get(url, formData, function(json) { // perform an AJAX get
+    $.get(url, formDataLowerCase, function(json) { // perform an AJAX get
       //$("#live-search-results").html(json); // replace the "results" div with the results
       console.log(json)
      // console.log(json[0].id)
