@@ -1,67 +1,196 @@
+<script>
 
+  function elementLegalPersonaList(id){
+    var newList = ''
+        <% @legalpersonas.each do |legalpersona| %>
+           var legalpersonaId = '<%= legalpersona.id %>'
+           if(legalpersonaId == id){
+            
+              newList = '<a href="javascript:void(0)" onclick="changeDataTable('+legalpersonaId+')"><%= legalpersona.id %>-<%= legalpersona.rut %>-<%= legalpersona.name %></a>'
+            
+           }           
+        <% end %>
+      return newList
+  }
+
+//esta funcion muestra tabla ya filtrada por id de legalpersona
+  function table(id){
+    var newList = ''
+        <% @legalpersonas.each do |legalpersona| %>
+           var legalpersonaId = '<%= legalpersona.id %>'
+           if(legalpersonaId == id){
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Rut</th><th scope="col">Nombre</th><th scope="col">Nombre Fantasia</th><th scope="col">Alias</th><th scope="col">Web</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= legalpersona.rut %> </td><td><%= legalpersona.name %></td><td><%= legalpersona.fantasy_name %>  <><%= legalpersona.alias %> </td><td><%= link_to 'Ver', legalpersona , class: "btn btn-info" %><%= link_to 'Edit', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %><%= link_to 'Borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+           }           
+        <% end %>
+      return newList
+  }
+  
+
+
+   function changeDataTable(id){
+     console.log(id)
+    $('div#live-search-results').html(table(id));
+    displayButton()
+    //<tbody id="bodyData" class="rounded-pill">
+
+   }
+
+
+
+  function searchDataLegalPersona(value) {
+    console.log(value)
+
+    var form = $("#Form_legalpersona"); // grab the form wrapping the search bar.
+  
+    var url = "/legal_personas/searchFilterData"; // live_search action.   
+    var formData = form.serialize(); // grab the data in the form   
+    var formDataLowerCase = formData.toLowerCase();
+    //console.log(url)
+    //console.log(formData.toLowerCase())
+
+    $.get(url, formDataLowerCase, function(json) { // perform an AJAX get
+      //$("#live-search-results").html(json); // replace the "results" div with the results
+      console.log(json)
+     // console.log(json[0].id)
+     //$('div#listSearch').text(json[0].id);
+
+        //console.log(json.size)
+        //json.forEach(element => 
+          //console.log(element.id)
+         // var newList = elementlegalpersonaList(5)
+        //);
+        var list = []
+    $.each(json, function(i, item) {
+        //elementLegalPersonaList(json[i].id);
+        list.push(elementLegalPersonaList(json[i].id))
+    });
+        console.log(list)
+        //var newList = elementLegalPersonaList(4)
+        /*for (var i = 0; i < 9; i++) {
+          n += i;
+          mifuncion(n);
+        }*/
+
+        //var newLists;
+
+      $('div#listSearch').html(list);
+    })
+}
+</script>
+
+
+
+
+
+
+<br>
+
+
+
+ 
+
+
+
+
+
+
+<h1>Listado de Persona Juridicas</h1>
 
 
 
 <br>
 <%= link_to 'Nueva Persona Juridica', new_legal_persona_path ,class: "btn btn-primary"%>
+</br>
 <br>
+<%= link_to "Quitar filtros", legal_personas_path, class:"btn btn-info"%>
+</br>
 
 
-<script>
-  function myFunction(value) {
-    console.log(value)
 
-    var form = $("#live-search-form"); // grab the form wrapping the search bar.
+  <div class="dropdown">
+    <button onclick="displayButton()" class="dropbtn">Buscar legalpersona</button>
+    <div id="myDropdown" class="dropdown-content">
+      <form id="Form_legalpersona">
+        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataLegalPersona()">
+      </form>
+      <div id="listSearch">
+        <% @legalpersonas.each do |legalpersona| %>
+          <a href="javascript:void(0)" onclick="changeDataTable(<%= legalpersona.id %>)"><%= legalpersona.id %>-<%= legalpersona.rut %>-<%= legalpersona.name%></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</br>
+  <script>
+  /* When the user clicks on the button,
+  toggle between hiding and showing the dropdown content */
+  function displayButton() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
   
-    var url = "/legal_personas/search"; // live_search action.   
-    var formData = form.serialize(); // grab the data in the form   
+  function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  }
+  </script>
+</br>   
 
-    console.log(url)
-    console.log(formData)
-
-    $.get(url, formData, function(html) { // perform an AJAX get
-      //$("#live-search-results").html(html); // replace the "results" div with the results
-
-      console.log(html)
-    })
-}
-</script>
-
-<%= form_tag legal_personas_path, :id => "live-search-form" do %>
-
-  <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
-<% end %>
 
 
-<table   class="table table-bordered table-hover">
-  <thead  class="thead-dark">
-    <tr>
-      <th scope="col">Rut</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Nombre de Fantasia</th>
-      <th scope="col">Alias</th>
-      <th scope="col">Web</th>
-      <th scope="col">Actividad</th>
-      <th scope="col">opciones</th>
+
+<br>
+<div id="live-search-results">
+  <table class="table table-bordered table-hover">
+    <thead  class="thead-dark">
+      <tr>
+       <th scope="col" >Rut</th>
+       <th scope="col">Nombre</th>
+       <th scope="col" >Nombre Fantasia</th>
+       <th scope="col">Alias</th>
+       <th scope="col">Web</th>
+       <th scope="col">Opciones</th>
+
     </tr>
   </thead>
-  <tbody class="rounded-pill">
-    <% @legalPersonas.each do |legalpersona| %>
-      <tr>
-        <td scope="row"><%= legalpersona.rut %></td>
-        <td><%= legalpersona.name %></td>
-        <td><%= legalpersona.fantasy_name %></td>
-        <td><%= legalpersona.alias %></td>
-        <td><%= legalpersona.web %></td>
-        <td>
 
-              <%= link_to 'Ver', legalpersona ,class: "btn btn-info"%>
-              <%= link_to 'Edit', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %>
-              <%= link_to 'Borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+  <tbody id="bodyData" class="rounded-pill">
+  <% @legalpersonas.each do |legalpersona| %>
 
-      <%end%>
-        </td>
-      </tr>
-  </tbody>
+    <tr>
+      <td><%= legalpersona.rut %></td>
+      <td><%= legalpersona.name %></td>
+      <td><%= legalpersona.fantasy_name %> </td>
+      <td><%= legalpersona.alias %> </td>
+      <td><%= legalpersona.web %> </td>
+      
+      
+      
+      <td>
+        <%= link_to 'Ver', legalpersona , class: "btn btn-info" %>
+        <%= link_to 'Edit', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %>
+        <%= link_to 'Borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+    </tr>
+  <% end %>
+</tbody>
 </table>
+
+
+
+  
+</table>
+
+</div>
+
 <br>

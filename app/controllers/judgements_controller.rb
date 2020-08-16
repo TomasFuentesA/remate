@@ -6,11 +6,7 @@ class JudgementsController < ApplicationController
       @judgement = Judgement.all
   end
 
-  def search
-    respond_to do |format|
-      format.json {render :json => Judgement.all}
-     end
-  end
+  
 
   def new
     @judgement = Judgement.new

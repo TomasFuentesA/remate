@@ -5,7 +5,7 @@ class LegalPersonasController < ApplicationController
 
 
   def index
-    @legalPersonas = LegalPersona.all
+    @legalpersonas = LegalPersona.all
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @legalPersonas.map(&:name) }
@@ -42,12 +42,10 @@ class LegalPersonasController < ApplicationController
     redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
   end
 
-  def search 
-    Rails.logger.info  "prueba " + params[:q] 
+  def searchFilterData 
     @param = "%"+params[:q]+"%"
-    #@legalpersona = @legalpersona = LegalPersona.where("concat(lyrics , number , year) like ?",@param)
-    @legalpersona = LegalPersona.all
-    render json: @legalpersona
+    @persona = LegalPersona.where("concat(rut, name , fantasy_name, alias, web) like ?",@param)
+    render json: @persona
   end
 
 

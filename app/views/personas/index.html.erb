@@ -1,82 +1,197 @@
-<h1>Personas</h1>
-
 <script>
-  function myFunction(value) {
+
+  function elementPersonaList(id){
+    var newList = ''
+        <% @personas.each do |persona| %>
+           var personaId = '<%= persona.id %>'
+           if(personaId == id){
+            
+              newList = '<a href="javascript:void(0)" onclick="changeDataTable('+personaId+')"><%= persona.id %>-<%= persona.rut %>-<%= persona.full_name_persona %></a>'
+            
+           }           
+        <% end %>
+      return newList
+  }
+
+//esta funcion muestra tabla ya filtrada por id de persona
+  function table(id){
+    var newList = ''
+        <% @personas.each do |persona| %>
+           var personaId = '<%= persona.id %>'
+           if(personaId == id){
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Rut</th><th scope="col">Nombre</th><th scope="col">Estado Civil</th><th scope="col">Profesion</th><th scope="col">Fecha Nacimiento</th><th scope="col">Nacionalidad</th><th scope="col">Pasaporte</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= persona.rut %> </td><td><%= persona.full_name_persona %></td><td><%= persona.e_civil %>  <td><%= persona.profesion %> </td> </td><td><%= persona.birth_date %></td> <td><%= persona.nacionality %></td> <td><%= persona.passport%> </td><td><%= link_to 'Ver', persona , class: "btn btn-info" %><%= link_to 'Edit', edit_persona_path(persona) , class: "btn btn-warning" %><%= link_to 'Borrar', persona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+           }           
+        <% end %>
+      return newList
+  }
+  
+
+
+   function changeDataTable(id){
+     console.log(id)
+    $('div#live-search-results').html(table(id));
+    displayButton()
+    //<tbody id="bodyData" class="rounded-pill">
+
+   }
+
+
+
+  function searchDataPersona(value) {
     console.log(value)
 
-    var form = $("#live-search-form"); // grab the form wrapping the search bar.
+    var form = $("#Form_persona"); // grab the form wrapping the search bar.
   
-    var url = "/personas/search"; // live_search action.   
+    var url = "/personas/searchFilterData"; // live_search action.   
     var formData = form.serialize(); // grab the data in the form   
+    var formDataLowerCase = formData.toLowerCase();
+    //console.log(url)
+    //console.log(formData.toLowerCase())
 
-    console.log(url)
-    console.log(formData)
+    $.get(url, formDataLowerCase, function(json) { // perform an AJAX get
+      //$("#live-search-results").html(json); // replace the "results" div with the results
+      console.log(json)
+     // console.log(json[0].id)
+     //$('div#listSearch').text(json[0].id);
 
-    $.get(url, formData, function(html) { // perform an AJAX get
-      //$("#live-search-results").html(html); // replace the "results" div with the results
+        //console.log(json.size)
+        //json.forEach(element => 
+          //console.log(element.id)
+         // var newList = elementPersonaList(5)
+        //);
+        var list = []
+    $.each(json, function(i, item) {
+        //elementPersonaList(json[i].id);
+        list.push(elementPersonaList(json[i].id))
+    });
+        console.log(list)
+        //var newList = elementPersonaList(4)
+        /*for (var i = 0; i < 9; i++) {
+          n += i;
+          mifuncion(n);
+        }*/
 
-      console.log(html)
+        //var newLists;
+
+      $('div#listSearch').html(list);
     })
 }
 </script>
 
-<%= form_tag personas_path, :id => "live-search-form" do %>
 
-  <input id="big-search-box" name="q" type="text" onkeypress="myFunction(value)"/>     
-<% end %>
+
+
+
 
 <br>
-<%= link_to  new_persona_path ,class: "btn btn-primary" do%>
-<%= fa_icon "plus"%> Nueva Persona
-<% end %>
-<br>
-<table id="myTable" class="table table-bordered table-hover">
 
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Rut</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Estado civil</th>
-      <th scope="col">Profesion</th>
-      <th scope="col">Fecha de Nacimiento</th>
-      <th scope="col">Nacionalidad</th>
-      <th scope="col">Pasaporte</th>
-      <th scope="col">Opciones</th>
+
+
+ 
+
+
+
+
+
+
+<h1>Listado de Personas</h1>
+
+
+
+<br>
+<%= link_to 'Nueva Persona', new_persona_path ,class: "btn btn-primary"%>
+</br>
+<br>
+<%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
+</br>
+
+
+
+  <div class="dropdown">
+    <button onclick="displayButton()" class="dropbtn">Buscar Persona</button>
+    <div id="myDropdown" class="dropdown-content">
+      <form id="Form_persona">
+        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataPersona()">
+      </form>
+      <div id="listSearch">
+        <% @personas.each do |persona| %>
+          <a href="javascript:void(0)" onclick="changeDataTable(<%= persona.id %>)"><%= persona.id %>-<%= persona.rut %>-<%= persona.full_name_persona %></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</br>
+  <script>
+  /* When the user clicks on the button,
+  toggle between hiding and showing the dropdown content */
+  function displayButton() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  }
+  </script>
+</br>   
+
+
+
+
+<br>
+<div id="live-search-results">
+  <table class="table table-bordered table-hover">
+    <thead  class="thead-dark">
+      <tr>
+       <th scope="col" >Rut</th>
+       <th scope="col">Nombre</th>
+       <th scope="col" >Estado Civil</th>
+       <th scope="col">Profesion</th>
+       <th scope="col">Fecha Nacimiento</th>
+       <th scope="col">Pasaporte</th>
+       <th scope="col">Opciones</th>
+
     </tr>
   </thead>
 
+  <tbody id="bodyData" class="rounded-pill">
+  <% @personas.each do |persona| %>
 
+    <tr>
+      <td><%= persona.rut %></td>
+      <td><%= persona.full_name_persona %></td>
+      <td><%= persona.e_civil %> </td>
+      <td><%= persona.profesion %> </td>
+      <td><%= persona.birth_date %> </td>
+      <td><%= persona.nacionality %> </td>
+      <td><%= persona.passport %> </td>
+      
+      <td>
+        <%= link_to 'Ver', persona , class: "btn btn-info" %>
+        <%= link_to 'Edit', edit_persona_path(persona) , class: "btn btn-warning" %>
+        <%= link_to 'Borrar', persona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
 
-
-  <tbody>
-    <% @personas.each do |persona| %>
-
-      <tr>
-        <td scope="row"><%= persona.rut %></td>
-        <td><%= persona.name %>
-        <%= persona.name2 %>
-        <%= persona.last_name1 %>
-        <%= persona.last_name2 %></td>
-        <td><%= persona.e_civil %></td>
-        <td><%= persona.profesion %></td>
-        <td><%= persona.birth_date %></td>
-        <td><%= persona.nacionality %></td>
-        <td><%= persona.passport %></td>
-        <td> <%= link_to   persona ,class:"btn btn-info"  do %>
-           <%= fa_icon "address-card"%> Ver
-          <% end %>
-          <%= link_to   edit_persona_path(persona) ,class:"btn btn-warning"  do %>
-             <%= fa_icon "address-card"%> Editar
-            <% end %>
-
-          <%= link_to  persona, method: :delete, data: { confirm: 'Estas seguro?' } ,class: "btn btn-danger"  do%>
-          <%= fa_icon "ban"%> Eliminar
-         <% end %>
-                <%end%></td>
-      </tr>
-
-  </tbody>
+    </tr>
+  <% end %>
+</tbody>
 </table>
 
+
+
+  
+</table>
+
+</div>
 
 <br>

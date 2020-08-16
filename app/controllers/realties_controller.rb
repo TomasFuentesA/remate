@@ -55,11 +55,7 @@ class RealtiesController < ApplicationController
 
   end
 
-  def search
-    respond_to do |format|
-      format.json {render :json => Realty.all}
-     end
-  end 
+  
 
   def searchFilterData 
     @param = "%"+params[:q]+"%"

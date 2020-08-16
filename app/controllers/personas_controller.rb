@@ -3,6 +3,7 @@ class PersonasController < ApplicationController
   before_action :set_persona, only: [:edit,:show,:destroy]
   before_action :show_actions, only: [:show]
   before_action :set_job, only: [:edit]
+  
   def index
     @personas = Persona.all
   end
@@ -45,13 +46,16 @@ class PersonasController < ApplicationController
     end
   end
 
-  def search 
-    Rails.logger.info  "prueba " + params[:q] 
+  
+  
+  def searchFilterData 
     @param = "%"+params[:q]+"%"
-    #@judgement = @judgement = Judgement.where("concat(lyrics , number , year) like ?",@param)
-    @persona = Persona.all
+    @persona = Persona.where("concat(rut, name , name2, last_name1, last_name2, e_civil, profesion, nacionality) like ?",@param)
     render json: @persona
   end
+
+
+
 
   private
 

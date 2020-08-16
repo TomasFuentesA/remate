@@ -21,9 +21,8 @@ Rails.application.routes.draw do
 
   get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
-
-  get 'personas/search', to: 'personas#search'
-  get 'legal_personas/search', to: 'legal_personas#search'
+  get 'personas/searchFilterData', to: 'personas#searchFilterData'
+  get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
   
 
 
