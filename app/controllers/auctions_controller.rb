@@ -29,6 +29,7 @@ class AuctionsController < ApplicationController
   end
 
   def show
+    Rails.logger.info "prueba show"
   end
 
   def edit
@@ -58,7 +59,9 @@ class AuctionsController < ApplicationController
 
 
   def auctions
+      Rails.logger.info "prueba auction"
       auction = Auctionnotice.find(params[:id])
+      
   end
 
   def in_progress

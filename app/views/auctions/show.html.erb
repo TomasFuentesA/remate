@@ -42,11 +42,140 @@
 
   </div>
 
-  <div class="col-lateral col-md-4"">
-  algo
+  <div class="col-lateral col-md-4">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 card card-body ">
+          <div>
+            <h2>Dirección: <%= @auction.realty.address %>, <%= @auction.realty.unit_estate %></h2>
+          </div>
+  
+          <div style='width: 300px;' >
+            <div id="map" style='width: 300px; height: 300px;'></div>
+          </div>
+          <hr>
+          <h1>Información básica:</h1>
+  
+            <div class="field">
+              <h4>Tipo de propiedad </h4>
+               <%= @auction.realty.type_realty.tipo %>
+           </div>
+  
+  
+              <div class="field">
+                <h4> Poblacion, Villa , Conjunto:</h4>
+                <%= @auction.realty.population_villa %>
+              </div>
+  
+              <div class="field">
+                <h4>Rol Avaluo</h4>
+                 <%= @auction.realty.appraisal_role %>
+              </div>
+  
+  
+               <div class="field">
+                 <h4>Latitud</h4>
+                  <%= @auction.realty.latitude %>
+               </div>
+  
+               <div class="field">
+                 <h4>Longitud</h4>
+                <%= @auction.realty.longitude %>
+              </div>
+  
+  
+                <% unless @auction.realty.characteristic.nil? %>
+                 <div class="field">
+  
+                 <h4>Construido mt2 </h4>
+                   <%= @auction.realty.characteristic.m2_built %>
+  
+                 <h4>Terreno mt2 </h4>
+                   <%= @auction.realty.characteristic.m2_land %>
+                </div>
+               <%else %>
+  
+                <div class="field">
+  
+                no hay caracteristicas
+               </div>
+              <% end %>
+  
+  
+  
+            
+  
+          <p></p>
+            <div class="field">
+              <h4>Destino Sii</h4>
+              <%= @auction.realty.fiscal_destination %>
+            </div>
+  
+          <p></p>
+  
+          
+          <h1>Ficha Tasaciones:</h1>
+            <div class="field">
+             <h4>Tasaciones</h4>
+            
+            
+            <% if !@auction.realty.appraisal.nil? %>
+           
+            <td><%= @auction.realty.appraisal.date %></td>
+            <td><%= @auction.realty.appraisal.realty.name_realty %></td>
+            <td><%= @auction.realty.appraisal.entity %></td>
+            <td><%= @auction.realty.appraisal.price_uf %></td>
+            <td><%= @auction.realty.appraisal.price_clp %></td>
+            <td><%= @auction.realty.appraisal.price_usd %></td>
+            <td><%= @auction.realty.appraisal.observation%></td>
+            <% end %>
+  
+  
+        </div>
+  
+        </div>
+        
+        
+  
+   
+      </div>
+    </div>
   </div>
 
 
 
 
 </div>
+
+
+<script>
+
+  handler = Gmaps.build('Google');
+  handler.buildMap({
+      provider: {
+        center: new google.maps.LatLng({lat: <%= @auction.realty.latitude %>, lng: <%= @auction.realty.longitude %> }),
+        zoom: 16
+      },
+      internal: {
+        id: 'map'
+      }
+    }, function(){
+    markers = handler.addMarkers(<%= raw @hash.to_json %>);
+    google.maps.event.addListener(handler.getMap(), "click", function(){
+      console.log("hola");
+  
+      });
+    google.maps.event.addListener(handler.getMap(), 'center_changed', function(){
+      var latitude = handler.getMap().getCenter().lat();
+      var longitude = handler.getMap().getCenter().lng();
+      $.ajax({
+        url: '/realties',
+        type: 'GET',
+        dataType: 'script',
+        data: {latitude: latitude, longitude: longitude}
+      })
+    });
+  }
+  );
+  </script>
+  
