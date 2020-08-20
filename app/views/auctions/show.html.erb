@@ -6,7 +6,7 @@
 <p></p>
 
 <div class="row" id="fileview">
-  <div class="col-principal col-md-8">
+  <div class="col-principal col-md-6">
     <div>
       <h2>
         Remate nº  <%= @auction.id %> : <%= @auction.realty.address %>
@@ -45,7 +45,7 @@
 
   </div>
 
-  <div class="col-lateral col-md-4">
+  <div class="col-lateral col-md-6">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8 card card-body ">
@@ -53,8 +53,8 @@
             <h2>Dirección: <%= @auction.realty.address %>, <%= @auction.realty.unit_estate %></h2>
           </div>
   
-          <div style='width: 300px;' >
-            <div id="map" style='width: 300px; height: 300px;'></div>
+          <div style='width: 500px;' >
+            <div id="map" style='width: 500px; height: 300px;'></div>
           </div>
           <hr>
           <h1>Información básica:</h1>
@@ -115,26 +115,53 @@
             </div>
   
           <p></p>
-  
+        </div>
           
           <h1>Ficha Tasaciones:</h1>
             <div class="field">
              <h4>Tasaciones</h4>
             
             
-            <% if !@auction.realty.appraisal.nil? %>
            
-            <td><%= @auction.realty.appraisal.date %></td>
-            <td><%= @auction.realty.appraisal.realty.name_realty %></td>
-            <td><%= @auction.realty.appraisal.entity %></td>
-            <td><%= @auction.realty.appraisal.price_uf %></td>
-            <td><%= @auction.realty.appraisal.price_clp %></td>
-            <td><%= @auction.realty.appraisal.price_usd %></td>
-            <td><%= @auction.realty.appraisal.observation%></td>
-            <% end %>
   
-  
-        </div>
+            <table   class="table table-bordered table-hover">
+              <thead  class="thead-dark">
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Entidad</th>
+                  <th scope="col">Valor UF</th>
+                  <th scope="col">Valor CLP</th>
+                  <th scope="col">Valor USD</th>
+                  <th scope="col">Observacion</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+             
+              <tbody class="rounded-pill">
+               
+            
+                 
+                    <% @auction.realty.appraisal.each do |appraisal| %> 
+                    <tr>
+           
+                    <td><%= appraisal.date %></td>
+                    <td><%= appraisal.entity %></td>
+                    <td><%= appraisal.price_uf %></td>
+                    <td><%= appraisal.price_clp %></td>
+                    <td><%= appraisal.price_usd %></td>
+                    <td><%= appraisal.observation%></td>
+                    
+                    
+            
+                    <td>
+                      <%= link_to 'Ver', @appraisal , class: "btn btn-info" %>
+                      
+                  </tr>
+                  <% end %>
+              </tbody>
+            </table>
+       
+        
   
         </div>
         

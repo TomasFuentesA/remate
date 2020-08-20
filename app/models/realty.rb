@@ -1,7 +1,7 @@
 class Realty < ApplicationRecord
     #validacion de campos
     #validates :address, presence: true, uniqueness: true
-    #validates :street, :number_unit, :name_realty, presence: true
+    validates :street, :number_unit, :unit_estate, presence: true
 
 
     after_create :set_latlon
@@ -10,7 +10,7 @@ class Realty < ApplicationRecord
     has_one :characteristic, dependent: :destroy
     has_one :type_realty, dependent: :destroy
     belongs_to :commune
-    has_one :appraisal, dependent: :destroy
+    has_many :appraisal, dependent: :destroy
     has_many :auctionnotices , dependent: :destroy
 
     #atributos anidados
@@ -40,8 +40,12 @@ class Realty < ApplicationRecord
     private
 
     def set_latlon
-      latlon = Geocoder.search(self.address).first.coordinates
-      self.update(latitude: latlon[0], longitude: latlon[1])
+      begin
+        latlon = Geocoder.search(self.address).first.coordinates
+        self.update(latitude: latlon[0], longitude: latlon[1])
+      rescue Exception => error
+        Rails.logger.info "error mapa direccion"
+      end
     end
 
 

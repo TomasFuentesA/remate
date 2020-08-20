@@ -81,20 +81,55 @@
 
         <p></p>
 
-        
+      </div> 
+
+      <div>
         <h1>Ficha Tasaciones:</h1>
           <div class="field">
            <h4>Tasaciones</h4>
-          <%= @realty.appraisal.date %>
-          <%= @realty.appraisal.entity %>
-          <%= @realty.appraisal.price_uf %>
-          <%= @realty.appraisal.price_clp %>
-          <%= @realty.appraisal.price_usd %>
+          
+
+          <table   class="table table-bordered table-hover">
+            <thead  class="thead-dark">
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Entidad</th>
+                <th scope="col">Valor UF</th>
+                <th scope="col">Valor CLP</th>
+                <th scope="col">Valor USD</th>
+                <th scope="col">Observacion</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+           
+            <tbody class="rounded-pill">
+             
+          
+                
+                  <% @realty.appraisal.each do |appraisal| %> 
+                  
+                  <tr>
 
 
-      </div>
+                  <td><%= appraisal.date %></td>
+                  <td><%= appraisal.entity %></td>
+                  <td><%= appraisal.price_uf %></td>
+                  <td><%= appraisal.price_clp %></td>
+                  <td><%= appraisal.price_usd %></td>
+                  <td><%= appraisal.observation%></td>
+          
+          
+                  <td>
+                    <%= link_to 'Ver', appraisal , class: "btn btn-info" %>
+                    
+                </tr>
+                <% end %>
+            </tbody>
+          </table>
+     
 
-      </div>
+          </div>
+        </div>
       <br>
       <div class="col-md-4 card dard-body">
 

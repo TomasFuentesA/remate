@@ -19,7 +19,7 @@ class Auction < ApplicationRecord
 
 
   def rol_trial
-    "#{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s}"
+    "#{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s} "
   end
 
 
