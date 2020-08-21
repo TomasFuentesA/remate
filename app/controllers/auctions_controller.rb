@@ -119,7 +119,7 @@ class AuctionsController < ApplicationController
       :minimum, :total_minimum, :cost,
        :uf, :pesos, :court_id, :lyrics, :number, :year,
         :realty_id, :auctionnotice_id,:status,
-        :judgement_attributes => [:id, :type_judgement, :lyrics, :number, :year,:demandante,:demandado,:court_id, :auction_id, :rol_trial]
+        :judgement_id
        )
   end
 

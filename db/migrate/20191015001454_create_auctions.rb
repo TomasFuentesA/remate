@@ -11,12 +11,9 @@ class CreateAuctions < ActiveRecord::Migration[5.2]
       t.float :warranty
       t.float :fee
       t.string :name
-      t.string :lyrics
-      t.integer :number
-      t.integer :year
       t.references :auctionnotice, foreign_key: true
       t.references :realty, foreign_key: true
-      t.references :court, foreign_key: true
+      
 
       t.timestamps
     end

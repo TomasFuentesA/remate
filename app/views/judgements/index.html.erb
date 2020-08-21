@@ -144,11 +144,11 @@
       <% @judgements.each do |judgement| %>
 
         <tr>
-          <td><%= judgement.type_judgement %></td>
+          
           <td><%= judgement.court.name %> </td>
           <td><%= judgement.rol_trial %> </td>
           <td><%= judgement.demandante %> / <%= judgement.demandado %></td>
-          
+          <td><%= judgement.type_judgement %></td>
           <td>
             <%= link_to 'Ver', judgement , class: "btn btn-info" %>
             <%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %>

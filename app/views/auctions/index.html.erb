@@ -44,8 +44,34 @@
       <tr>
         <td scope="row"><%= i + 1 %></td>
         <td><%= auction.horary %> </td>
-        <td><%= auction.court.name %></td>
-        <td><%= auction.rol_trial %></td>
+        <td>
+        
+          <% unless auction.judgement.court.name.nil? %>
+          <%= auction.judgement.court.name %>
+        <%else %>
+
+         <div class="field">
+
+         no hay tribunal
+        </div>
+       <% end %>
+
+
+        
+        
+        
+        </td>
+        <td>
+          <% unless auction.judgement.rol_trial.nil? %>
+          <%= auction.judgement.rol_trial %>
+        <%else %>
+
+         <div class="field">
+
+         no hay rol
+        </div>
+       <% end %>
+      </td>
         
 
         

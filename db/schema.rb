@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_151043) do
+ActiveRecord::Schema.define(version: 2020_08_21_233136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,18 +93,15 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
     t.float "warranty"
     t.float "fee"
     t.string "name"
-    t.string "lyrics"
-    t.integer "number"
-    t.integer "year"
     t.bigint "auctionnotice_id"
     t.bigint "realty_id"
-    t.bigint "court_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "minimum"
     t.integer "status"
+    t.bigint "judgement_id"
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
-    t.index ["court_id"], name: "index_auctions_on_court_id"
+    t.index ["judgement_id"], name: "index_auctions_on_judgement_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
   end
 
@@ -387,7 +384,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_151043) do
 
   add_foreign_key "appraisals", "realties"
   add_foreign_key "auctions", "auctionnotices"
-  add_foreign_key "auctions", "courts"
+  add_foreign_key "auctions", "judgements"
   add_foreign_key "auctions", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
