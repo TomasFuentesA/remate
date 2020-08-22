@@ -1,7 +1,7 @@
 class Realty < ApplicationRecord
     #validacion de campos
     #validates :address, presence: true, uniqueness: true
-    validates :street, :number_unit, :unit_estate, presence: true
+    #validates :street, :number_unit, :unit_estate, presence: true
 
 
     after_create :set_latlon
@@ -10,6 +10,7 @@ class Realty < ApplicationRecord
     has_one :characteristic, dependent: :destroy
     has_one :type_realty, dependent: :destroy
     belongs_to :commune
+    belongs_to :condominio
     has_many :appraisal, dependent: :destroy
     has_many :auctionnotices , dependent: :destroy
 

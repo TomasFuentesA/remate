@@ -34,6 +34,7 @@
       <th scope="col">Garantia</th>
       <th scope="col">mt2.Construido</th>
       <th scope="col">mt2.Terreno</th>
+      <th scope="col">Status</th>
       <th scope="col">Opciones</th>
 
     </tr>
@@ -47,37 +48,57 @@
         <td>
         
           <% unless auction.judgement.court.name.nil? %>
-          <%= auction.judgement.court.name %>
-        <%else %>
+            <%= auction.judgement.court.name %>
+          <%else %>
 
-         <div class="field">
+            <div class="field">
 
-         no hay tribunal
-        </div>
-       <% end %>
+              no hay tribunal
+             </div>
+          <% end %>
 
-
-        
-        
         
         </td>
         <td>
           <% unless auction.judgement.rol_trial.nil? %>
-          <%= auction.judgement.rol_trial %>
-        <%else %>
+             <%= auction.judgement.rol_trial %>
+          <%else %>
 
-         <div class="field">
+             <div class="field">
 
-         no hay rol
-        </div>
-       <% end %>
-      </td>
+              no hay rol
+             </div>
+         <% end %>
+         </td>
+
+
+         <td>
+          <% unless auction.judgement.name_judgement.nil? %>
+             <%= auction.judgement.name_judgement %>
+          <%else %>
+
+             <div class="field">
+
+              no hay name juicio
+             </div>
+         <% end %>
+         </td>
         
-
+         <td><%= auction.judgement.type_judgement %></td>
         
         <td><%= auction.realty.address %></td>
         <td><%= auction.realty.population_villa %></td>
-        <td><%= auction.realty.population_villa %></td>
+
+        <td><% unless auction.realty.condominio.name.nil? %>
+              <%= auction.realty.condominio.name %>
+            <%else %>
+
+              <div class="field">
+
+               sin condominio
+              </div>
+           <% end %>
+        </td>
         <td><%= auction.total_minimum %></td>
         <td><%= auction.warranty %></td>
         <td><%= auction.realty.mt2_built %></td>

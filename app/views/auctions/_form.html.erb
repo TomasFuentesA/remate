@@ -77,25 +77,6 @@
     <%= form.text_field :name, id: :name %>
   </div>
 
-  <div class="field">
-    <%= form.label :court_id, "Seleccionar Tribunal" %>
-    <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :lyrics, "Letra" %>
-    <%= form.text_field :lyrics, id: :lyrics %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number, "Rol" %>
-    <%= form.number_field :number, id: :number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :year, "Año" %>
-    <%= form.number_field :year, id: :year %>
-  </div>
 
 
   <div class="field">

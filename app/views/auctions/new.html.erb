@@ -70,10 +70,7 @@
             <div class="form-group col-md-2">
               <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
             </div>
-            <div class="form-group col-md-3">
-              <%= form.label :court_id, "seleccione Juicio" %>
-              <%= form.select :court_id, options_for_select(Judgement.all.collect {|p| [p.rol_trial, p.id]}), { include_blank: "Seleccione"} %>
-            </div>
+            
           </div>
 
           

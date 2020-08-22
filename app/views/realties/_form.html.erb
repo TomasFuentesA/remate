@@ -35,6 +35,11 @@
               <%= form.label :population_villa, "villa/población:" %>
               <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
             </div>
+            <div class="form-group col-md-4">
+              <%= form.label :condominio_id, "Condominio:" %>
+              <%= form.select :condominio_id, options_for_select(Condominio.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+            </div>
+
           </div>
           <div class="form-row">
             <%= form.fields_for :type_realty do |f| %>

@@ -70,6 +70,20 @@
                 <%= @auction.realty.population_villa %>
               </div>
   
+              <% unless @realty.condominio.nil? %>
+              <div class="field">
+  
+                 <h4>Condominio/Edificio/Parcelacion </h4>
+                    <%= @realty.condominio.name %>
+  
+              <%else %>
+  
+               <div class="field">
+  
+                  no hay Condominio
+               </div>
+               <% end %>
+
               <div class="field">
                 <h4>Rol Avaluo</h4>
                  <%= @auction.realty.appraisal_role %>

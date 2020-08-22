@@ -11,5 +11,8 @@ class Judgement < ApplicationRecord
     "#{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s}"
   end
 
+  def name_judgement
+    "#{self.demandante} - #{(self.demandado)}"
+  end
   
 end

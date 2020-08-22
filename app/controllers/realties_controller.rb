@@ -24,6 +24,7 @@ class RealtiesController < ApplicationController
         format.js
         end
     else
+      Rails.logger.info "probando crear new realty"
       format.js
     end
   end
@@ -60,7 +61,7 @@ class RealtiesController < ApplicationController
   def searchFilterData 
     @param = "%"+params[:q]+"%"
     #Realty.where("concat( number_unit , name_realty, population_villa, street) like ?",@param)
-    @realty = Realty.joins(:commune).where("lower(concat( number_unit , name_realty, population_villa, street, communes.name)) like ?",@param)
+    @realty = Realty.joins(:commune, :condominio).where("lower(concat( number_unit , name_realty, population_villa, street, communes.name, condominios.name)) like ?",@param)
     render json: @realty
   end
 
@@ -78,7 +79,7 @@ class RealtiesController < ApplicationController
 
   def realty_params
     params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
-       :type_property_id, :name_realty, :fiscal_destination, characteristic_attributes: [ :m2_land, :m2_built , :material], type_realty_attributes: [:tipo,:comment] )
+       :type_property_id, :name_realty, :fiscal_destination, :condominio_id, characteristic_attributes: [ :m2_land, :m2_built , :material], type_realty_attributes: [:tipo,:comment] )
   end
 
 

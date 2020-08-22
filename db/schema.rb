@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_233136) do
+ActiveRecord::Schema.define(version: 2020_08_21_235940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -334,6 +334,8 @@ ActiveRecord::Schema.define(version: 2020_08_21_233136) do
     t.integer "type_property_id"
     t.integer "province_id"
     t.string "fiscal_destination"
+    t.bigint "condominio_id"
+    t.index ["condominio_id"], name: "index_realties_on_condominio_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -399,5 +401,6 @@ ActiveRecord::Schema.define(version: 2020_08_21_233136) do
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
+  add_foreign_key "realties", "condominios"
   add_foreign_key "type_realties", "realties"
 end
