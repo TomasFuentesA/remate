@@ -44,6 +44,6 @@ class CondominiosController < ApplicationController
     private
 
     def condominio_params
-      params.require(:condominio).permit(:name, :condominio_id, :legal_persona_id, :persona_id, :commune_id, :address)
+      params.require(:condominio).permit(:name, :condominio_id, :commune_id, :address)
     end
   end

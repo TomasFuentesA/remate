@@ -1,11 +1,11 @@
-<%= form_with model: @condominio  do |form| %>
+<%= form_with model:  @condominio, url: condominios_path ,id: :formulary do |form| %>
   <%= form.label :name, "Ingreso de nuevo Condominio/Edificio" %>
   <%= form.text_field :name  %>
 
 
   <div class="form-group col-md-2">
     <%= form.label :address, "Direccion" %>
-    <%= form.text_field :address, id: :address , class:"form-control border" ,autofocus: true%>
+    <%= form.text_field :address, id: :address , class: "form-control" ,autofocus: true%>
   </div>
 
   <div class="form-group col-md-2">
@@ -15,18 +15,11 @@
 
 
 
-  <div class="form-group col-md-2">
-    <%= form.label :legal_persona_id, "Administracion Condominio/Edificio" %>
-    <%= form.select :legal_persona_id, options_for_select(LegalPersona.all.collect {|p| [p.name, p.id]}, { include_blank: "Seleccione"}) %>
+  
+
+
+  <di class = "form-group col-md-2">
+    <%= form.submit "Guardar", class: "btn btn-success"%>
   </div>
-
-  <div class="form-group col-md-2">
-    <%= form.label :persona_id, "Administrador" %>
-    <%= form.select :persona_id, options_for_select(Persona.all.collect {|p| [p.name, p.id]}, { include_blank: "Seleccione"}) %>
-  </div>
-
-
-
- <%= form.submit "Guardar" %>
-
+ 
 <% end %>

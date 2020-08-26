@@ -13,8 +13,8 @@ class User < ApplicationRecord
   has_many :posts
   enum role: [:admin, :analyzer, :lawyer, :appraiser, :visit]
 
-  geocoded_by :address
-  after_validation :geocode
+  #geocoded_by :address
+  #after_validation :geocode
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -78,7 +78,7 @@ class RealtiesController < ApplicationController
   end
 
   def realty_params
-    params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
+    params.require(:realty).permit(:street, :number_unit, :unit_estate, :street_type_id, :commune_id, :rol_sii, :population_villa, :apple, :property, :latitude, :longitude, :address,
        :type_property_id, :name_realty, :fiscal_destination, :condominio_id, characteristic_attributes: [ :m2_land, :m2_built , :material], type_realty_attributes: [:tipo,:comment] )
   end
 

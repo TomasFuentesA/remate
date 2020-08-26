@@ -108,6 +108,10 @@
         <% end %>
 
 
+        <%= link_to 'Ir a Comuna', communes_path, class: "btn btn-primary" %>
+        <%= link_to  new_realty_path, class: "btn btn-primary"  do%>
+        <%= fa_icon "Plus"%>Cualquiera
+        <% end %>
 
       </div>
 
@@ -180,18 +184,18 @@
   <table class="table table-bordered table-hover">
     <thead  class="thead-dark">
       <tr>
-       <th scope="col" >Nombre Propiedad</th>
-       <th scope="col">Tipo Propiedad</th>
-        <th scope="col" >Direccion</th>
-       <th scope="col">Departamento/Oficina</th>
-       <th scope="col">Poblacion/Villa</th>
-       <th scope="col">Condominio</th>
-       <th scope="col">Rol Sii</th>
-       <th scope="col">Destino Sii</th>
-       <th scope="col">Opciones</th>
+        <th scope="col">Nombre Propiedad</th>
+        <th scope="col">Tipo Propiedad</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Departamento/Oficina</th>
+        <th scope="col">Poblacion/Villa</th>
+        <th scope="col">Condominio</th>
+        <th scope="col">Comuna</th>
+        <th scope="col">Rol Sii</th>
+        <th scope="col">Opciones</th>
 
-    </tr>
-  </thead>
+      </tr>
+    </thead>
 
   <tbody id="bodyData" class="rounded-pill">
   <% @realties.each do |realty| %>
@@ -210,16 +214,9 @@
               no hay Condominio
            </div>
          <% end %>
-      
-      
-      
-      
-      
-      
-      
       </td>
       <td><%= realty.appraisal_role %> </td>
-      <td><%= realty.fiscal_destination %> </td>
+      <td><%= realty.rol_sii %></td>
       
       <td>
         <%= link_to 'Ver', realty , class: "btn btn-info" %>

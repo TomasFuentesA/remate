@@ -26,8 +26,8 @@
         <%= form.text_field :last_name2, id: :last_name2 ,class:"form-control border",autofocus: true %>
 
         <%= form.label :e_civil, "Estado Civil" %>
-        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"} %>
-
+        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"}%>
+        <br>
         <%= form.label :profesion, "Profesion" %>
         <%= form.text_field :profesion, id: :profesion ,class:"form-control border",autofocus: true  %>
 
