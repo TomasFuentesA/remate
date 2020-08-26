@@ -43,7 +43,12 @@ class CondominiosController < ApplicationController
 
     private
 
+
     def condominio_params
-      params.require(:condominio).permit(:name, :condominio_id, :commune_id, :address)
+      begin
+        params.require(:condominio).permit(:name, :condominio_id, :commune_id, :address)
+      rescue Exception => error
+        params.permit(:name, :condominio_id, :commune_id, :address)
+      end
     end
   end
