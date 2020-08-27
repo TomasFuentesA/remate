@@ -106,13 +106,6 @@
         <%= link_to  new_realty_path, class: "btn btn-primary"  do%>
         <%= fa_icon "Plus"%>Nueva Propiedad
         <% end %>
-
-
-        <%= link_to 'Ir a Comuna', communes_path, class: "btn btn-primary" %>
-        <%= link_to  new_realty_path, class: "btn btn-primary"  do%>
-        <%= fa_icon "Plus"%>Cualquiera
-        <% end %>
-
       </div>
 
     </div>
@@ -126,11 +119,6 @@
 
 <h1>Listado de Propiedades</h1>
 
-
-
-<br>
-<%= link_to 'Nueva Propiedad', new_realty_path ,class: "btn btn-primary"%>
-</br>
 <br>
 <%= link_to "Quitar filtros", realties_path, class:"btn btn-info"%>
 </br>
@@ -141,7 +129,7 @@
     <button onclick="displayButton()" class="dropbtn">Buscar Propiedad</button>
     <div id="myDropdown" class="dropdown-content">
       <form id="Form_realty">
-        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataRealty()">
+        <input type="text" placeholder="Ingrese referencia" id="myInput" name="q" onkeyup="searchDataRealty()">
       </form>
       <div id="listSearch">
         <% @realties.each do |realty| %>
@@ -191,7 +179,6 @@
         <th scope="col">Poblacion/Villa</th>
         <th scope="col">Condominio</th>
         <th scope="col">Comuna</th>
-        <th scope="col">Rol Sii</th>
         <th scope="col">Opciones</th>
 
       </tr>
@@ -216,7 +203,6 @@
          <% end %>
       </td>
       <td><%= realty.appraisal_role %> </td>
-      <td><%= realty.rol_sii %></td>
       
       <td>
         <%= link_to 'Ver', realty , class: "btn btn-info" %>
