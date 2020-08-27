@@ -119,13 +119,10 @@
 
 <h1>Listado de Propiedades</h1>
 
-<br>
-<%= link_to "Quitar filtros", realties_path, class:"btn btn-info"%>
-</br>
-
-
-
-  <div class="dropdown">
+ <div class="form-group">
+            <div class="row ">
+              <div class="col-xs-8">
+                  <div class="dropdown">
     <button onclick="displayButton()" class="dropbtn">Buscar Propiedad</button>
     <div id="myDropdown" class="dropdown-content">
       <form id="Form_realty">
@@ -138,8 +135,16 @@
       </div>
     </div>
   </div>
-</br>
-  <script>
+              </div>
+              <div class="col-xs-8">
+               <%= link_to "Quitar filtros", realties_path, class:"btn btn-info"%>
+
+                    </div>
+            </div>
+          </div>
+
+
+<script>
   /* When the user clicks on the button,
   toggle between hiding and showing the dropdown content */
   function displayButton() {
