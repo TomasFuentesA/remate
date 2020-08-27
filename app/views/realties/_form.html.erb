@@ -10,12 +10,12 @@
                 <%= form.fields_for :type_realty do |f| %>
 
                 <%= f.label :tipo, "tipo de propiedad" %>
-                <%= f.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                <%= f.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                 <% end %>
               </div>
               <div class="col-md-6">
                 <%= form.label :name_realty, "Nombre de propiedad:" %>
-                <%= form.text_field :name_realty, id: :name_realty , class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :name_realty, id: :name_realty , class:"form-control border" ,autofocus: true, required: true %>
               </div>
             </div>
           </div>
@@ -23,26 +23,26 @@
             <div class="row ">
               <div class="col-md-3">
                 <%= form.label :street_type_id, "Tipo de Calle:" %>
-                <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
               </div>
               <div class="col-md-3">
                 <%= form.label :commune_id, "Comuna:" %>
-                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
               </div>
               <div class="col-md-3">
                 <%= form.label :street, "Calle:" %>
-                <%= form.text_field :street, id: :street , class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :street, id: :street , class:"form-control border" ,autofocus: true, required: true %>
               </div>
               <div class="col-md-3">
                 <%= form.label :number_unit, "Numero:" %>
-                <%= form.number_field :number_unit, id: :number_unit , class:"form-control border" ,autofocus: true%>
+                <%= form.number_field :number_unit, id: :number_unit , class:"form-control border" ,autofocus: true, required: true %>
               </div>
             </div>
             <div class="form-group">
               <div class="row ">
                 <div class="col-md-3">
                   <%= form.label :unit_estate, "Unidad:" %>
-                  <%= form.text_field :unit_estate, id: :unit_estate , class:"form-control border" ,autofocus: true%>
+                  <%= form.text_field :unit_estate, id: :unit_estate , class:"form-control border" ,autofocus: true, required: true %>
                 </div>
                 <div class="col-md-3">
                   <%= form.label :population_villa, "villa/población:" %>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-md-3">
                   <%= form.label :condominio_id, "Condominio:" %>
-                  <%= form.select :condominio_id, options_for_select(Condominio.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                  <%= form.select :condominio_id, options_for_select(Condominio.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@
               <div class="row ">
                 <div class="col-md-8">
                   <%= form.label :comment, "Comentarios" %>
-                  <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
+                  <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true, required: true %>
                 
                 </div>
               </div>
