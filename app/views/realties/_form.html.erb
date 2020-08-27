@@ -3,7 +3,6 @@
     <div>
       <div>
         <div class="card-body">
-          <%= render "condominios/modalcondominio" %>
           <%= form_with model:  @realty, url: realties_path ,id: :formulary, remote: true do |form| %>
           <div class="form-group">
             <div class="row ">
@@ -57,9 +56,9 @@
             </div>
             <div class="form-group">
               <div class="row ">
-                <div class="col-md-3">
+                <div class="col-md-8">
                   <%= form.label :comment, "Comentarios" %>
-                  <%= form.text_field :comment, class:"form-control border",autofocus: true%>
+                  <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
                 
                 </div>
               </div>

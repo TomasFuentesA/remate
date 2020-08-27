@@ -1,12 +1,23 @@
 <div class="results-block">
   <%= render partial: 'layouts/alerts' %>
 </div>
-<%= render 'form' %>
-
-
-
 <div class="container">
   <%= link_to  realties_path, class: "btn btn-primary" do %>
   <%= fa_icon "backspace" %>volver a Propiedades
   <% end %>
+            <%= render "condominios/modalcondominio" %>
+
 </div>
+
+<br>
+
+
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+    <%= render 'form' %>
+
+    </div>
+  </div>
+</div>
+
