@@ -12,7 +12,7 @@ class Realty < ApplicationRecord
     belongs_to :commune
     belongs_to :condominio
     has_many :appraisal, dependent: :destroy
-    has_many :auctionnotices , dependent: :destroy
+    #has_many :auctionnotices , dependent: :destroy
 
     #atributos anidados
     accepts_nested_attributes_for :characteristic,  allow_destroy: true
