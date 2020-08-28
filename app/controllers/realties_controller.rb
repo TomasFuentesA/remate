@@ -20,9 +20,7 @@ class RealtiesController < ApplicationController
   def create
     @realty = Realty.new(realty_params)
     if @realty.save
-      respond_to do |format|
-        format.js
-        end
+      redirect_to @realty, notice: "Propiedad Ingresada"
     else
       Rails.logger.info "probando crear new realty"
       format.js
@@ -50,7 +48,7 @@ class RealtiesController < ApplicationController
     @realty.destroy
     respond_to do |format|
       format.js
-      format.html {redirect_to realties_path, notice: "#{@realty.name_realty} eliminada exitosamente" }
+      format.html {redirect_to realties_path, notice: "Propiedad: #{@realty.name_realty} eliminada exitosamente" }
       format.json {head :no_content }
     end
 

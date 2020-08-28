@@ -100,13 +100,12 @@
 
 <br>
 <%= link_to 'Nueva Persona', new_persona_path ,class: "btn btn-primary"%>
-</br>
 <br>
-<%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
-</br>
 
 
-
+ <div class="form-group">
+            <div class="row" style="margin-left: 2px;">
+              <div class="col-xs-8">
   <div class="dropdown">
     <button onclick="displayButton()" class="dropbtn">Buscar Persona</button>
     <div id="myDropdown" class="dropdown-content">
@@ -120,7 +119,15 @@
       </div>
     </div>
   </div>
-</br>
+
+  </div>
+              <div class="col-xs-8">
+               <%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
+
+                    </div>
+            </div>
+          </div>
+
   <script>
   /* When the user clicks on the button,
   toggle between hiding and showing the dropdown content */
@@ -144,10 +151,6 @@
     }
   }
   </script>
-</br>   
-
-
-
 
 <br>
 <div id="live-search-results">
@@ -159,6 +162,7 @@
        <th scope="col" >Estado Civil</th>
        <th scope="col">Profesion</th>
        <th scope="col">Fecha Nacimiento</th>
+       <th scope="col">Nacionalidad</th>
        <th scope="col">Pasaporte</th>
        <th scope="col">Opciones</th>
 

@@ -1,7 +1,5 @@
 <div class="container">
   <div class="row">
-    <div>
-      <div>
         <div class="card-body">
           <%= form_with model:  @realty, url: realties_path ,id: :formulary, remote: true do |form| %>
           <div class="form-group">
@@ -42,10 +40,10 @@
               <div class="row ">
                 <div class="col-md-3">
                   <%= form.label :unit_estate, "Unidad:" %>
-                  <%= form.text_field :unit_estate, id: :unit_estate , class:"form-control border" ,autofocus: true, required: true %>
+                  <%= form.text_field :unit_estate, id: :unit_estate , class:"form-control border" ,autofocus: true, required: true, value: 0 %>
                 </div>
                 <div class="col-md-3">
-                  <%= form.label :population_villa, "villa/población:" %>
+                  <%= form.label :population_villa, "Población/Villa/Conjunto:" %>
                   <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
                 </div>
                 <div class="col-md-3">
@@ -68,6 +66,4 @@
             </div>
             <% end %>
           </div>
-        </div>
-      </div>
     </div>

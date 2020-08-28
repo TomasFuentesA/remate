@@ -5,7 +5,7 @@ class Persona < ApplicationRecord
   has_many :directions, as: :directionable,dependent: :destroy
   has_many :domains, as: :domainable
   has_many :activities, as: :activityable
-  has_many :condominios, dependent: :destroy
+  #has_many :condominios, dependent: :destroy
 
   #inter relation
   has_many :persona_members
@@ -17,7 +17,7 @@ class Persona < ApplicationRecord
   accepts_nested_attributes_for :job,  allow_destroy: true
 
   #validacion
-  validates :rut,:name, uniqueness: true, presence: true
+  validates :rut, uniqueness: true, presence: true
 
 
   enum e_civil_type: [:single, :married_separation, :married_marital, :divorced, :vidower, :cohabiting]
