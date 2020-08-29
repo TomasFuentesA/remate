@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                   <%= form.fields_for :type_realty do |f| %>
                   <%= form.label :tipo, "tipo de propiedad" %>
-                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.map  {|type| [type]},"casa"),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                   <% end %>
                 </div>
                 <div class="col-md-6">
@@ -28,7 +28,7 @@
               <div class="row ">
                 <div class="col-md-3">
                   <%= form.label :street_type_id, "Tipo de Calle:" %>
-                  <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                  <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]], @realty.street_type_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                 </div>
                 <div class="col-md-3">
                   <%= form.label :commune_id, "Comuna:" %>
@@ -55,7 +55,7 @@
                   </div>
                   <div class="col-md-3">
                     <%= form.label :condominio_id, "Condominio:" %>
-                    <%= form.select :condominio_id, options_for_select(Condominio.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                    <%= form.select :condominio_id, options_for_select(Condominio.order(:name).collect {|c| [c.name,c.id]}, @realty.condominio_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
                 <div class="row ">
                   <div class="col-md-8">
                     <%= form.label :comment, "Comentarios" %>
-                    <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true, required: true %>
+                    <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
                   </div>
                 </div>
               </div>
