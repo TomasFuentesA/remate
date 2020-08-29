@@ -11,7 +11,7 @@
                 <%= f.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                 <% end %>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <%= form.label :name_realty, "Nombre de propiedad:" %>
                 <%= form.text_field :name_realty, id: :name_realty , class:"form-control border" ,autofocus: true, required: true %>
               </div>
@@ -25,13 +25,19 @@
               </div>
               <div class="col-md-3">
                 <%= form.label :commune_id, "Comuna:" %>
-                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                <select class= "form-control selectpicker" data-live-search= "true" name= "realty[commune_id]" id= "realty_commune_id">
+                  <% Commune.order(:name).each do |commune| %>
+                    <option value= <%=commune.id %>><%= commune.name %>/<%= commune.province.name%>/<%= commune.province.region.name%></option>
+                  <% end %>
+                </select>
+                <!--<%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                -->
               </div>
               <div class="col-md-3">
                 <%= form.label :street, "Calle:" %>
                 <%= form.text_field :street, id: :street , class:"form-control border" ,autofocus: true, required: true %>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <%= form.label :number_unit, "Numero:" %>
                 <%= form.number_field :number_unit, id: :number_unit , class:"form-control border" ,autofocus: true, required: true %>
               </div>

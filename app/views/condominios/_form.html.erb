@@ -29,9 +29,9 @@
             <div class="form-group">
               <div class="row ">
                 <div class="col-md-10">
-                  <label for="exampleFormControlSelect1">Comuna</label>
+                  <%= form.label :commune_id, "Comuna" %>
                   
-                    <select class= "form-control selectpicker" data-live-search= "true" name="commune_id">
+                    <select class= "form-control selectpicker" data-live-search= "true" name= "commune_id">
                     <% Commune.order(:name).each do |commune| %>
                       <option value= <%=commune.id %>><%= commune.name %>/<%= commune.province.name%>/<%= commune.province.region.name%></option>
                     <% end %>
