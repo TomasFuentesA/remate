@@ -64,7 +64,7 @@ end
   def action_selection
       auction = Auctionnotice.find(params[:id])
       auction.update(status: 1)
-      redirect_to auctionnotices_selected_path
+      redirect_to auctionnotices_pending_path
   end
 
   def action_rejection
