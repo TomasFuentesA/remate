@@ -79,8 +79,8 @@
                 <%= form.number_field :fee, id: :fee , class:"form-control border" ,autofocus: true%>
               </div>
               <div class="col-md-6">
-                <%= form.label :judgement_id, "Seleccionar Tribunal" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.court.name, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+                <%= form.label :judgement_id, "Seleccionar Juicio" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.rol_trial, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
               </div>
             </div>
           </div>
