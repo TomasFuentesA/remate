@@ -40,7 +40,7 @@ class CondominiosController < ApplicationController
   end
 
 
-
+  
     private
 
 

@@ -29,19 +29,8 @@
             <div class="form-group">
               <div class="row ">
                 <div class="col-md-10">
-                  <label for="exampleFormControlSelect1">Comuna</label>
-                  
-                    <select class= "form-control selectpicker" data-live-search= "true" name="commune_id">
-                    <% Commune.order(:name).each do |commune| %>
-                      <option value= <%=commune.id %>><%= commune.name %>/<%= commune.province.name%>/<%= commune.province.region.name%></option>
-                    <% end %>
-                    </select> 
-                  
-                 
-                  <!--
                   <%= form.label :commune_id, "Comuna" %>
-                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} , class:"custom-select mr-sm-2", "data-live-search" => "true" %>
-                  -->
+                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"custom-select mr-sm-2 form-control selectpicker", data: {"live-search": true }} %>
                 </div>
               </div>
             </div>
