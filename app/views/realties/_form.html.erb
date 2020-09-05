@@ -25,7 +25,7 @@
               </div>
               <div class="col-md-3">
                 <%= form.label :commune_id, "Comuna:" %>
-                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"custom-select mr-sm-2 form-control selectpicker", data: {"live-search": true }, onchange: "get_value(this)"} %>
+                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, onchange: "get_value(this)"} %>
               </div>
               <div class="col-md-3">
                 <%= form.label :street, "Calle:" %>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-3">
                   <%= form.label :condominio_id, "Condominio:" %> 
-                  <%= form.select :condominio_id, options_for_select([["Selecciones condominio", 0]])%>
+                  <%= form.select :condominio_id, options_for_select([["Selecciones condominio", 0]]), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
                 </div>
               </div>
             </div>
