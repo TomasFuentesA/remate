@@ -1,22 +1,19 @@
 class CondominiosController < ApplicationController
   load_and_authorize_resource
 
+  before_action :set_legal_persona_id_default, only: :create
 
-  before_action :set_last_updated_by_param, only: :create
-
-  
-  def set_last_updated_by_param
+  def set_legal_persona_id_default
     Rails.logger.info "Entro al set_last"
-    if params[:condominio] && params[:condominio][:legal_persona_id].blank?
-      params[:condominio][:legal_persona_id] = 1
-      Rails.logger.info "Lo deja en NIL"
+    if params[:condominio] && params[:condominio][:legal_persona_id].empty?
+      params[:condominio][:legal_persona_id] = 0
+      Rails.logger.info "Lo deja en NIL" + params[:condominio][:legal_persona_id].to_s
         
     end
   end
 
-
-
   def index
+    @legalpersonas = LegalPersona.all
     @condominios = Condominio.all
   end
 
@@ -29,15 +26,18 @@ class CondominiosController < ApplicationController
     if @condominio.save
       redirect_to @condominio
     else
-      render 'new'
+      Rails.logger.info "probando crear new realty"
+      render :json => { :errors => @condominio.errors.full_messages }
     end
   end
 
   def show
+    @legalpersonas = LegalPersona.all
     @condominio = Condominio.find(params[:id])
   end
 
   def edit
+    @legalpersonas = LegalPersona.all
     @condominio = Condominio.find(params[:id])
   end
 

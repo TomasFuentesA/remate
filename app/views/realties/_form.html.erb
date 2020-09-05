@@ -47,8 +47,8 @@
                   <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
                 </div>
                 <div class="col-md-3">
-                  <%= form.label :condominio_id, "Condominio:" %>
-                  <select id="listcondominio" class= "form-control border"><option value = 0>Selecciones condominio</option></select>
+                  <%= form.label :condominio_id, "Condominio:" %> 
+                  <%= form.select :condominio_id, options_for_select([["Selecciones condominio", 0]])%>
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@
               <div class="row ">
                 <div class="col-md-8">
                   <%= form.label :comment, "Comentarios" %>
-                  <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true, required: true %>
+                  <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
                 
                 </div>
               </div>
@@ -68,7 +68,7 @@
           </div>         
          <script>
           function get_value(params) {
-            var list = ''
+            var list = '<option value=0>Seleccione condominio</option>'
             <% Condominio.order(:name).each do |condominio| %>
               var condominioId = '<%= condominio.commune_id %>'
               var condominioName = '<%= condominio.name %>'
@@ -76,7 +76,7 @@
                 list += '<option value= <%= condominio.id%>> <%= condominio.name%> </option>'
               }
             <% end %>
-            $('select#listcondominio').html(list); 
+            $('#realty_condominio_id').html(list); 
           }
          </script>
          

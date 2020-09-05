@@ -5,6 +5,7 @@ class RealtiesController < ApplicationController
 
 
   def index
+      @condominios = Condominio.all
       @realties = Realty.all
       @hash = Gmaps4rails.build_markers(@realties) do |realty, marker|
         marker.lat realty.latitude
@@ -23,7 +24,8 @@ class RealtiesController < ApplicationController
       redirect_to @realty, notice: "Propiedad Ingresada"
     else
       Rails.logger.info "probando crear new realty"
-      format.js
+      render :json => { :errors => @realty.errors.full_messages }
+    
     end
   end
 
