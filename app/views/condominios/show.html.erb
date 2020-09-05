@@ -17,13 +17,23 @@
       <div>
         Nombre:  <%= @condominio.name %>
       </div>
-       <div>
-         Direccion: <%= @condominio.address%>
-       </div>
+      <div>
+        Direccion: <%= @condominio.address%>
+      </div>
 
-       <div>
-          Comuna:     <%= @condominio.commune.name %>
-        </div>
+      <div>
+        Comuna:     <%= @condominio.commune.name %>
+      </div>
+
+      <div>
+        <% if (@condominio.legal_persona_id != nil) then %>
+          Persona Legal:  <%= @condominio.legal_persona.name%><br>
+          Alias: <%= @condominio.legal_persona.alias %><br>
+          Nombre de fantasia: <%= @condominio.legal_persona.fantasy_name%><br>
+        <% else %>
+          Persona Legal: No figura  
+        <% end %>
+      </div>
 
 
   </div>

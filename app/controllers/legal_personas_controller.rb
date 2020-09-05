@@ -49,8 +49,6 @@ class LegalPersonasController < ApplicationController
   end
 
 
-
-
 private
   def display_values
     @able = @legalpersona
@@ -68,6 +66,6 @@ private
   end
 
   def legal_persona_params
-      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web)
+    params.permit(:rut, :name, :fantasy_name, :alias, :web)
   end
 end
