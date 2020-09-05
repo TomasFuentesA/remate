@@ -35,6 +35,7 @@ class RealtiesController < ApplicationController
 
 
   def show
+    @condominios = Condominio.all
   end
 
   def edit

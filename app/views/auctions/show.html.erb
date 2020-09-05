@@ -70,13 +70,16 @@
                 <%= @auction.realty.population_villa %>
               </div>
   
-              <% unless @realty.condominio.nil? %>
+              <% unless @realty.condominio_id.nil? %>
               <div class="field">
   
                  <h4>Condominio/Edificio/Parcelacion </h4>
-                    <%= @realty.condominio.name %>
-  
-              <%else %>
+                 
+      <% @condominios.each do |condominio| %>
+     
+        <%= condominio.id === @realty.condominio_id ? condominio.name : '' %><
+          <% end %>
+        <% else %>  
   
                <div class="field">
   

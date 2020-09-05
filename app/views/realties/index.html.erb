@@ -200,7 +200,7 @@
       <td><%= realty.population_villa %> </td>
       <td>
 
-        <% if (realty.condominio != nil) then %>
+        <% if (realty.condominio_id != nil) then %>
         <% @condominios.each do |condominio| %>
           <%= condominio.id === realty.condominio_id ? condominio.name : '' %>
           <% end %>

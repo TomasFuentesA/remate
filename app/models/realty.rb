@@ -10,7 +10,7 @@ class Realty < ApplicationRecord
     has_one :characteristic, dependent: :destroy
     has_one :type_realty, dependent: :destroy
     belongs_to :commune
-    belongs_to :condominio
+    #belongs_to :condominio
     #belongs_to :condominio
     has_many :appraisal, dependent: :destroy
     #has_many :auctionnotices , dependent: :destroy
