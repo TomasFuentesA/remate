@@ -14,6 +14,7 @@ class RealtiesController < ApplicationController
   end
 
   def new
+    @condominios = Condominio.all
     @realty = Realty.new
     @realty.build_type_realty
   end
