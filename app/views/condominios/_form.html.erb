@@ -4,7 +4,7 @@
     <div>
       <div>
         <div class="card-body">
-          <%= form_with model: @condominio, url: condominios_path ,id: :formulary, remote: true do |form| %>
+          <%= form_with model: @condominio,id: :formulary, remote: true do |form| %>
             <div class="form-group">
               <div class="row ">
                 <div class="col-md-10">
@@ -25,7 +25,7 @@
               <div class="row ">
                 <div class="col-md-10">
                   <%= form.label :commune_id, "Comuna" %>
-                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
+                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, required: true}  %>
                 </div>
               </div>
             </div>
