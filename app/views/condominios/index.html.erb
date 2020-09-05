@@ -8,7 +8,9 @@
       <th scope="col">Nombre de Condominio/Edificio</th>
       <th scope="col">Direccion</th>
       <th scope="col">Comuna</th>
+      <th scope="col">Persona legal</th>
       <th scope="col">Acciones </th>
+      
 
     </tr>
   </thead>
@@ -24,6 +26,13 @@
         <td><%= condominio.name %></td>
         <td><%= condominio.address %></td>
         <td><%= condominio.commune.name %></td>
+        <% if (condominio.legal_persona_id != nil) then %>
+          <td><%= condominio.legal_persona.name%>/<%= condominio.legal_persona.fantasy_name%>/<%= condominio.legal_persona.alias%></td> 
+        <% else %>
+          <td>No figura</td>
+        <% end %>
+             
+
         
 
 
