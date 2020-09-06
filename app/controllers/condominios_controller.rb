@@ -24,7 +24,11 @@ class CondominiosController < ApplicationController
   def create
     @condominio = Condominio.new(condominio_params)
     if @condominio.save
-      redirect_to @condominio
+      respond_to do |format|
+        format.js
+        format.html {redirect_to condominios_path, notice: "ingresado exitosamente" }
+        format.json {head :no_content }
+      end
     else
       Rails.logger.info "probando crear new realty"
       render :json => { :errors => @condominio.errors.full_messages }
@@ -43,14 +47,22 @@ class CondominiosController < ApplicationController
 
   def update
     @condominio.update(condominio_params)
-    redirect_to condominios_path
+    respond_to do |format|
+      format.js
+      format.html {redirect_to condominios_path, notice: "actualizado exitosamente" }
+      format.json {head :no_content }
+    end
   end
 
 
 
   def destroy
     @condominio.destroy
-    redirect_to condominios_path
+    respond_to do |format|
+      format.js
+      format.html {redirect_to condominios_path, notice: "eliminado exitosamente" }
+      format.json {head :no_content }
+    end
   end
 
 
