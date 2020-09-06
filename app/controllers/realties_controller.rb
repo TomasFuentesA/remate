@@ -39,11 +39,13 @@ class RealtiesController < ApplicationController
   end
 
   def edit
+    @condominios = Condominio.all
     @realty.build_characteristic if @realty.characteristic.nil?
     @realty.build_type_realty if @realty.type_realty.nil?
   end
 
   def update
+    @condominios = Condominio.all
     @realty.update(realty_params)
     redirect_to realties_path
   end
