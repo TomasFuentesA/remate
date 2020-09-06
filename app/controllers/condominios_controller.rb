@@ -4,10 +4,8 @@ class CondominiosController < ApplicationController
   before_action :set_legal_persona_id_default, only: :create
 
   def set_legal_persona_id_default
-    Rails.logger.info "Entro al set_last"
     if params[:condominio] && params[:condominio][:legal_persona_id].empty?
       params[:condominio][:legal_persona_id] = 0
-      Rails.logger.info "Lo deja en NIL" + params[:condominio][:legal_persona_id].to_s
         
     end
   end
@@ -19,19 +17,21 @@ class CondominiosController < ApplicationController
 
   def new
     @condominio = Condominio.new
+
   end
 
   def create
     @condominio = Condominio.new(condominio_params)
-    if @condominio.save
+    if @condominio.valid?
+      @condominio.save
       respond_to do |format|
         format.js
         format.html {redirect_to condominios_path, notice: "ingresado exitosamente" }
         format.json {head :no_content }
       end
     else
-      Rails.logger.info "probando crear new realty"
-      render :json => { :errors => @condominio.errors.full_messages }
+      flash[:errors] = @condominio.errors.full_messages
+      redirect_to new_condominio_path
     end
   end
 
