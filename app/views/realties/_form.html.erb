@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-3">
                   <%= form.label :condominio_id, "Condominio:" %> 
-                  <%= form.select :condominio_id, options_for_select([["Selecciones condominio", 0]]), {include_blank: "Seleccione"} ,{ data: {"live-search": true }} %>
+                  <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]]), {include_blank: "Seleccione"} ,{data: {"live-search": true }} %>
                 </div>
               </div>
             </div>
@@ -69,10 +69,10 @@
          <script>
           function get_value(params) {
             var list = '<option value=0>Seleccione condominio</option>'
-            <% @condominios.order(:name).each do |condominio| %>
+            <% Condominio.order(:name).each do |condominio| %>
               var condominioId = '<%= condominio.commune_id %>'
               var condominioName = '<%= condominio.name %>'
-              if (condominioId === params.value) {
+              if (condominioId == params.value) {
                 list += '<option value= <%= condominio.id%>> <%= condominio.name%> </option>'
               }
             <% end %>
