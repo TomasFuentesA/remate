@@ -22,13 +22,9 @@ class CondominiosController < ApplicationController
 
   def create
     @condominio = Condominio.new(condominio_params)
-    if @condominio.valid?
-      @condominio.save
-      respond_to do |format|
-        format.js
-        format.html {redirect_to condominios_path, notice: "ingresado exitosamente" }
-        format.json {head :no_content }
-      end
+    if @condominio.save
+      flash[:notice] =  "ingresado exitosamente"
+      redirect_to condominios_path
     else
       flash[:errors] = @condominio.errors.full_messages
       redirect_to new_condominio_path
