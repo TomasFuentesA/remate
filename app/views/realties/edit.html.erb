@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="card-body">
-            <%= form_with model: @realty do |form| %>
+            <%= form_with model: @realty, id: :formulary, remote: true do |form| %>
             <div class="form-group">
               <div class="row ">
                 <h2>Propiedad: <%= @realty.address %>, <%= @realty.unit_estate %></h2>
@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                   <%= form.fields_for :type_realty do |f| %>
                   <%= form.label :tipo, "tipo de propiedad" %>
-                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.map  {|type| [type]},"casa"),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.map  {|type| [type]},@realty.type_realty.tipo),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
                   <% end %>
                 </div>
                 <div class="col-md-6">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-3">
                   <%= form.label :commune_id, "Comuna:" %>
-                  <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name+" - "+p.province.name+" - "+p.province.region.name, p.id]}, @realty.commune_id), { include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                  <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name+" - "+p.province.name+" - "+p.province.region.name, p.id]}, @realty.commune_id), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, onchange: "get_value(this)"} %>
                 </div>
                 <div class="col-md-3">
                   <%= form.label :street, "Calle:" %>
@@ -55,7 +55,7 @@
                   </div>
                   <div class="col-md-3">
                     <%= form.label :condominio_id, "Condominio:" %>
-                    <%= form.select :condominio_id, options_for_select(Condominio.order(:name).collect {|c| [c.name,c.id]}, @realty.condominio_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                    <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]], @realty.condominio_id), {include_blank: "Seleccione"} ,{data: {"live-search": true }}%>
                   </div>
                 </div>
               </div>
@@ -97,4 +97,17 @@
           </div>
         </div>
       </div>
+      <script>
+      function get_value(params) {
+        var list = '<option value=0>Seleccione condominio</option>'
+        <% Condominio.order(:name).each do |condominio| %>
+          var condominioId = '<%= condominio.commune_id %>'
+          var condominioName = '<%= condominio.name %>'
+          if (condominioId == params.value) {
+            list += '<option value= <%= condominio.id%>> <%= condominio.name%> </option>'
+          }
+        <% end %>
+        $('#realty_condominio_id').html(list); 
+      }
+      </script>
     </div>

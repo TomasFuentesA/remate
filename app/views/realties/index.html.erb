@@ -199,15 +199,20 @@
       <td><%= realty.unit_estate %> </td>
       <td><%= realty.population_villa %> </td>
       <td>
-        <% unless realty.condominio.name.nil? %>
-           <%= realty.condominio.name %>
-        <%else %>
-            <div class="field">
+
+        <% if (realty.condominio_id != 0) then %>
+        <% @condominios.each do |condominio| %>
+          <%= condominio.id === realty.condominio_id ? condominio.name : '' %>
+          <% end %>
+
+        <% else %>
+           <div class="field">
               no hay Condominio
            </div>
-         <% end %>
+        <% end %>
+
       </td>
-      <td><%= realty.appraisal_role %> </td>
+      <td><%= realty.commune.name %>/<%= realty.commune.province.name%>/<%= realty.commune.province.region.name%> </td>
       
       <td>
         <%= link_to 'Ver', realty , class: "btn btn-info" %>

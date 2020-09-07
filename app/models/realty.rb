@@ -10,16 +10,14 @@ class Realty < ApplicationRecord
     has_one :characteristic, dependent: :destroy
     has_one :type_realty, dependent: :destroy
     belongs_to :commune
-    belongs_to :condominio
+    #belongs_to :condominio
+    #belongs_to :condominio
     has_many :appraisal, dependent: :destroy
     #has_many :auctionnotices , dependent: :destroy
 
     #atributos anidados
     accepts_nested_attributes_for :characteristic,  allow_destroy: true
     accepts_nested_attributes_for :type_realty , allow_destroy: true
-
-
-
 
     enum street_type: [:street, :avenue, :passage]
     enum type_property: [:house, :department, :local, :office, :cellar, :site, :box, :parcela]
@@ -29,7 +27,11 @@ class Realty < ApplicationRecord
     after_validation :geocode
 
     def address
-      "#{self.street} #{(self.number_unit).to_s}, #{self.commune.name}"
+      begin
+        "#{self.street} #{(self.number_unit).to_s}, #{self.commune.name}"
+      rescue Exception => error
+        Rails.logger.info error
+      end
     end
 
     def appraisal_role

@@ -4,8 +4,8 @@
 </div>
 
 <div class="container-fluid  d-flex justify-content-center ">
-<%= form_for  @legalpersona do |form| %>
-  <%= form.label :name, "Ingreso de nueva Persona Juridica", class:"badge badge-primary" %>
+  <%= form_with model: @legalpersonas, url: legal_personas_path ,id: :formulary, remote: true  do |form| %>
+  <%= form.label :name, "Ingreso de nueva Persona Juridica" %>
 
   <div class="form-group">
     <%= form.label :rut, "Rut:" %>
@@ -18,13 +18,13 @@
         })
     </script>
     <%= form.label :name, "Nombre:" %>
-    <%= form.text_field :name, id: :name, class:"form-control" %>
+    <%= form.text_field :name, id: :name, class:"form-control", autofocus: true, required: true %>
     <%= form.label :fantasy_name, "Nombre Fantasia:" %>
-    <%= form.text_field :fantasy_name, id: :fantasy_name , class:"form-control"%>
+    <%= form.text_field :fantasy_name, id: :fantasy_name , class:"form-control", autofocus: true, required: true%>
     <%= form.label :alias, "Alias:" %>
-    <%= form.text_field :alias, id: :alias , class:"form-control"%>
+    <%= form.text_field :alias, id: :alias , class:"form-control", autofocus: true, required: true%>
     <%= form.label :web, "Web:" %>
-    <%= form.text_field :web, id: :web , class:"form-control"%>
+    <%= form.text_field :web, id: :web , class:"form-control", autofocus: true, required: true%>
     <%= form.submit "Guardar", class:"btn btn-success" %>
     <% end %>
   </div>
