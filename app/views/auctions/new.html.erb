@@ -80,7 +80,7 @@
               </div>
               <div class="col-md-6">
                 <%= form.label :judgement_id, "Seleccionar Juicio" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.rol_trial, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_judgement, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
               </div>
             </div>
           </div>
