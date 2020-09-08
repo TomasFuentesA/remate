@@ -13,9 +13,14 @@ class AuctionlistingsController < ApplicationController
 
   def create
     @auctionlisting = Auctionlisting.new(auctionlisting_params)
-    @auctionlisting.save
-    @auctionlisting.separation_paragraphs
-    redirect_to auctionlistings_path
+    if @auctionlisting.save
+      flash[:notice] =  "ingresado exitosamente"
+      @auctionlisting.separation_paragraphs
+      redirect_to auctionlistings_path
+    else
+      flash[:errors] = @auctionlisting.errors.full_messages
+      redirect_to new_auctionlisting_path
+    end
   end
 
   def show
