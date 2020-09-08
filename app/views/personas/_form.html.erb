@@ -1,66 +1,76 @@
 <br>
-<div class="container-fluid" >
+<div class="container-fluid">
   <%= render partial: "errors" %>
 </div>
-
-
-
-<div class="container-fluid" >
-  <div class="form-row-sm-4">
-    <%= form_for  @persona do |form| %>
+<div class="container">
+  <div class="row">
+    <div class="card-body">
+      <%= form_for  @persona do |form| %>
       <div class="form-group ">
-
         <%= form.label :rut, "Rut" %>
         <%= form.text_field :rut , id: :rut ,class:"form-control border",autofocus: true%>
-
-        <%= form.label :name, "Nombre" %>
-        <%= form.text_field :name, id: :name ,class:"form-control border",autofocus: true%>
-
-        <%= form.label :name2, "Segundo Nombre" %>
-        <%= form.text_field :name2, id: :name2,class:"form-control border",autofocus: true %>
-
-        <%= form.label :last_name1, "Apellido" %>
-        <%= form.text_field :last_name1, id: :last_name1, class:"form-control border",autofocus: true %>
-
-        <%= form.label :last_name2, "Segundo Apellido" %>
-        <%= form.text_field :last_name2, id: :last_name2 ,class:"form-control border",autofocus: true %>
-
+        <div class="form-group">
+          <div class="row ">
+            <div class="col-md-6">
+              <%= form.label :name, "Nombre" %>
+              <%= form.text_field :name, id: :name ,class:"form-control border",autofocus: true, required: true %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :name2, "Segundo Nombre" %>
+              <%= form.text_field :name2, id: :name2,class:"form-control border",autofocus: true %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row ">
+            <div class="col-md-6">
+              <%= form.label :last_name1, "Apellido" %>
+              <%= form.text_field :last_name1, id: :last_name1, class:"form-control border",autofocus: true, required: true %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :last_name2, "Segundo Apellido" %>
+              <%= form.text_field :last_name2, id: :last_name2 ,class:"form-control border",autofocus: true %>
+            </div>
+          </div>
+        </div>
         <%= form.label :e_civil, "Estado Civil" %>
-        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"} %>
-
+        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+        <br>
         <%= form.label :profesion, "Profesion" %>
         <%= form.text_field :profesion, id: :profesion ,class:"form-control border",autofocus: true  %>
 
         <%= form.label :nacionality, "Nacionalidad"  %>
-        <%= form.text_field :nacionality, id: :nacionality ,class:"form-control border",autofocus: true  %>
+        <%= form.text_field :nacionality, id: :nacionality ,class:"form-control border",autofocus: true , required: true %>
 
         <%= form.label :birth_date, "Fecha de Nacimiento" %>
-        <%= form.text_field :birth_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  %>
+        <%= form.text_field :birth_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  ,class:"form-control border",autofocus: true, required: true %>
 
         <%= form.label :passport, "Pasaporte"  %>
-        <%= form.text_field :passport, id: :passport %>
+        <%= form.text_field :passport, id: :passport  ,class:"form-control border",autofocus: true  %>
 
         <%=form.fields_for :job do |f| %>
         <div class="field">
           <%= form.label :passport, "Cargo en su trabajo:"  %>
-          <%= f.text_field :position %>
+          <%= f.text_field :position , class:"form-control border" ,autofocus: true%>
         </div>
         <div class="field">
           <%= form.label :passport, "Salario:"  %>
-          <%= f.number_field :salary %>
+          <%= f.number_field :salary , class:"form-control border" ,autofocus: true%>
         </div>
         <div class="field">
           <%= form.label :passport, "Empresa:"  %>
-          <%= f.text_field :business %>
+          <%= f.text_field :business , class:"form-control border" ,autofocus: true%>
         </div>
         <div class="field">
           <%= form.label :passport, "Descripcion del cargo:"  %>
-          <%= f.text_field :description %>
+          <%= f.text_field :description  , class:"form-control border" ,autofocus: true%>
         </div>
         <%end%>
-
-        <%= form.submit "Guardar" %>
-      <% end %>
+        <div class="form-group">
+          <%= form.submit "Añadir Persona",class: "btn btn-success" %>
+        </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_235940) do
+ActiveRecord::Schema.define(version: 2020_09_05_022911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,14 +137,11 @@ ActiveRecord::Schema.define(version: 2020_08_21_235940) do
   create_table "condominios", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.bigint "legal_persona_id"
-    t.bigint "persona_id"
     t.bigint "commune_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "legal_persona_id"
     t.index ["commune_id"], name: "index_condominios_on_commune_id"
-    t.index ["legal_persona_id"], name: "index_condominios_on_legal_persona_id"
-    t.index ["persona_id"], name: "index_condominios_on_persona_id"
   end
 
   create_table "courts", force: :cascade do |t|
@@ -334,8 +331,7 @@ ActiveRecord::Schema.define(version: 2020_08_21_235940) do
     t.integer "type_property_id"
     t.integer "province_id"
     t.string "fiscal_destination"
-    t.bigint "condominio_id"
-    t.index ["condominio_id"], name: "index_realties_on_condominio_id"
+    t.integer "condominio_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -391,8 +387,6 @@ ActiveRecord::Schema.define(version: 2020_08_21_235940) do
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
   add_foreign_key "condominios", "communes"
-  add_foreign_key "condominios", "legal_personas"
-  add_foreign_key "condominios", "personas"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "jobs", "personas"
   add_foreign_key "judgements", "courts"
@@ -401,6 +395,5 @@ ActiveRecord::Schema.define(version: 2020_08_21_235940) do
   add_foreign_key "persona_members", "legal_personas"
   add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
-  add_foreign_key "realties", "condominios"
   add_foreign_key "type_realties", "realties"
 end

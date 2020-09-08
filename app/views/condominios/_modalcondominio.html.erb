@@ -1,10 +1,24 @@
  
-<div class="container">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nuevo Condominio</button>
+
+
+<div class="col">
+  <div class="row justify-content-md-center">
+    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ingreso de Condominio:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
   <div class="row">
     <div>
       <div>
         <div class="card-body">
-        <%= render 'errors' %>
           <%= form_with model: @condominio, url: condominios_path ,id: :formulary, remote: true do |form| %>
             <div class="form-group">
               <div class="row ">
@@ -26,7 +40,7 @@
               <div class="row ">
                 <div class="col-md-10">
                   <%= form.label :commune_id, "Comuna" %>
-                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, required: true}  %>
+                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"custom-select mr-sm-5 form-control selectpicker", data: {"live-search": true }} %>
                 </div>
               </div>
             </div>
@@ -34,7 +48,8 @@
               <div class="row">
                 <div class = "col-md-10">
                   <%= form.label :legal_persona_id, "Persona legal asociada" %>
-                  <%= form.select :legal_persona_id, options_for_select(LegalPersona.order(:id).collect {|c| [c.name + " / " + c.fantasy_name + " / " + c.alias, c.id]}), {include_blank: "Seleccione", value: '0'} ,{class:"selectpicker", data: {"live-search": true }} %>
+                  
+                  <%= form.select :legal_persona_id, options_for_select(LegalPersona.order(:id).collect {|c| [c.name + " / " + c.fantasy_name + " / " + c.alias, c.id]}), {include_blank: "Seleccione", value: '0'} ,{class:"custom-select mr-sm-10 form-control selectpicker", data: {"live-search": true }} %>
                 </div>
               </div>
             </div>
@@ -45,8 +60,16 @@
             </div>
           <% end %>
           
+          </div>
         </div>
       </div>
     </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
-</div> 
+</div>
+ 

@@ -5,6 +5,7 @@ class RealtiesController < ApplicationController
 
 
   def index
+      @condominios = Condominio.all
       @realties = Realty.all
       @hash = Gmaps4rails.build_markers(@realties) do |realty, marker|
         marker.lat realty.latitude
@@ -13,6 +14,7 @@ class RealtiesController < ApplicationController
   end
 
   def new
+    @condominios = Condominio.all
     @realty = Realty.new
     @realty.build_type_realty
   end
@@ -20,12 +22,11 @@ class RealtiesController < ApplicationController
   def create
     @realty = Realty.new(realty_params)
     if @realty.save
-      respond_to do |format|
-        format.js
-        end
+      redirect_to @realty, notice: "Propiedad Ingresada"
     else
       Rails.logger.info "probando crear new realty"
-      format.js
+      render :json => { :errors => @realty.errors.full_messages }
+    
     end
   end
 
@@ -34,14 +35,17 @@ class RealtiesController < ApplicationController
 
 
   def show
+    @condominios = Condominio.all
   end
 
   def edit
+    @condominios = Condominio.all
     @realty.build_characteristic if @realty.characteristic.nil?
     @realty.build_type_realty if @realty.type_realty.nil?
   end
 
   def update
+    @condominios = Condominio.all
     @realty.update(realty_params)
     redirect_to realties_path
   end
@@ -50,7 +54,7 @@ class RealtiesController < ApplicationController
     @realty.destroy
     respond_to do |format|
       format.js
-      format.html {redirect_to realties_path, notice: "#{@realty.name_realty} eliminada exitosamente" }
+      format.html {redirect_to realties_path, notice: "Propiedad: #{@realty.name_realty} eliminada exitosamente" }
       format.json {head :no_content }
     end
 
@@ -78,7 +82,7 @@ class RealtiesController < ApplicationController
   end
 
   def realty_params
-    params.require(:realty).permit(:street, :number_unit,:unit_estate,:street_type_id, :commune_id, :population_villa , :apple, :property, :latitude, :longitude, :address,
+    params.require(:realty).permit(:street, :number_unit, :unit_estate, :street_type_id, :commune_id, :population_villa, :apple, :property, :latitude, :longitude, :address,
        :type_property_id, :name_realty, :fiscal_destination, :condominio_id, characteristic_attributes: [ :m2_land, :m2_built , :material], type_realty_attributes: [:tipo,:comment] )
   end
 

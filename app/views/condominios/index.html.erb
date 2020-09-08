@@ -8,9 +8,9 @@
       <th scope="col">Nombre de Condominio/Edificio</th>
       <th scope="col">Direccion</th>
       <th scope="col">Comuna</th>
-      <th scope="col">Administracion</th>
-      <th scope="col">Administrador</th>
+      <th scope="col">Persona legal</th>
       <th scope="col">Acciones </th>
+      
 
     </tr>
   </thead>
@@ -26,10 +26,16 @@
         <td><%= condominio.name %></td>
         <td><%= condominio.address %></td>
         <td><%= condominio.commune.name %></td>
-        <td><%= condominio.legal_persona.name %></td>
-        <td><%= condominio.persona.name%></td>
-
-
+        <td>
+        <% if (condominio.legal_persona_id != 0) then %>
+          <% @legalpersonas.each do |legalpersona| %>
+            <% if (legalpersona.id === condominio.legal_persona_id)%>
+              <%= legalpersona.name %> 
+            <% end %>
+          <%end%>  
+        <% else %>
+          No figura 
+        <%end%>  
 
         <td>
           <%= link_to 'Ver', condominio , class: "btn btn-info" %>

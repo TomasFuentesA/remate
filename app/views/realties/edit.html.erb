@@ -1,103 +1,113 @@
-<div class="container" id="auctionnoticenew">
-
-<%= form_with model: @realty do |form| %>
-  <h1><%= form.label :name, "Editar Propiedad." %></h1>
-
-  <div>
-    <%= @realty.id %>
-    <h2><%= @realty.address %>, <%= @realty.unit_estate %></h2>
-  </div>
-
-  <p></p>
-
-  <div class="field">
-    <%= form.label :street_type_id, "Tipo de Calle" %>
-    <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]], @realty.street_type_id), {include_blank: "Seleccione"} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :type_property_id, "Tipo de Propiedad" %>
-    <%= form.select :type_property_id, options_for_select([["Casa", 0],["Dpto.", 1],["Local", 2], ["Oficina", 3], ["Bodega", 4], ["Sitio", 5], ["Box", 6], ["Parcela", 7]], @realty.type_property_id), {include_blank: "Seleccione"} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :street, "Calle" %>
-    <%= form.text_field :street, id: :street %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number_unit, "Numero" %>
-    <%= form.number_field :number_unit, id: :number_unit %>
-  </div>
-
-  <div class="field">
-    <%= form.label :unit_estate, "Unidad" %>
-    <%= form.text_field :unit_estate, id: :unit_estate %>
-  </div>
-
-  <div class="field">
-    <%= form.label :commune_id, "Comuna" %>
-    <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name, p.id]}, @realty.commune_id), { include_blank: "Seleccione"} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :population_villa, "Poblacion/Villa/Conjunto" %>
-    <%= form.text_field :population_villa, id: :population_villa %>
-  </div>
-
-  <div class="field">
-    <%= form.label :apple, "Manzana" %>
-    <%= form.number_field :apple, id: :apple %>
-  </div>
-
-  <div class="field">
-    <%= form.label :property, "Predio" %>
-    <%= form.number_field :property, id: :property %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fiscal_destination, "Destino Sii" %>
-    <%= form.select :fiscal_destination, options_for_select(Realty.destinations.keys.to_a, @realty.fiscal_destination), prompt: "Seleccionar" %>
-  </div>
-
-  
-  <%= form.fields_for :characteristic do |form| %>
-    <div class="form-group col-md-2">
-      <%= form.label :m2_land, "Sup.Terreno:" %>
-      <%= form.number_field :m2_land %>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="card-body">
+            <%= form_with model: @realty, id: :formulary, remote: true do |form| %>
+            <div class="form-group">
+              <div class="row ">
+                <h2>Propiedad: <%= @realty.address %>, <%= @realty.unit_estate %></h2>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row ">
+                <div class="col-md-6">
+                  <%= form.fields_for :type_realty do |f| %>
+                  <%= form.label :tipo, "tipo de propiedad" %>
+                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.map  {|type| [type]},@realty.type_realty.tipo),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                  <% end %>
+                </div>
+                <div class="col-md-6">
+                  <%= form.label :name_realty, "Nombre de propiedad:" %>
+                  <%= form.text_field :name_realty, id: :name_realty , class:"form-control border" ,autofocus: true, required: true %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row ">
+                <div class="col-md-3">
+                  <%= form.label :street_type_id, "Tipo de Calle:" %>
+                  <%= form.select :street_type_id, options_for_select([["Calle", 0],["Avenida", 1], ["Pasaje", 2], ["Camino", 3]], @realty.street_type_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                </div>
+                <div class="col-md-3">
+                  <%= form.label :commune_id, "Comuna:" %>
+                  <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name+" - "+p.province.name+" - "+p.province.region.name, p.id]}, @realty.commune_id), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, onchange: "get_value(this)"} %>
+                </div>
+                <div class="col-md-3">
+                  <%= form.label :street, "Calle:" %>
+                  <%= form.text_field :street, id: :street , class:"form-control border" ,autofocus: true, required: true %>
+                </div>
+                <div class="col-md-3">
+                  <%= form.label :number_unit, "Numero:" %>
+                  <%= form.number_field :number_unit, id: :number_unit , class:"form-control border" ,autofocus: true, required: true %>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row ">
+                  <div class="col-md-3">
+                    <%= form.label :unit_estate, "Unidad:" %>
+                    <%= form.text_field :unit_estate, id: :unit_estate , class:"form-control border" ,autofocus: true, required: true %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form.label :population_villa, "Población/Villa/Conjunto:" %>
+                    <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form.label :condominio_id, "Condominio:" %>
+                    <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]], @realty.condominio_id), {include_blank: "Seleccione"} ,{data: {"live-search": true }}%>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row ">
+                  <%= form.fields_for :characteristic do |form| %>
+                  <div class="col-md-3">
+                    <%= form.label :m2_land, "Sup.Terreno:" %>
+                    <%= form.number_field :m2_land ,class:"custom-select mr-sm-2" %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form.label :m2_land, "Sup.Construida:" %>
+                    <%= form.number_field :m2_built ,class:"custom-select mr-sm-2" %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form.label :material, "Material:" %>
+                    <%= form.text_field :material ,class:"custom-select mr-sm-2" %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form.label :built_year, "Año Construccion:" %>
+                    <%= form.number_field :built_year ,class:"custom-select mr-sm-2" %>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row ">
+                  <div class="col-md-8">
+                    <%= form.label :comment, "Comentarios" %>
+                    <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= form.submit "Modificar Propiedad",class: "btn btn-success" %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function get_value(params) {
+        var list = '<option value=0>Seleccione condominio</option>'
+        <% Condominio.order(:name).each do |condominio| %>
+          var condominioId = '<%= condominio.commune_id %>'
+          var condominioName = '<%= condominio.name %>'
+          if (condominioId == params.value) {
+            list += '<option value= <%= condominio.id%>> <%= condominio.name%> </option>'
+          }
+        <% end %>
+        $('#realty_condominio_id').html(list); 
+      }
+      </script>
     </div>
-    <div class="col-md-2">
-      <%= form.label :m2_land, "Sup.Construida:" %>
-      <%= form.number_field :m2_built %>
-    </div>
-    <div class="col-md-2">
-      <%= form.label :material, "Material:" %>
-      <%= form.text_field :material %>
-    </div>
-    <div class="col-md-2">
-      <%= form.label :built_year, "Año Construccion:" %>
-      <%= form.number_field :built_year %>
-    </div>
-  <% end %>
-  <div class="form-row">
-    <%= form.fields_for :type_realty do |f| %>
-    <div class="form-group col-md-2">
-      <%= f.label :tipo, "tipo de propiedad" %>
-      <%= f.select :tipo,options_for_select(TypeRealty.tipos.keys.to_a, @realty.type_realty),{include_blank: "Seleccione"} %>
-    </div>
-    
-    <div class="form-group col-md-6">
-
-      <%= f.label :comment, "Comentarios" %>
-      <%= f.text_field :comment %>
-    </div>
-  </div>
-    <% end %>
-
-
-
-
- <%= form.submit "Ingresar" %>
-
-<% end %>
-</div>

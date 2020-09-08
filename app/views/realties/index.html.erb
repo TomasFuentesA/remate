@@ -106,9 +106,6 @@
         <%= link_to  new_realty_path, class: "btn btn-primary"  do%>
         <%= fa_icon "Plus"%>Nueva Propiedad
         <% end %>
-
-
-
       </div>
 
     </div>
@@ -122,22 +119,14 @@
 
 <h1>Listado de Propiedades</h1>
 
-
-
-<br>
-<%= link_to 'Nueva Propiedad', new_realty_path ,class: "btn btn-primary"%>
-</br>
-<br>
-<%= link_to "Quitar filtros", realties_path, class:"btn btn-info"%>
-</br>
-
-
-
-  <div class="dropdown">
+ <div class="form-group">
+            <div class="row" style="margin-left: 2px;">
+              <div class="col-xs-8">
+                  <div class="dropdown">
     <button onclick="displayButton()" class="dropbtn">Buscar Propiedad</button>
     <div id="myDropdown" class="dropdown-content">
       <form id="Form_realty">
-        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataRealty()">
+        <input type="text" placeholder="Ingrese referencia" id="myInput" name="q" onkeyup="searchDataRealty()">
       </form>
       <div id="listSearch">
         <% @realties.each do |realty| %>
@@ -146,8 +135,16 @@
       </div>
     </div>
   </div>
-</br>
-  <script>
+              </div>
+              <div class="col-xs-8">
+               <%= link_to "Quitar filtros", realties_path, class:"btn btn-info"%>
+
+                    </div>
+            </div>
+          </div>
+
+
+<script>
   /* When the user clicks on the button,
   toggle between hiding and showing the dropdown content */
   function displayButton() {
@@ -180,18 +177,17 @@
   <table class="table table-bordered table-hover">
     <thead  class="thead-dark">
       <tr>
-       <th scope="col" >Nombre Propiedad</th>
-       <th scope="col">Tipo Propiedad</th>
-        <th scope="col" >Direccion</th>
-       <th scope="col">Departamento/Oficina</th>
-       <th scope="col">Poblacion/Villa</th>
-       <th scope="col">Condominio</th>
-       <th scope="col">Rol Sii</th>
-       <th scope="col">Destino Sii</th>
-       <th scope="col">Opciones</th>
+        <th scope="col">Nombre Propiedad</th>
+        <th scope="col">Tipo Propiedad</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Departamento/Oficina</th>
+        <th scope="col">Poblacion/Villa</th>
+        <th scope="col">Condominio</th>
+        <th scope="col">Comuna</th>
+        <th scope="col">Opciones</th>
 
-    </tr>
-  </thead>
+      </tr>
+    </thead>
 
   <tbody id="bodyData" class="rounded-pill">
   <% @realties.each do |realty| %>
@@ -203,23 +199,20 @@
       <td><%= realty.unit_estate %> </td>
       <td><%= realty.population_villa %> </td>
       <td>
-        <% unless realty.condominio.name.nil? %>
-           <%= realty.condominio.name %>
-        <%else %>
-            <div class="field">
+
+        <% if (realty.condominio_id != 0) then %>
+        <% @condominios.each do |condominio| %>
+          <%= condominio.id === realty.condominio_id ? condominio.name : '' %>
+          <% end %>
+
+        <% else %>
+           <div class="field">
               no hay Condominio
            </div>
-         <% end %>
-      
-      
-      
-      
-      
-      
-      
+        <% end %>
+
       </td>
-      <td><%= realty.appraisal_role %> </td>
-      <td><%= realty.fiscal_destination %> </td>
+      <td><%= realty.commune.name %>/<%= realty.commune.province.name%>/<%= realty.commune.province.region.name%> </td>
       
       <td>
         <%= link_to 'Ver', realty , class: "btn btn-info" %>
