@@ -1,6 +1,8 @@
 <div class="container">
    <%= render 'errors' %>
-    <%= link_to 'Volver Listado Remates', auctionlistings_path %>
+   <%= link_to  auctionlistings_path, class: "btn btn-primary" do %>
+  <%= fa_icon "backspace" %>volver Listado Remates
+  <% end %>
   <div class="row justify-content-md-center">
     <div class="card" style="width: 40%; ">
       <div class="card-body">
