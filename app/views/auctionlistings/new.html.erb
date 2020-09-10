@@ -1,1 +1,35 @@
-<%= render 'form' %>
+<div class="container">
+   <%= render 'errors' %>
+    <%= link_to 'Volver Listado Remates', auctionlistings_path %>
+  <div class="row justify-content-md-center">
+    <div class="card" style="width: 40%; ">
+      <div class="card-body">
+        <p>Ingreso de Listado de Remate</p>
+        <%= form_with model: Auctionlisting.new do |form| %>
+        <div class="form-group">
+          <%= form.label :rut, "Nombre" %>
+          <%= form.text_field :name, id: :name ,class:"form-control border",autofocus: true, required: true %>
+        </div>
+        <div class="form-group">
+          <div class="custom-file">
+            <%= form.file_field :attached, id: :auctionlisting_listingdoc ,class:"custom-file-input",autofocus: true, required: true %>
+
+            <label class="custom-file-label" for="customFile">Ingresar archivo</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <br>
+          <%= form.submit "Subir Archivo",class: "btn btn-success" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>

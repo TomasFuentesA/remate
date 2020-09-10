@@ -4,3 +4,9 @@
 #auctionListingsTable {
   background-color: #a7f0f7;
 }
+
+.custom-file-label::after {
+  content: "Seleccionar" !important;
+  background: #1C0735 !important;
+  color: #FFFFFF !important;
+}
