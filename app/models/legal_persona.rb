@@ -35,12 +35,4 @@ class LegalPersona < ApplicationRecord
     personas_limit? && !persona_already_added?(persona)
   end
 
-
-
-
-
-
-
-
-
 end

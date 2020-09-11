@@ -31,7 +31,7 @@ class PhonesController < ApplicationController
   private
 
     def phone_params
-      params.require(:phone).permit(:phone_a, :phone_b,:phone_c,:rut)
+      params.require(:phone).permit(:number_phone, :type_phone)
     end
 
     def load_phoneable

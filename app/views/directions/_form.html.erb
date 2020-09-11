@@ -14,23 +14,12 @@
     </div>
   <% end %>
   <div class="form-group">
-
+  
+  
     <div class="form-row">
       <div class="form-group">
-        <%= f.label :directiona, "Dirección 1" %>
-        <%= f.text_field :directiona %>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.label :directionb, "Dirección 2" %>
-        <%= f.text_field :directionb %>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.label :directionc, "Dirección 3" %>
-        <%= f.text_field :directionc %>
+        <%= f.label :realties_id, "Dirección" %>
+        <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
       </div>
     </div>
     <div class="form-row">
@@ -38,6 +27,7 @@
         <%= f.submit "Guardar" %>
       </div>
     </div>
+  
   </div>
 </div>
 
