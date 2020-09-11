@@ -2,7 +2,7 @@
   <h1>Remates</h1>
   <div class="container-md">
     <li class="list-group-item "><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
-  <br>
+    <br>
   </div>
 </div>
 
@@ -11,13 +11,7 @@
 <br>
 <br>
 
-
-
-
-
-
-
-<table  class="table table-bordered table-hover">
+<table class="table table-bordered table-hover">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Nº</th>
@@ -42,78 +36,78 @@
 
   <tbody>
     <% @auctions.each_with_index do |auction, i| %>
-      <tr>
-        <td scope="row"><%= i + 1 %></td>
-        <td><%= auction.horary %> </td>
-        <td>
-        
-          <% unless auction.judgement.court.name.nil? %>
-            <%= auction.judgement.court.name %>
-          <%else %>
+    <tr>
+      <td scope="row"><%= i + 1 %></td>
+      <td><%= auction.horary %> </td>
+      <td>
 
-            <div class="field">
+        <% unless auction.judgement.court.name.nil? %>
+        <%= auction.judgement.court.name %>
+        <%else %>
 
-              no hay tribunal
-             </div>
-          <% end %>
+        <div class="field">
 
-        
-        </td>
-        <td>
-          <% unless auction.judgement.rol_trial.nil? %>
-             <%= auction.judgement.rol_trial %>
-          <%else %>
-
-             <div class="field">
-
-              no hay rol
-             </div>
-         <% end %>
-         </td>
+          no hay tribunal
+        </div>
+        <% end %>
 
 
-         <td>
-          <% unless auction.judgement.name_judgement.nil? %>
-             <%= auction.judgement.name_judgement %>
-          <%else %>
+      </td>
+      <td>
+        <% unless auction.judgement.rol_trial.nil? %>
+        <%= auction.judgement.rol_trial %>
+        <%else %>
 
-             <div class="field">
+        <div class="field">
 
-              no hay name juicio
-             </div>
-         <% end %>
-         </td>
-        
-         <td><%= auction.judgement.type_judgement %></td>
-        
-        <td><%= auction.realty.address %></td>
-        <td><%= auction.realty.population_villa %></td>
-
-        <td><% unless auction.realty.condominio.name.nil? %>
-              <%= auction.realty.condominio.name %>
-            <%else %>
-
-              <div class="field">
-
-               sin condominio
-              </div>
-           <% end %>
-        </td>
-        <td><%= auction.total_minimum %></td>
-        <td><%= auction.warranty %></td>
-        <td><%= auction.realty.mt2_built %></td>
-        <td><%= auction.realty.mt2_land %></td>
-        <td><%= auction.status %></td>
+          no hay rol
+        </div>
+        <% end %>
+      </td>
 
 
-        <td>
+      <td>
+        <% unless auction.judgement.name_judgement.nil? %>
+        <%= auction.judgement.name_judgement %>
+        <%else %>
 
-              <%= link_to 'Ver', auction ,class: "btn btn-info"%>
-              <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
-              <%= link_to 'Eliminar',auction, method: :delete, data: { confirm: 'Estas seguro?' } ,remote: true,class: "btn btn-danger" %>
+        <div class="field">
 
-        </td>
-      </tr>
+          no hay name juicio
+        </div>
+        <% end %>
+      </td>
+
+      <td><%= auction.judgement.type_judgement %></td>
+
+      <td><%= auction.realty.address %></td>
+      <td><%= auction.realty.population_villa %></td>
+
+      <td><% unless auction.realty.condominio.name.nil? %>
+        <%= auction.realty.condominio.name %>
+        <%else %>
+
+        <div class="field">
+
+          sin condominio
+        </div>
+        <% end %>
+      </td>
+      <td><%= auction.total_minimum %></td>
+      <td><%= auction.warranty %></td>
+      <td><%= auction.realty.mt2_built %></td>
+      <td><%= auction.realty.mt2_land %></td>
+      <td><%= auction.status %></td>
+
+
+      <td>
+
+        <%= link_to 'Ver', auction ,class: "btn btn-info"%>
+        <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
+        <%= link_to 'Eliminar',auction, method: :delete, data: { confirm: 'Estas seguro?' } ,remote: true,class: "btn btn-danger" %>
+
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
