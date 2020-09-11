@@ -42,7 +42,7 @@ class JudicialfilesController < ApplicationController
     end
   
     def judicialfile_params
-      params.require(:judicialfile).permit(:judgement_id, :date, :observation )
+      params.require(:judicialfile).permit(:judgement_id, :date, :obs )
   
     end
   
