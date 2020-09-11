@@ -42,15 +42,32 @@
     </div>
   
     <div class="row">
+
+
+
             <div class="form-group col-md-3">
-               <%= form.fields_for :judgements  do |f| %>
-               <%= f.label :demandante, "seleccione demandante" %>
-               <%= f.select :demandante, options_for_select(LegalPersona.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-
-               <%= f.label :demandado, "seleccione demandado" %>
-               <%= f.select :demandado, options_for_select(Persona.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"} %>
-
-               <% end %>
+              
+               <div class = "col-md-10">
+                <%= form.label :legal_persona_id, "Ingrese Demandantes" %>
+                <%= form.select :legal_persona_id, options_for_select(LegalPersona.order(:id).collect {|c| [c.name + " / " + c.fantasy_name + " / " + c.alias, c.id]}), {include_blank: "Seleccione", value: '0'} ,{class:"selectpicker", data: {"live-search": true }} %>
+              </div>
+               
+              <div class = "col-md-10">
+                <%= form.label :legal_persona_id, "Ingrese Abogados de Demandantes" %>
+                <%= form.select :legal_persona_id, options_for_select(LegalPersona.order(:id).collect {|c| [c.name + " / " + c.fantasy_name + " / " + c.alias, c.id]}), {include_blank: "Seleccione", value: '0'} ,{class:"selectpicker", data: {"live-search": true }} %>
+              </div>
+            
+            
+              <div class = "col-md-10">
+                <%= form.label :legal_persona_id, "Ingrese Demandados" %>
+                <%= form.select :legal_persona_id, options_for_select(Persona.order(:id).collect {|c| [c.full_name_persona, c.id]}), {include_blank: "Seleccione", value: '0'} ,{class:"selectpicker", data: {"live-search": true }} %>
+              </div>
+            
+              <div class = "col-md-10">
+                <%= form.label :legal_persona_id, "Ingrese Abogados de Demandados" %>
+                <%= form.select :legal_persona_id, options_for_select(Persona.order(:id).collect {|c| [c.full_name_persona, c.id]}), {include_blank: "Seleccione", value: '0'} ,{class:"selectpicker", data: {"live-search": true }} %>
+              </div>
+               
             </div>
 
     </div>

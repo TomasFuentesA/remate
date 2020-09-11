@@ -35,17 +35,72 @@
 
 
           <div class="field">
+            <h4>Caratulado</h4>
+            <%= @judgement.demandante %> / <%= @judgement.demandado %>
+          </div>
+
+        
+          <div class="field">
             <h4>Demandante</h4>
-            <%= @judgement.demandante %>
+            <%= @judgement.legalpersona.name %>  
           </div>
 
           <div class="field">
-            <h4>Demandado</h4>
-              <%= @judgement.demandado %>
+            <h4>Abogado Demandante</h4>
+            <%= @judgement.legalpersona.name %>  
+          </div>
+        
+          <div class="field">
+            <h4>Demandanto</h4>
+            <%= @judgement.persona.full_name_persona %>  
           </div>
 
+          <div class="field">
+            <h4>Abogado Demandanto</h4>
+            <%= @judgement.personalegal.full_name_persona %>  
+          </div>
 
-        
+          <div>
+            <h1>Expediente:</h1>
+              <div class="field">
+               <h4>Expediente</h4> 
+              
+    
+              <table   class="table table-bordered table-hover">
+                <thead  class="thead-dark">
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                </thead>
+               
+                <tbody class="rounded-pill">
+                 
+              
+                    
+                      <% @judgement.judicialfile.each do |judicialfile| %> 
+                      
+                      <tr>
+    
+    
+                      <td><%= judicialfile.date %></td>
+                      <td><%= judicialfile.observation%></>
+              
+              
+                      <td>
+                        <%= link_to 'Ver', appraisal , class: "btn btn-info" %>
+                        
+                    </tr>
+                    <% end %>
+                </tbody>
+              </table>
+         
+    
+              </div>
+            </div>
+
+
 
       </div>
       <br>
