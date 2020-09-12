@@ -12,6 +12,7 @@
       <th scope="col">Rol</th>
       <th scope="col">Nombre Juicio</th>
       <th scope="col">Fecha</th>
+      <th scope="col">Archivo</th>
       <th scope="col">Observacion</th>
       <th scope="col">Opciones</th>
     </tr>
@@ -29,6 +30,11 @@
         <td><%= judicialfile.judgement.rol_trial %> </td>
         <td><%= judicialfile.judgement.name_judgement %></td>
         <td><%= judicialfile.date %></td>
+        <% if judicialfile.file_name != "" %>
+                <td><%= link_to judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,judicialfile.file_name.to_s)%> </td>
+        <%else %>
+                <td>Sin Archivo</td>
+        <% end %>
         <td><%= judicialfile.obs%></td>
 
 
