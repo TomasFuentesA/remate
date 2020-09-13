@@ -1,101 +1,100 @@
-<br>
-<h1>  Asociar Aviso de Remate a Propiedad </h1>
-<%= render partial: 'errors' %>
-
-<div class="container">
+<h1>Asociar Aviso de Remate a Propiedad</h1>
+<div class="jumbotron">
   <div class="row">
-    <div class="col-8">
-      <%= form_for @auction  do |form| %>
-        <div class="form-group">
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <%= form.label :date, "Fecha" %>
-              <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
-            </div>
-            <div class="form-group col-md-4">
-              <%= form.label :hour, "Hora" %>
-              <%= form.text_field :hour %>
-            </div>
-            <div class="form-group col-md-4">
-              <%= form.label :name, "Nombre" %>
-              <%= form.text_field :name, id: :name %>
-            </div>
-          </div>
-         
-          <div class="form-row">
-            <div class="form-group col-md-5">
-              <%= form.label :realty_id, "Seleccionar Propiedad" %>
-              <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
-            </div>
-          </div>
-          
-          <div class="form-row">
-            <div class="form-group col-md-2">
-              <%= form.label :is_uf, "Valorización:" %>
-              <%= select_tag "is uf", options_for_select([["uf", true], ["pesos", false]]),  onchange: "habilite_money(this)",prompt: "seleccione" %>
-            </div>
-          </div>
-          <div class="form-row">
-            
-            <div class="form-group col-md-3">
-              <%= form.label :uf, "UF " %>
-              <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
-            </div>
-
-            <div class="form-group col-md-3">
-              <%= form.label :pesos, "Pesos" %>
-              <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
-            </div>
-
-            <div class="form-group col-md-3">
-              <%= form.label :cost, "Costas" %>
-              <%= form.number_field :cost, id: :cost, value: 0  %>
-            </div>
-
-            <div class="form-group col-md-3">
-              <%= form.label :total_minimum, "Total Mínimo:" %>
-              <%= form.number_field :total_minimum, id: :total_minimum %>
-            </div>
-          </div>
-          
-          <div class="form-row">
-            <div class="form-group col-md-2">
-              <%= form.label :warranty, "Garantia" %>
-              <%= form.number_field :warranty, id: :warranty %>
-            </div>
-            <div class="form-group col-md-2">
-              <%= form.label :fee, "Derechos" %>
-              <%= form.number_field :fee, id: :fee %>
-            </div>
-            <div class="form-group col-md-2">
-              <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
-            </div>
-            
-          </div>
-
-          
-
-            <div class="form-row">
-              <div class=" col-5">
-                <br>
-                <%= form.submit "Guardar" %>
-
-
-
-                <% end %>
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <%= form_for @auction  do |form| %>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-12">
+                <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
               </div>
             </div>
           </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-3">
+                <%= form.label :date, "Fecha" %>
+                <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border" %>
+              </div>
+              <div class="col-md-3">
+                <%= form.label :hour, "Hora" %>
+                <%= form.text_field :hour , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :name, "Nombre" %>
+                <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+              <div class="row ">
+                <div class="col-md-3">
+                    <%= form.label :realty_id, "Seleccionar Propiedad" %>
+                    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} , class:"form-control border" ,autofocus: true%>
+                </div>
+              </div>
+            </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-3">
+                <%= form.label :is_uf, "Valorización:" %>
+                <%= select_tag "is uf", options_for_select([["uf", true], ["pesos", false]]),  onchange: "habilite_money(this)",prompt: "seleccione" , class:"form-control border" ,autofocus: true%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                <%= form.label :uf, "UF " %>
+                <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)" , class:"form-control border" ,autofocus: true, value: 0%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :pesos, "Pesos" %>
+                <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)", class:"form-control border" ,autofocus: true, value: 0%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                <%= form.label :cost, "Costas" %>
+                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :total_minimum, "Total Mínimo:" %>
+                <%= form.number_field :total_minimum, id: :total_minimum, class:"form-control border" ,autofocus: true%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                <%= form.label :warranty, "Garantia" %>
+                <%= form.number_field :warranty, id: :warranty, class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :fee, "Derechos" %>
+                <%= form.number_field :fee, id: :fee , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :judgement_id, "Seleccionar Juicio" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_judgement, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+              </div>
+            </div>
+          </div>
+          <%= form.hidden_field :auctionnotice_id, value: @auctionnotice.id %>
+          <div class="form-group">
+            <%= form.submit "Guardar",class: "btn btn-success" %>
+          </div>
+          <% end %>
         </div>
-
-
-  <div class="col-4">
-    <%= render "modal" %>
-    <%= render "modaljudment" %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <%= render "modal" %>
+      <%= render "modaljudment" %>
+    </div>
   </div>
-
-
-
-
-</div>
 </div>

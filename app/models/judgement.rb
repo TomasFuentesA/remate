@@ -15,4 +15,7 @@ class Judgement < ApplicationRecord
     "#{self.demandante} - #{(self.demandado)}"
   end
   
+  def full_judgement
+     "#{self.court.name} - #{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s} - #{self.demandante} / #{(self.demandado)} "
+  end
 end

@@ -1,23 +1,18 @@
 
-<div class="row justify-content-md-center">
+ <div class="row justify-content-md-center">
   <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">Notificacion de Aviso</h5>
-      <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modaljudgement" >Añadir nuevo Juicio</button>
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
-
 
 <div class="col">
   <div class="row justify-content-md-center">
     <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="margin-left: 400px; width: 130% !important;">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ingreso de Propiedad:</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
