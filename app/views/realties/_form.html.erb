@@ -1,3 +1,17 @@
+<script>
+$(document).ready(function() {
+  $('select#realty_commune_id').select2({
+    theme: "bootstrap"
+  });
+  $('select#realty_condominio_id').select2({
+    theme: "bootstrap"
+  });
+  $('select#realty_street_type_id').select2({
+    theme: "bootstrap"
+  });
+  
+});
+</script>
 <div class="container">
   <div class="row">
         <div class="card-body">
@@ -25,7 +39,7 @@
               </div>
               <div class="col-md-3">
                 <%= form.label :commune_id, "Comuna:" %>
-                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, onchange: "get_value(this)"} %>
+                <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}), {include_blank: "Seleccione"} ,{class:"custom-select", data: {"live-search": true }, onchange: "get_value(this)"} %>
               </div>
               <div class="col-md-3">
                 <%= form.label :street, "Calle:" %>

@@ -15,7 +15,6 @@
 //= require underscore
 //= require jquery3
 //= require popper
-//= require bootstrap-select
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require arctic_admin/base
@@ -23,3 +22,4 @@
 //= require turbolinks
 
 //= require_tree .
+//= require select2

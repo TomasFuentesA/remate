@@ -13,7 +13,8 @@
 
  *= require_tree .
  *= stub 'active_admin'
+ *= require select2
+ *= require select2-bootstrap
  *= require_self
- *= require bootstrap-select
 
  */
