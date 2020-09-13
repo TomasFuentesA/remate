@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_05_022911) do
+ActiveRecord::Schema.define(version: 2020_09_10_213251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,15 @@ ActiveRecord::Schema.define(version: 2020_09_05_022911) do
     t.index ["court_id"], name: "index_judgements_on_court_id"
   end
 
+  create_table "judicialfiles", force: :cascade do |t|
+    t.date "date"
+    t.string "obs"
+    t.bigint "judgement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["judgement_id"], name: "index_judicialfiles_on_judgement_id"
+  end
+
   create_table "legal_members", force: :cascade do |t|
     t.bigint "legal_persona_id"
     t.bigint "legal_asociado_id"
@@ -390,6 +399,7 @@ ActiveRecord::Schema.define(version: 2020_09_05_022911) do
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "jobs", "personas"
   add_foreign_key "judgements", "courts"
+  add_foreign_key "judicialfiles", "judgements"
   add_foreign_key "legal_members", "legal_personas"
   add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
   add_foreign_key "persona_members", "legal_personas"

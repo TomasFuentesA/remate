@@ -1,3 +1,13 @@
+<script>
+$(document).ready(function() {
+  $('select#condominio_commune_id').select2({
+    theme: "bootstrap"
+  });
+  $('select#condominio_legal_persona_id').select2({
+    theme: "bootstrap"
+  });
+});
+</script>
 <div class="container">
   <div class="row">
     <div>
@@ -24,7 +34,7 @@
               <div class="row ">
                 <div class="col-md-10">
                   <%= form.label :commune_id, "Comuna" %>
-                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}, @condominio.commune_id), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, required: true}  %>
+                  <%= form.select :commune_id, options_for_select(Commune.order(:name).collect {|c| [c.name+" - "+c.province.name+" - "+c.province.region.name,c.id]}, @condominio.commune_id), {include_blank: "Seleccione"} ,{class:"custom-select",data: {"live-search": true }, required: true}  %>
                 </div>
               </div>
             </div>
@@ -32,7 +42,7 @@
               <div class="row">
                 <div class = "col-md-10">
                   <%= form.label :legal_persona_id, "Persona legal asociada" %>
-                  <%= form.select :legal_persona_id, options_for_select(LegalPersona.order(:id).collect {|c| [c.name + " / " + c.fantasy_name + " / " + c.alias, c.id]}, @condominio.legal_persona_id), {include_blank: "Seleccione", value: '0'} ,{class:"selectpicker", data: {"live-search": true }} %>
+                  <%= form.select :legal_persona_id, options_for_select(LegalPersona.order(:id).collect {|c| [c.name + " / " + c.fantasy_name + " / " + c.alias, c.id]}, @condominio.legal_persona_id), {include_blank: "Seleccione", value: '0'} ,{class:"custom-select", data: {"live-search": true }} %>
                 </div>
               </div>
             </div>

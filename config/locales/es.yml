@@ -108,6 +108,7 @@ es:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      extension_whitelist_error: Favor validar archivo
       accepted: debe ser aceptado
       blank: no puede estar en blanco
       confirmation: no coincide
