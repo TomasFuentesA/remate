@@ -1,0 +1,2 @@
+module AuctionrecordsHelper
+end

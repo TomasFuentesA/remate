@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
 
 
+  get 'auctionrecords/index'
   get 'legal_members/new'
   get 'legal_members/create'
   get 'legal_members/destroy'
@@ -74,6 +75,7 @@ Rails.application.routes.draw do
   resources :courts
   resources :appraisals
   resources :judicialfiles
+  resources :auctionrecords
 
 
   resources :judgements, :type_realties

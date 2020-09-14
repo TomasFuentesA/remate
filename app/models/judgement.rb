@@ -3,6 +3,7 @@ class Judgement < ApplicationRecord
   belongs_to :court
   has_many :auctions, dependent: :destroy
   has_many :judicialfiles, dependent: :destroy
+  has_many :auctionrecords, dependent: :destroy
   enum type_judgement: [:por_definir,:ejecutivo,:hipotecario,:tesoreria,:laboral,:familia,:arbitral,:quiebra,:voluntario]
 
   #validacion

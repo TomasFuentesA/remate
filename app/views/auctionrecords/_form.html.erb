@@ -1,0 +1,62 @@
+<br>
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-auto">
+<%= form_with model: @auctionrecord, url: auctionrecords_path , remote: true do |form| %>
+
+  <%= form.label :type_judgement, "Nueva Acta Remate" %>
+
+  <div class="field">
+    <%= form.label :judgement_id, "Seleccionar Juicio" %>
+    <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+  </div>
+
+
+  <div class="form-group col-md-2">
+    <%= form.label :date, "Fecha" %>
+    <%= form.text_field :date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+  </div>
+
+  // que solo muestre las propiedades del Juicio.
+  <div class="form-group col-md-2">
+    <%= form.label :realty_id, "Propiedad a subastar del Juicio" %>
+    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.name_realty, p.id]}, { include_blank: "Seleccione"}) %>
+  </div>
+
+  // que solo muestre las personas del juicio y/o dueño de la propiedad (aval) de la parte que se remata (si son derechos)
+
+  <div class="form-group col-md-2">
+    <%= form.label :persona_id, "Persona que se Adjudica" %>
+    <%= form.select :persona_id, options_for_select(Persona.all.collect {|p| [p.full_name_persona, p.id]}, { include_blank: "Seleccione"}) %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :awardamount, "Monto Adjudicacion:" %>
+    <%= form.number_field :awardamount, id: :awardamount ,autofocus: true, class:"form-control border"%>
+  </div>
+
+    <div class="form-group">
+          <div class="custom-file">
+            <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true, required: true %>
+
+            <label class="custom-file-label" for="customFile">Ingresar archivo</label>
+          </div>
+        </div>
+
+
+
+   <%= form.submit "Guardar",class: "btn btn-success" %>
+
+<% end %>
+    </div>  
+  </div>
+</div>
+
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>
