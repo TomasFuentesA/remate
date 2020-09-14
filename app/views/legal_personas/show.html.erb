@@ -47,39 +47,31 @@
           <% end %>
         </div>
 
-        <div class="col-sm-4"> <!--Phones-->
+        <div class="col-sm-5"> <!--Phones-->
           <% if @legal_persona.phones.any? %>
             <div class="field"> 
             <label for="name">Phones:</label>
               <% @phones.each do |phone| %>
                 <div class="row">
                   <div class="col">
-                    <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = <%= phone.type_phone%><%= phone.number_phone %> readonly>
-                    <%= link_to 'editar telefono',   edit_legal_persona_phone_path(@legal_persona,@phones.ids) ,class:"btn btn-secondary"%>
+                    <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = <%= phone.type_phone + ":"+ phone.number_phone %> readonly>
                   </div>  
+                <%= link_to 'Editar', edit_legal_persona_phone_path(@legal_persona,@phones.ids) ,class:"btn btn-warning"%>
                 </div>
               <% end %>
             </div>
           <% end %>
         </div>
-        <div class="col-sm-8"> <!--Emails-->
+        <div class="col-sm-7"> <!--Emails-->
           <% if @legal_persona.emails.any? %> 
             <div class="field">
+            <label for="name">Emails:</label>
               <% @emails.each do |email| %>
-                <div class="field">
-                  <label for="name">Emails:</label>
+                <div class="row"> 
                   <div class="col">
-                    <input type = "text" id="emaila" class= "form-control" placeholder= "emaila" disable value = <%= email.email_a %> readonly>
-                    
+                    <input type = "text" id="emaila" class= "form-control" placeholder= "emaila" disable value = <%= email.email%> readonly>  
                   </div>
-                  <div class="col">
-                    <input type = "text" id="emailb" class= "form-control" placeholder= "emailb" disable value = <%= email.email_b %> readonly>
-                    
-                  </div>
-                  <div class="col">
-                    <input type = "text" id="emailc" class= "form-control" placeholder= "emailc" disable value = <%= email.email_c %> readonly>
-                    
-                  </div>
+                <%= link_to 'Editar',   edit_legal_persona_email_path(@legal_persona,@emails.ids) ,class:"btn btn-warning"%>  
                 </div>
               <% end %>  
             </div> 
@@ -92,48 +84,64 @@
           <div class= "field">
             <% if @legal_persona.directions.any? %>
               <div class="field">
+                <label for="name">Directions:</label>
                 <% @directions.each do |direction| %>
-                  <div class="field">
-                    <label for="name">Directions:</label>
-                    
-                      
+                  <% Realty.order(:id).each do |realties|%>
+                    <% if direction.realties_id == realties.id %>
+                      <%= realties.address %>
+                      <div class="row">
                         <div class="col">
-                          <input type = "text" id="directiona" class= "form-control" placeholder= "directiona" disable value = <%= direction.realties_id %> readonly>      
-                          <%= link_to 'editar direccion',   edit_legal_persona_direction_path(@legal_persona,@directions.ids) ,class:"btn btn-secondary"%>
-                          
+                          <input type = "text" id="directiona" class= "form-control" placeholder= "directiona" disable value = <%= realties.address %> readonly>                
                         </div>
+
+                        <%= link_to 'Editar',   edit_legal_persona_direction_path(@legal_persona,@directions.ids) ,class:"btn btn-warning"%>  
                      
                        
-                  </div>
+                      </div>
+                    <% end %>
+                  <%end%>  
+              
                 <% end %>
               </div>
-            <% end %>
+            <%end%>  
           </div>
         </div>
-        <div class="col-sm-4"><!--Activities-->
-          <div class = "field">
+        <div class = "container"><!--Activities-->
+          <div class = "row">
             <% if @legal_persona.activities.any? %>
-              <div class="field">
-                <% @activities.each do |activity| %>
-                  <div class="field">
-                    Actividad:
-                    <div class="col">
-                      <%= activity.code %>
-                    </div>
-                    <div class="col">
-                      <%= activity.afect_iva %>
-                    </div>
-                    <div class="col">
-                      <%= activity.name_activity %>
-                    </div>
-                  </div>
-                <% end %>
+              <div class="col-sm-12">
+                Actividades:
+                <table class="table table-bordered table-hover">
+                  <thead  class="thead-dark">
+                    <tr>
+                      <th scope="col">Nombre de Actividad</th>
+                      <th scope="col">Afecta IVA?</th>
+                      <th scope="col">codigo de actividad</th>
+                    </tr>
+                  </thead>
+                  <tbody class="rounded-pill"> 
+                    <% @activities.each do |activity| %>
+                    <tr>
+                      <td scope="row">
+                        <%= activity.name_activity %>
+                      </td>
+                      <td scope="row">
+                        <%= activity.afect_iva %>
+                      </td>
+                      <td scope="row">
+                        <%= activity.code %>
+                      </td>
+                    </tr>  
+                    <% end %>
+                  </tbody>
+                </table>    
               </div>
             <% end %>
-          </div>
+          </div>  
         </div>
       </div>
     </div>
+    
 
 
     <div class= "col-sm-4 card card-body">
@@ -141,7 +149,7 @@
       <div class= "btn-group-vertical">
         <% unless @legal_persona.phones.any? %>
           <div class="col-sm-8">
-            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary"%>
+            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary btn-sm"%>
             <% else %>
             <%= link_to 'Nuevo telefono',   new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary"%>
         <% end %>
@@ -150,23 +158,22 @@
           <% else %>
           <%= link_to 'Nueva direccion',   new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary"%>
         <% end %>
-          <% unless @legal_persona.emails.any? %>
+        <% unless @legal_persona.emails.any? %>
 
           <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary"%>
           <% else %>
-          <%= link_to 'editar correo', edit_legal_persona_email_path(@legal_persona,@emails.ids) ,class:"btn btn-secondary"%>
+          <%= link_to 'Nuevo correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary"%>
              
         <% end %>
         <% unless @legal_persona.activities.any? %>
 
           <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary"%>
           <% else %>
-          <%= link_to 'editar actividad', edit_legal_persona_activity_path(@legal_persona,@emails.ids) ,class:"btn btn-secondary"%>
+          <%= link_to 'Nueva actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary"%>
              
         <% end %>
 
         <%= render  'modal' %>
-        <%= render  'modalempresa' %>
         <%=link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" %>
 
       
@@ -179,70 +186,95 @@
 
 
 <div class="container">
-  <% if @persona_members.any? %>
-    <div class="row">
-      <div class="col-sm-12 card card-body">
-        Miembros:
-        <table class="table table-bordered table-hover">
-          <thead  class="thead-dark">
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Participación</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody class="rounded-pill">
-            <% @persona_members.each do |member| %>
+  <% if PersonaMember.any? %>
+    
+      <div class="row">
+        <div class="col-sm-12 card card-body">
+          Miembros:
+          <table class="table table-bordered table-hover">
+            <thead  class="thead-dark">
               <tr>
-                <td scope="row"><%= member.rut %>, <%= member.name%></td>
-                <td scope="row">
-                  <% PersonaMember.order(:id).each do |personam| %>
-                    <%if (personam.persona_id == member.id) then %>
-                      <%= personam.percentage%> %
-                    <%end%>
-                  <%end%>    
-                </td>
-                <td> 
-                  <%= link_to 'Ver', member , class: "btn btn-info" %>
-                  <% PersonaMember.order(:id).each do |personam| %>
-                    <%if (personam.persona_id == member.id) then %>
-                      <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
-                      <%= link_to 'Borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
-                    <%end%>
-                  <%end%> 
-                </td>
+                <th scope="col">Nombre</th>
+                <th scope="col">Participación</th>
+                <th scope="col">Opciones</th>
               </tr>
-            <%end%>  
-          </tbody>
-          <% if @legal_members.any? %>
+            </thead>
             <tbody class="rounded-pill">
-              <% @legal_members.each do |member| %>
-                <tr>
-                  <td scope="row"><%= member.rut %>, <%= member.name%></td>
-                  <td scope="row">
-                    <% LegalMember.order(:id).each do |legalm| %>
-                      <%if (legalm.legal_asociado_id == member.id) then %>
-                        <%= legalm.percentage%> %
-                      <%end%>
-                    <%end%>
-                  </td>
-                  <td> 
-                    <%= link_to 'Ver', member , class: "btn btn-info" %>
-                    <% LegalMember.order(:id).each do |legalm| %>
-                      <%if (legalm.legal_asociado_id == member.id) then %>
-                        <%= link_to 'Edit', edit_legal_member_path(legalm) , class: "btn btn-warning" %>
-                        <%= link_to 'Borrar', legalm, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
-                      <%end%>
+              <% PersonaMember.order(:id).each do |personam| %>
+              
+                <% if (personam.type_member == "Natural") && (personam.legal_persona_id == @legal_persona.id) then %>
+                
+                  <% Persona.order(:id).each do |member| %>
+                  
+                    <%if (personam.persona_id == member.id) && (personam.type_member == "Natural") then %>
+                    
+                      <tr>
+                        <td scope="row"><%= member.rut %>, <%= member.name%></td>
+                        <td scope="row">
+                          <%= personam.percentage%> %    
+                        </td>
+                        <td> 
+                          <%= link_to 'Ver', member , class: "btn btn-info" %>
+                          <% PersonaMember.order(:id).each do |personam| %>
+                            <%if (personam.persona_id == member.id) && (personam.type_member == "Natural") then %>
+                              <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
+                              <%= link_to 'Borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                            <%end%>
+                          <%end%> 
+                        </td>
+                      </tr>
+                    <%end%> 
+                  <%end%>  
+                <% else %>
+
+                  <% LegalPersona.order(:id).each do |legalp| %>
+
+                    <%if (legalp.id == personam.persona_id) && (personam.type_member == "Empresa") && (personam.legal_persona_id == @legal_persona.id) then %>
+                      <tr>
+                        <td scope="row"><%= legalp.rut %>, <%= legalp.name%></td>
+                        <td scope="row">
+                          <%= personam.percentage %> %
+                        </td>    
+                        <td> 
+                          <%= link_to 'Ver', personam, class: "btn btn-info" %>
+                          <% LegalPersona.order(:id).each do |legalp| %>
+                            <%if (legalp.id == personam.persona_id) && (personam.type_member == "Empresa") then %>
+                              <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
+                              <%= link_to 'Borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                            <%end%>
+                          <%end%> 
+                        </td>
+                      </tr>
                     <%end%>  
-                  </td>
-                </tr>
-             <%end%>  
+                  <%end%>    
+                
+                <%end%>
+              <%end%>      
+            </tbody> 
+            <% var = 0 %>
+            <% PersonaMember.order(:id).each do |personam| %>
+              <% if personam.legal_persona_id == @legal_persona.id%>
+                <% var += personam.percentage%>
+              <% end %>
+            <% end %>  
+            <thead class= "thead-light">
+              <tr>
+                <th scope= "col"> 
+                  Total
+                </th>
+              </tr>
+            </thead> 
+            <tbody class= "rounded-pill">
+              <tr>
+                <td scope = "row"> <%= var%> % </td>
+              </tr>
             </tbody>
-          <%end%>  
-        </table>   
+          </table>   
+            
+        </div>
       </div>
-    </div>
-  <%end%>
+     
+  <%end%>  
   <% if @legal_persona.domains.any? %>
     <div class="row">
       <div class="col-sm-12 card card-body">

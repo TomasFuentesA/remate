@@ -1,19 +1,59 @@
+<div class="container-fluid">
+  <%= render partial: "errors" %>
+</div>
+
 <%= form_with model: @persona_member, id: :formulary, remote: true do |form| %>
 
-
+<div class = "col">
 <%= form.label "persona jurídica" %>
-<%= form.text_field :legal_persona_id, value: @legal_persona.id, class: 'form-control', readonly: true %>
-
+<%= form.text_field :legal_persona_id, value: @legal_persona.name, class: 'form-control', readonly: true %>
+</div>
 <!--<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}, @legal_persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>-->
+<div class = "col">
+<%= form.label "Tipo" %>
+</div>
+<div class = "col">
+<%= form.radio_button :type_member, 'Natural', :checked => true, onchange: "get_value(this)" %> 
+<%= label :type_member_Natural, 'Natural' %>
+<%= form.radio_button :type_member, 'Empresa', onchange: "get_value(this)" %>
+<%= label :type_member_Empresa, 'Empresa' %>
+</div>
 
 
-<%= form.label "persona natural" %>
-<%=  form.select :persona_id , options_for_select(Persona.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
 
+
+<div class = "col">
+<%= form.label "Miembro" %>
+<%=  form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+</div>
+
+<div class = "col">
 <%= form.label "porcentaje de participacion" %>
-<%=  form.number_field :percentage %>
+<%= form.number_field :percentage%>
+</div>
+<div class = "col">
+<%=  form.submit "Guardar miembro" %>
+</div>
 
-
-<%=  form.submit "guardar" %>
 
 <% end %>
+
+<script>
+    function get_value(params) {
+        if(params.value == "Natural") {
+            var list = '<option value= 0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list);    
+        } else {
+            var list = '<option value= 0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |empresa| %>
+                list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list); 
+        }
+
+        
+    }        
+</script>

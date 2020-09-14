@@ -13,8 +13,8 @@ class LegalPersona < ApplicationRecord
   #asociation inter personas
   has_many :persona_members, dependent: :destroy
   has_many :personas, through: :persona_members
-  has_many :legal_members
-  has_many :legal_asociados, through: :legal_members
+  #has_many :legal_members
+  #has_many :legal_asociados, through: :legal_members
 
 
   #validacion

@@ -4,9 +4,7 @@
 <div >
   <% @emails.each do |email| %>
     <div >
-      <%= simple_format email.email_a %>
-      <%= simple_format email.email_b %>
-      <%= simple_format email.email_c %>
+      <%= simple_format email.email %>
     </div>
   <% end %>
 </div>

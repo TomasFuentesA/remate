@@ -58,8 +58,7 @@ private
     @directions = @able.directions
     @activities = @able.activities
     @jobs = @able.jobs
-    @persona_members = @able.personas
-    @legal_members = @able.legal_asociados
+    #@legal_members = @able.legal_asociados
   end
 
   def set_legalpersona

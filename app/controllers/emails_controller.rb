@@ -33,7 +33,7 @@ class EmailsController < ApplicationController
 
     private
     def email_params
-      params.require(:email).permit(:email_a, :email_b,:email_c,:rut,:directionable_type, :directionable_id )
+      params.require(:email).permit(:email )
     end
 
     def load_emailable

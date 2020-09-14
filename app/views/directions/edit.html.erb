@@ -1,2 +1,34 @@
 <h1>Editar Dirección</h1>
-<%= render 'form' %>
+<div class="container">
+
+
+<%= form_for [@directionable, @direction] do |f| %>
+  <% if @direction.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @direction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+  
+  
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.label :realties_id, "Dirección" %>
+        <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <%= f.submit "Guardar" %>
+      </div>
+    </div>
+  
+  </div>
+</div>
+
+<% end %>
