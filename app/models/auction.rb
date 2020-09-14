@@ -1,6 +1,6 @@
 class Auction < ApplicationRecord
   belongs_to :auctionnotice
-  belongs_to :realty
+  #belongs_to :realty
   belongs_to :judgement
 
   enum status: [:in_progress, :suspendend, :discarded]
