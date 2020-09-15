@@ -1,3 +1,20 @@
+<script>
+$(document).ready(function() {
+  $('select#realty_tipo').select2({
+    theme: "bootstrap"
+  });
+  $('select#realty_street_type_id').select2({
+    theme: "bootstrap"
+  });
+  $('select#realty_commune_id').select2({
+    theme: "bootstrap"
+  });
+  $('select#realty_condominio_id').select2({
+    theme: "bootstrap"
+  });
+});
+
+</script>
 <div class="row justify-content-md-center">
   <div class="card">
     <div class="card-body">
@@ -15,7 +32,7 @@
                 <div class="col-md-6">
                   <%= form.fields_for :type_realty do |f| %>
                   <%= form.label :tipo, "tipo de propiedad" %>
-                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.map  {|type| [type]},@realty.type_realty.tipo),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+                  <%= form.select :tipo, options_for_select(TypeRealty.tipos.keys.map  {|type| [type]},@realty.type_realty.tipo),{include_blank: "Seleccione"} ,class:"custom-select", required: true %>
                   <% end %>
                 </div>
                 <div class="col-md-6">
@@ -32,7 +49,7 @@
                 </div>
                 <div class="col-md-3">
                   <%= form.label :commune_id, "Comuna:" %>
-                  <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name+" - "+p.province.name+" - "+p.province.region.name, p.id]}, @realty.commune_id), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }, onchange: "get_value(this)"} %>
+                  <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name+" - "+p.province.name+" - "+p.province.region.name, p.id]}, @realty.commune_id), {include_blank: "Seleccione"} ,{class:"custom-select", data: {"live-search": true }, onchange: "get_value(this)"} %>
                 </div>
                 <div class="col-md-3">
                   <%= form.label :street, "Calle:" %>
@@ -55,7 +72,7 @@
                   </div>
                   <div class="col-md-3">
                     <%= form.label :condominio_id, "Condominio:" %>
-                    <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]], @realty.condominio_id), {include_blank: "Seleccione"} ,{data: {"live-search": true }}%>
+                    <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]], @realty.condominio_id), {include_blank: "Seleccione"} ,{class:"custom-select",data: {"live-search": true }}%>
                   </div>
                 </div>
               </div>

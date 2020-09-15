@@ -1,9 +1,10 @@
-<h1>Auctionlistings#index</h1>
-<p>Find me in app/views/auctionlistings/index.html.erb</p>
-
-  <li class="list-group-item "><%= link_to 'Ir a Listado Avisos', auctionnotices_path %></li>
-
-<table  class="table table-bordered table-hover">
+<h1>Lista archivos de remate</h1>
+<br>
+<%= link_to 'Agregar nuevo listado', new_auctionlisting_path ,class: "btn btn-primary"%>
+<br>
+<br>
+<li class="list-group-item "><%= link_to 'Ir a Listado Avisos', auctionnotices_path %></li>
+<table class="table table-bordered table-hover">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Nombre</th>
@@ -11,25 +12,17 @@
       <th scope="col">Opciones</th>
     </tr>
   </thead>
-
   <tbody>
     <% @auctionlistings.each do |auctionlisting| %>
-
-      <tr>
-        <td scope="row"><%= auctionlisting.name %></td>
-        <td><%= auctionlisting.attached %></td>
-        <td>
-          <%= link_to 'Show', auctionlisting %>
-          <%= link_to 'Edit', edit_auctionlisting_path(auctionlisting) %>
-          <%= link_to 'Destroy', auctionlisting, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
+    <tr>
+      <td scope="row"><%= auctionlisting.name %></td>
+      <td><%= auctionlisting.attached %></td>
+      <td>
+        <%= link_to 'Ver', auctionlisting, class:"btn btn-info"%>
+        <%= link_to 'Editar', edit_auctionlisting_path(auctionlisting) , class:"btn btn-warning"%>
+        <%= link_to 'Descartar', auctionlisting, method: :delete, data: { confirm: 'Seguro de descartarlo?' }, class:"btn btn-danger" %>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-
-
-<%= link_to 'New Auctionlisting', new_auctionlisting_path %>
