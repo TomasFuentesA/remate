@@ -1,2 +1,47 @@
 <h1> Editar Dominio </h1>
-<%= render 'form' %>
+<div class="container-fluid" id="wrapper" >
+<%= form_for [@domainable, @domain] do |form| %>
+<% if @domain.errors.any? %>
+  <div class="error_messages">
+    <h2>Please correct the following errors.</h2>
+    <ul>
+    <% @domain.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+  <div class="field">
+    <%= form.label :type_modality, "Modalidad:" %>
+    <%= form.text_field :type_modality%>
+
+  </div>
+
+
+  <div class="field">
+    <%= form.label :price, "Precio:" %>
+    <%= form.text_field :price %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :date_posetion, "Fecha de posesion:" %>
+    <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :percentage, "Porcentaje" %>
+    <%= form.text_field :percentage %>
+  </div>
+
+
+
+
+
+
+ <%= form.submit "Guardar" %>
+
+<% end %>
+</div>

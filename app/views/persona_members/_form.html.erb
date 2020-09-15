@@ -7,6 +7,7 @@
 <div class = "col">
 <%= form.label "persona jurídica" %>
 <%= form.text_field :legal_persona_id, value: @legal_persona.name, class: 'form-control', readonly: true %>
+<%= form.hidden_field :legal_persona_id, value: @legal_persona.id %>
 </div>
 <!--<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}, @legal_persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>-->
 <div class = "col">

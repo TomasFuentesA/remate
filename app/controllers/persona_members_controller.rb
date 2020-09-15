@@ -25,13 +25,11 @@ class PersonaMembersController < ApplicationController
       if @persona_member.save
         Rails.logger.info "Save"
         flash[:notice] =  "ingresado exitosamente"
-        redirect_to legal_personas_path
   
       else
         Rails.logger.info "Else 1"
         Rails.logger.info @persona_member.errors.full_messages.to_s
         flash[:errors] = @persona_member.errors.full_messages
-        redirect_to legal_personas_path
       end
     else
       Rails.logger.info "Else 2"

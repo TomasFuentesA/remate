@@ -13,11 +13,12 @@
           <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value =<%= @legal_persona.name %> readonly>
         </div>
       </div>
-      <div class="col-md-12">
-        <label for="name">Rut:</label>
-        <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = <%= @legal_persona.rut %> readonly>
+      <div class= "row">
+        <div class="col-md-12">
+          <label for="name">Rut:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = <%= @legal_persona.rut %> readonly>
+        </div>
       </div>
-    
       
 
       <div class="row">
@@ -115,6 +116,7 @@
                   <thead  class="thead-dark">
                     <tr>
                       <th scope="col">Nombre de Actividad</th>
+                      <th scope="col">Rubro</th>
                       <th scope="col">Afecta IVA?</th>
                       <th scope="col">codigo de actividad</th>
                     </tr>
@@ -125,6 +127,9 @@
                       <td scope="row">
                         <%= activity.name_activity %>
                       </td>
+                      <td scope= "row">
+                        <%= activity.rubro %>
+                      </td>  
                       <td scope="row">
                         <%= activity.afect_iva %>
                       </td>
@@ -236,7 +241,7 @@
                           <%= personam.percentage %> %
                         </td>    
                         <td> 
-                          <%= link_to 'Ver', personam, class: "btn btn-info" %>
+                          <%= link_to 'Ver', legalp, class: "btn btn-info" %>
                           <% LegalPersona.order(:id).each do |legalp| %>
                             <%if (legalp.id == personam.persona_id) && (personam.type_member == "Empresa") then %>
                               <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
@@ -296,14 +301,32 @@
                 <td><%= domain.price %></td>
                 <td><%= domain.date_posetion %></td>
                 <td><%= domain.percentage %></td>
-                <td><%= link_to "editar",edit_domain_path(domain) %>
-                    <%= link_to "ver",domain %>
-                    <%= link_to "crear inscripcion",new_domain_inscription_path(domain) %>
+                <td>                   
+                    <%= link_to "ver", domain, class: "btn btn-info" %>
+                    <%= link_to "editar", edit_domain_path(domain), class: "btn btn-warning" %>
+                    <%= link_to "crear inscripcion", new_domain_inscription_path(domain) %>
                 </td>
 
               </tr>
             <%end%>  
-          </tbody>
+          </tbody> <% var = 0 %>
+            <% @domains.each do |dom| %>
+              <% if dom.domainable_id == @legal_persona.id%>
+                <% var += dom.percentage%>
+              <% end %>
+            <% end %>  
+            <thead class= "thead-light">
+              <tr>
+                <th scope= "col"> 
+                  Total
+                </th>
+              </tr>
+            </thead> 
+            <tbody class= "rounded-pill">
+              <tr>
+                <td scope = "row"> <%= var.round(2)%> % </td>
+              </tr>
+            </tbody>
         </table>        
       </div>
     </div>

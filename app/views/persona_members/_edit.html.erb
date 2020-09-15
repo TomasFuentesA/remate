@@ -1,17 +1,29 @@
 <%= form_with model: @persona_member, id: :formulary, remote: true do |form| %>
 
 
-<%= form.label "persona jurídica" %>
-<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}, @persona_member.legal_persona_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+<div class = "col">
+    <% LegalPersona.order(:id).each do |legalp| %>
+        <% if legalp.id == @persona_member.legal_persona_id then %>
+
+            <%= form.label "persona jurídica" %>
+            <%= form.text_field :legal_persona_id, value: legalp.name, class: 'form-control', readonly: true %>
+            <%= form.hidden_field :legal_persona_id, value: @persona_member.legal_persona_id %>
+
+        <%end%>
 
 
-<%= form.label "persona natural" %>
-<%=  form.select :persona_id , options_for_select(Persona.order(:name).collect {|c| [c.name,c.id]}, @persona_member.persona_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+    <%end%>
 
-<%= form.label "porcentaje de participacion" %>
-<%=  form.number_field :percentage %>
+    <%= form.label "persona natural" %>
+    <%=  form.select :persona_id , options_for_select(Persona.order(:name).collect {|c| [c.name,c.id]}, @persona_member.persona_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+    <%= form.label "porcentaje de participacion" %>
+    <%=  form.number_field :percentage %>
 
 
-<%=  form.submit "guardar" %>
+    <%=  form.submit "guardar" %>
+</div>
+
+
 
 <% end %>
