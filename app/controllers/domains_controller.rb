@@ -1,8 +1,7 @@
 class DomainsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_domain, only: [:edit,:show,:destroy]
   before_action :display_values, only: [:show]
-  before_action :load_domainable
+  before_action :load_domainable, only: [:new,:create]
 
 
   def new
@@ -10,7 +9,7 @@ class DomainsController < ApplicationController
   end
 
   def index
-    @domains = @domainable.domains
+    @domains = Domain.all
   end
 
   def create  
@@ -38,11 +37,11 @@ class DomainsController < ApplicationController
   
   def update
     @domain.update(domain_params)
-    redirect_to @domainable
+    #redirect_to @domainable
   end  
 
   def edit
-    @domain = @domainable.domains.find(params[:id])
+    @domain = Domain.find(params[:id])
   end
 
   def show
@@ -50,14 +49,8 @@ class DomainsController < ApplicationController
   end
 
   def destroy
-    @domain = @domainable.domains.find(params[:id])
+    @domain = Domain.find(params[:id])
     @domain.destroy
-    respond_to do |format|
-      format.js
-      format.html {redirect_to @domainable, notice: "Dominio eliminado!"}
-      format.json {head :no_content }
-    end
-    
   end
 
 
@@ -70,17 +63,13 @@ private
     @percentage = @able.percentage 
   end
 
-  def set_domain
-    @domain = @domainable.domains.find(params[:id])
-
-  end
 
   def domain_params
     params.require(:domain).permit(:type_modality,:inscription_id,:price,:date_posetion,:percentage)
   end
 
   def load_domainable
-    klass = [LegalPersona, Persona].detect { |c| params["#{c.name.underscore}_id"]}
+    klass = [LegalPersona].detect { |c| params["#{c.name.underscore}_id"]}
     @domainable = klass.find(params["#{klass.name.underscore}_id"])
   end
 end
