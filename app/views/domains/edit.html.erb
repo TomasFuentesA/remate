@@ -1,4 +1,4 @@
-<h1> Editar Dominio </h1>
+
 <div class="container-fluid" id="wrapper" >
 <%= form_for [@domainable, @domain] do |form| %>
 <% if @domain.errors.any? %>
@@ -11,37 +11,44 @@
     </ul>
   </div>
 <% end %>
+  <div class="form-group">
+    <div class= "card text-center bg-ligth mb-6">
+      <div class= "card-header">
+        <h1> Editar Dominio </h1>
+      </div>
+      <div class= "card-body">
+        <p class= "card-text">
+          <div class="form-row">
+            <div class= "col">
+              <%= form.label :type_modality, "Modalidad:" %>
+              <%= form.text_field :type_modality, class: "form-control"%>
+            </div>
 
+            <div class= "col">
+              <%= form.label :price, "Precio:" %>
+              <%= form.text_field :price, class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class= "col">
+              <%= form.label :date_posetion, "Fecha de posesion:" %>
+              <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
+            </div>
 
-  <div class="field">
-    <%= form.label :type_modality, "Modalidad:" %>
-    <%= form.text_field :type_modality%>
-
+            <div class= "col">
+              <%= form.label :percentage, "Porcentaje" %>
+              <%= form.text_field :percentage, class: "form-control" %>
+            </div>
+          </div>
+        </p>    
+        <div class="form-row">
+          <div class="form-group">
+            <%= form.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>  
   </div>
-
-
-  <div class="field">
-    <%= form.label :price, "Precio:" %>
-    <%= form.text_field :price %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :date_posetion, "Fecha de posesion:" %>
-    <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  %>
-  </div>
-
-  <div class="field">
-    <%= form.label :percentage, "Porcentaje" %>
-    <%= form.text_field :percentage %>
-  </div>
-
-
-
-
-
-
- <%= form.submit "Guardar" %>
 
 <% end %>
 </div>

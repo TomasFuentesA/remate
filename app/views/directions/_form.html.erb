@@ -1,3 +1,11 @@
+<script>
+$(document).ready(function() {
+  $('select#direction_realties_id').select2({
+    theme: "bootstrap"
+  });
+});
+</script>
+
 
 <div class="container">
 
@@ -22,9 +30,9 @@
       <div class= "card-body">
         <p class= "card-text">
           <div class="form-row">
-            <div class= "col">
+            <div class= "col-md-5">
               <%= f.label :realties_id, "Dirección" %>
-              <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
+              <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,data: {"live-search": true } %>
             </div>
           </div>
         </p>    

@@ -1,51 +1,56 @@
- <br>
-<div class="row" id="fileview">
-  <div class="col-principal col-md-8">
-    <div class="field">
-      Modalidad:
-      <%= @domain.type_modality %>
-  
-    </div>
-    <div class="field">
-      Porcentaje:
-      <%= @domain.percentage %>
-    </div>
-    <div class="field">
-      precio:
-      <%= @domain.price %>
-    </div>
-    <div class="field">
-      Fecha de posesion:
-      <%= @domain.date_posetion %>
-    </div>
-    </div>
+<div class= "container">
+<div class= "row">
+  <div class="col-sm-12 card card-body">
+    <div class="row">
+      <div class= "col-md-6">
+        <label for="name"> Modalidad: </label>
+        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.type_modality %>" readonly>
+      </div>
+      <div class= "col-md-6">
+        <label for="name"> Porcentaje </label>
+        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.percentage %>" readonly>
+      </div>
+    </div>  
+    <div class="row">
+      <div class= "col-md-6">
+        <label for="name"> Precio: </label>
+        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.price %>" readonly>
+      </div>
+      <div class= "col-md-6">
+        <label for="name"> Fecha de posesion </label>
+        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.date_posetion %>" readonly>
+      </div>
+    </div> 
+  </div>
+</div>
+</div>
+<div class= "container">
+<% unless @domain.inscriptions.nil? %>
+<div class="row">
+  <div class="col-sm-12 card card-body">
+    Inscripciones de dominio
 
-  <% unless @domain.inscriptions.nil? %>
-  <div class="row" id="fileview">
-    <div class="col-sm-12 card card-body">
-      Inscripciones de dominio
 
-
-      <br>
-        <%= link_to new_domain_inscription_path(@domain),class: "btn btn-primary" do%>
-       <%= fa_icon "plus"%> Nueva Inscripcion
+    <br>
+      <%= link_to new_domain_inscription_path(@domain),class: "btn btn-primary" do%>
+        <%= fa_icon "plus"%> Nueva Inscripcion
       <% end %>
-      <br>
+    <br>
 
 
 
-      <table   class="table table-bordered table-hover">
-        <thead  class="thead-dark">
-          <tr>
-            <th scope="col">foja</th>
-            <th scope="col">número</th>
-            <th scope="col">año</th>
-            <th scope="col">cbrs</th>
-            <th scope="col">Opciones</th>
-          </tr>
-          </thead>
-          <tbody class="rounded-pill">
-            <% @domain.inscriptions.each do |inscription| %>
+    <table   class="table table-bordered table-hover">
+      <thead  class="thead-dark">
+        <tr>
+          <th scope="col">foja</th>
+          <th scope="col">número</th>
+          <th scope="col">año</th>
+          <th scope="col">cbrs</th>
+          <th scope="col">Opciones</th>
+        </tr>
+        </thead>
+        <tbody class="rounded-pill">
+          <% @domain.inscriptions.each do |inscription| %>
             <tr>
               <td scope="row"><%= inscription.foja %></td>
               <td><%= inscription.number %></td>
@@ -54,17 +59,13 @@
               <td><%= link_to "editar",edit_domain_inscription_path(inscription) %> ,<%= link_to "ver",inscription %>
               </td>
 
+            
             </tr>
-          </tbody>
-        <%end%>
-      </div>
-    </div>
-  <% end %>
-
-
-
-  <div class="row" id="fileview">
-    <div class="col-principal col-md-8">
-
-    </div>
-    </div>
+          <%end%>
+        </tbody>
+      </thead>
+    </table>    
+  </div>
+</div>  
+<% end %>
+</div>

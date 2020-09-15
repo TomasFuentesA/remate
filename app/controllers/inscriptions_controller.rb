@@ -1,5 +1,5 @@
 class InscriptionsController < ApplicationController
-  before_action :set_inscription, only: [:show,:edit]
+  before_action :set_inscription, only: [:show]
 
   def index
     @inscriptions = Inscription.all
@@ -21,8 +21,13 @@ class InscriptionsController < ApplicationController
   end
 
   def edit
-    @domain = Domain.find(params[:domain_id])
+    @domain = Inscription.find(params[:domain_id])
   end
+
+  def update
+    @inscription.update(inscription_params)
+    #redirect_to @domainable
+  end  
 
   def destroy
     @domain.destroy

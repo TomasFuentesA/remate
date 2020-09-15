@@ -1,2 +1,51 @@
-<h1>edit inscription</h1>
-<%= render 'form' %>
+
+<div class="container-fluid" id="wrapper" >
+<%= form_with model: @inscription do |form| %>
+
+  <div class="form-group">
+    <div class= "card text-center bg-ligth mb-6">
+      <div class= "card-header">
+        <h1>edit inscription</h1>
+      </div>
+      <div class= "card-body">
+        <p class= "card-text">
+          <div class="form-row">
+            <div class= "col">
+              <div class="field">
+                <%= form.hidden_field :domain_id, value: @domain.id %>
+              </div>
+                <%= form.label :foja, "foja:" %>
+                <%= form.number_field :foja, class: "form-control"%>
+              </div>
+
+            <div class= "col">
+              <%= form.label :number, "número:" %>
+              <%= form.number_field :number, class: "form-control"%>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class= "col">
+              <%= form.label :year, "año:" %>
+              <%= form.number_field :year, class: "form-control"%>
+            </div>
+
+            <div class= "col">
+              <%= form.label :cbrs, "cbrs:" %>
+              <%= form.text_field :cbrs, class: "form-control" %>
+            </div>
+            <div class= "col">
+              <%= form.label :date, "Fecha" %>
+              <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control" %>
+            </div>  
+          </div>
+        </p>    
+        <div class="form-row">
+          <div class="form-group">
+            <%= form.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+<% end %>
+</div>
