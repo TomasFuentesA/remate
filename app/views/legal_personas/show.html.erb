@@ -55,7 +55,7 @@
               <% @phones.each do |phone| %>
                 <div class="row">
                   <div class="col">
-                    <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = <%= phone.type_phone + ":"+ phone.number_phone %> readonly>
+                    <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = "<%= phone.type_phone%>:  <%= phone.number_phone %>" readonly>
                   </div>  
                 <%= link_to 'Editar', edit_legal_persona_phone_path(@legal_persona,@phones.ids) ,class:"btn btn-warning"%>
                 </div>
@@ -89,10 +89,9 @@
                 <% @directions.each do |direction| %>
                   <% Realty.order(:id).each do |realties|%>
                     <% if direction.realties_id == realties.id %>
-                      <%= realties.address %>
                       <div class="row">
                         <div class="col">
-                          <input type = "text" id="directiona" class= "form-control" placeholder= "directiona" disable value = <%= realties.address %> readonly>                
+                          <input type = "text" id="direction" class= "form-control" placeholder= "directiona" disable value = "<%= realties.address.to_s %>" readonly>                
                         </div>
 
                         <%= link_to 'Editar',   edit_legal_persona_direction_path(@legal_persona,@directions.ids) ,class:"btn btn-warning"%>  
@@ -161,7 +160,7 @@
         <% unless @legal_persona.directions.any? %>
           <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary"%>
           <% else %>
-          <%= link_to 'Nueva direccion',   new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary"%>
         <% end %>
         <% unless @legal_persona.emails.any? %>
 

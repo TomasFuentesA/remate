@@ -1,4 +1,4 @@
-<h1>Nueva Dirección</h1>
+
 <div class="container">
 
 
@@ -13,21 +13,28 @@
       </ul>
     </div>
   <% end %>
+  
   <div class="form-group">
-  
-  
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.label :realties_id, "Dirección" %>
-        <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
+    <div class= "card text-center bg-ligth mb-3">
+      <div class= "card-header">
+        <h1>Nueva Dirección</h1>
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.submit "Guardar" %>
+      <div class= "card-body">
+        <p class= "card-text">
+          <div class="form-row">
+            <div class= "col">
+              <%= f.label :realties_id, "Dirección" %>
+              <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
+            </div>
+          </div>
+        </p>    
+        <div class="form-row">
+          <div class="form-group">
+            <%= f.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+        </div>
       </div>
-    </div>
-  
+    </div>  
   </div>
 </div>
 
