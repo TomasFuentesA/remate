@@ -2,6 +2,7 @@ class Judgement < ApplicationRecord
   #belongs_to :auction, inverse_of: :judgement
   belongs_to :court
   has_many :auctions, dependent: :destroy
+  has_many :judicialfiles, dependent: :destroy
   enum type_judgement: [:por_definir,:ejecutivo,:hipotecario,:tesoreria,:laboral,:familia,:arbitral,:quiebra,:voluntario]
 
   #validacion
@@ -15,4 +16,8 @@ class Judgement < ApplicationRecord
     "#{self.demandante} - #{(self.demandado)}"
   end
   
+  def full_name_judgement
+    "#{self.court.name} - #{self.lyrics} - #{(self.number).to_s}-#{(self.year).to_s} - #{self.demandante} / #{(self.demandado)}"
+  end
+
 end

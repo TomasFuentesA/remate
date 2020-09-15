@@ -20,12 +20,15 @@ class AuctionsController < ApplicationController
   end
 
   def create
-    @auction = Auction.new(auction_params)
-    Rails.logger.info (auction_params)
+    Auction.transaction do
+      @auction = Auction.new(auction_params)
       if @auction.save
-         @auction.auctionnotice.update(status: 3)
-     end
-    redirect_to auctions_path
+        @auction.auctionnotice.update(status: 3)
+        redirect_to auctions_path
+      else
+       render json: { error:  @auction.errors.full_messages }, status: :bad_request
+      end
+    end
   end
 
   def show
@@ -115,12 +118,12 @@ class AuctionsController < ApplicationController
   end
 
   def auction_params
-    params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
-      :minimum, :total_minimum, :cost,
-       :uf, :pesos, :court_id, :lyrics, :number, :year,
-        :realty_id, :auctionnotice_id,:status,
-        :judgement_id, :condominio_id
-       )
+    begin
+      params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
+        :total_minimum, :cost, :uf, :realty_id, :auctionnotice_id, :judgement_id)
+    rescue Exception => error
+      Rails.logger.info error
+    end
   end
 
 end
