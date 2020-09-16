@@ -1,0 +1,34 @@
+<h1>Listado de Bancos</h1>
+
+
+<br>
+<%= link_to 'Nuevo Banco', new_bank_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @banks.each do |bank| %>
+
+      <tr>
+        
+        <td><%= bank.name %></td>
+
+        <td>
+          <%= link_to 'Ver', bank , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_bank_path(bank) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', bank, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,23 @@
+
+<%= form_with model: @bank do |form| %>
+    <%= form.label :bank, "Editar Banco" %>
+
+    <div>
+    <%= @bank.id %>
+    <h2><%= @bank.name %> </h2>
+  </div>
+ 
+                              
+
+    <div class="form-group col-md-2">
+        <%= form.label :name, "Entidad" %>
+        <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
+    </div>
+  
+    
+  
+  
+   <%= form.submit "Guardar" %>
+  
+  <% end %>
+  

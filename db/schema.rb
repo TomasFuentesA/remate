@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_213251) do
+ActiveRecord::Schema.define(version: 2020_09_16_214627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,16 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.integer "status", default: 0
   end
 
+  create_table "auctionrecords", force: :cascade do |t|
+    t.date "date"
+    t.integer "awardamount"
+    t.bigint "judgement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "file_name"
+    t.index ["judgement_id"], name: "index_auctionrecords_on_judgement_id"
+  end
+
   create_table "auctions", force: :cascade do |t|
     t.date "date"
     t.time "hour"
@@ -103,6 +113,20 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["judgement_id"], name: "index_auctions_on_judgement_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
+  end
+
+  create_table "auctions_realties", force: :cascade do |t|
+    t.integer "auction_id"
+    t.bigint "realty_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["realty_id"], name: "index_auctions_realties_on_realty_id"
+  end
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "characteristics", force: :cascade do |t|
@@ -236,6 +260,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.bigint "judgement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "file_name"
     t.index ["judgement_id"], name: "index_judicialfiles_on_judgement_id"
   end
 
@@ -390,9 +415,11 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
   end
 
   add_foreign_key "appraisals", "realties"
+  add_foreign_key "auctionrecords", "judgements"
   add_foreign_key "auctions", "auctionnotices"
   add_foreign_key "auctions", "judgements"
   add_foreign_key "auctions", "realties"
+  add_foreign_key "auctions_realties", "realties"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
   add_foreign_key "condominios", "communes"
