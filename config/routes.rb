@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'admins/index'
   post 'modal_auction', to: 'auctions#modal'
 
+  
   get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
@@ -74,7 +75,7 @@ Rails.application.routes.draw do
   resources :courts
   resources :appraisals
   resources :judicialfiles
-
+  resources :inscriptionfiles
 
   resources :judgements, :type_realties
   resources :type_realties

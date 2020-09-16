@@ -1,0 +1,2 @@
+module InscriptionfilesHelper
+end

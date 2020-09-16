@@ -5,6 +5,7 @@ class DomainsController < ApplicationController
 
 
   def new
+    Rails.logger.info "test3"
     @domain = @domainable.domains.new
   end
 
@@ -12,7 +13,8 @@ class DomainsController < ApplicationController
     @domains = Domain.all
   end
 
-  def create  
+  def create 
+    Rails.logger.info "test2" 
     var = 0
     @domainable.domains.each do |dom| 
       var += dom.percentage
@@ -36,11 +38,13 @@ class DomainsController < ApplicationController
 
   
   def update
+    Rails.logger.info "test4"
     @domain.update(domain_params)
-    #redirect_to @domainable
+    #redirect_to doamins_path
   end  
 
   def edit
+    Rails.logger.info "test1"
     @domain = Domain.find(params[:id])
   end
 

@@ -28,3 +28,28 @@
   </div>
 </div>
 </div>
+<br>
+<div class= "container">
+<div class= "row">
+  <table   class="table table-bordered table-hover">
+    <thead  class="thead-dark">
+      <tr>
+        <th scope="col">Nombre(s) documento(s) asociado(s) </th>
+      </tr>
+    </thead>
+    <tbody class="rounded-pill">
+      <% Inscriptionfile.order(:id).each do |doc| %>
+        <%if doc.inscription_id == @inscription.id %>
+          <tr>
+            <% if doc.file_name != "" %>
+                <td><%= link_to doc.file_name.to_s.split('/')[5], File.join(root_url.to_s,doc.file_name.to_s)%> </td>
+            <%else %>
+                <td>Sin Archivo</td>
+            <% end %>
+          </tr>
+        <%end%>  
+      <%end%>
+    </tbody>
+  </table>
+</div>      
+</div>
