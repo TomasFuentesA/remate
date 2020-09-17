@@ -85,8 +85,7 @@ Rails.application.routes.draw do
       resources :emails
       resources :activities
       resources :domains
-
-
+      resources :persona_members
       end
 
 

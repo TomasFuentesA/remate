@@ -53,7 +53,7 @@
             <div class="field"> 
             <label for="name">Phones:</label>
               <% @phones.each do |phone| %>
-                <div class="row">
+                <div class="row" style="margin-bottom: 6px;">
                   <div class="col">
                     <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = "<%= phone.type_phone%>:  <%= phone.number_phone %>" readonly>
                   </div>  
@@ -68,7 +68,7 @@
             <div class="field">
             <label for="name">Emails:</label>
               <% @emails.each do |email| %>
-                <div class="row"> 
+                <div class="row" style="margin-bottom: 6px;">
                   <div class="col">
                     <input type = "text" id="emaila" class= "form-control" placeholder= "emaila" disable value = <%= email.email%> readonly>  
                   </div>
@@ -89,7 +89,7 @@
                 <% @directions.each do |direction| %>
                   <% Realty.order(:id).each do |realties|%>
                     <% if direction.realties_id == realties.id %>
-                      <div class="row">
+                      <div class="row" style="margin-bottom: 6px;">
                         <div class="col">
                           <input type = "text" id="direction" class= "form-control" placeholder= "directiona" disable value = "<%= realties.address.to_s %>" readonly>                
                         </div>
@@ -149,37 +149,37 @@
 
 
     <div class= "col-sm-4 card card-body">
-    Acciones:
+    <p style="margin-bottom: 8px">Acciones:</p>
       <div class= "btn-group-vertical">
         <% unless @legal_persona.phones.any? %>
           <div class="col-sm-8">
-            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary" %>
+            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
             <% else %>
-            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary"%>
+            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
         <% end %>
         <% unless @legal_persona.directions.any? %>
-          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
           <% else %>
-          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
         <% end %>
         <% unless @legal_persona.emails.any? %>
 
-          <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
           <% else %>
-          <%= link_to 'Nuevo correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nuevo correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
              
         <% end %>
         <% unless @legal_persona.activities.any? %>
 
-          <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
           <% else %>
-          <%= link_to 'Nueva actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary"%>
+          <%= link_to 'Nueva actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
              
         <% end %>
 
-        
-        <%= render 'modal' %>
-        <%=link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" %>
+        <%=link_to "Añadir Persona", new_legal_persona_persona_member_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
+
+        <%=link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
 
       
       </div>

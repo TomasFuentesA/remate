@@ -2,7 +2,8 @@ class PersonaMembersController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @persona_member = PersonaMember.new
+    @legal_persona = LegalPersona.find(params['legal_persona_id'])
+    @persona_members = PersonaMember.new
   end
 
   def index
