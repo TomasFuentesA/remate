@@ -13,6 +13,7 @@
             <div class= "col">
               <div class="field">
                 <%= form.hidden_field :domain_id, value: @domain.id %>
+                 <%= form.hidden_field :id, value: @inscription.id %>
               </div>
                 <%= form.label :foja, "foja:" %>
                 <%= form.number_field :foja, class: "form-control"%>

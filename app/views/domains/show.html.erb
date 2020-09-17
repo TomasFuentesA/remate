@@ -1,71 +1,70 @@
-<div class= "container">
-<div class= "row">
-  <div class="col-sm-12 card card-body">
-    <div class="row">
-      <div class= "col-md-6">
-        <label for="name"> Modalidad: </label>
-        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.type_modality %>" readonly>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 card card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="name"> Modalidad: </label>
+          <input type="text" id="name" class="form-control" placeholder="Name" disable
+            value="<%= @domain.type_modality %>" readonly>
+        </div>
+        <div class="col-md-6">
+          <label for="name"> Porcentaje </label>
+          <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>"
+            readonly>
+        </div>
       </div>
-      <div class= "col-md-6">
-        <label for="name"> Porcentaje </label>
-        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.percentage %>" readonly>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="name"> Precio: </label>
+          <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.price %>"
+            readonly>
+        </div>
+        <div class="col-md-6">
+          <label for="name"> Fecha de posesion </label>
+          <input type="text" id="name" class="form-control" placeholder="Name" disable
+            value="<%= @domain.date_posetion %>" readonly>
+        </div>
       </div>
-    </div>  
-    <div class="row">
-      <div class= "col-md-6">
-        <label for="name"> Precio: </label>
-        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.price %>" readonly>
-      </div>
-      <div class= "col-md-6">
-        <label for="name"> Fecha de posesion </label>
-        <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @domain.date_posetion %>" readonly>
-      </div>
-    </div> 
+    </div>
   </div>
 </div>
-</div>
-<div class= "container">
-<% unless @domain.inscriptions.nil? %>
-<div class="row">
-  <div class="col-sm-12 card card-body">
-    Inscripciones de dominio
-
-
-    <br>
+<div class="container">
+  <% unless @domain.inscriptions.nil? %>
+  <div class="row">
+    <div class="col-sm-12 card card-body">
+      Inscripciones de dominio
+      <br>
       <%= link_to new_domain_inscription_path(@domain),class: "btn btn-primary" do%>
-        <%= fa_icon "plus"%> Nueva Inscripcion
+      <%= fa_icon "plus"%> Nueva Inscripcion
       <% end %>
-    <br>
-
-
-
-    <table   class="table table-bordered table-hover">
-      <thead  class="thead-dark">
-        <tr>
-          <th scope="col">foja</th>
-          <th scope="col">número</th>
-          <th scope="col">año</th>
-          <th scope="col">cbrs</th>
-          <th scope="col">Opciones</th>
-        </tr>
+      <br>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">foja</th>
+            <th scope="col">número</th>
+            <th scope="col">año</th>
+            <th scope="col">cbrs</th>
+            <th scope="col">Opciones</th>
+          </tr>
         </thead>
         <tbody class="rounded-pill">
           <% @domain.inscriptions.each do |inscription| %>
-            <tr>
-              <td scope="row"><%= inscription.foja %></td>
-              <td><%= inscription.number %></td>
-              <td><%= inscription.year %></td>
-              <td><%= inscription.cbrs %></td>
-              <td><%= link_to "editar",edit_domain_inscription_path(inscription) %> ,<%= link_to "ver",inscription %>
-              </td>
-
-            
-            </tr>
+          <tr>
+            <td scope="row"><%= inscription.foja %></td>
+            <td><%= inscription.number %></td>
+            <td><%= inscription.year %></td>
+            <td><%= inscription.cbrs %></td>
+            <td>
+              <%= link_to 'ver', inscription ,class: "btn btn-info"%>
+              <%= link_to 'editar', edit_domain_inscription_path(inscription),class: "btn btn-warning" %>
+            </td>
+          </tr>
           <%end%>
         </tbody>
-      </thead>
-    </table>    
+        </thead>
+      </table>
+    </div>
   </div>
-</div>  
-<% end %>
+  <% end %>
 </div>
