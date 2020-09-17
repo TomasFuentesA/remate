@@ -32,7 +32,11 @@ class InscriptionsController < ApplicationController
 
   def update
     Rails.logger.info "test4"
-    @inscription.update(inscription_params)
+    Inscription.order(:id).each do |inscrip|
+      if inscrip.id == params[:id]
+        inscrip.update(inscription_params)
+      end 
+    end
   end  
 
   def destroy
