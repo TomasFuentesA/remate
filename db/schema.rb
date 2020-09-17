@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_213251) do
+ActiveRecord::Schema.define(version: 2020_09_17_130123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
   end
 
   create_table "activities", force: :cascade do |t|
-    t.string "rut"
     t.string "code"
     t.string "name_activity"
     t.string "afect_iva"
@@ -83,6 +82,16 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.integer "status", default: 0
   end
 
+  create_table "auctionrecords", force: :cascade do |t|
+    t.date "date"
+    t.integer "awardamount"
+    t.bigint "judgement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "file_name"
+    t.index ["judgement_id"], name: "index_auctionrecords_on_judgement_id"
+  end
+
   create_table "auctions", force: :cascade do |t|
     t.date "date"
     t.time "hour"
@@ -103,6 +112,22 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.index ["auctionnotice_id"], name: "index_auctions_on_auctionnotice_id"
     t.index ["judgement_id"], name: "index_auctions_on_judgement_id"
     t.index ["realty_id"], name: "index_auctions_on_realty_id"
+  end
+
+  create_table "auctions_realties", force: :cascade do |t|
+    t.integer "auction_id"
+    t.bigint "realty_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["realty_id"], name: "index_auctions_realties_on_realty_id"
+  end
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "country_id"
+    t.index ["country_id"], name: "index_banks_on_country_id"
   end
 
   create_table "characteristics", force: :cascade do |t|
@@ -144,6 +169,12 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.index ["commune_id"], name: "index_condominios_on_commune_id"
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "courts", force: :cascade do |t|
     t.string "name"
     t.string "rut"
@@ -156,15 +187,14 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
 
   create_table "directions", force: :cascade do |t|
     t.string "rut"
-    t.string "directiona"
-    t.string "directionb"
-    t.string "directionc"
     t.string "directionable_type"
     t.bigint "directionable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "realties_id"
     t.index ["directionable_id", "directionable_type"], name: "index_directions_on_directionable_id_and_directionable_type"
     t.index ["directionable_type", "directionable_id"], name: "index_directions_on_directionable_type_and_directionable_id"
+    t.index ["realties_id"], name: "index_directions_on_realties_id"
   end
 
   create_table "domains", force: :cascade do |t|
@@ -181,16 +211,21 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
   end
 
   create_table "emails", force: :cascade do |t|
-    t.string "rut"
-    t.string "email_a"
-    t.string "email_b"
-    t.string "email_c"
     t.string "emailable_type"
     t.bigint "emailable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
     t.index ["emailable_id", "emailable_type"], name: "index_emails_on_emailable_id_and_emailable_type"
     t.index ["emailable_type", "emailable_id"], name: "index_emails_on_emailable_type_and_emailable_id"
+  end
+
+  create_table "inscriptionfiles", force: :cascade do |t|
+    t.string "file_name"
+    t.string "obs"
+    t.date "date"
+    t.bigint "inscription_id"
+    t.index ["inscription_id"], name: "index_inscriptionfiles_on_inscription_id"
   end
 
   create_table "inscriptions", force: :cascade do |t|
@@ -236,6 +271,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.bigint "judgement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "file_name"
     t.index ["judgement_id"], name: "index_judicialfiles_on_judgement_id"
   end
 
@@ -266,14 +302,20 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "monedas", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "persona_members", force: :cascade do |t|
-    t.bigint "persona_id", null: false
     t.bigint "legal_persona_id", null: false
     t.float "percentage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type_member"
+    t.integer "persona_id"
     t.index ["legal_persona_id"], name: "index_persona_members_on_legal_persona_id"
-    t.index ["persona_id"], name: "index_persona_members_on_persona_id"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -292,14 +334,12 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
   end
 
   create_table "phones", force: :cascade do |t|
-    t.string "rut"
-    t.string "phone_a"
-    t.string "phone_b"
-    t.string "phone_c"
     t.string "phoneable_type"
     t.bigint "phoneable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "number_phone"
+    t.string "type_phone"
     t.index ["phoneable_id", "phoneable_type"], name: "index_phones_on_phoneable_id_and_phoneable_type"
     t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable_type_and_phoneable_id"
   end
@@ -390,12 +430,17 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
   end
 
   add_foreign_key "appraisals", "realties"
+  add_foreign_key "auctionrecords", "judgements"
   add_foreign_key "auctions", "auctionnotices"
   add_foreign_key "auctions", "judgements"
   add_foreign_key "auctions", "realties"
+  add_foreign_key "auctions_realties", "realties"
+  add_foreign_key "banks", "countries"
   add_foreign_key "characteristics", "realties"
   add_foreign_key "comments", "posts"
   add_foreign_key "condominios", "communes"
+  add_foreign_key "directions", "realties", column: "realties_id"
+  add_foreign_key "inscriptionfiles", "inscriptions"
   add_foreign_key "inscriptions", "domains"
   add_foreign_key "jobs", "personas"
   add_foreign_key "judgements", "courts"
@@ -403,7 +448,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_213251) do
   add_foreign_key "legal_members", "legal_personas"
   add_foreign_key "legal_members", "legal_personas", column: "legal_asociado_id"
   add_foreign_key "persona_members", "legal_personas"
-  add_foreign_key "persona_members", "personas"
   add_foreign_key "posts", "users"
   add_foreign_key "type_realties", "realties"
 end

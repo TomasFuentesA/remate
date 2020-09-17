@@ -1,0 +1,21 @@
+<%= form_with model: @moneda do |form| %>
+    <%= form.label :moneda, "Editar Moneda" %>
+
+    <div>
+    <%= @moneda.id %>
+    <h2><%= @moneda.name %> </h2>
+  </div>
+ 
+
+
+    <div class="form-group col-md-2">
+        <%= form.label :name, "Moneda" %>
+        <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
+    </div>
+  
+  
+   <%= form.submit "Guardar" %>
+  
+  <% end %>
+  
+ 

@@ -1,0 +1,24 @@
+<br>
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-auto">
+<%= form_with model: @moneda, url: monedas_path , remote: true do |form| %>
+
+  <%= form.label :name, "Nueva Moneda" %>
+
+  <div class="col-md-5">
+    <%= form.label :name, "Nombre de la Moneda:" %>
+    <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true, required: true %>
+  </div>
+
+
+
+
+
+   <%= form.submit "Guardar",class: "btn btn-success" %>
+
+<% end %>
+    </div>  
+  </div>
+</div>
+

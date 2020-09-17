@@ -28,6 +28,7 @@
         <%=link_to 'entidades', '#entidades', class: 'list-group-item list-group-item-action', data: {toggle: "list"}, role: 'tab' ,remote: true %>
         <%= link_to 'propiedades', '#propiedades', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
         <%=link_to 'avisos', '#avisos', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
+        <%=link_to 'mantenedor', '#mantenedor', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
         <%=link_to 'estadisticas', '#estadisticas', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
 
       </div>
@@ -39,6 +40,7 @@
         <div class="tab-pane fade" id="entidades" role="tabpanel"><%= render partial: 'entidades', remote: true%></div>
         <div class="tab-pane fade" id="propiedades" role="tabpanel"><%= render partial: 'propiedades', remote: true%></div>
         <div class="tab-pane fade" id="avisos" role="tabpanel"><%= render partial: 'avisos', remote: true%></div>
+        <div class="tab-pane fade" id="mantenedor" role="tabpanel"><%= render partial: 'mantenedor', remote: true%></div>
         <div class="tab-pane fade" id="estadisticas" role="tabpanel"><%= render partial: 'estadisticas', remote: true%></div>
 
       </div>

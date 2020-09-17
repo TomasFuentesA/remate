@@ -1,0 +1,35 @@
+<h1>Listado de Monedas</h1>
+
+
+<br>
+<%= link_to 'Nuevo Moneda', new_moneda_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Nombre Moneda</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @monedas.each do |moneda| %>
+
+      <tr>
+        
+        <td><%= moneda.name %> </td>
+
+
+        <td>
+          <%= link_to 'Ver', moneda , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_moneda_path(moneda) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', moneda, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
