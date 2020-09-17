@@ -1,0 +1,23 @@
+
+<%= form_with model: @country do |form| %>
+    <%= form.label :country, "Editar Banco" %>
+
+    <div>
+    <%= @country.id %>
+    <h2><%= @country.name %> </h2>
+  </div>
+ 
+                              
+
+    <div class="form-group col-md-2">
+        <%= form.label :name, "Pais" %>
+        <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
+    </div>
+  
+    
+  
+  
+   <%= form.submit "Guardar" %>
+  
+  <% end %>
+  

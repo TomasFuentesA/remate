@@ -1,6 +1,11 @@
 <%= form_with model: Bank.new, local: true do |form| %>
   <%= form.label :name, "Ingreso de nuevo Banco" %>
 
+  <% Country.order(:id).each do |country| %>
+  
+      <p><%= country.name %></p>
+    <% end %>
+    <%= form.select :country_id, options_for_select(Country.all.collect {|p| [p.name, p.id]},  @bank.country_id), { include_blank: "Seleccione"} %>
 
   <div class="form-group col-md-2">
     <%= form.label :name, "Banco" %>

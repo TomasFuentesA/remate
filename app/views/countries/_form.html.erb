@@ -1,0 +1,15 @@
+<%= form_with model: Country.new, local: true do |form| %>
+  <%= form.label :name, "Ingreso de nuevo Pais" %>
+
+
+  <div class="form-group col-md-2">
+    <%= form.label :name, "Pais" %>
+    <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
+  </div>
+
+  
+
+
+ <%= form.submit "Guardar" %>
+
+<% end %>

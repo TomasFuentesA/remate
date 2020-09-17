@@ -1,0 +1,34 @@
+<h1>Listado de Paises</h1>
+
+
+<br>
+<%= link_to 'Nuevo Pais', new_country_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @countries.each do |country| %>
+
+      <tr>
+        
+        <td><%= country.name %></td>
+
+        <td>
+          <%= link_to 'Ver', country , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_country_path(country) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', country, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

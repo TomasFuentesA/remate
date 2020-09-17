@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   resources :appraisals
   resources :judicialfiles
   resources :banks
+  resources :countries
 
 
   resources :judgements, :type_realties

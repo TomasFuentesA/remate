@@ -7,10 +7,15 @@
     <h2><%= @bank.name %> </h2>
   </div>
  
-                              
+  <div class="form-group col-md-2">
+    <%= form.label :country_id %>
+    <%= form.select :country_id, options_for_select(Country.all.collect {|p| [p.name_country, p.id]}, { include_blank: "Seleccione"}) %>
+  </div>
+              
+  
 
     <div class="form-group col-md-2">
-        <%= form.label :name, "Entidad" %>
+        <%= form.label :name, "Entidad Bancaria" %>
         <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
     </div>
   

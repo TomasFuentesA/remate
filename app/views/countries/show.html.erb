@@ -1,0 +1,22 @@
+<%= link_to 'Volver Listado de Paises', countries_path %>
+
+<p></p>
+
+<div class="row" id="fileview">
+  <div class="col-principal col-md-8">
+    <div>
+      <h2>
+        Pais nº  <%= @country.id %> : <%= @country.name %>
+        </h2>
+    </div>
+    <h4>Informacion del Pais</h4>
+
+
+      <div>
+        Nombre:  <%= @country.name %>
+      </div>
+       
+
+  </div>
+
+</div>
