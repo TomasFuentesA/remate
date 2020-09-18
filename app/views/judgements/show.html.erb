@@ -1,3 +1,35 @@
+<style>
+
+table {
+  max-width:980px;
+  table-layout:fixed;
+  margin:auto; 
+}
+  
+th, td {
+  padding:5px 10px;
+  border:1px solid #000;
+  width:calc(100%/7);
+  overflow:hidden;
+}
+thead, tfoot {
+  background:#f9f9f9;
+  display:table;
+  width:100%;
+}
+tbody {
+  height:300px;
+  overflow:auto;
+  overflow-x:hidden;
+  display:block;
+  width:100%;
+}
+tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+</style>
 <%= link_to 'Volver Listado Juicios', judgements_path %>
 <p></p>
 <br>
@@ -38,7 +70,9 @@
           <h4>Abogado Demandanto</h4>
         </div>
         <div>
-          <h2>Expediente:</h2>
+          <h3>Expedientes:</h3>
+          <%= link_to 'Nuevo Expediente Judicial', new_judicialfile_path ,class: "btn btn-primary"%>
+          <br><br>
           <div class="field">
             <table class="table table-bordered table-hover">
               <thead class="thead-dark">
@@ -48,7 +82,7 @@
                   <th scope="col">Opciones</th>
                 </tr>
               </thead>
-              <tbody class="rounded-pill">
+              <tbody>
                 <% @judgement.judicialfiles.each do |judicialfile| %>
                 <tr>
                   <td><%= judicialfile.date %></td>
@@ -62,7 +96,6 @@
                 <% end %>
               </tbody>
             </table>
-
           </div>
         </div>
       </div>
