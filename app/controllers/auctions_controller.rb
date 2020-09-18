@@ -24,15 +24,12 @@ class AuctionsController < ApplicationController
       @auction = Auction.new(auction_params)
       if @auction.save
         @auction.auctionnotice.update(status: 3)
-        Rails.logger.info "acaaaa"+params[:auction][:realty_id].to_s
         params[:auction][:realty_id].each do |p|
-          Rails.logger.info "va "+p.to_s
           if(p.to_s !="")
             @auctionsRealty = AuctionsRealty.new(auction_id:@auction.id,realty_id:p.to_i)
             @auctionsRealty.save
           end
          end
-        #
         redirect_to auctions_path
       else
        render json: { error:  @auction.errors.full_messages }, status: :bad_request
@@ -41,14 +38,23 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    Rails.logger.info "prueba show"
   end
 
   def edit
   end
 
   def update
-    @auction.update(auction_params)
+    if @auction.update(auction_params)
+      AuctionsRealty.where(auction_id:@auction.id).destroy_all
+      params[:auction][:realty_id].each do |p|
+        if(p.to_s !="")
+          @auctionsRealty = AuctionsRealty.new(auction_id:@auction.id,realty_id:p.to_i)
+          @auctionsRealty.save
+        end
+      end
+    else
+      render json: { error:  @auction.errors.full_messages }, status: :bad_request
+    end
     redirect_to auctions_path
   end
 
