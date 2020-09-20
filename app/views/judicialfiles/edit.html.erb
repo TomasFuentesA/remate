@@ -1,40 +1,46 @@
-<%= form_with model: @judicialfile do |form| %>
-    <%= form.label :type_judgement, "Editar Expediente" %>
-
-    <div>
-    <%= @judicialfile.id %>
-    <h2><%= @judicialfile.judgement.full_name_judgement %> </h2>
-  </div>
-  
-       
-   <div class="form-group col-md-2">
-     <%= form.label :date, "Fecha" %>
-     <%= form.text_field :date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
-   </div>
-  
-   <div class="field">
-    <%= form.label :obs, "Observacion:" %>
-    <%= form.text_area :obs, id: :obs ,autofocus: true, class:"form-control border"%>
-  </div>
-
-
- <div class="form-group">
-          <div class="custom-file">
-            <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true, required: true %>
-
-            <label class="custom-file-label" for="customFile"><%= @judicialfile.file_name%></label>
-          </div>
+<script>
+  $(document).ready(function() {
+    $('select#judicialfile_judgement_id').select2({
+      theme: "bootstrap"
+    });
+  });
+  </script>
+<br>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <%= form_with model: @judicialfile do |form| %>
+      <%= form.label :type_judgement, "Editar Expediente" %>
+      <div>
+        <h4><%= @judicialfile.judgement.full_name_judgement %> </h4>
+      </div>
+      <div class="field">
+        <%= form.label :judgement_id, "Seleccionar Juicio" %>
+        <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}, @judicialfile.judgement_id), { include_blank: "Seleccione"}, class:"form-control border" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date, "Fecha" %>
+        <%= form.text_field :date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border"%>
+      </div>
+      <div class="field">
+        <%= form.label :obs, "Observacion:" %>
+        <%= form.text_area :obs, id: :obs ,autofocus: true, class:"form-control border"%>
+      </div>
+      <div class="form-group">
+        <div class="custom-file">
+          <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true %>
+          <label class="custom-file-label" for="customFile"><%= @judicialfile.file_name.to_s.split('/')[5]%></label>
         </div>
-  
-  
-  
-  
-  
-  
-   <%= form.submit "Guardar" %>
-  
-  <% end %>
-  <script>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
   // Add the following code if you want the name of the file appear on select
   $(".custom-file-input").on("change", function () {
     var fileName = $(this).val().split("\\").pop();
