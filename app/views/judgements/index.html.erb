@@ -21,7 +21,7 @@
         <% @judgements.each do |judgement| %>
            var judmentId = '<%= judgement.id %>'
            if(judmentId == id){
-              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Tipo de juicio</th><th scope="col">Tribunal</th><th scope="col">Rol</th><th scope="col">Nombre Juicio</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= judgement.type_judgement %></td><td><%= judgement.court.name %> </td><td><%= judgement.rol_trial %> </td><td><%= judgement.demandante %> / <%= judgement.demandado %></td><td><%= link_to 'Ver', judgement , class: "btn btn-info" %><%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %><%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Tipo de juicio</th><th scope="col">Tribunal</th><th scope="col">Rol</th><th scope="col">Nombre Juicio</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= judgement.type_judgement %></td><td><%= judgement.court.name %> </td><td><%= judgement.rol_trial %> </td><td><%= judgement.demandante %> / <%= judgement.demandado %></td><td><%= link_to 'ver', judgement , class: "btn btn-info" %><%= link_to 'editar', edit_judgement_path(judgement) , class: "btn btn-warning" %><%= link_to 'borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
            }           
         <% end %>
       return newList
@@ -150,12 +150,14 @@
           <td><%= judgement.name_judgement %></td>
           <td><%= judgement.type_judgement %></td>
           <td>
-            <%= link_to 'Ver', judgement , class: "btn btn-info" %>
-            <%= link_to 'Edit', edit_judgement_path(judgement) , class: "btn btn-warning" %>
-            <%= link_to 'Borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+            <%= link_to 'ver', judgement , class: "btn btn-info" %>
+            <%= link_to 'editar', edit_judgement_path(judgement) , class: "btn btn-warning" %>
+            <%= link_to 'borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
 
         </tr>
       <% end %>
     </tbody>
   </table>
+  <br>
+<%= will_paginate(@judgement, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
 </div>

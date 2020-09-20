@@ -28,7 +28,7 @@
       </div>
       <div class="form-group">
         <div class="custom-file">
-          <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true, required: true %>
+          <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true %>
           <label class="custom-file-label" for="customFile"><%= @judicialfile.file_name.to_s.split('/')[5]%></label>
         </div>
       </div>

@@ -30,7 +30,12 @@
         <br>
         <div class="field">
           <h4>Archivo</h4>
-          <%= link_to @judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,@judicialfile.file_name.to_s), target: "_blank"%>
+             <% if @judicialfile.file_name != "" && @judicialfile.file_name.to_s.split('/')[5]!=nil %>
+              <%= link_to @judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,@judicialfile.file_name.to_s), target: "_blank"%>
+              <%= link_to 'Descargar', File.join(root_url.to_s,@judicialfile.file_name.to_s),download:''%>
+            <%else %>
+              Sin Archivo
+            <% end %>
         </div>
       </div>
       <br>

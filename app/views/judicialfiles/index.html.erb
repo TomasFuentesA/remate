@@ -24,9 +24,10 @@
       <td><%= judicialfile.judgement.rol_trial %> </td>
       <td><%= judicialfile.judgement.name_judgement %></td>
       <td><%= judicialfile.date %></td>
-      <% if judicialfile.file_name != "" %>
+      <% if judicialfile.file_name != "" && judicialfile.file_name.to_s.split('/')[5]!=nil %>
       <td>
         <%= link_to judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,judicialfile.file_name.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s,judicialfile.file_name.to_s),download:''%>
       </td>
       <%else %>
       <td>Sin Archivo</td>
@@ -41,3 +42,5 @@
     <% end %>
   </tbody>
 </table>
+<br>
+<%= will_paginate(@judicialfiles, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
