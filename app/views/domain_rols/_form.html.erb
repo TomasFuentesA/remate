@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :domain_id %>
-    <%= form.text_field :domain_id %>
+    <%= form.select :domain_id , options_for_select(Domain.where(domainable_id: @domain_rol.domain.domainable_id).collect{ |c| [c.type_modality+'-'+c.price.to_s ,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
   </div>
 
   <div class="actions">

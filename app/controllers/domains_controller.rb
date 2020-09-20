@@ -15,12 +15,8 @@ class DomainsController < ApplicationController
 
   def create
     
-    begin
-      DomainRol.create(type_member: 'Empresa', type_rol: 'Comprador', persona_id: 1, domain_id: 16)
-    rescue => exception
-      Rails.logger.info exception
-    end
-    
+  
+      
     var = 0
     @domainable.domains.each do |dom| 
       var += dom.percentage
@@ -31,6 +27,25 @@ class DomainsController < ApplicationController
       @domain = @domainable.domains.new(domain_params)
       if @domain.save
         
+        params[:comprador].each do |c|
+            if c.chars[c.length - 1] == "N"
+              DomainRol.create(type_member: 'Natural', type_rol: 'Comprador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+        
+            else
+              DomainRol.create(type_member: 'Legal', type_rol: 'Comprador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id) 
+                
+          end    
+        end
+        
+        params[:vendedor].each do |c|
+            if c.chars[c.length - 1] == "N"
+              DomainRol.create(type_member: 'Natural', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+        
+            else
+              DomainRol.create(type_member: 'Legal', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id) 
+                
+          end    
+        end  
         redirect_to @domainable, notice: "Dominio añadido!"
       else
         flash[:errors] = @domains.errors.full_messages
@@ -44,8 +59,8 @@ class DomainsController < ApplicationController
 
   
   def update
-    Rails.logger.info "test4"
     @domain.update(domain_params)
+    Rails.logger.info "actualizado"
     redirect_to domain_path
   end  
 

@@ -1,10 +1,36 @@
 <script>
 $(document).ready(function() {
-  $('.js-example-basic-multiple').select2({
+  var list = '<option value= 0>No figura</option>'
+  <%Persona.order(:name).each do |persona| %>
+    list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+  <%end%>
+  <%LegalPersona.order(:name).each do |legalp| %>
+    list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+  <%end%>
+  $('.comprador').html(list);
+  $('.comprador').select2({
     theme: "bootstrap"
   });
 });
 </script>
+
+<script>
+$(document).ready(function() {
+  var list = ''
+  <%Persona.order(:name).each do |persona| %>
+    list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+  <%end%>
+  <%LegalPersona.order(:name).each do |legalp| %>
+    list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+  <%end%>
+  $('.vendedor').html(list);
+  $('.vendedor').select2({
+    theme: "bootstrap"
+  });
+});
+</script>
+
+
 
 <br>
 <div class="container-fluid" id="wrapper" >
@@ -27,11 +53,7 @@ $(document).ready(function() {
       <div class= "card-body">
         <p class= "card-text">
           <div class= "form-row">
-            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-              <option value="AL">Alabama</option>
-    
-              <option value="WY">Wyoming</option>
-            </select>
+            
             <div class="col">
               <%= form.label :notario_id, "Notario: " %>
               <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
@@ -57,6 +79,18 @@ $(document).ready(function() {
             <div class= "col">
               <%= form.label :percentage, "Porcentaje" %>
               <%= form.text_field :percentage, class: "form-control" %>
+            </div>
+          </div>
+          <div class= "form-row">
+            <div class ="col">
+              <%= form.label "Vendedor"%>
+              <select class="vendedor form-control" name="vendedor[]" multiple="multiple">
+              </select>
+            </div>
+            <div class ="col">
+              <%= form.label "Comprador"%>
+              <select class="comprador form-control" name="comprador[]" multiple="multiple">
+              </select>
             </div>
           </div>
         </p>    
