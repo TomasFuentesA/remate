@@ -28,6 +28,8 @@ class InscriptionsController < ApplicationController
     Inscription.order(:id).each do |inscrip|
       if inscrip.id == params[:inscription][:id].to_i
         inscrip.update(inscription_params)
+        @domain = Domain.find(params[:id])
+        redirect_to @domain
       end 
     end
   end  

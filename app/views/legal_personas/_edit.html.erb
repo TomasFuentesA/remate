@@ -26,6 +26,13 @@
         <%= form.label :web, "Web:" %>
         <%= form.text_field :web, id: :web , class:"form-control", autofocus: true, required: true%>
         <%= form.submit "Guardar", class:"btn btn-success" %>
-        <% end %>
+        <div class = "col">
+          ¿Es Notario?
+          <%= form.radio_button :notario, 'Si'%> 
+          <%= label :type_member_Si, 'Si' %>
+          <%= form.radio_button :notario, 'No' %>
+          <%= label :type_member_No, 'No '%>
+        </div>
+    <% end %>
     </div>
 </div>

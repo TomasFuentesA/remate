@@ -1,0 +1,37 @@
+<%= form_with(model: domain_rol, local: true) do |form| %>
+  <% if domain_rol.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(domain_rol.errors.count, "error") %> prohibited this domain_rol from being saved:</h2>
+
+      <ul>
+      <% domain_rol.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :type_member %>
+    <%= form.text_field :type_member %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type_rol %>
+    <%= form.text_field :type_rol %>
+  </div>
+
+  <div class="field">
+    <%= form.label :persona_id %>
+    <%= form.number_field :persona_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domain_id %>
+    <%= form.text_field :domain_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

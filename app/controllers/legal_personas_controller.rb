@@ -66,6 +66,6 @@ private
   end
 
   def legal_persona_params
-    params.permit(:rut, :name, :fantasy_name, :alias, :web)
+    params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario)
   end
 end

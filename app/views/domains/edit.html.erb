@@ -18,10 +18,16 @@
       </div>
       <div class= "card-body">
         <p class= "card-text">
+          <div class= "form-row">
+            <div class="col">
+              <%= form.label :notario_id, "Notario: " %>
+              <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}, @domain.notario_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+            </div>
+          </div>
           <div class="form-row">
             <div class= "col">
               <%= form.label :type_modality, "Modalidad:" %>
-              <%= form.text_field :type_modality, class: "form-control"%>
+              <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"], ["Modificacion de empresa", "Modificacion de empresa"] ,["Compra y Venta de algo","Compra y Venta de algo"]], @domain.type_modality),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2" %>
             </div>
 
             <div class= "col">

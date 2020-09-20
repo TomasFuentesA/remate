@@ -13,8 +13,14 @@ class DomainsController < ApplicationController
     @domains = Domain.all
   end
 
-  def create 
-    Rails.logger.info "test2" 
+  def create
+    
+    begin
+      DomainRol.create(type_member: 'Empresa', type_rol: 'Comprador', persona_id: 1, domain_id: 16)
+    rescue => exception
+      Rails.logger.info exception
+    end
+    
     var = 0
     @domainable.domains.each do |dom| 
       var += dom.percentage
@@ -40,7 +46,7 @@ class DomainsController < ApplicationController
   def update
     Rails.logger.info "test4"
     @domain.update(domain_params)
-    #redirect_to doamins_path
+    redirect_to domain_path
   end  
 
   def edit
@@ -69,7 +75,7 @@ private
 
 
   def domain_params
-    params.require(:domain).permit(:type_modality,:inscription_id,:price,:date_posetion,:percentage)
+    params.require(:domain).permit(:type_modality,:inscription_id,:price,:date_posetion,:percentage, :notario_id)
   end
 
   def load_domainable

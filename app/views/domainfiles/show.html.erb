@@ -1,11 +1,11 @@
-<%= link_to 'Volver Listado inscripciones', inscripciones_path %>
+<%= link_to 'Volver Listado domains', domains_path %>
 
 <p></p>
 
 
 
 <br>
-<h1>Expediente inscription:</h1>
+<h1>Expediente domain:</h1>
 
 
 
@@ -15,7 +15,7 @@
     <div class="row">
       <div class="col-md-8 card card-body ">
         <div>
-          <h2>Expediente: <%= @inscriptionfile.domain.foja %> , <%= @inscriptionfile.domain.foja %> </h2>
+          <h2>Accion: <%= @domainfile.domain.type_modality %> </h2>
         </div>
 
         <div style='width: 800px;' >
@@ -24,22 +24,22 @@
         <hr>
         <h1>Información básica:</h1>
             <div class="field">
-              <h4> Tribunal:</h4>
-              <%= @inscriptionfile.file_name %>
+              <h4> Fecha cuando se realizo la posecion:</h4>
+              <%= @domainfile.domain.date_posetion %>
             </div>
 
             <div class="field">
               <h4>Rol</h4>
-              <%= @inscriptionfile.date %>
+              <%= @domainfile.domain.id %>
             </div>
 
 
           <div class="field">
-            <h4>Caratulado</h4>
-            <%= @inscriptionfile.judgement.demandante %> / <%= @inscriptionfile.judgement.demandado %>
+            <h4>Valor</h4>
+            <%= @domainfile.domain.price %>
           </div>
 
-         
+         //agregar los Demandantes y demandados y los abogados 
 
 
         
