@@ -3,7 +3,7 @@ class JudgementsController < ApplicationController
   
   load_and_authorize_resource
   def index
-      @judgement = Judgement.all
+      @judgement = Judgement.order("name_judgement").page(params[:page]).per_page(10)
   end
 
   
