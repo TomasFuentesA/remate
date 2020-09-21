@@ -1,3 +1,11 @@
+<script>
+$(document).ready(function() {
+  $('select#auction_judgement_id').select2({
+    theme: "bootstrap"
+  });
+   $('.select-multiple').select2();
+});
+</script>
 <h1>Asociar Aviso de Remate a Propiedad</h1>
 <div class="jumbotron">
   <div class="row">
@@ -32,7 +40,7 @@
               <div class="row ">
                 <div class="col-md-3">
                     <%= form.label :realty_id, "Seleccionar Propiedad" %>
-                    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} , class:"form-control border" ,autofocus: true%>
+                    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple"%>
                 </div>
               </div>
             </div>
@@ -60,7 +68,7 @@
             <div class="row ">
               <div class="col-md-6">
                 <%= form.label :cost, "Costas" %>
-                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true%>
+                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true, onkeyup: "calculateTotalMinimum(this)"%>
               </div>
               <div class="col-md-6">
                 <%= form.label :total_minimum, "Total Mínimo:" %>
@@ -80,7 +88,7 @@
               </div>
               <div class="col-md-6">
                 <%= form.label :judgement_id, "Seleccionar Juicio" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), { include_blank: "Seleccione"}, class:"custom-select" %>
               </div>
             </div>
           </div>

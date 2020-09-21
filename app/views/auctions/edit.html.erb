@@ -1,136 +1,121 @@
-
-<h1>  Editar Aviso de Remate a Propiedad </h1>
-<div class="container-fluid" id="auctionnoticenew" >
-  <div class="row justify-content-md-center">
-    <div class="col">
-      <%= form_with model: @auction  do |form| %>
-        <%= form.label :name, "Editar Remate" %>
-
-        <div class="field" >
-          <%= form.label :date, "Fecha" %>
-          <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"} %>
-        </div>
-        <div class="field">
-          <%= form.label :hour, "Hora" %>
-          <%= form.text_field :hour %>
-        </div>
-        <div class="field">
-          <%= form.label :name, "Nombre" %>
-          <%= form.text_field :name, id: :name %>
-        </div>
-        <div class="field">
-          <%= form.label :court_id, "Seleccionar Tribunal" %>
-          <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}, @auction.court_id), { include_blank: "Seleccione"} %>
-        </div>
-
-        <div class="field">
-          <%= form.label :lyrics, "Letra" %>
-          <%= form.text_field :lyrics, id: :lyrics %>
-        </div>
-        <div class="field">
-          <%= form.label :number, "Rol" %>
-          <%= form.number_field :number, id: :number %>
-        </div>
-        <div class="field">
-          <%= form.label :year, "Año" %>
-          <%= form.number_field :year, id: :year %>
-        </div>
-
-        <div class="field" >
-          <%= form.fields_for :judgements do |form| %>
-          <div class="field">
-            <%= form.label :type_judgment, "Seleccionar Juicio" %>
-            <%= form.collection_select :type_judgement, Judgement.type_judgements.map { |c| [c.first, c.first] },  :first, :second ,prompt: "seleccione"  %>
-          </div>
-        <%= form.fields_for :parts do |c| %>
-          <%= c.label :name, "parte 1" %>
-          <%= c.text_field :part1 %>
-
-          <%= c.label :name, "parte 2" %>
-          <%= c.text_field :part2 %>
-          <% end %>
-          <% end %>
-        <div class="field" >
-
-        <div class="field" >
-          <%= form.label :uf, "UF" %>
-          <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)"  %>
-        </div>
-        <div class="field">
-          <%= form.label :is_uf, "Opcion" %>
-          <%= form.select :is_uf, [["uf", true], ["pesos", false]], {include_blank: "Seleccione Moneda"}, {onchange: "habilite_money(this)"} %>
-        </div>
-        <div class="field">
-          <%= form.label :cost, "Costas" %>
-          <%= form.number_field :cost, id: :cost, value: 0  %>
-        </div>
-        <div class="field" >
-          <%= form.label :pesos, "Pesos" %>
-          <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)" %>
-        </div>
-        <div class="field">
-          <%= form.label :total_minimum, "Total Minimo" %>
-          <%= form.number_field :total_minimum, id: :total_minimum %>
-        </div>
-        <div class="field">
-          <%= form.label :warranty, "Garantia" %>
-          <%= form.number_field :warranty, id: :warranty %>
-        </div>
-        <div class="field">
-          <%= form.label :fee, "Derechos" %>
-          <%= form.number_field :fee, id: :fee %>
-        </div>
-        <div class="field">
-          <%= form.label :realty_id, "Seleccionar Propiedad" %>
-          <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}, @auction.realty_id), { include_blank: "Seleccione"} %>
-        </div>
-        <%= form.submit "Guardar" %>
-        <% end %>
-        </div>
-
-    <div class="col">
-      <br>
-      <div class="row justify-content-md-center">
-
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
+<script>
+  $(document).ready(function () {
+    $('select#auction_judgement_id').select2({
+      theme: "bootstrap"
+    });
+    $('.select-multiple').select2();
+  });
+</script>
+<h1>Editar Aviso de Remate a Propiedad</h1>
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <div>
             <h5 class="card-title">Informacion de Remate</h5>
 
-            <p class="card-text"><%= @auction.id%> <br> <%= @auction.auctionnotice.auction %></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text"> <%= @auction.auctionnotice.auction %></p>
           </div>
-        </div>
 
+          <%= form_with model: @auction  do |form| %>
+          <div class="form-group">
+            <div class="row ">
 
-
-
-      </div>
-      <br>
-      <div class="row justify-content-md-center">
-
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ingreso de Propiedad:</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-3">
+                <%= form.label :date, "Fecha" %>
+                <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border" %>
               </div>
-              <div class="modal-body">
-
+              <div class="col-md-3">
+                <%= form.label :hour, "Hora" %>
+                <%= form.text_field :hour , class:"form-control border" ,autofocus: true%>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+              <div class="col-md-6">
+                <%= form.label :name, "Nombre" %>
+                <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
               </div>
             </div>
           </div>
+          <div class="form-group">
+            <div class="row ">
+              <%@realties =[]  %>
+              <% AuctionsRealty.order(:id).each do |auctionsRealty| %>
+                <% if(auctionsRealty.auction_id === @auction.id) %>
+                  <% Realty.order(:id).each do |realty| %>
+                    <% if(realty.id === auctionsRealty.realty_id) %>
+                      <%  @realties << realty.id %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <div class="col-md-3">
+                <%= form.label :realty_id, "Seleccionar Propiedad" %>
+                <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]},@realties), { include_blank: "Seleccione"} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple"%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-3">
+                <%= form.label :is_uf, "Valorización:" %>
+                <%= select_tag "is uf", options_for_select([["uf", true], ["pesos", false]]),  onchange: "habilite_money(this)",prompt: "seleccione" , class:"form-control border" ,autofocus: true%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                <%= form.label :uf, "UF " %>
+                <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)" , class:"form-control border" ,autofocus: true, value: 0%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :pesos, "Pesos" %>
+                <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)", class:"form-control border" ,autofocus: true, value: 0%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                <%= form.label :cost, "Costas" %>
+                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :total_minimum, "Total Mínimo:" %>
+                <%= form.number_field :total_minimum, id: :total_minimum, class:"form-control border" ,autofocus: true%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                <%= form.label :warranty, "Garantia" %>
+                <%= form.number_field :warranty, id: :warranty, class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :fee, "Derechos" %>
+                <%= form.number_field :fee, id: :fee , class:"form-control border" ,autofocus: true%>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :judgement_id, "Seleccionar Juicio" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}, @auction.judgement_id), { include_blank: "Seleccione"}, class:"custom-select" %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= form.submit "Guardar",class: "btn btn-success" %>
+          </div>
+          <% end %>
         </div>
       </div>
     </div>
+    <div class="col-sm-4">
+      <%= render "modal" %>
+      <%= render "modaljudment" %>
+    </div>
+  </div>
 </div>
-
-<br>

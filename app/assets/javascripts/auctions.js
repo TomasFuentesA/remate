@@ -15,7 +15,6 @@ function habilite_money(selector){
  }
 }
 
-
  function calculo_uf(input){
    //añade la url https://mindicador.cl/api/uf/{fecha } para consulta
    var inp = $(input);
@@ -59,7 +58,9 @@ function calculateTotalMinimum(){
    //var inp = $(input);
 
    var pesos = $('#pesos').val()
+   //console.log(pesos)
    var costas = $('#cost').val()
+   //console.log(costas)
    $('#total_minimum').val(parseInt(pesos) + parseInt(costas));
 }
 
@@ -67,7 +68,7 @@ function calculateTotalMinimum(){
 function habilite_part(selector){
 
 
-  console.log($("#parte_1 option:selected").text())
+  //console.log($("#parte_1 option:selected").text())
 
 
   if($(selector).find(':selected').val() == 'Particular'){
@@ -84,7 +85,7 @@ function habilite_part(selector){
 function habilite_part2(selector){
 
 
-  console.log($("#parte_2 option:selected").text())
+  //console.log($("#parte_2 option:selected").text())
 
 
   if($(selector).find(':selected').val() == 'Particular'){
