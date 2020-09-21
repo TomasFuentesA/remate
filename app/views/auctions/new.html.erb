@@ -68,7 +68,7 @@ $(document).ready(function() {
             <div class="row ">
               <div class="col-md-6">
                 <%= form.label :cost, "Costas" %>
-                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true%>
+                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true, onkeyup: "calculateTotalMinimum(this)"%>
               </div>
               <div class="col-md-6">
                 <%= form.label :total_minimum, "Total Mínimo:" %>

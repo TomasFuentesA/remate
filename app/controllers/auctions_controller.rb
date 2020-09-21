@@ -130,6 +130,8 @@ class AuctionsController < ApplicationController
 
   def set_auction
     @auction = Auction.find(params[:id])
+    @judgement_id = @auction.judgement_id
+    @judgement = Judgement.find(@judgement_id)
   end
 
   def auction_params
