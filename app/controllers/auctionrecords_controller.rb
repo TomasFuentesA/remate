@@ -26,7 +26,7 @@ class AuctionrecordsController < ApplicationController
   def update
     @auctionrecord.update(auctionrecord_params)
     redirect_to auctionrecords_path
-  end
+  end 
 
 
 
@@ -42,7 +42,7 @@ class AuctionrecordsController < ApplicationController
   end
 
   def auctionrecord_params
-    params.require(:auctionrecord).permit(:judgement_id, :realty_id, :date, :awardamount)
+    params.require(:auctionrecord).permit(:auction_id, :date, :awardamount, :file_name)
 
   end
 

@@ -4,5 +4,5 @@ class Auctionrecord < ApplicationRecord
   require 'docx'
   
    
-  belongs_to :judgement
+  belongs_to :auction
 end

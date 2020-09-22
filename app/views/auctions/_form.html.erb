@@ -1,90 +1,63 @@
 <%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %>
 <%= link_to 'Listado Tribunales', courts_path %>
-
-<h1>  Asociar Aviso de Remate a Propiedad </h1>
-
+<h1> Asociar Aviso de Remate a Propiedad </h1>
 <%= form_with model: @auctions  do |form| %>
-  <%= form.label :name, "Seleccion de Avisos de Remate" %>
-
-  <div class="field">
-    <%= form.label :date, "Fecha" %>
-    <%= form.text_field :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :hour, "Hora" %>
-    <%= form.text_field :hour %>
-  </div>
-
-
-
-  <div class="card">
+<%= form.label :name, "Seleccion de Avisos de Remate" %>
+<div class="field">
+  <%= form.label :date, "Fecha" %>
+  <%= form.text_field :date %>
+</div>
+<div class="field">
+  <%= form.label :hour, "Hora" %>
+  <%= form.text_field :hour %>
+</div>
+<div class="card">
   <div class="field">
     <%= form.label :valorization, "Valorizacion" %>
-   <div>
-     <p></p>
-     <%= form.label :uf, "UF" %>
-    <%= form.radio_button :uf, "UF"  %>
-     <p></p>
-     <%= form.label :pesos, "Pesos" %>
-    <%= form.radio_button :pesos, "Pesos" %>
+    <div>
+      <p></p>
+      <%= form.label :uf, "UF" %>
+      <%= form.radio_button :uf, "UF"  %>
+      <p></p>
+      <%= form.label :pesos, "Pesos" %>
+      <%= form.radio_button :pesos, "Pesos" %>
     </div>
   </div>
-  </div>
-
+</div>
+<div class="card">
   <div class="card">
-    <div class="card">
-      <div class="field"
-        <%= form.label :minimum, "Minimo Remate" %>
-        <%= form.label :uf, "UF" %>
-        <%= form.number_field  :uf, id: :uf %>
-
-
-     </div>
+    <div class="field">
+      <%= form.label :minimum, "Minimo Remate" %> <%= form.label :uf, "UF" %>
+      <%= form.number_field  :uf, id: :uf %> 
     </div>
-
     <div class="field">
       <%= form.label :pesos, "Pesos" %>
-      <%= form.number_field :pesos, id: :pesos %>s
-      </div>
-
+      <%= form.number_field :pesos, id: :pesos %>
+    </div>
     <div class="field">
       <%= form.label :cost, "Costas" %>
       <%= form.number_field :cost, id: :cost %>
     </div>
-
     <div class="field">
       <%= form.label :total_minimum, "Total Minimo" %>
       <%= form.number_field :total_minimum, id: :total_minimum %>
     </div>
   </div>
-
-
-
   <div class="field">
     <%= form.label :warranty, "Garantia" %>
     <%= form.text_field :warranty %>
   </div>
-
-
   <div class="field">
     <%= form.label :fee, "Derechos" %>
     <%= form.text_field :fee %>
   </div>
-
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name, id: :name %>
   </div>
-
-
-
   <div class="field">
     <%= form.label :realty_id, "Seleccionar Propiedad" %>
     <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} %>
   </div>
-
-
- <%= form.submit "Guardar" %>
-
-<% end %>
+  <%= form.submit "Guardar" %>
+  <% end %>

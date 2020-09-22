@@ -1,48 +1,38 @@
 <h1>Listado de Actas de Remates</h1>
-
-
 <br>
 <%= link_to 'Nuevo Acta Remate', new_auctionrecord_path ,class: "btn btn-primary"%>
-</br>
-
-<table   class="table table-bordered table-hover">
-  <thead  class="thead-dark">
+<br>
+<br>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th scope="col">Tribunal</th>
-      <th scope="col">Rol</th>
-      <th scope="col">Nombre Juicio</th>
+      <th scope="col">Remate</th>
       <th scope="col">Fecha</th>
-      <th scope="col">Propiedad</th>
+      <th scope="col">Monto adjudicación</th>
+      <th scope="col">Archivo</th>
       <th scope="col">Opciones</th>
     </tr>
   </thead>
-
-
-
-
   <tbody class="rounded-pill">
     <% @auctionrecords.each do |auctionrecord| %>
-
-      <tr>
-        
-        <td><%= auctionrecord.judgement.court.name %> </td>
-        <td><%= auctionrecord.judgement.rol_trial %> </td>
-        <td><%= auctionrecord.judgement.name_judgement %></td>
-        <td><%= auctionrecord.date %></td>
-        <% if auctionrecord.file_name != "" %>
-                <td><%= link_to auctionrecord.file_name.to_s.split('/')[5], File.join(root_url.to_s,auctionrecord.file_name.to_s)%> </td>
-        <%else %>
-                <td>Sin Archivo</td>
-        <% end %>
-        
-
-
-        <td>
-          <%= link_to 'Ver', auctionrecord , class: "btn btn-info" %>
-          <%= link_to 'Edit', edit_auctionrecord_path(auctionrecord) , class: "btn btn-warning" %>
-          <%= link_to 'Borrar', auctionrecord, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+    <tr>
+      <td><%= auctionrecord.auction_id %></td>
+      <td><%= auctionrecord.date %></td>
+      <td><%= auctionrecord.awardamount %></td>
+      <% if auctionrecord.file_name != "" && auctionrecord.file_name.to_s.split('/')[5]!=nil %>
+      <td>
+        <%= link_to auctionrecord.file_name.to_s.split('/')[5], File.join(root_url.to_s,auctionrecord.file_name.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s,auctionrecord.file_name.to_s),download:''%>
       </td>
-      </tr>
+      <%else %>
+      <td>Sin Archivo</td>
+      <% end %>
+      <td>
+        <%= link_to 'ver', auctionrecord , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_auctionrecord_path(auctionrecord) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', auctionrecord, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>

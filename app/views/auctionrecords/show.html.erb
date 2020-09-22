@@ -15,8 +15,7 @@
     <div class="row">
       <div class="col-md-8 card card-body ">
         <div>
-          <h2>Expediente: <%= @auctionrecord.judgement.court.name %> , <%= @auctionrecord.judgement.rol_trial %> </h2>
-        </div>
+         </div>
 
         <div style='width: 800px;' >
           <div id="map" style='width: 700px; height: 300px;'></div>
@@ -25,18 +24,15 @@
         <h1>Acta Remate:</h1>
             <div class="field">
               <h4> Tribunal:</h4>
-              <%= @auctionrecord.judgement.court.name %>
-            </div>
+             </div>
 
             <div class="field">
               <h4>Rol</h4>
-              <%= @auctionrecord.judgement.rol_trial %>
             </div>
 
 
           <div class="field">
             <h4>Caratulado</h4>
-            <%= @auctionrecord.judgement.demandante %> / <%= @auctionrecord.judgement.demandado %>
           </div>
 
          //agregar los Demandantes y demandados y los abogados 
@@ -47,7 +43,6 @@
       </div>
         // Muestre las propiedades rematadas
       <div>
-         <%= @auctionrecord.realty.name_realty %>
         </div>
 
         <div>
