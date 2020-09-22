@@ -9,11 +9,14 @@ $(document).ready(function() {
 <div class="container-fluid ">
   <div class="card card-body row col-md-4">
     <div class="col-md-auto">
+     <div id="listAuction"></div>
+     <table id="tableID" class="table"></table>
+
       <%= form_with model: @auctionrecord , remote: true do |form| %>
       <%= form.label :type_judgement, "Nueva Acta Remate" %>
       <div class="field">
         <%= form.label :auction_id, "Seleccionar Remate" %>
-        <%= form.select :auction_id, options_for_select(Auction.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"}, class:"form-control border", required: true %>
+        <%= form.select :auction_id, options_for_select(Auction.all.collect {|p| [p.name, p.id]}), { include_blank: "Seleccione"}, class:"form-control border", required: true, onchange:"searchAuction()" %>
       </div>
       <div class="form-group">
         <%= form.label :date, "Fecha" %>
@@ -34,6 +37,10 @@ $(document).ready(function() {
           <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true, required: true %>
           <label class="custom-file-label" for="customFile">Ingresar archivo</label>
         </div>
+      </div>
+      <div class="field">
+        <%= form.label :status, "Seleccionar estado" %>
+        <%= form.select :status, options_for_select([["confirmada", 0],["suspendida", 1], ["cancelada", 2]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
       </div>
       <br>
       <%= form.submit "Guardar",class: "btn btn-success" %>

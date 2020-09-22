@@ -35,6 +35,10 @@ $(document).ready(function() {
           <label class="custom-file-label" for="customFile">Ingresar archivo</label>
         </div>
       </div>
+      <div class="field">
+        <%= form.label :status, "Seleccionar estado" %>
+        <%= form.select :status, options_for_select([["confirmada", 0],["suspendida", 1], ["cancelada", 2]],@auctionrecord.status), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
+      </div>
       <br>
       <%= form.submit "Guardar",class: "btn btn-success" %>
       <% end %>

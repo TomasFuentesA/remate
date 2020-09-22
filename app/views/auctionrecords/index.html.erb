@@ -10,6 +10,7 @@
       <th scope="col">Fecha</th>
       <th scope="col">Monto adjudicación</th>
       <th scope="col">Archivo</th>
+      <th scope="col">Estado</th>
       <th scope="col">Opciones</th>
     </tr>
   </thead>
@@ -27,6 +28,15 @@
       <%else %>
       <td>Sin Archivo</td>
       <% end %>
+      <td>
+        <%if auctionrecord.status == 0 %>
+            confirmada
+        <%elsif auctionrecord.status == 1 %>
+            suspendida
+        <%else %>
+            cancelada
+        <%end%>
+      </td>
       <td>
         <%= link_to 'ver', auctionrecord , class: "btn btn-info" %>
         <%= link_to 'editar', edit_auctionrecord_path(auctionrecord) , class: "btn btn-warning" %>

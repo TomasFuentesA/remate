@@ -58,6 +58,12 @@ class AuctionsController < ApplicationController
     redirect_to auctions_path
   end
 
+  def searchFilterAuction
+   
+    @auction = Auction.find(params[:q])
+    render json: @auction
+  end
+
   def destroy
       @auction.auctionnotice.update(status: 0)
       @auction.destroy

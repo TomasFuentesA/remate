@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
   get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
   
+  get 'auctions/searchFilterAuction', to: 'auctions#searchFilterAuction'
 
 
   # devise_for :users, controllers: {{     }
