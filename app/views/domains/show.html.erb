@@ -26,8 +26,63 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <label for="name"> Vendedor: </label>
+        <%if @domain.type_modality == "Creacion de empresa"%>
+          <div class="col-md-12">
+          <label for="name"> Creador(es): </label>
+          <% DomainRol.order(:id).each do |domrol| %>
+            <% if domrol.domain_id == @domain.id %>
+              <% if domrol.type_rol == "Creador"%>
+                <% if domrol.type_member == "Natural" %>
+                  <% Persona.order(:id).each do |persona| %>
+                    <% if persona.id == domrol.persona_id%>
+                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
+                      <%= link_to 'Edit', edit_domain_rol_path(domrol) %>
+                      <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%end%>
+                  <%end%>
+                <%else%>
+                  <% LegalPersona.order(:id).each do |legalpersona| %>
+                    <% if legalpersona.id == domrol.persona_id%>
+                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
+                      <%= link_to 'Edit', edit_domain_rol_path(domrol) %>
+                      <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%end%>
+                  <%end%>
+                <%end%>
+              <%end%>
+            <%end%>
+          <%end%>
+          </div>
+        <%elsif @domain.type_modality == "Modificacion de empresa"%>
+          <div class="col-md-12">
+          <label for="name"> Modificador(es): </label>
+          <% DomainRol.order(:id).each do |domrol| %>
+            <% if domrol.domain_id == @domain.id %>
+              <% if domrol.type_rol == "Modificador"%>
+                <% if domrol.type_member == "Natural" %>
+                  <% Persona.order(:id).each do |persona| %>
+                    <% if persona.id == domrol.persona_id%>
+                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
+                      <%= link_to 'Edit', edit_domain_rol_path(domrol) %>
+                      <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%end%>
+                  <%end%>
+                <%else%>
+                  <% LegalPersona.order(:id).each do |legalpersona| %>
+                    <% if legalpersona.id == domrol.persona_id%>
+                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
+                      <%= link_to 'Edit', edit_domain_rol_path(domrol) %>
+                      <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%end%>
+                  <%end%>
+                <%end%>
+              <%end%>
+            <%end%>
+          <%end%>
+          </div>
+        <%else%>
+          <div class="col-md-6">
+          <label for="name"> Vendedor(es): </label>
           <% DomainRol.order(:id).each do |domrol| %>
             <% if domrol.domain_id == @domain.id %>
               <% if domrol.type_rol == "Vendedor"%>
@@ -50,10 +105,12 @@
                 <%end%>
               <%end%>
             <%end%>
-          <%end%>  
-        </div>  
+          <%end%>
+          </div>
+        <%end%>        
         <div class="col-md-6">
-          <label for="name"> Comprador: </label>
+        <% if @domain.type_modality == "Compra y Venta de algo"%>
+          <label for="name"> Comprador(es): </label>
           <% DomainRol.order(:id).each do |domrol| %>
             <% if domrol.domain_id == @domain.id %>
               <% if domrol.type_rol == "Comprador"%>
@@ -61,7 +118,7 @@
                   <% Persona.order(:id).each do |persona| %>
                     <% if persona.id == domrol.persona_id%>
                       <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
-                      <%= link_to 'Edit', edit_domain_rol_path(domro  l) %>
+                      <%= link_to 'Edit', edit_domain_rol_path(domrol) %>
                       <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' } %>
                     <%end%>
                   <%end%>
@@ -76,7 +133,8 @@
                 <%end%>
               <%end%>
             <%end%>
-          <%end%>  
+          <%end%>
+        <%end%>  
         </div> 
       </div> 
     </div>

@@ -27,23 +27,23 @@ class DomainsController < ApplicationController
       @domain = @domainable.domains.new(domain_params)
       if @domain.save
         
-        params[:comprador].each do |c|
-            if c.chars[c.length - 1] == "N"
-              DomainRol.create(type_member: 'Natural', type_rol: 'Comprador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-        
-            else
-              DomainRol.create(type_member: 'Legal', type_rol: 'Comprador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id) 
-                
-          end    
-        end
-        
         params[:vendedor].each do |c|
-            if c.chars[c.length - 1] == "N"
-              DomainRol.create(type_member: 'Natural', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-        
+          if c.chars[c.length - 1] == "N"
+            if @domain.type_modality == "Creacion de empresa"
+              DomainRol.create(type_member: 'Natural', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)              
+            elsif @domain.type_modality == "Modificacion de empresa"
+              DomainRol.create(type_member: 'Natural', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
             else
-              DomainRol.create(type_member: 'Legal', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id) 
-                
+              DomainRol.create(type_member: 'Natural', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+            end  
+          else
+            if @domain.type_modality == "Creacion de empresa"
+              DomainRol.create(type_member: 'Legal', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+            elsif @domain.type_modality == "Modificacion de empresa"
+              DomainRol.create(type_member: 'Legal', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+            else
+              DomainRol.create(type_member: 'Legal', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+            end      
           end    
         end  
         redirect_to @domainable, notice: "Dominio añadido!"

@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
 
   resources :domain_rols
-  resources :stories
   get 'legal_members/new'
   get 'legal_members/create'
   get 'legal_members/destroy'
