@@ -21,13 +21,8 @@
       <th scope="col">Rol</th>
       <th scope="col">Nombre Juicio</th>
       <th scope="col">Tipo Juicio</th>
-      <th scope="col">Propiedad</th>
-      <th scope="col">Villa Poblacion </th>
-      <th scope="col">Condominio/edificio</th>
+      <th scope="col">Propiedades</th>
       <th scope="col">Minimo</th>
-      <th scope="col">Garantia</th>
-      <th scope="col">mt2.Construido</th>
-      <th scope="col">mt2.Terreno</th>
       <th scope="col">Status</th>
       <th scope="col">Opciones</th>
 
@@ -79,24 +74,18 @@
       </td>
 
       <td><%= auction.judgement.type_judgement %></td>
-
-      <td><%= auction.realty.address %></td>
-      <td><%= auction.realty.population_villa %></td>
-
-      <td><% unless auction.realty.condominio.name.nil? %>
-        <%= auction.realty.condominio.name %>
-        <%else %>
-
-        <div class="field">
-
-          sin condominio
-        </div>
+      <td>
+      <% AuctionsRealty.order(:id).each do |auctionsRealty| %>
+       <% if(auctionsRealty.auction_id === auction.id) %>
+        <% Realty.order(:id).each do |realty| %>
+         <% if(realty.id === auctionsRealty.realty_id) %>
+           <p><%= realty.address %></p>
+         <% end %>
+        <% end %> 
         <% end %>
+      <% end %>
       </td>
       <td><%= auction.total_minimum %></td>
-      <td><%= auction.warranty %></td>
-      <td><%= auction.realty.mt2_built %></td>
-      <td><%= auction.realty.mt2_land %></td>
       <td><%= auction.status %></td>
 
 
