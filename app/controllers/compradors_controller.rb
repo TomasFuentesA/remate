@@ -11,18 +11,14 @@ class CompradorsController < InheritedResources::Base
 
 
   def create
-
-    begin
-      @comprador = Comprador.create(comprador_params)
-      @comprador.save
-    rescue => exception
-      Rails.logger.info exception.to_s
-      Rails.logger.info @comprador.errors.full_messages.to_s
-      flash[:errors] = @comprador.errors.full_messages
-      
+    Rails.logger.info"acaaaaa"
+     Comprador.transaction do
+      @auction =     Comprador.new(persona_id:1, acciones:"ASD", percentage:1,domain_rol_id: 1, type_member:"ASDASD")
+      if @auction.save
+       else
+       render json: { error:  @auction.errors.full_messages }, status: :bad_request
+      end
     end
-    
-    
   end
 
   def edit
@@ -50,7 +46,7 @@ class CompradorsController < InheritedResources::Base
 
     def comprador_params
       begin
-        params.require(:comprador).permit(:persona_id, :acciones, :percentage, :domain_rols_id, :type_member)
+        params.require(:comprador).permit(:persona_id, :acciones, :percentage, :domain_rol_id, :type_member)
       rescue => exception
         Rails.logger.info exception.to_s
       end

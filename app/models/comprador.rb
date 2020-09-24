@@ -1,3 +1,5 @@
 class Comprador < ApplicationRecord
-  belongs_to :domain_rols
+
+  belongs_to :domain_rol
+
 end

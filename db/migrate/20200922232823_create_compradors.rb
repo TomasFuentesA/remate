@@ -4,8 +4,7 @@ class CreateCompradors < ActiveRecord::Migration[5.2]
       t.integer :persona_id
       t.integer :acciones
       t.integer :percentage
-      t.references :domain_rols, foreign_key: true
-
+      t.string :type_member
       t.timestamps
     end
   end
