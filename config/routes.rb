@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :domain_rols
+  
   get 'legal_members/new'
   get 'legal_members/create'
   get 'legal_members/destroy'
@@ -78,7 +78,8 @@ Rails.application.routes.draw do
   resources :judicialfiles
   resources :inscriptionfiles
   resources :domainfiles
-
+  resources :compradors
+  resources :domain_rols
   resources :judgements, :type_realties
   resources :type_realties
   resources :legal_personas do

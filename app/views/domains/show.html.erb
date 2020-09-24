@@ -90,6 +90,8 @@
                   <% Persona.order(:id).each do |persona| %>
                     <% if persona.id == domrol.persona_id%>
                       <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
+                      <%= link_to 'Ver historial de ventas', domrol %>
+                      <%= link_to 'añadir comprador', new_comprador_url %>
                       <%= link_to 'Edit', edit_domain_rol_path(domrol) %>
                       <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' } %>
                     <%end%>

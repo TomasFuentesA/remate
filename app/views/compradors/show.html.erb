@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @comprador.persona_id %>
+</p>
+
+<p>
+  <strong>Acciones:</strong>
+  <%= @comprador.acciones %>
+</p>
+
+<p>
+  <strong>Percentage:</strong>
+  <%= @comprador.percentage %>
+</p>
+
+<p>
+  <strong>Domain rols:</strong>
+  <%= @comprador.domain_rols %>
+</p>
+
+<%= link_to 'Edit', edit_comprador_path(@comprador) %> |
+<%= link_to 'Back', compradors_path %>

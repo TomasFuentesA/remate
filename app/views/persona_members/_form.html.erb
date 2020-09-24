@@ -29,8 +29,13 @@
 </div>
 
 <div class = "col">
+<%= form.label "Acciones que maneja" %>
+<%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
+</div>
+
+<div class = "col">
 <%= form.label "porcentaje de participacion" %>
-<%= form.number_field :percentage, class: "form-control" %>
+<%= form.number_field :percentage, class: "form-control", readonly: true %>
 </div>
 <div class = "col">
 <%=  form.submit "Guardar miembro", class: "btn btn-primary"%>
@@ -56,5 +61,14 @@
         }
 
         
-    }        
+    }
+
+    function percentage(params) {
+        var y = <%= @legal_persona.acciones%>
+        console.log(y);
+        var x = (params.value * 100)/y
+        document.getElementById('persona_member_percentage').value = x.toString();
+      
+      
+    }          
 </script>

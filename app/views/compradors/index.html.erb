@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Compradors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Persona</th>
+      <th>Acciones</th>
+      <th>Percentage</th>
+      <th>Domain rols</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @compradors.each do |comprador| %>
+      <tr>
+        <td><%= comprador.persona_id %></td>
+        <td><%= comprador.acciones %></td>
+        <td><%= comprador.percentage %></td>
+        <td><%= comprador.domain_rols %></td>
+        <td><%= link_to 'Show', comprador %></td>
+        <td><%= link_to 'Edit', edit_comprador_path(comprador) %></td>
+        <td><%= link_to 'Destroy', comprador, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Comprador', new_comprador_path %>
