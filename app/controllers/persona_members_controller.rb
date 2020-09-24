@@ -46,8 +46,50 @@ class PersonaMembersController < ApplicationController
 
 
   def update
-    @persona_member.update(persona_member_params)
-    redirect_to legal_personas_path
+    var = 0
+    legal_aux = 0
+    @persona_member = PersonaMember.find(params[:id])
+
+    PersonaMember.order(:id).each do |personam|
+      if personam.id == @persona_member.id
+        legal_aux = personam.legal_persona_id
+      end
+    end
+    
+
+    PersonaMember.order(:id).each do |personam|
+      if personam.legal_persona_id == legal_aux && personam.id != @persona_member.id       
+        var += personam.percentage
+        Rails.logger.info var
+      end
+    end
+
+    Rails.logger.info params[:persona_member][:percentage]
+    Rails.logger.info 'final: ' + (var + params[:persona_member][:percentage].to_i).to_s
+    if (var.to_f + (params[:persona_member][:percentage]).to_f) <= 100
+      Rails.logger.info "var <= 100"
+      @persona_member.update(persona_member_params)
+        
+      if @persona_member.save
+        Rails.logger.info "Save"
+        flash[:notice] =  "Editado exitosamente"
+        @legal_persona = LegalPersona.find(params[:persona_member][:legal_persona_id])
+    
+        redirect_to @legal_persona
+  
+      else
+        Rails.logger.info "Else 1"
+        Rails.logger.info @persona_member.errors.full_messages.to_s
+        flash[:errors] = @persona_member.errors.full_messages
+      end
+    else
+      Rails.logger.info "Else 2"
+      flash[:alert] = "El porcentaje de participacion excede el 100%"
+      @persona_member.errors.add(:percentage, "Cantidad invalida")
+      #redirect_to legal_personas_path
+    end
+    
+    
   end
 
   def destroy
