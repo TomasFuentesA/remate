@@ -10,7 +10,7 @@
   <div class="card">
     <div class="card-body">
       <%= form_with model: @judicialfile, url: judicialfiles_path , remote: true do |form| %>
-      <%= form.label :type_judgement, "Nuevo Expediente Judicial" %>
+      <%= form.label :type_judgement, "Nueva anotación Judicial" %>
       <div class="field">
         <%= form.label :judgement_id, "Seleccionar Juicio" %>
         <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}, @judgement_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true %>

@@ -70,8 +70,8 @@ tbody tr {
           <h4>Abogado Demandanto</h4>
         </div>
         <div>
-          <h3>Expedientes:</h3>
-          <%= link_to 'Nuevo Expediente Judicial', new_judicialfile_path(@judgement) ,class: "btn btn-primary"%>
+          <h3>Anotaciones:</h3>
+          <%= link_to 'Nueva anotación Judicial', new_judicialfile_path(@judgement) ,class: "btn btn-primary"%>
           <br><br>
           <%if @judgement.judicialfiles.any? %>
           <div class="field">
