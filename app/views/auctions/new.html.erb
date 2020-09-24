@@ -3,6 +3,16 @@ $(document).ready(function() {
   $('select#auction_judgement_id').select2({
     theme: "bootstrap"
   });
+  $('select#court_id').select2({
+      dropdownParent: $('#Modaljudgement'),
+      theme: "bootstrap",
+      width: "100%"
+  });
+  $('select#type_judgement').select2({
+      dropdownParent: $('#Modaljudgement'),
+      theme: "bootstrap",
+      width: "100%"
+  });
    $('.select-multiple').select2();
 });
 </script>
