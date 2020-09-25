@@ -13,7 +13,8 @@ class CompradorsController < InheritedResources::Base
   def create
     Rails.logger.info"acaaaaa"
      Comprador.transaction do
-      @auction =     Comprador.new(persona_id:1, acciones:"ASD", percentage:1,domain_rol_id: 1, type_member:"ASDASD")
+      #@auction = Comprador.new(persona_id:1, acciones:"ASD", percentage:1,domain_rol_id: 1, type_member:"ASDASD")
+      @auction = Comprador.new(comprador_params)
       if @auction.save
        else
        render json: { error:  @auction.errors.full_messages }, status: :bad_request

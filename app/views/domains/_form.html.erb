@@ -1,21 +1,5 @@
 <script>
 $(document).ready(function() {
-  var list = '<option value= 0>No figura</option>'
-  <%Persona.order(:name).each do |persona| %>
-    list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
-  <%end%>
-  <%LegalPersona.order(:name).each do |legalp| %>
-    list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
-  <%end%>
-  $('.comprador').html(list);
-  $('.comprador').select2({
-    theme: "bootstrap"
-  });
-});
-</script>
-
-<script>
-$(document).ready(function() {
   var list = ''
   <%Persona.order(:name).each do |persona| %>
     list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
@@ -24,9 +8,7 @@ $(document).ready(function() {
     list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
   <%end%>
   $('.vendedor').html(list);
-  $('.vendedor').select2({
-    theme: "bootstrap"
-  });
+  
 });
 </script>
 
@@ -67,7 +49,7 @@ $(document).ready(function() {
 
             <div class= "col">
               <%= form.label :price, "Precio:" %>
-              <%= form.text_field :price, class: "form-control" %>
+              <%= form.text_field :price, class: "form-control", onkeyup: "percentage(this)" %>
             </div>
           </div>
           <div class="form-row">
@@ -75,7 +57,6 @@ $(document).ready(function() {
               <%= form.label :date_posetion, "Fecha de posesion:" %>
               <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
             </div>
-
             <div class= "col">
               <%= form.label :percentage, "Porcentaje" %>
               <%= form.text_field :percentage, class: "form-control" %>
@@ -84,14 +65,10 @@ $(document).ready(function() {
           <div class= "form-row">
             <div class ="col">
               <%= form.label "Vendedor"%>
-              <select class="vendedor form-control" name="vendedor[]" multiple="multiple">
+              <select class="vendedor form-control" name="vendedor">
               </select>
             </div>
-            <div class ="col">
-              <%= form.label "Comprador"%>
-              <select class="comprador form-control" name="comprador[]" multiple="multiple">
-              </select>
-            </div>
+            
           </div>
         </p>    
         <div class="form-row">
@@ -104,3 +81,18 @@ $(document).ready(function() {
   </div>
 <% end %>
 </div>
+
+<script>
+  function percentage(params) {
+    <% LegalPersona.order(:id).each do |legalp| %>´
+      var l = <%= legalp.id %>
+      if l == <%= params[:legal_persona_id] %>
+        var y = <%= legalp.acciones%>
+        console.log(y);
+        var x = (params.value * 100)/y
+    <%end%>    
+    document.getElementById('domainable_percentage').value = x.toString();
+      
+      
+    } 
+</script>
