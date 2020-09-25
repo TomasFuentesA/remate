@@ -1,4 +1,6 @@
 class Appraisal < ApplicationRecord
+  mount_uploader :file_name, ListingdocUploader
+
   belongs_to :realty
 end
 

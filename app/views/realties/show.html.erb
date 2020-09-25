@@ -13,13 +13,13 @@
 <div class="main container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8 card card-body ">
+      <div class="col-md-12 card card-body ">
         <div>
           <h2>Dirección: <%= @realty.address %>, <%= @realty.type_realty.tipo %> <%= @realty.unit_estate %></h2>
         </div>
 
-        <div style='width: 800px;' >
-          <div id="map" style='width: 700px; height: 300px;'></div>
+        <div>
+          <div id="map" style='width: 100%; height: 300px;'></div>
         </div>
         <hr>
         <h1>Información básica:</h1>
@@ -114,6 +114,7 @@
                 <th scope="col">Valor CLP</th>
                 <th scope="col">Valor USD</th>
                 <th scope="col">Observacion</th>
+                <th scope="col">Archivo</th>
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
@@ -133,7 +134,14 @@
                   <td><%= appraisal.price_clp %></td>
                   <td><%= appraisal.price_usd %></td>
                   <td><%= appraisal.observation%></td>
-          
+                  <% if appraisal.file_name != "" && appraisal.file_name.to_s.split('/')[5]!=nil %>
+                  <td>
+                    <%= link_to appraisal.file_name.to_s.split('/')[5], File.join(root_url.to_s,appraisal.file_name.to_s), target: "_blank"%>
+                    <%= link_to 'Descargar', File.join(root_url.to_s,appraisal.file_name.to_s),download:''%>
+                  </td>
+                  <%else %>
+                  <td>Sin Archivo</td>
+                  <% end %>
           
                   <td>
                     <%= link_to 'Ver', appraisal , class: "btn btn-info" %>
