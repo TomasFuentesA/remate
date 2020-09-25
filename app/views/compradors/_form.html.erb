@@ -1,17 +1,7 @@
-<%= form_with(model: comprador, local: true) do |form| %>
-  <% if comprador.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(comprador.errors.count, "error") %> prohibited this comprador from being saved:</h2>
 
-      <ul>
-      <% comprador.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
 
-
+<%= form_with model: @comprador do |form| %>
   <div class = "col">
     <%= form.label "Tipo" %>
   </div>
@@ -37,10 +27,7 @@
     <%= form.text_field :percentage, class:"form-control", readonly: true %>
   </div>
 
-  <div class="col">
-    <%= form.label "Vendedor" %>
-    <%= form.select :domain_rol_id , options_for_select(DomainRol.order(:id).collect{|c| [c.persona_id, c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
-  </div>
+  <%= form.hidden_field :domain_rol_id, value: params[:domain_rol_id] %>
   <br>
   <div class= "col">
     <div class="actions">

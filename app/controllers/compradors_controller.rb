@@ -3,6 +3,7 @@ class CompradorsController < InheritedResources::Base
 
   def new
     @compradors = Comprador.new
+    
   end
 
   def index

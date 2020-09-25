@@ -79,7 +79,9 @@ Rails.application.routes.draw do
   resources :inscriptionfiles
   resources :domainfiles
   resources :compradors
-  resources :domain_rols
+  resources :domain_rols do 
+    resources :compradors
+  end
   resources :judgements, :type_realties
   resources :type_realties
   resources :legal_personas do
@@ -108,8 +110,11 @@ Rails.application.routes.draw do
   resources :auctionlistings
   resources :domains do
     resources :inscriptions
+    resources :domainfiles
   end
-resources :inscriptions
+resources :inscriptions do
+  resources :inscriptionfiles
+end
 
 resources :condominios
 

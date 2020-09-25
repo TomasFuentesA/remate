@@ -13,7 +13,8 @@ class InscriptionfilesController < ApplicationController
     def create
       @inscriptionfile = Inscriptionfile.new(inscriptionfile_params)
       @inscriptionfile.save
-      redirect_to inscriptionfiles_path
+      @inscription = Inscription.find(params[:inscriptionfile][:inscription_id])
+      redirect_to @inscription
     end
   
     def show
