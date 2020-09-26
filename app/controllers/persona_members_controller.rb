@@ -12,7 +12,8 @@ class PersonaMembersController < ApplicationController
 
 
   def create
-
+    #find (type_member)
+    #find (persona_id)
     var = 0
     PersonaMember.order(:id).each do |personam|
       if personam.legal_persona_id == params[:persona_member][:legal_persona_id]
@@ -26,7 +27,8 @@ class PersonaMembersController < ApplicationController
       if @persona_member.save
         Rails.logger.info "Save"
         flash[:notice] =  "ingresado exitosamente"
-  
+        @legal_persona = LegalPersona.find(params[:persona_member][:legal_persona_id])
+        redirect_to @legal_persona
       else
         Rails.logger.info "Else 1"
         Rails.logger.info @persona_member.errors.full_messages.to_s

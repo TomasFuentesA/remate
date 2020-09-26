@@ -32,7 +32,6 @@ class DomainfilesController < ApplicationController
   
   
     def destroy
-      Rails.logger.info @domainfile.domain_id
       @domain = Domain.find(@domainfile.domain_id)
       @domainfile.destroy
       redirect_to @domain

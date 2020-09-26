@@ -39,6 +39,7 @@
       <thead  class="thead-dark">
         <tr>
           <th scope="col">Nombre(s) documento(s) asociado(s) </th>
+          <th scope="col">Acciones </th>
         </tr>
       </thead>
       <tbody class="rounded-pill">
@@ -47,10 +48,12 @@
             <tr>
               <% if doc.file_name != "" %>
                 <td><%= link_to doc.file_name.to_s.split('/')[5], File.join(root_url.to_s,doc.file_name.to_s)%> </td>
+                <td><%= link_to 'Borrar', doc, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></td>
               <%else %>
                 <td>Sin Archivo</td>
               <% end %>
             </tr>
+            
           <%end%>  
         <%end%>
       </tbody>

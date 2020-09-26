@@ -3,43 +3,63 @@
 </div>
 
 <%= form_with model: @persona_member, id: :formulary, remote: true do |form| %>
+    <div class= "container">
+        <div class="form-group">
+            <div class= "card text-center bg-ligth mb-3">
+                <div class= "card-header">
+                    <h1>Nuevo Miembro</h1>
+                </div>
+            <div class= "card-body">
+                <p class= "card-text">
+                    <div class="form-row">
+                        <div class = "col">
+                            <%= form.label "persona jurídica" %>
+                            <%= form.text_field :legal_persona_id, value: @legal_persona.name, class: 'form-control', readonly: true %>
+                            <%= form.hidden_field :legal_persona_id, value: @legal_persona.id %>
+                        </div>
+                    </div>
+                    <div class= "form-row">
+                        <div class = "col">
+                            <%= form.label "Tipo" %>
+                            <div class = "col">
+                                <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
+                                <%= label :type_member_Natural, 'Natural' %>
+                                <%= form.radio_button :type_member, 'Empresa', onchange: "get_value(this)" %>
+                                <%= label :type_member_Empresa, 'Empresa' %>
+                            </div>    
+                        </div>
+                        <div class = "col">
+                            <%= form.label "Miembro" %>
+                            <%=  form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                        </div>
+                    </div>
+                    <div class= "form-row">    
+                        <div class = "col">
+                            <%= form.label "Acciones que maneja" %>
+                            <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
+                        </div>
+                        <div class = "col">
+                            <%= form.label "porcentaje de participacion" %>
+                            <%= form.number_field :percentage, class: "form-control", step: :any ,readonly: true %>
+                        </div>
+                    </div>
+                </p>
+                <div class="form-row">
+                    <div class = "col">
+                        <%=  form.submit "Guardar miembro", class: "btn btn-primary"%>
+                    </div>
+                </div>  
+            </div>
+        </div>        
+    </div>
 
-<div class = "col">
-<%= form.label "persona jurídica" %>
-<%= form.text_field :legal_persona_id, value: @legal_persona.name, class: 'form-control', readonly: true %>
-<%= form.hidden_field :legal_persona_id, value: @legal_persona.id %>
-</div>
-<!--<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}, @legal_persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>-->
-<div class = "col">
-<%= form.label "Tipo" %>
-</div>
-<div class = "col">
-<%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
-<%= label :type_member_Natural, 'Natural' %>
-<%= form.radio_button :type_member, 'Empresa', onchange: "get_value(this)" %>
-<%= label :type_member_Empresa, 'Empresa' %>
-</div>
 
 
 
 
-<div class = "col">
-<%= form.label "Miembro" %>
-<%=  form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
-</div>
 
-<div class = "col">
-<%= form.label "Acciones que maneja" %>
-<%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
-</div>
 
-<div class = "col">
-<%= form.label "porcentaje de participacion" %>
-<%= form.number_field :percentage, class: "form-control", readonly: true %>
-</div>
-<div class = "col">
-<%=  form.submit "Guardar miembro", class: "btn btn-primary"%>
-</div>
+
 
 
 <% end %>

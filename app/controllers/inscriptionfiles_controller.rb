@@ -31,8 +31,9 @@ class InscriptionfilesController < ApplicationController
   
   
     def destroy
+      @inscription = Inscription.find(@inscriptionfile.inscription_id)
       @inscriptionfile.destroy
-      redirect_to inscriptionfiles_path
+      redirect_to @inscription
     end
   
     private
