@@ -13,10 +13,15 @@ class JudicialfilesController < ApplicationController
     end
   
     def create
+      @auctions_id=params['format']
       @judicialfile = Judicialfile.new(judicialfile_params)
       @judicialfile.save
       @judgement_id=params['judicialfile']['judgement_id'].to_i
-      redirect_to judgement_path(@judgement_id)
+      if @auctions_id
+        redirect_to auction_path(@auctions_id)
+      else
+        redirect_to judgement_path(@judgement_id)
+      end
     end
   
     def show
