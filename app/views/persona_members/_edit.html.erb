@@ -1,29 +1,82 @@
 <%= form_with model: @persona_member, id: :formulary, remote: true do |form| %>
 
 
-<div class = "col">
-    <% LegalPersona.order(:id).each do |legalp| %>
-        <% if legalp.id == @persona_member.legal_persona_id then %>
+    <div class = "col">
+        <% LegalPersona.order(:id).each do |legalp| %>
+            <% if legalp.id == @persona_member.legal_persona_id then %>
 
-            <%= form.label "persona jurídica" %>
-            <%= form.text_field :legal_persona_id, value: legalp.name, class: 'form-control', readonly: true %>
-            <%= form.hidden_field :legal_persona_id, value: @persona_member.legal_persona_id %>
+                <%= form.label "persona jurídica" %>
+                <%= form.text_field :legal_persona_id, value: legalp.name, class: 'form-control', readonly: true %>
+                <%= form.hidden_field :legal_persona_id, value: @persona_member.legal_persona_id %>
 
-        <%end%>
+            <%end%>
+        <% end %>    
+    </div>
+
+    <div class = "col">
+        <%= form.label "Tipo" %>
+    </div>
+    <div class = "col">
+        <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
+        <%= label :type_member_Natural, 'Natural' %>
+        <%= form.radio_button :type_member, 'Empresa', onchange: "get_value(this)" %>
+        <%= label :type_member_Empresa, 'Empresa' %>
+    </div>
+
+    <div class= "col">
+        <%= form.label "Miembro: " %>
+        <% if @persona_member.type_member == "Empresa" then %>
+            <% LegalPersona.order(:id).each do |legalp| %>
+                <% if legalp.id == @persona_member.persona_id then %>
+                    <%= form.select :persona_id , options_for_select([[legalp.name, @persona_member.persona_id]]),class:"custom-select mr-sm-2 form-control"%>
+                <%end%>
+            <%end%>    
+        <%else%>
+            <% Persona.order(:id).each do |person| %>
+                <% if person.id == @persona_member.persona_id then %>
+                    <%=  form.select :persona_id , options_for_select([[person.name, @persona_member.persona_id]]),class:"custom-select mr-sm-2 form-control"%>
+                <%end%>
+            <%end%>
+        <%end%>            
+    </div>
+    <div class = "col">
+        
+        <%= form.label "Acciones que maneja" %>
+        <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
+    </div>
+    <div class= "col">
+        <%= form.label "porcentaje de participacion" %>
+        <%=  form.number_field :percentage, step: :any , class: "form-control"%>
+    </div>
+
+    <br>
+    <div class= "col">
+        <%=  form.submit "guardar", class: "btn btn-primary"%>
+    </div>
+
+<%end%>
 
 
-    <%end%>
-
-    <%= form.label "persona natural" %>
-    <%=  form.select :persona_id , options_for_select(Persona.order(:name).collect {|c| [c.name,c.id]}, @persona_member.persona_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
-
-    <%= form.label "porcentaje de participacion" %>
-    <%=  form.number_field :percentage %>
-
-
-    <%=  form.submit "guardar" %>
-</div>
-
-
-
-<% end %>
+<script>
+    function get_value(params) {
+        if(params.value == "Natural") {
+            var list = '<option value= 0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list);    
+        } else {
+            var list = '<option value= 0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |empresa| %>
+                list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list); 
+        }
+        
+        
+    }
+    function percentage(params) {
+        var x = (params.value * 100)/100000
+        document.getElementById('persona_member_percentage').value = x.toString();
+    } 
+</script>

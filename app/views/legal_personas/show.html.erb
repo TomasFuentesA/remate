@@ -199,6 +199,7 @@
             <thead  class="thead-dark">
               <tr>
                 <th scope="col">Nombre</th>
+                <th scope="col">Acciones</th>
                 <th scope="col">Participación</th>
                 <th scope="col">Opciones</th>
               </tr>
@@ -214,6 +215,7 @@
                     
                       <tr>
                         <td scope="row"><%= member.rut %>, <%= member.name%></td>
+                        <td scope="row"><%= personam.acciones%></td>
                         <td scope="row">
                           <%= personam.percentage%> %    
                         </td>
@@ -236,6 +238,7 @@
                     <%if (legalp.id == personam.persona_id) && (personam.type_member == "Empresa") && (personam.legal_persona_id == @legal_persona.id) then %>
                       <tr>
                         <td scope="row"><%= legalp.rut %>, <%= legalp.name%></td>
+                        <td scope="row"><%= personam.acciones%></td>
                         <td scope="row">
                           <%= personam.percentage %> %
                         </td>    
@@ -250,8 +253,7 @@
                         </td>
                       </tr>
                     <%end%>  
-                  <%end%>    
-                
+                  <%end%>
                 <%end%>
               <%end%>      
             </tbody> 

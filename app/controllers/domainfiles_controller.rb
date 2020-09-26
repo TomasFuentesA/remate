@@ -13,7 +13,8 @@ class DomainfilesController < ApplicationController
     def create
       @domainfile = Domainfile.new(domainfile_params)
       @domainfile.save
-      redirect_to domainfiles_path
+      @domain = Domain.find(params[:domainfile][:domain_id])
+      redirect_to @domain
     end
   
     def show
@@ -23,6 +24,7 @@ class DomainfilesController < ApplicationController
     end
   
     def update
+
       @domainfile.update(domainfile_params)
       redirect_to domainfiles_path
     end
@@ -30,8 +32,10 @@ class DomainfilesController < ApplicationController
   
   
     def destroy
+      Rails.logger.info @domainfile.domain_id
+      @domain = Domain.find(@domainfile.domain_id)
       @domainfile.destroy
-      redirect_to domainfiles_path
+      redirect_to @domain
     end
   
     private

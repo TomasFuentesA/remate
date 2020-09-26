@@ -5,8 +5,7 @@
 <%= form_with model: @domainfile, url: domainfiles_path , remote: true do |form| %>
 
   <div class="field">
-    <%= form.label :domain_id, "Seleccionar Escritura" %>
-    <%= form.select :domain_id, options_for_select(Domain.all.collect {|p| [p.type_modality+"/"+p.price.to_s, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+    <%= form.hidden_field :domain_id, value: params[:domain_id] %>
   </div>
 
   <div class="form-group col-md-2">
