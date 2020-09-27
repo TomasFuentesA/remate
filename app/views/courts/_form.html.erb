@@ -1,37 +1,36 @@
 <br>
-<div class="container-fluid" id="wrapper" >
-<%= form_for [@court] do |form| %>
-
-  <%= form.label :name, "Ingreso de nuevo Tribunal" %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :name %>
+<br>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <%= form_for [@court] do |form| %>
+      <h3>Ingreso de nuevo Tribunal</h3>
+      <div class="field">
+        <%= form.label :name, "Nombre" %>
+        <%= form.text_field :name, id: :name, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :rut, "RUT" %>
+        <%= form.text_field :rut, id: :rut, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :address, "Dirección:" %>
+        <%= form.text_field :address, id: :address, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :phone, "Telefono:" %>
+        <%= form.text_field :phone, id: :phone, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :account, "Cuenta:" %>
+        <%= form.number_field :account, id: :account, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :rut %>
-    <%= form.text_field :rut, id: :rut %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address, id: :address %>
-  </div>
-
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone, id: :phone %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :account %>
-    <%= form.number_field :account, id: :account %>
-  </div>
-
-
- <%= form.submit "Guardar" %>
-
-<% end %>
 </div>
+ 
