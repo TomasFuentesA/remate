@@ -1,30 +1,24 @@
-<%= form_with model: @region, local: true do |form| %>
-  <%= form.label :name, "Ingreso de nueva Region" %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :name %>
+<br>
+<br>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <%= form_with model: @region, local: true do |form| %>
+      <h3>Ingreso de nueva Región</h3>
+      <div class="field">
+        <%= form.label :name, "Nombre" %>
+        <%= form.text_field :name, id: :name, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :number_region, "Nº Región" %>
+        <%= form.number_field :number_region, id: :number_region, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :number_region %>
-    <%= form.number_field :number_region, id: :number_region %>
-  </div>
-
-  <%= form.fields_for :provinces do |s| %>
-    <%= s.label :name %>
-    <%= s.number_field :name %>
-    <%= s.fields_for :communes do |e| %>
-      <%= e.label :name %>
-      <%= e.text_field :name %>
-    <% end %>
-    <% end %>
-
-
-
-
-
-
- <%= form.submit "Guardar" %>
-
-<% end %>
+</div>
+ 
