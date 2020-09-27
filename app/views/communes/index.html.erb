@@ -3,9 +3,7 @@
   <br>
   <div>
     <%= link_to 'Nueva Comuna', new_commune_path, class: 'btn btn-primary' %>
-
     <%= link_to 'Ir a Region', regions_path, class: 'btn btn-primary' %>
-   
     <%= link_to 'Ir a Provincia', provinces_path, class: 'btn btn-primary' %>
   </div>
   <br>
@@ -19,26 +17,18 @@
       <th>Opciones</th>
     </tr>
   </thead>
-
   <tbody>
-
-
     <% @communes.each do |commune| %>
-
       <tr>
         <td><%= commune.name %></td>
         <% if commune.province %>
-
-        <td><%= commune.province.name %></td>
-        <td><%= commune.province.region.name %></td>
+          <td><%= commune.province.name %></td>
+          <td><%= commune.province.region.name %></td>
         <%end%>
-
         <td>
-
         <%= link_to 'ver', commune , class: "btn btn-info" %>
         <%= link_to 'editar', edit_commune_path(commune) , class: "btn btn-warning" %>
         <%= link_to 'borrar', commune, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
-
       </tr>
     <% end %>
   </tbody>

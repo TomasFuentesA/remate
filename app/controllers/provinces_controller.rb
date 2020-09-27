@@ -1,11 +1,11 @@
 class ProvincesController < ApplicationController
   
-
   load_and_authorize_resource
+  before_action :set_province, only: [:edit,:show,:destroy]
+  before_action :display_values, only: [:show]
 
   def index
     @provinces = Province.order("name").page(params[:page]).per_page(10)
-
   end
 
   def new
@@ -36,9 +36,18 @@ class ProvincesController < ApplicationController
 
   private
 
+  def display_values
+    @able = @province
+    @name = @able.name
+    @region_id = @able.region_id
+  end
+
+  def set_province
+    @province = Province.find(params[:id])
+  end
+
   def province_params
     params.require(:province).permit(:name, :region_id,:communes_attributes => [:id,:name,:cod_treasury,:conara_sii] )
   end
-
 
 end
