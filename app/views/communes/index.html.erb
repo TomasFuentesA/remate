@@ -1,7 +1,17 @@
-<%= link_to 'Ir a Propiedades', realties_path %>
+<%= link_to 'Ir a Propiedades', realties_path, class: 'btn btn-primary' %>
+  <br>
+  <br>
+  <div>
+    <%= link_to 'Nueva Comuna', new_commune_path, class: 'btn btn-primary' %>
 
-<table id="myTable" class="table">
-  <thead>
+    <%= link_to 'Ir a Region', regions_path, class: 'btn btn-primary' %>
+   
+    <%= link_to 'Ir a Provincia', provinces_path, class: 'btn btn-primary' %>
+  </div>
+  <br>
+  <br>
+<table id="myTable" class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
       <th>Listado de Comunas</th>
       <th>Provincia</th>
@@ -24,9 +34,10 @@
         <%end%>
 
         <td>
-          <%= link_to 'Show', commune %>
-          <%= link_to 'Edit', edit_commune_path(commune) %>
-          <%= link_to 'Destroy', commune, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+        <%= link_to 'ver', commune , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_commune_path(commune) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', commune, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
 
       </tr>
     <% end %>
@@ -35,16 +46,3 @@
 
 <br>
 <%= will_paginate(@courts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
-
-  <%= link_to 'Nueva Comuna', new_commune_path %>
-
-  <p> </p>
-
-  <div>
-    <%= link_to 'Ir a Region', regions_path %>
-  </div>
-  <p> </p>
-
-  <div>
-    <%= link_to 'Ir a Provincia', provinces_path %>
-  </div>

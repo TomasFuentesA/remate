@@ -1,16 +1,31 @@
-<%= form_with model: Commune.new, local: true do |form| %>
-  <%= form.label :name, "Ingreso de nueva Comuna" %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :name %>
+<script>
+  $(document).ready(function() {
+    $('select#commune_province_id').select2({
+      theme: "bootstrap"
+    });
+  });
+</script>
+<br>
+<br>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <%= form_for [@commune] do |form| %>
+      <h3>Ingreso de nueva Comuna</h3>
+      <div class="field">
+        <%= form.label :name, "Nombre" %>
+        <%= form.text_field :name, id: :name, autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :province_id, "Provincia" %>
+        <%= form.select :province_id, options_for_select(Province.all.collect {|p| [p.name, p.id]}, @commune.province_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :province_id %>
-    <%= form.select :province_id, options_for_select(Province.all.collect {|p| [p.name, p.id]}, { include_blank: "Seleccione"}) %>
-  </div>
-
- <%= form.submit "Guardar" %>
-
-<% end %>
+</div>
+ 
