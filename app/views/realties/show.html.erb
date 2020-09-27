@@ -1,15 +1,10 @@
-<%= link_to 'Volver Listado Propiedades', realties_path %>
-
-<p></p>
-
-
-
+<% if  @auction_id !='' %>
+  <%= link_to 'Volver a Remate', auction_path(@auction_id) %>
+<% else %>
+  <%= link_to 'Volver Listado Propiedades', realties_path %>
+<% end %>
 <br>
 <h1>Ficha Propiedad:</h1>
-
-
-
-
 <div class="main container">
   <div class="container-fluid">
     <div class="row">
@@ -17,96 +12,65 @@
         <div>
           <h2>Dirección: <%= @realty.address %>, <%= @realty.type_realty.tipo %> <%= @realty.unit_estate %></h2>
         </div>
-
         <div>
           <div id="map" style='width: 100%; height: 300px;'></div>
         </div>
         <hr>
         <h1>Información básica:</h1>
-
+        <div class="field">
+          <h4>Tipo de propiedad </h4>
+          <%= @realty.type_realty.tipo %>
+        </div>
+        <div class="field">
+          <h4> Poblacion, Villa , Conjunto:</h4>
+          <%= @realty.population_villa %>
+        </div>
+        <% if (@realty.condominio_id != nil) %>
+        <div class="field">
+          <h4>Condominio/Edificio/Parcelacion </h4>
+          <% @condominios.each do |condominio| %>
+            <%= condominio.id === @realty.condominio_id ? condominio.name : '' %>
+          <% end %> 
+          <%else %> 
           <div class="field">
-            <h4>Tipo de propiedad </h4>
-             <%= @realty.type_realty.tipo %>
-         </div>
-
-
-            <div class="field">
-              <h4> Poblacion, Villa , Conjunto:</h4>
-              <%= @realty.population_villa %>
-            </div>
-
-            <% if (@realty.condominio_id != nil) %>
-            <div class="field">
-
-               <h4>Condominio/Edificio/Parcelacion </h4>
-                    <% @condominios.each do |condominio| %>
-                   <%= condominio.id === @realty.condominio_id ? condominio.name : '' %><
-          <% end %>
-            <%else %>
-
-             <div class="field">
-
-                no hay Condominio
-             </div>
-             <% end %>
-
-
-            <div class="field">
-              <h4>Rol Avaluo</h4>
-               <%= @realty.appraisal_role %>
-            </div>
-
-
-             <div class="field">
-               <h4>Latitud</h4>
-                <%= @realty.latitude %>
-             </div>
-
-             <div class="field">
-               <h4>Longitud</h4>
-              <%= @realty.longitude %>
-            </div>
-
-
-              <% unless @realty.characteristic.nil? %>
-               <div class="field">
-
-               <h4>Construido mt2 </h4>
-                 <%= @realty.characteristic.m2_built %>
-
-               <h4>Terreno mt2 </h4>
-                 <%= @realty.characteristic.m2_land %>
-              </div>
-             <%else %>
-
-              <div class="field">
-
-              no hay caracteristicas
-             </div>
-            <% end %>
-
-
-
-          
-
-        <p></p>
-          <div class="field">
-            <h4>Destino Sii</h4>
-            <%= @realty.fiscal_destination %>
+            no hay Condominio
           </div>
-
-        <p></p>
-
-      </div> 
-
+        <% end %>
+        <div class="field">
+          <h4>Rol Avaluo</h4>
+          <%= @realty.appraisal_role %>
+        </div>
+        <div class="field">
+          <h4>Latitud</h4>
+          <%= @realty.latitude %>
+        </div>
+        <div class="field">
+          <h4>Longitud</h4>
+          <%= @realty.longitude %>
+        </div>
+        <% unless @realty.characteristic.nil? %>
+        <div class="field">
+          <h4>Construido mt2 </h4>
+          <%= @realty.characteristic.m2_built %>
+          <h4>Terreno mt2 </h4>
+          <%= @realty.characteristic.m2_land %>
+        </div>
+        <%else %>
+        <div class="field">
+          no hay caracteristicas
+        </div>
+        <% end %>
+        <div class="field">
+          <h4>Destino Sii</h4>
+          <%= @realty.fiscal_destination %>
+        </div>
+      </div>
       <div>
         <h1>Ficha Tasaciones:</h1>
-          <div class="field">
-           <h4>Tasaciones</h4>
-          
-
-          <table   class="table table-bordered table-hover">
-            <thead  class="thead-dark">
+        <div class="field">
+          <h4>Tasaciones</h4>
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
               <tr>
                 <th scope="col">Fecha</th>
                 <th scope="col">Entidad</th>
@@ -118,85 +82,63 @@
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
-           
             <tbody class="rounded-pill">
-             
-          
-                
-                  <% @realty.appraisal.each do |appraisal| %> 
-                  
-                  <tr>
-
-
-                  <td><%= appraisal.date %></td>
-                  <td><%= appraisal.entity %></td>
-                  <td><%= appraisal.price_uf %></td>
-                  <td><%= appraisal.price_clp %></td>
-                  <td><%= appraisal.price_usd %></td>
-                  <td><%= appraisal.observation%></td>
-                  <% if appraisal.file_name != "" && appraisal.file_name.to_s.split('/')[5]!=nil %>
-                  <td>
-                    <%= link_to appraisal.file_name.to_s.split('/')[5], File.join(root_url.to_s,appraisal.file_name.to_s), target: "_blank"%>
-                    <%= link_to 'Descargar', File.join(root_url.to_s,appraisal.file_name.to_s),download:''%>
-                  </td>
-                  <%else %>
-                  <td>Sin Archivo</td>
-                  <% end %>
-          
-                  <td>
-                    <%= link_to 'Ver', appraisal , class: "btn btn-info" %>
-                    
-                </tr>
+              <% @realty.appraisal.each do |appraisal| %>
+              <tr>
+                <td><%= appraisal.date %></td>
+                <td><%= appraisal.entity %></td>
+                <td><%= appraisal.price_uf %></td>
+                <td><%= appraisal.price_clp %></td>
+                <td><%= appraisal.price_usd %></td>
+                <td><%= appraisal.observation%></td>
+                <% if appraisal.file_name != "" && appraisal.file_name.to_s.split('/')[5]!=nil %>
+                <td>
+                  <%= link_to appraisal.file_name.to_s.split('/')[5], File.join(root_url.to_s,appraisal.file_name.to_s), target: "_blank"%>
+                  <%= link_to 'Descargar', File.join(root_url.to_s,appraisal.file_name.to_s),download:''%>
+                </td>
+                <%else %>
+                <td>Sin Archivo</td>
                 <% end %>
+                <td>
+                  <%= link_to 'Ver', appraisal , class: "btn btn-info" %>
+              </tr>
+              <% end %>
             </tbody>
           </table>
-     
-
-          </div>
         </div>
+      </div>
       <br>
       <div class="col-md-4 card dard-body">
-
       </div>
-
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
 <script>
-
-handler = Gmaps.build('Google');
-handler.buildMap({
+  handler = Gmaps.build('Google');
+  handler.buildMap({
     provider: {
-      center: new google.maps.LatLng({lat: <%= @realty.latitude %>, lng: <%= @realty.longitude %> }),
-      zoom: 16
+      center: new google.maps.LatLng({ lat: <%= @realty.latitude %>, lng: <%= @realty.longitude %> }),
+  zoom: 16
     },
-    internal: {
-      id: 'map'
-    }
-  }, function(){
-  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-  google.maps.event.addListener(handler.getMap(), "click", function(){
-    console.log("hola");
+  internal: {
+    id: 'map'
+  }
+  }, function() {
+    markers = handler.addMarkers(<%= raw @hash.to_json %>);
+    google.maps.event.addListener(handler.getMap(), "click", function () {
+      console.log("hola");
 
     });
-  google.maps.event.addListener(handler.getMap(), 'center_changed', function(){
-    var latitude = handler.getMap().getCenter().lat();
-    var longitude = handler.getMap().getCenter().lng();
-    $.ajax({
-      url: '/realties',
-      type: 'GET',
-      dataType: 'script',
-      data: {latitude: latitude, longitude: longitude}
-    })
-  });
-}
+    google.maps.event.addListener(handler.getMap(), 'center_changed', function () {
+      var latitude = handler.getMap().getCenter().lat();
+      var longitude = handler.getMap().getCenter().lng();
+      $.ajax({
+        url: '/realties',
+        type: 'GET',
+        dataType: 'script',
+        data: { latitude: latitude, longitude: longitude }
+      })
+    });
+  }
 );
 </script>

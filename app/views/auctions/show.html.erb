@@ -69,8 +69,8 @@
                     <td><%= realty.commune.name %>/<%= realty.commune.province.name%>/<%= realty.commune.province.region.name%>
                     </td>
                     <td>
-                      <%= link_to 'Ver', realty , class: "btn btn-info" %>
-                      <%= link_to 'Edit', edit_realty_path(realty) , class: "btn btn-warning" %></td>
+                      <%= link_to 'ver', realty_path(realty,@auction.id) , class: "btn btn-info" %>
+                      <%= link_to 'editar', edit_realty_path(realty,@auction.id) , class: "btn btn-warning" %></td>
                   </tr>
                 <% end %>
               <% end %>

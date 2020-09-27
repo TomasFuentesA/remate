@@ -30,24 +30,27 @@ class RealtiesController < ApplicationController
     end
   end
 
-
-
-
-
   def show
+    @auction_id=params['format']?params['format']:''
     @condominios = Condominio.all
   end
 
   def edit
+    @auction_id=params['format']
     @condominios = Condominio.all
     @realty.build_characteristic if @realty.characteristic.nil?
     @realty.build_type_realty if @realty.type_realty.nil?
   end
 
   def update
+    @auction_id = params['realty']['auction_id']
     @condominios = Condominio.all
     @realty.update(realty_params)
-    redirect_to realties_path
+    if @auction_id != ""
+      redirect_to auction_path(@auction_id)
+    else
+      redirect_to realties_path
+    end
   end
 
   def destroy

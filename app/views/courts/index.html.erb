@@ -1,8 +1,8 @@
 <br>
 <%= link_to 'Nuevo Tribunal', new_court_path ,class: "btn btn-primary"%>
 <br>
+<br>
 <table class="table table-bordered table-hover">
-
   <thead class="thead-dark">
     <tr>
       <th scope="col">Seleccionar Tribunal</th>
@@ -13,33 +13,23 @@
       <th scope="col">Opciones</th>
     </tr>
   </thead>
-
-
-
-
   <tbody>
     <% @courts.each do |court| %>
-
-      <tr>
-        <td><%= court.name %></td>
-        <td><%= court.rut %></td>
-        <td><%= court.address %></td>
-        <td><%= court.phone %></td>
-        <td><%= court.account %></td>
-
-        <td> <%= link_to 'Ver', court , class:"btn btn-info" %>
+    <tr>
+      <td><%= court.name %></td>
+      <td><%= court.rut %></td>
+      <td><%= court.address %></td>
+      <td><%= court.phone %></td>
+      <td><%= court.account %></td>
+      <td> <%= link_to 'ver', court , class:"btn btn-info" %>
         <% if can? :access, :admin_users, :lawyers %>
-        <%= link_to 'Editar', edit_court_path(court), class: "btn btn-warning" %>
-        <%= link_to 'Eliminar', court, method: :delete, data: { confirm: 'Are you sure?' } , class:"btn btn-danger", remote: true %>
+        <%= link_to 'editar', edit_court_path(court), class: "btn btn-warning" %>
+        <%= link_to 'eliminar', court, method: :delete, data: { confirm: 'Esta seguro?' } , class:"btn btn-danger", remote: true %>
         <%end%>
-</td>
-
-
-      </tr>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
-
 <%= will_paginate(@courts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
-
 <br>

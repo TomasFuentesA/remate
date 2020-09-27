@@ -12,7 +12,9 @@
     <% if @auctions_by_date[date] %>
       <ul>
         <% @auctions_by_date[date].each do |auction| %>
-          <li><%= link_to "#{auction.hour}-#{auction.court.name}-#{auction.realty.address}", auction %></li>
+          <li>
+            <%= link_to "#{auction.date}-#{auction.hour}-#{auction.judgement.full_name_judgement}", auction %>
+          </li>
         <% end %>
       </ul>
     <% end %>

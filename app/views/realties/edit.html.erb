@@ -27,6 +27,7 @@ $(document).ready(function() {
                 <h2>Propiedad: <%= @realty.address %>, <%= @realty.unit_estate %></h2>
               </div>
             </div>
+            <%= form.hidden_field :auction_id, :value => @auction_id%>
             <div class="form-group">
               <div class="row ">
                 <div class="col-md-6">
