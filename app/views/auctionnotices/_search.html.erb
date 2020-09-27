@@ -1,21 +1,19 @@
 <%= "Buscar auction" %>
+<br>
+<br>
 <form class="form-inline">
-
-
 <%= search_form_for @search, remote: true do |form|  %>
 <div class="form-group  mb-2">
   <%=form.label :auction_cont, "Texto:" %>
-
 </div>
+<br>
  <div class="form-group mx-sm-3 mb-2">
-   <%=form.text_field :auction_cont %>
+   <%=form.text_field :auction_cont, class:"form-control border" %>
    </div>
 <div class="actions">
   <%= form.submit "buscar", class:"btn btn-success"%>
-
 </div>
 <%= link_to "Quitar filtros",auctionnotices_path, class:"btn btn-info"%>
-
 <% end %>
 </form>
 <br>
