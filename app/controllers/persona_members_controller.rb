@@ -12,8 +12,8 @@ class PersonaMembersController < ApplicationController
 
 
   def create
-    #find (type_member)
-    #find (persona_id)
+    
+    @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member])
     var = 0
     PersonaMember.order(:id).each do |personam|
       if personam.legal_persona_id == params[:persona_member][:legal_persona_id]
@@ -22,18 +22,22 @@ class PersonaMembersController < ApplicationController
     end
     
     if (var + (params[:persona_member][:percentage]).to_i) <= 100
-      @persona_member = PersonaMember.create(persona_member_params)
-      Rails.logger.info "var <= 100"  
-      if @persona_member.save
-        Rails.logger.info "Save"
-        flash[:notice] =  "ingresado exitosamente"
-        @legal_persona = LegalPersona.find(params[:persona_member][:legal_persona_id])
-        redirect_to @legal_persona
+      Rails.logger.info "var <= 100"
+      if @personamember.nil?
+        @persona_member = PersonaMember.create(persona_member_params)      
+        if @persona_member.save
+          Rails.logger.info "Save"
+          flash[:notice] =  "ingresado exitosamente"
+          @legal_persona = LegalPersona.find(params[:persona_member][:legal_persona_id])
+          redirect_to @legal_persona
+        else
+          Rails.logger.info "Else 1"
+          Rails.logger.info @persona_member.errors.full_messages.to_s
+          flash[:errors] = @persona_member.errors.full_messages
+        end
       else
-        Rails.logger.info "Else 1"
-        Rails.logger.info @persona_member.errors.full_messages.to_s
-        flash[:errors] = @persona_member.errors.full_messages
-      end
+        flash[:alert] = "La persona ya esta ingresada"
+      end  
     else
       Rails.logger.info "Else 2"
       flash[:alert] = "El porcentaje de participacion excede el 100%"
@@ -95,10 +99,11 @@ class PersonaMembersController < ApplicationController
   end
 
   def destroy
+    @legal_persona = LegalPersona.find(@persona_member.legal_persona_id)
     @persona_member.destroy
     respond_to do |format|
       format.js
-      format.html {redirect_to legal_personas_path, notice: "eliminado exitosamente" }
+      format.html {redirect_to @legal_persona, notice: "eliminado exitosamente" }
       format.json {head :no_content }
     end
   end

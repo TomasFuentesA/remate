@@ -290,8 +290,9 @@
             <tr>
               <th scope="col">Notario</th>
               <th scope="col">Modalidad</th>
-              <th scope="col">precio</th>
-              <th scope="col">fecha de posecion</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Vendedor</th>
+              <th scope="col">Fecha de posecion</th>
               <th scope="col">Porcentaje</th>
               <th scope="col">Opciones</th>
             </tr>
@@ -306,6 +307,17 @@
                 <%end%>    
                 <td><%= domain.type_modality %></td>
                 <td><%= domain.price %></td>
+                <% DomainRol.order(:id).each do |domrol| %>
+                  <% if domrol.domain_id == domain.id %>
+                    <% if domrol.type_member == "Legal" %>
+                      <% @legal = LegalPersona.find(domrol.persona_id) %>
+                      <td scope = "row"><%= @legal.name%></td>
+                    <% else %>
+                      <% @persona = Persona.find(domrol.persona_id) %>
+                      <td scope = "row"><%= @persona.name%></td>
+                    <%end%>
+                  <%end%>
+                <%end%>      
                 <td><%= domain.date_posetion %></td>
                 <td><%= domain.percentage %></td>
                 <td>                   
