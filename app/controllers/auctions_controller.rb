@@ -137,7 +137,7 @@ class AuctionsController < ApplicationController
   def auction_params
     begin
       params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
-        :total_minimum, :cost, :uf, :realty_id, :auctionnotice_id, :judgement_id)
+        :total_minimum, :cost, :uf, :realty_id, :auctionnotice_id, :judgement_id, :warranty_date, :warranty_time)
     rescue Exception => error
       Rails.logger.info error
     end
