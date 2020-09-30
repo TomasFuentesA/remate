@@ -13,7 +13,9 @@ $(document).ready(function() {
 </script>
 <script>
   function percentage(params) {
-    var x = (params.value * 100)/100000
+    <% @legal = LegalPersona.find(params[:legal_persona_id]) %>
+    var y =  <%= @legal.acciones%>
+    var x = (params.value * 100)/y
     document.getElementById('domain_percentage').value = x.toString();
   }
 </script>
@@ -47,7 +49,7 @@ $(document).ready(function() {
           <div class="form-row">
             <div class= "col">
               <%= form.label :type_modality, "Modalidad:" %>
-              <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"], ["Modificacion de empresa", "Modificacion de empresa"], ["Compra y Venta de algo","Compra y Venta de algo"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2" %>
+              <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"], ["Modificacion de empresa", "Modificacion de empresa"], ["Compra y Venta de acciones","Compra y Venta de acciones"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2" %>
             </div>
 
             <div class= "col">

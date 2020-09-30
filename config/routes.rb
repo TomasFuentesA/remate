@@ -88,9 +88,13 @@ Rails.application.routes.draw do
       resources :directions
       resources :phones
       resources :emails
+      resources :domain_rols do
+        resources :persona_members
+      end
       resources :activities
-      resources :domains
+      resources :domains 
       resources :persona_members
+      resources :legal_represents
       end
 
 

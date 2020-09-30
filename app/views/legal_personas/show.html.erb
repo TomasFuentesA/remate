@@ -166,19 +166,18 @@
 
           <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
           <% else %>
-          <%= link_to 'Nuevo correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+          <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
              
         <% end %>
         <% unless @legal_persona.activities.any? %>
 
           <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
           <% else %>
-          <%= link_to 'Nueva actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+          <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
              
         <% end %>
 
-        <%=link_to "Añadir Persona", new_legal_persona_persona_member_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
-
+        
         <%=link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
 
       
@@ -235,7 +234,7 @@
 
                   <% LegalPersona.order(:id).each do |legalp| %>
 
-                    <%if (legalp.id == personam.persona_id) && (personam.type_member == "Empresa") && (personam.legal_persona_id == @legal_persona.id) then %>
+                    <%if (legalp.id == personam.persona_id) && (personam.type_member == "Legal") && (personam.legal_persona_id == @legal_persona.id) then %>
                       <tr>
                         <td scope="row"><%= legalp.rut %>, <%= legalp.name%></td>
                         <td scope="row"><%= personam.acciones%></td>
@@ -245,7 +244,7 @@
                         <td> 
                           <%= link_to 'Ver', legalp, class: "btn btn-info" %>
                           <% LegalPersona.order(:id).each do |legalp| %>
-                            <%if (legalp.id == personam.persona_id) && (personam.type_member == "Empresa") then %>
+                            <%if (legalp.id == personam.persona_id) && (personam.type_member == "Legal") then %>
                               <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
                               <%= link_to 'Borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
                             <%end%>
@@ -292,6 +291,7 @@
               <th scope="col">Modalidad</th>
               <th scope="col">Precio</th>
               <th scope="col">Vendedor</th>
+              <th scope="col">Comprador</th>
               <th scope="col">Fecha de posecion</th>
               <th scope="col">Porcentaje</th>
               <th scope="col">Opciones</th>
@@ -317,7 +317,33 @@
                       <td scope = "row"><%= @persona.name%></td>
                     <%end%>
                   <%end%>
-                <%end%>      
+                <%end%>
+                
+                <% if domain.type_modality == "Compra y Venta de acciones" %>
+                                  
+                  <% DomainRol.order(:id).each do |domrol| %>
+                    <% if domrol.id == domain.id %>
+                      <% @compradors = Comprador.where(domain_rol_id: domrol.id) %>
+                      <td>
+                        <% @compradors.each do |comp| %>
+                          <%if comp.type_member == "Legal" %>
+                            <% @legal = LegalPersona.find(comp.persona_id) %>
+                            <div class= "col">
+                            <%= @legal.name %>
+                            </div>
+                          <%else%>
+                            <% @persona = Persona.find(comp.persona_id) %>
+                            <div class = "col">
+                            <%= @persona.name %>
+                            </div>  
+                          <%end%>
+                        <%end%>  
+                      </td>
+                    <%end%>
+                  <%end%>
+                <%else%>
+                  <td> No figura comprador</td>
+                <%end%>                                  
                 <td><%= domain.date_posetion %></td>
                 <td><%= domain.percentage %></td>
                 <td>                   

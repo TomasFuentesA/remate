@@ -20,23 +20,30 @@
                     </div>
                     <div class= "form-row">
                         <div class = "col">
+                            <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                            
                             <%= form.label "Tipo" %>
-                            <div class = "col">
-                                <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
-                                <%= label :type_member_Natural, 'Natural' %>
-                                <%= form.radio_button :type_member, 'Empresa', onchange: "get_value(this)" %>
-                                <%= label :type_member_Empresa, 'Empresa' %>
-                            </div>    
+                            <%= form.select :type_member, options_for_select([["Natural", "Natural"], ["Legal", "Legal"]], @domain_rol.type_member),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_value(this)" %>  
                         </div>
                         <div class = "col">
-                            <%= form.label "Miembro" %>
-                            <%=  form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                            <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                            <% if @domain_rol.type_member == "Legal" %>
+                                <% @legal = LegalPersona.find(@domain_rol.persona_id) %>
+                                <%= form.label "Miembro" %>
+                                <%= form.select :persona_id , options_for_select(LegalPersona.order(:id).collect{|c|[c.name, c.id]}, @legal.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                            <%else%>
+                                <% @persona = Persona.find(@domain_rol.persona_id) %>
+                                <%= form.label "Miembro" %>
+                                <%= form.select :persona_id , options_for_select(Persona.order(:id).collect{[c.name, c.id]}, @persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%> 
+                            <%end%>       
                         </div>
                     </div>
                     <div class= "form-row">    
                         <div class = "col">
+                            <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                            <% @dom = Domain.find(@domain_rol.domain_id) %>
                             <%= form.label "Acciones que maneja" %>
-                            <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
+                            <%= form.number_field :acciones, class: "form-control", onclick: "percentage(this)", value: @dom.price %>
                         </div>
                         <div class = "col">
                             <%= form.label "porcentaje de participacion" %>
@@ -66,6 +73,7 @@
 
 <script>
     function get_value(params) {
+        console.log(params.value);
         if(params.value == "Natural") {
             var list = '<option value= 0>Seleccione persona natural</option>'
             <%Persona.order(:name).each do |persona| %>

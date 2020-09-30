@@ -23,7 +23,8 @@ class PersonaMembersController < ApplicationController
     
     if (var + (params[:persona_member][:percentage]).to_i) <= 100
       Rails.logger.info "var <= 100"
-      if @personamember.nil?
+      
+      if @personamember.length == 0
         @persona_member = PersonaMember.create(persona_member_params)      
         if @persona_member.save
           Rails.logger.info "Save"
