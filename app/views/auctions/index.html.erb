@@ -15,7 +15,6 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">Nº</th>
-
       <th scope="col">Fecha</th>
       <th scope="col">Tribunal</th>
       <th scope="col">Rol</th>
@@ -25,7 +24,6 @@
       <th scope="col">Minimo</th>
       <th scope="col">Status</th>
       <th scope="col">Opciones</th>
-
     </tr>
   </thead>
 
@@ -75,11 +73,12 @@
 
       <td><%= auction.judgement.type_judgement %></td>
       <td>
+
       <% AuctionsRealty.order(:id).each do |auctionsRealty| %>
        <% if(auctionsRealty.auction_id === auction.id) %>
         <% Realty.order(:id).each do |realty| %>
          <% if(realty.id === auctionsRealty.realty_id) %>
-           <p><%= realty.address %></p>
+           <p><%= realty.address %>, <%= realty.type_realty.tipo %> <%= realty.unit_estate %></p>
          <% end %>
         <% end %> 
         <% end %>

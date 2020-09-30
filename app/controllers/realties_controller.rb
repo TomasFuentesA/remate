@@ -3,14 +3,13 @@ class RealtiesController < ApplicationController
   before_action :set_hash , only: [:show,:new]
   before_action :set_realty , only: [:edit,:show,:destroy]
 
-
   def index
-      @condominios = Condominio.all
-      @realties = Realty.all
-      @hash = Gmaps4rails.build_markers(@realties) do |realty, marker|
-        marker.lat realty.latitude
-        marker.lng realty.longitude
-      end
+    @condominios = Condominio.all
+    @realties = Realty.all
+    @hash = Gmaps4rails.build_markers(@realties) do |realty, marker|
+      marker.lat realty.latitude
+      marker.lng realty.longitude
+    end
   end
 
   def new
@@ -20,14 +19,19 @@ class RealtiesController < ApplicationController
   end
 
   def create
+    @auctionnotices_id=params['format']?params['format']:''
     @realty = Realty.new(realty_params)
     if @realty.save
-      redirect_to @realty, notice: "Propiedad Ingresada"
+      if @auctionnotices_id != ""
+        redirect_to new_auctionnotice_auction_path(@auctionnotices_id)
+      else
+        redirect_to @realty, notice: "Propiedad Ingresada"
+      end
     else
       Rails.logger.info "probando crear new realty"
       render :json => { :errors => @realty.errors.full_messages }
-    
     end
+    
   end
 
   def show
@@ -60,10 +64,7 @@ class RealtiesController < ApplicationController
       format.html {redirect_to realties_path, notice: "Propiedad: #{@realty.name_realty} eliminada exitosamente" }
       format.json {head :no_content }
     end
-
   end
-
-  
 
   def searchFilterData 
     @param = "%"+params[:q]+"%"

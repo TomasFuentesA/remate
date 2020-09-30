@@ -29,7 +29,7 @@
               margin-left: 20px;">
               <%= @auctionnotice.auction %>
             </div>
-            <%= render partial: "realties/form_modal" , remote:true %>
+            <%= render partial: "realties/form_modal" , :locals => { :item => @auctionnotice } %>
 
           </div>
           <div class="modal-footer">

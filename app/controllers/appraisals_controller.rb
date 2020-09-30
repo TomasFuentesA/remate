@@ -7,6 +7,7 @@ class AppraisalsController < ApplicationController
   end
 
   def new
+    @realty_id=params['format']?params['format']:''
     @appraisal = Appraisal.new
   end
 

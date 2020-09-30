@@ -36,11 +36,11 @@ $(document).ready(function() {
             <div class="row ">
               <div class="col-md-6">
                   <%= form.label :realty_id, "Seleccionar Propiedad" %>
-                    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple"%>
+                  <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), {} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple"%>
               </div>
               <div class="col-md-6">
                <%= form.label :judgement_id, "Seleccionar Juicio" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), { include_blank: "Seleccione"}, class:"custom-select" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), {}, class:"custom-select" %>
               </div>
             </div>
           </div>

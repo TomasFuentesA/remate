@@ -13,9 +13,15 @@ class JudgementsController < ApplicationController
   end
 
   def create
+    @auctionnotices_id=params['format']?params['format']:''
     @judgement = Judgement.new(judgement_params)
-    @judgement.save
-    redirect_to judgements_path
+    if @judgement.save
+      if @auctionnotices_id != ""
+        redirect_to new_auctionnotice_auction_path(@auctionnotices_id)
+      else
+        redirect_to judgements_path
+      end
+    end
   end
 
   def edit
