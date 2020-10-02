@@ -117,31 +117,22 @@
   </div>
 </div>
 <script>
-  handler = Gmaps.build('Google');
-  handler.buildMap({
-    provider: {
-      center: new google.maps.LatLng({ lat: <%= @realty.latitude %>, lng: <%= @realty.longitude %> }),
-  zoom: 16
-    },
-  internal: {
-    id: 'map'
-  }
-  }, function() {
-    markers = handler.addMarkers(<%= raw @hash.to_json %>);
-    google.maps.event.addListener(handler.getMap(), "click", function () {
-      console.log("hola");
+$(document).ready(function() {
 
-    });
-    google.maps.event.addListener(handler.getMap(), 'center_changed', function () {
-      var latitude = handler.getMap().getCenter().lat();
-      var longitude = handler.getMap().getCenter().lng();
-      $.ajax({
-        url: '/realties',
-        type: 'GET',
-        dataType: 'script',
-        data: { latitude: latitude, longitude: longitude }
-      })
-    });
-  }
-);
+ const fenway = { lat: <%= @realty.latitude %>, lng: <%= @realty.longitude %> };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: fenway,
+    zoom: 10,
+  });
+  const panorama = new google.maps.StreetViewPanorama(
+    document.getElementById("map"),
+    {
+      position: fenway,
+      pov: {
+        heading: 34,
+        pitch: 10,
+      },
+    }
+  );
+});
 </script>
