@@ -18,8 +18,13 @@ class LegalPersonasController < ApplicationController
 
   def create
     @legalpersona = LegalPersona.new(legal_persona_params)
-    @legalpersona.save
-    redirect_to legal_personas_path
+    if  @legalpersona.save
+      flash[:notice] =  "ingresado exitosamente"
+      redirect_to legal_personas_path
+    else
+      flash[:errors] = @legalpersona.errors.full_messages
+      redirect_to new_legal_persona_path
+    end
   end
 
   def edit
