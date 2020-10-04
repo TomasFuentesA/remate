@@ -40,8 +40,6 @@ class LegalPersonasController < ApplicationController
     redirect_to legal_personas_path
   end
 
-
-
   def destroy
     @legalpersona.delete
     redirect_to legal_personas_path, notice: "Persona jurídica eliminada!"
@@ -71,6 +69,11 @@ private
   end
 
   def legal_persona_params
-    params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+    if params['legal_persona']
+      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+    else
+      params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+    end
   end
+
 end
