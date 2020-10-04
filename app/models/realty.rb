@@ -2,7 +2,9 @@ class Realty < ApplicationRecord
     #validacion de campos
     #validates :address, presence: true, uniqueness: true
     #validates :street, :number_unit, :unit_estate, presence: true
-
+    mount_uploader :domain_title, ListingdocUploader
+    mount_uploader :gp, ListingdocUploader
+    mount_uploader :tax_appraisal, ListingdocUploader
 
     after_create :set_latlon
     #asociacion de modelos

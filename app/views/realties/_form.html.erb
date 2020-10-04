@@ -10,7 +10,6 @@
     $('select#realty_street_type_id').select2({
       theme: "bootstrap"
     });
-
   });
 </script>
 <div class="container">
@@ -21,7 +20,6 @@
         <div class="row ">
           <div class="col-md-6">
             <%= form.fields_for :type_realty do |f| %>
-
             <%= f.label :tipo, "tipo de propiedad" %>
             <%= f.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
             <% end %>
@@ -72,12 +70,39 @@
           </div>
         </div>
       </div>
+      <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+          aria-controls="collapseExample">
+          Subir Documentación
+        </a>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <div class="form-group">
+            <div class="custom-file">
+              <%= form.file_field :domain_title, id: :domain_title ,class:"custom-file-input",autofocus: true %>
+              <label class="custom-file-label" for="customFile"><%= @realty.domain_title.to_s.split('/')[5]%></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <%= form.file_field :gp, id: :gp ,class:"custom-file-input",autofocus: true %>
+              <label class="custom-file-label" for="customFile"><%= @realty.gp.to_s.split('/')[5]%></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <%= form.file_field :tax_appraisal, id: :tax_appraisal ,class:"custom-file-input",autofocus: true %>
+              <label class="custom-file-label" for="customFile"><%= @realty.tax_appraisal.to_s.split('/')[5]%></label>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <div class="row ">
           <div class="col-md-12">
             <%= form.label :comment, "Comentarios" %>
             <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
-
           </div>
         </div>
       </div>
@@ -87,6 +112,11 @@
       <% end %>
     </div>
     <script>
+      $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      });
+
       function get_value(params) {
         var list = '<option value=0>Seleccione condominio</option>'
         <% Condominio.order(:name).each do |condominio| %>
@@ -98,5 +128,5 @@
         <% end %>
         $('#realty_condominio_id').html(list); 
       }
-     </script>
+    </script>
   </div>

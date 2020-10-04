@@ -180,10 +180,9 @@
         <th scope="col">Nombre Propiedad</th>
         <th scope="col">Tipo Propiedad</th>
         <th scope="col">Direccion</th>
-        <th scope="col">Departamento/Oficina</th>
-        <th scope="col">Poblacion/Villa</th>
         <th scope="col">Condominio</th>
         <th scope="col">Comuna</th>
+        <th scope="col">Documentación</th>
         <th scope="col">Opciones</th>
 
       </tr>
@@ -196,8 +195,6 @@
       <td><%= realty.name_realty %></td>
       <td><%= realty.type_realty.tipo %></td>
       <td><%= realty.address %> </td>
-      <td><%= realty.unit_estate %> </td>
-      <td><%= realty.population_villa %> </td>
       <td>
 
         <% if (realty.condominio_id != 0) then %>
@@ -213,11 +210,32 @@
 
       </td>
       <td><%= realty.commune.name %>/<%= realty.commune.province.name%>/<%= realty.commune.province.region.name%> </td>
-      
       <td>
-        <%= link_to 'Ver', realty , class: "btn btn-info" %>
-        <%= link_to 'Edit', edit_realty_path(realty) , class: "btn btn-warning" %>
-        <%= link_to 'Borrar', realty, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+        <% if realty.domain_title != "" && realty.domain_title.to_s.split('/')[5]!=nil %>
+          <b>Titulo Dominio: </b><%= link_to realty.domain_title.to_s.split('/')[5], File.join(root_url.to_s,realty.domain_title.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,realty.domain_title.to_s),download:''%>
+        <%else %>
+          Sin Archivo
+        <% end %>
+        <br>
+        <% if realty.gp != "" && realty.gp.to_s.split('/')[5]!=nil %>
+          <b>GP: </b><%= link_to realty.gp.to_s.split('/')[5], File.join(root_url.to_s,realty.gp.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,realty.gp.to_s),download:''%>
+        <%else %>
+          Sin Archivo
+        <% end %>
+        <br>
+        <% if realty.tax_appraisal != "" && realty.tax_appraisal.to_s.split('/')[5]!=nil %>
+          <b>Tasa impuesto: </b><%= link_to realty.tax_appraisal.to_s.split('/')[5], File.join(root_url.to_s,realty.tax_appraisal.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,realty.tax_appraisal.to_s),download:''%>
+        <%else %>
+          Sin Archivo
+        <% end %>
+      </td>
+      <td>
+        <%= link_to 'ver', realty , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_realty_path(realty) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', realty, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
 
     </tr>
   <% end %>
