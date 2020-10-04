@@ -1,6 +1,8 @@
 class LegalRepresentsController < ApplicationController
     load_and_authorize_resource
 
+    before_action :legal_represents_params, only: :create
+
     def index
     end
 
@@ -11,8 +13,11 @@ class LegalRepresentsController < ApplicationController
     def create
         @legalpersona = LegalPersona.find(params[:legal_personas_id])
         @legalrepresent = LegalRepresent.new(legal_represents_params)
-        @legalrepresent.save
-        redirect_to @legalpersona
+        if @legalrepresent.save
+            redirect_to @legalpersona
+          else
+            render :json => { :errors => @legalrepresent.errors.full_messages }
+        end
     end
 
     def destroy
@@ -28,7 +33,7 @@ class LegalRepresentsController < ApplicationController
     private
 
     def legal_represents_params
-        params.require(:legal_represent).permit(:name, :rut, :legal_personas_id)
+        params.permit(:name, :rut, :legal_personas_id)
     end
     
 
