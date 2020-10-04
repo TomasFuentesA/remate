@@ -18,9 +18,7 @@ class LegalPersona < ApplicationRecord
 
 
   #validacion
-  validates :rut,:name, presence: true, uniqueness: true
-
-
+  validates :rut,:name,:notario, presence: true, uniqueness: true
 
 
   def persona_already_added?(persona)
