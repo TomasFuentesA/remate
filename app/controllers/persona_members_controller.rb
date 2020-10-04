@@ -12,11 +12,7 @@ class PersonaMembersController < ApplicationController
 
 
   def create
-    @domain_rol = DomainRol.find(params[:domain_rol_id])
-    Rails.logger.info params
-
-
-    @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member], legal_persona_id: params[:legal_persona_id])
+    @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member], legal_persona_id: params[:persona_member][:legal_persona_id])
     var = 0
     PersonaMember.order(:id).each do |personam|
       if personam.legal_persona_id == params[:persona_member][:legal_persona_id]
@@ -26,7 +22,6 @@ class PersonaMembersController < ApplicationController
     
     if (var + (params[:persona_member][:percentage]).to_i) <= 100
       Rails.logger.info "var <= 100"
-      
       if @personamember.length == 0
         @persona_member = PersonaMember.create(persona_member_params)      
         if @persona_member.save

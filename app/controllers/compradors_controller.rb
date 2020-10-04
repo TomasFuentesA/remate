@@ -12,15 +12,35 @@ class CompradorsController < InheritedResources::Base
 
 
   def create
-    Rails.logger.info"acaaaaa"
-     Comprador.transaction do
-      #@auction = Comprador.new(persona_id:1, acciones:"ASD", percentage:1,domain_rol_id: 1, type_member:"ASDASD")
-      @auction = Comprador.new(comprador_params)
-      if @auction.save
-       else
-       render json: { error:  @auction.errors.full_messages }, status: :bad_request
-      end
+    @domainrol = DomainRol.find(params[:comprador][:domain_rol_id])
+    @domain = Domain.find(@domainrol.domain_id)
+    
+    total = 0
+    Comprador.order(:id).each do |comp|
+      if comp.domain_rol_id == params[:comprador][:domain_rol_id].to_i
+        total += comp.acciones
+      end  
     end
+
+    Rails.logger.info total
+
+    if (total + params[:comprador][:acciones].to_i) <= @domain.price
+      Comprador.transaction do  
+        #@auction = Comprador.new(persona_id:1, acciones:"ASD", percentage:1,domain_rol_id: 1, type_member:"ASDASD")
+        @auction = Comprador.new(comprador_params)
+        if @auction.save
+          flash[:notice] =  "Ingresado exitosamente"
+          redirect_to @domain
+            
+        else
+          render json: { error:  @auction.errors.full_messages }, status: :bad_request
+        end
+      end
+    else
+      flash[:alert] = "Excede la cantidad de acciones totales"
+      redirect_to new_domain_rol_comprador_path(@domainrol.id)
+    end
+    
   end
 
   def edit
