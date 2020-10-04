@@ -11,7 +11,7 @@ class LegalRepresentsController < ApplicationController
     end
 
     def create
-        @legalpersona = LegalPersona.find(params[:legal_personas_id])
+        @legalpersona = LegalPersona.find(params[:legal_persona_id])
         @legalrepresent = LegalRepresent.new(legal_represents_params)
         if @legalrepresent.save
             redirect_to @legalpersona
@@ -33,7 +33,7 @@ class LegalRepresentsController < ApplicationController
     private
 
     def legal_represents_params
-        params.permit(:name, :rut, :legal_personas_id)
+        params.permit(:name, :rut, :legal_persona_id)
     end
     
 
