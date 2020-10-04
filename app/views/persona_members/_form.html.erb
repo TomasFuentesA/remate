@@ -52,7 +52,38 @@
                             </div>
                         </div>
                     <%else%>
-                        <h1> HOLA MUNDO </h1>
+                        <div class= "form-row">
+                            <div class = "col">
+                                <% @comprador = Comprador.find(params[:comprador_id]) %>
+                                
+                                <%= form.label "Tipo" %>
+                                <%= form.select :type_member, options_for_select([["Natural", "Natural"], ["Legal", "Legal"]], @comprador.type_member),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_value(this)" %>  
+                            </div>
+                            <div class = "col">
+                                <% @comprador = Comprador.find(params[:comprador_id]) %>
+                                <% if @comprador.type_member == "Legal" %>
+                                    <% @legal = LegalPersona.find(@comprador.persona_id) %>
+                                    <%= form.label "Miembro" %>
+                                    <%= form.select :persona_id , options_for_select(LegalPersona.order(:id).collect{|c|[c.name, c.id]}, @legal.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                                <%else%>
+                                    <% @persona = Persona.find(@comprador.persona_id) %>
+                                    <%= form.label "Miembro" %>
+                                    <%= form.select :persona_id , options_for_select(Persona.order(:id).collect{|c|[c.name, c.id]}, @persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%> 
+                                <%end%>       
+                            </div>
+                        </div>
+                        <div class= "form-row">    
+                            <div class = "col">
+                                <% @comprador = Comprador.find(params[:comprador_id]) %>
+                                
+                                <%= form.label "Acciones que maneja" %>
+                                <%= form.number_field :acciones, class: "form-control", onclick: "percentage(this)", value: @comprador.acciones %>
+                            </div>
+                            <div class = "col">
+                                <%= form.label "porcentaje de participacion" %>
+                                <%= form.number_field :percentage, class: "form-control", step: :any ,readonly: true %>
+                            </div>
+                        </div>
                     <%end%>        
                 </p>
                 <div class="form-row">
