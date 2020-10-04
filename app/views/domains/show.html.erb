@@ -104,7 +104,7 @@
                         <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                         <br>
                         <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                        <%= link_to "Añadir Persona", new_legal_persona_domain_persona_member_path(@legal_persona.id, domrol.id) ,class:"btn btn-primary"%>
+                        <%= link_to "Añadir Persona", new_legal_persona_domain_rol_persona_member_path(@legal_persona.id, domrol.id) ,class:"btn btn-primary"%>
                         <%= link_to 'Añadir Comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                         <%= link_to 'Edit', edit_domain_rol_path(domrol), class: "btn btn-warning"  %>
                         <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
@@ -134,19 +134,23 @@
           <% DomainRol.order(:id).each do |domrol| %>
             <% if domrol.domain_id == @domain.id %>
               <% Comprador.order(:id).each do |comp| %>
-                <% if comp.type_member == "Natural" %>
-                  <% Persona.order(:id).each do |perso| %>
-                    <% if comp.persona_id == perso.id %>
-                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%>/<%= perso.last_name1%>" readonly>
+                <% if comp.domain_rol_id == domrol.id %>
+                  <% if comp.type_member == "Natural" %>
+                    <% Persona.order(:id).each do |perso| %>
+                      <% if comp.persona_id == perso.id %>
+                        <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%>/<%= perso.last_name1%>" readonly>
+                        <%= link_to "Añadir Persona", new_legal_persona_comprador_persona_member_path(@legal_persona.id, comp.id) ,class:"btn btn-primary"%>
+                      <%end%>
+                    <%end%>
+                  <%else%>
+                    <% LegalPersona.order(:id).each do |legalp| %>
+                      <% if comp.persona_id == legalp.id %>
+                        <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalp.name%>/<%= legalp.rut%>" readonly>
+                        <%= link_to "Añadir Persona", new_legal_persona_comprador_persona_member_path(@legal_persona.id, comp.id) ,class:"btn btn-primary"%>    
+                      <%end%>
                     <%end%>
                   <%end%>
-                <%else%>
-                  <% LegalPersona.order(:id).each do |legalp| %>
-                    <% if comp.persona_id == legalp.id %>
-                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalp.name%>/<%= legalp.rut%>" readonly>    
-                    <%end%>
-                  <%end%>
-                <%end%>    
+                <%end%>      
               <%end%>    
             <%end%>    
           <%end%>

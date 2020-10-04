@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
   get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
-  
+  get 'list_domain', to: 'domains#list_domain'
 
 
   # devise_for :users, controllers: {{     }
@@ -92,6 +92,9 @@ Rails.application.routes.draw do
         resources :persona_members
       end
       resources :activities
+      resources :compradors do
+        resources :persona_members
+      end
       resources :domains 
       resources :persona_members
       resources :legal_represents

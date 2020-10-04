@@ -13,46 +13,77 @@ class DomainsController < ApplicationController
     @domains = Domain.all
   end
 
-  def create
-    
-  
-      
+  def create     
     var = 0
-    @domainable.domains.each do |dom| 
-      var += dom.percentage
+    @domainable.domains.each do |dom|
+      if dom.type_modality == "Creacion de empresa"
+        var += dom.percentage
+      end  
     end
-
-    if (var + (params[:domain][:percentage]).to_i ) <= 100
-      Rails.logger.info "var <= 100"
-      @domain = @domainable.domains.new(domain_params)
-      if @domain.save
-        c = params[:vendedor]
-        if c.chars[c.length - 1] == "N"
-          if @domain.type_modality == "Creacion de empresa"
-            DomainRol.create(type_member: 'Natural', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)              
-          elsif @domain.type_modality == "Modificacion de empresa"
-            DomainRol.create(type_member: 'Natural', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-          else
-            DomainRol.create(type_member: 'Natural', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-          end  
-        else
-          if @domain.type_modality == "Creacion de empresa"
-            DomainRol.create(type_member: 'Legal', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-          elsif @domain.type_modality == "Modificacion de empresa"
-            DomainRol.create(type_member: 'Legal', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-          else
-            DomainRol.create(type_member: 'Legal', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-          end      
-        end     
-      redirect_to @domainable, notice: "Dominio añadido!"
+    
+    if params[:domain][:type_modality] == "Compra y Venta de acciones"
+      c = params[:vendedor]
+      if c.chars[c.length - 1] == "N"
+        legal = LegalPersona.find(params[:legal_persona_id])
+        member = PersonaMember.where(persona_id: c.split("N")[0].to_i, type_member: "Natural", legal_persona_id: params[:legal_persona_id])
+        Rails.logger.info member[0].acciones
+        nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
+        nuevo_porcentaje = (nueva_accion * 100)/legal.acciones 
+        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
+        Rails.logger.info member[0].acciones
+        @domain = @domainable.domains.new(domain_params)
+        
+        if @domain.save
+          DomainRol.create(type_member: 'Natural', type_rol: 'Vendedor', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+          redirect_to @domainable, notice: "Dominio añadido!"
+        end    
       else
-        flash[:errors] = @domains.errors.full_messages
-        redirect_to @domainable
+        legal = LegalPersona.find(params[:legal_persona_id])
+        member = PersonaMember.where(persona_id: c.split("L")[0].to_i, type_member: "Legal", legal_persona_id: params[:legal_persona_id])
+        Rails.logger.info member[0].acciones
+        nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
+        nuevo_porcentaje = (nueva_accion * 100)/legal.acciones 
+        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
+        Rails.logger.info member[0].acciones
+        @domain = @domainable.domains.new(domain_params)
+        if @domain.save
+          DomainRol.create(type_member: 'Legal', type_rol: 'Vendedor', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
+          redirect_to @domainable, notice: "Dominio añadido!"
+        end
+        
       end
     else
-      flash[:alert] = "El porcentaje de participacion excede el 100%"
-      redirect_to @domainable      
-    end  
+      if (var + (params[:domain][:percentage]).to_i ) <= 100
+        Rails.logger.info "var <= 100"
+        @domain = @domainable.domains.new(domain_params)
+        if @domain.save
+          c = params[:vendedor]
+          if c.chars[c.length - 1] == "N"
+            if @domain.type_modality == "Creacion de empresa"
+              DomainRol.create(type_member: 'Natural', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+            end                
+            if @domain.type_modality == "Modificacion de empresa"
+              DomainRol.create(type_member: 'Natural', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+            end
+          else
+            if @domain.type_modality == "Creacion de empresa"
+              DomainRol.create(type_member: 'Legal', type_rol: 'Creador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
+            end  
+            if @domain.type_modality == "Modificacion de empresa"
+              DomainRol.create(type_member: 'Legal', type_rol: 'Modificador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
+            end
+         
+          end     
+        redirect_to @domainable, notice: "Dominio añadido!"
+        else
+          flash[:errors] = @domains.errors.full_messages
+          redirect_to @domainable
+        end
+      else
+        flash[:alert] = "El porcentaje de participacion excede el 100%"
+        redirect_to @domainable      
+      end
+    end    
   end
 
   
@@ -73,9 +104,20 @@ class DomainsController < ApplicationController
 
   def destroy
     @domain = Domain.find(params[:id])
+    @legalpersona = LegalPersona.find(@domain.domainable_id)
+    DomainRol.order(:id).each do |domrol|
+      if domrol.domain_id == @domain.id
+        domrol.destroy
+      end
+    end    
     @domain.destroy
+    redirect_to @legalpersona
+
   end
 
+  def list_domain
+    
+  end
 
 private
   def display_values

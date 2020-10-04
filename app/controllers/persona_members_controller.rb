@@ -12,8 +12,11 @@ class PersonaMembersController < ApplicationController
 
 
   def create
-    
-    @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member])
+    @domain_rol = DomainRol.find(params[:domain_rol_id])
+    Rails.logger.info params
+
+
+    @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member], legal_persona_id: params[:legal_persona_id])
     var = 0
     PersonaMember.order(:id).each do |personam|
       if personam.legal_persona_id == params[:persona_member][:legal_persona_id]

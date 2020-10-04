@@ -55,7 +55,11 @@
     }
 
     function percentage(params) {
-      var x = (params.value * 100)/100000
+      <% @domrol = DomainRol.find(params[:domain_rol_id]) %>
+      <% @domain = Domain.find(@domrol.domain_id) %>
+      var y = <%= @domain.price %>
+      console.log(y); 
+      var x = (params.value * 100)/y
       document.getElementById('comprador_percentage').value = x.toString();
       
       
