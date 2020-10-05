@@ -64,25 +64,28 @@
           <h4>Destino Sii</h4>
           <%= @realty.fiscal_destination %>
         </div>
+        <br>
         <div class="field">
           <h4>Documentación</h4>
           <% if @realty.domain_title != "" && @realty.domain_title.to_s.split('/')[5]!=nil %>
+            <%= link_to 'Descargar', File.join(root_url.to_s,@realty.domain_title.to_s),download:'', class:"btn btn-success" %>
             <b>Titulo Dominio: </b><%= link_to @realty.domain_title.to_s.split('/')[5], File.join(root_url.to_s,@realty.domain_title.to_s), target: "_blank"%>
-            <%= link_to 'Descargar', File.join(root_url.to_s,@realty.domain_title.to_s),download:''%>
           <%else %>
             Sin Archivo
           <% end %>
+          <br>
           <br>
           <% if @realty.gp != "" && @realty.gp.to_s.split('/')[5]!=nil %>
+            <%= link_to 'Descargar', File.join(root_url.to_s,@realty.gp.to_s),download:'', class:"btn btn-success" %>
             <b>GP: </b><%= link_to @realty.gp.to_s.split('/')[5], File.join(root_url.to_s,@realty.gp.to_s), target: "_blank"%>
-            <%= link_to 'Descargar', File.join(root_url.to_s,@realty.gp.to_s),download:''%>
           <%else %>
             Sin Archivo
           <% end %>
           <br>
+          <br>
           <% if @realty.tax_appraisal != "" && @realty.tax_appraisal.to_s.split('/')[5]!=nil %>
+            <%= link_to 'Descargar', File.join(root_url.to_s,@realty.tax_appraisal.to_s),download:'', class:"btn btn-success" %>
             <b>Tasa impuesto: </b><%= link_to @realty.tax_appraisal.to_s.split('/')[5], File.join(root_url.to_s,@realty.tax_appraisal.to_s), target: "_blank"%>
-            <%= link_to 'Descargar', File.join(root_url.to_s,@realty.tax_appraisal.to_s),download:''%>
           <%else %>
             Sin Archivo
           <% end %>

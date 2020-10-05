@@ -212,24 +212,26 @@
       <td><%= realty.commune.name %>/<%= realty.commune.province.name%>/<%= realty.commune.province.region.name%> </td>
       <td>
         <% if realty.domain_title != "" && realty.domain_title.to_s.split('/')[5]!=nil %>
+          <%= link_to 'Descargar', File.join(root_url.to_s,realty.domain_title.to_s),download:'', class:"btn btn-success" %>
           <b>Titulo Dominio: </b><%= link_to realty.domain_title.to_s.split('/')[5], File.join(root_url.to_s,realty.domain_title.to_s), target: "_blank"%>
-          <%= link_to 'Descargar', File.join(root_url.to_s,realty.domain_title.to_s),download:''%>
         <%else %>
-          Sin Archivo
+          <b>Titulo Dominio: </b>Sin Archivo
         <% end %>
+        <br>
         <br>
         <% if realty.gp != "" && realty.gp.to_s.split('/')[5]!=nil %>
+          <%= link_to 'Descargar', File.join(root_url.to_s,realty.gp.to_s),download:'', class:"btn btn-success" %>
           <b>GP: </b><%= link_to realty.gp.to_s.split('/')[5], File.join(root_url.to_s,realty.gp.to_s), target: "_blank"%>
-          <%= link_to 'Descargar', File.join(root_url.to_s,realty.gp.to_s),download:''%>
         <%else %>
-          Sin Archivo
+          <b>GP: </b>Sin Archivo
         <% end %>
         <br>
+        <br>
         <% if realty.tax_appraisal != "" && realty.tax_appraisal.to_s.split('/')[5]!=nil %>
+          <%= link_to 'Descargar', File.join(root_url.to_s,realty.tax_appraisal.to_s),download:'', class:"btn btn-success" %>
           <b>Tasa impuesto: </b><%= link_to realty.tax_appraisal.to_s.split('/')[5], File.join(root_url.to_s,realty.tax_appraisal.to_s), target: "_blank"%>
-          <%= link_to 'Descargar', File.join(root_url.to_s,realty.tax_appraisal.to_s),download:''%>
         <%else %>
-          Sin Archivo
+          <b>Tasa impuesto: </b>Sin Archivo
         <% end %>
       </td>
       <td>
