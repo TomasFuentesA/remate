@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
   get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
-  get 'list_domain', to: 'domains#list_domain'
+  get 'list_domain/:domainable_id', to: 'domains#list_domain', as: 'listado_creadores'
 
 
   # devise_for :users, controllers: {{     }
