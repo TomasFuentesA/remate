@@ -59,7 +59,7 @@
       <% @domain = Domain.find(@domrol.domain_id) %>
       var y = <%= @domain.price %>
       console.log(y); 
-      var x = (params.value * 100)/y
+      var x = ((params.value * 100)/y).toFixed(2)
       document.getElementById('comprador_percentage').value = x.toString();
       
       

@@ -11,10 +11,17 @@ class DomainfilesController < ApplicationController
     end
   
     def create
-      @domainfile = Domainfile.new(domainfile_params)
-      @domainfile.save
-      @domain = Domain.find(params[:domainfile][:domain_id])
-      redirect_to @domain
+      if params[:domainfile]
+        @domainfile = Domainfile.new(domainfile_params)
+        @domainfile.save
+        @domain = Domain.find(params[:domainfile][:domain_id])
+        redirect_to @domain
+      else
+        params[:domain_id].split.each do |id|
+          Domainfile.create(domain_id: id, date: params[:date], obs_string: params[:obs_string], file_name: params[:file_name])
+        end  
+      end
+      
     end
   
     def show
@@ -44,7 +51,12 @@ class DomainfilesController < ApplicationController
     end
   
     def domainfile_params
-      params.require(:domainfile).permit(:domain_id, :date, :obs_string, :file_name )
-  
+      if params[:domainfile]
+        Rails.logger.info "Existe domainfile"
+        params.require(:domainfile).permit(:domain_id, :date, :obs_string, :file_name )
+      else
+        Rails.logger.info "no"
+        params.permit(:domain_id, :date, :obs_string, :file_name )
+      end
     end
 end

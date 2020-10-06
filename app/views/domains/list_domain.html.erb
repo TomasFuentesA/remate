@@ -1,1 +1,152 @@
-<h1> AH </h1>
+<div class= "row">
+    <div class= "col">
+        <div class= "container">
+            <div class="card text-center bg-light mb-3">
+                <% legal_persona = LegalPersona.find(params[:domainable_id]) %>
+                <div class="card-header"><h1>Listado de creadores de <%= legal_persona.name%></h1></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <table class = "table table-bordered table-hover">
+                            <thead  class="thead-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Rut</th>
+                                    <th scope="col">Acciones</th>
+                                    <th scope="col">Porcentaje</th>
+                                </tr>
+                            </thead>
+                            <tbody class = "rounded-pill">
+                                <% @domain.each do |dom| %>
+                                    <% domrol = DomainRol.where(domain_id: dom.id, type_rol: "Creador")  %>
+                                    <% if domrol[0].type_member == "Natural" %>
+                                        <tr> 
+                                            <% persona = Persona.find(domrol[0].persona_id) %>
+                                            <% miembro = PersonaMember.where(legal_persona_id: params[:domainable_id], type_member: "Natural", persona_id: domrol[0].persona_id) %>
+                                            <% if miembro.length == 0 %>
+                                                <td scope= "row"> No </td>
+                                                <td> No </td>
+                                                <td> No </td>
+                                                <td> No </td>
+                                            <%else%>
+                                                <td scope= "row"><%= persona.name %> <%= persona.last_name1 %>  </td>
+                                                <td> <%= persona.rut %> </td>
+                                                <td> <%= miembro[0].acciones %> </td>
+                                                <td> <%= miembro[0].percentage %> % </td>
+                                            <%end%>    
+                                        </tr>
+                                    <%else%>
+                                        <tr> 
+                                            <% legal = LegalPersona.find(domrol[0].persona_id) %>
+                                            <% miembro = PersonaMember.where(legal_persona_id: params[:domainable_id], type_member: "Legal", persona_id: domrol[0].persona_id) %>
+                                            <% if miembro.length== 0 %>
+                                                <td scope= "row"> No </td>
+                                                <td> No </td>
+                                                <td> No </td>
+                                                <td> No </td>
+                                            <%else%>
+                                                <td scope= "row"><%= legal.name %> </td>
+                                                <td> <%= legal.rut %> </td>
+                                                <td> <%= miembro[0].acciones %> </td>
+                                                <td> <%= miembro[0].percentage %> % </td>
+                                            <%end%>    
+                                        </tr>
+                                    <%end%>
+                                <%end%>   
+                            </tbody>
+                        </table>           
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class = "container">
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header"><h1>Documentos</h1></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <table class= "table table-bordered table-hover">
+                            <thead class= "thead-dark">
+                                <tr>
+                                    <th scope= "col">Documento</th>
+                                    <th scope= "col">Observacion</th>
+                                    <th scope= "col">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class= "rounded-pill">
+                                <% Domainfile.order(:id).each do |domf| %>
+                                    <% if domf.domain_id == @domain[0].id %>
+                                        <tr>
+                                            <th scope= "row"> <%= link_to domf.file_name.to_s.split('/')[5], File.join(root_url.to_s,domf.file_name.to_s)%> </th>
+                                            <th> <%= domf.obs_string %> </th>
+                                            <th>  </th>
+                                        </tr>
+                                    <%end%>
+                                <%end%>        
+                            </tbody>
+                        </table>
+                    </p>
+                </div>       
+            </div>    
+        </div>
+    </div>
+    <div class = "col">
+        <%= form_with model: @domainfile, url: domainfiles_path , remote: true do |form| %>
+            <div class="container">
+                <div class="card text-center bg-light mb-3">
+                    <div class= "card-body">
+                        <p class= "card-text">
+                            <div class="form-row">
+                                <div class="field">
+                                    <% lista = [] %>
+                                    <% Domain.order(:id).each do |dom| %>
+                                        
+                                        <% if (params[:id].to_i == dom.domainable_id) && (dom.type_modality == "Creacion de empresa") %>
+                                            <% lista.push(dom.id) %>
+                                        <%end%>
+                                    <%end%>
+                                    <%= lista %>                                    
+                                    <%= form.hidden_field :domain_id, value: lista %>
+                                </div>
+                            </div>
+                            <div class= "form-row">  
+                                <div class="form-group col-md-2">
+                                    <%= form.label :date, "Fecha" %>
+                                    <%= form.text_field :date, class: "form-control border" ,data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+                                </div>
+                            </div>
+                            <div class= "form-row">  
+                                <div class="col">
+                                    <%= form.label :obs_string, "Observacion:" %>
+                                    <%= form.text_area :obs_string, id: :obs_string ,autofocus: true, class:"form-control border"%>
+                                </div>
+                            </div>
+                            <div class= "form-row">
+                                <div class= "col">  
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true, required: true %>
+
+                                            <label class="custom-file-label" for="customFile">Ingresar archivo</label>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>  
+                        </p>    
+                        <div class="form-row">
+                            <div class="form-group">
+                                <%= form.submit "Guardar",class: "btn btn-success" %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+        <script>
+        // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>    
+    </div>
+</div>    

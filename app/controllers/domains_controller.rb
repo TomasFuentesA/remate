@@ -29,7 +29,7 @@ class DomainsController < ApplicationController
         Rails.logger.info member[0].acciones
         nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
         nuevo_porcentaje = (nueva_accion * 100)/legal.acciones 
-        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
+        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje.round(2))
         Rails.logger.info member[0].acciones
         @domain = @domainable.domains.new(domain_params)
         
@@ -43,7 +43,7 @@ class DomainsController < ApplicationController
         Rails.logger.info member[0].acciones
         nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
         nuevo_porcentaje = (nueva_accion * 100)/legal.acciones 
-        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
+        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje.round(2))
         Rails.logger.info member[0].acciones
         @domain = @domainable.domains.new(domain_params)
         if @domain.save
@@ -55,12 +55,14 @@ class DomainsController < ApplicationController
     else
       if (var + (params[:domain][:percentage]).to_i ) <= 100
         Rails.logger.info "var <= 100"
+        
         @domain = @domainable.domains.new(domain_params)
         if @domain.save
           c = params[:vendedor]
           if c.chars[c.length - 1] == "N"
             if @domain.type_modality == "Creacion de empresa"
               DomainRol.create(type_member: 'Natural', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+              PersonaMember.create(legal_persona_id: @domain.domainable_id, percentage: @domain.percentage.round(2), type_member: 'Natural', persona_id: c.split("N")[0].to_i, acciones: @domain.price)
             end                
             if @domain.type_modality == "Modificacion de empresa"
               DomainRol.create(type_member: 'Natural', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
@@ -68,6 +70,7 @@ class DomainsController < ApplicationController
           else
             if @domain.type_modality == "Creacion de empresa"
               DomainRol.create(type_member: 'Legal', type_rol: 'Creador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
+              PersonaMember.create(legal_persona_id: @domain.domainable_id, percentage: @domain.percentage.round(2), type_member: 'Legal', persona_id: c.split("N")[0].to_i, acciones: @domain.price)
             end  
             if @domain.type_modality == "Modificacion de empresa"
               DomainRol.create(type_member: 'Legal', type_rol: 'Modificador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
@@ -107,8 +110,15 @@ class DomainsController < ApplicationController
     @legalpersona = LegalPersona.find(@domain.domainable_id)
     DomainRol.order(:id).each do |domrol|
       if domrol.domain_id == @domain.id
-        domrol.destroy
-      end
+        if @domain.type_modality == "Compra y Venta de acciones"
+          member = PersonaMember.where(persona_id: domrol.persona_id, type_member: domrol.type_member)
+          acciones = @domain.price.to_i + member[0].acciones.to_i
+          member[0].update(acciones: acciones)
+          domrol.destroy
+        else
+          domrol.destroy  
+        end
+      end  
     end    
     @domain.destroy
     redirect_to @legalpersona
@@ -116,6 +126,11 @@ class DomainsController < ApplicationController
   end
 
   def list_domain
+    begin
+      @domain = Domain.where(type_modality: "Creacion de empresa", domainable_id: params[:domainable_id])  
+    rescue => exception
+      Rails.logger.info exception.to_s
+    end
     
   end
 

@@ -332,7 +332,7 @@
               <%end%>
               </td>
               <td>                   
-                <%= link_to "ver", list_domain_path, class: "btn btn-info" %>
+                <%= link_to "ver", listado_creadores_path(@legal_persona), class: "btn btn-info" %>
                 <%= link_to "editar", edit_domain_path, class: "btn btn-warning" %>
                 <%= link_to 'Borrar', @domain, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
                       

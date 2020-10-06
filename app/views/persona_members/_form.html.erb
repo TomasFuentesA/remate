@@ -129,7 +129,7 @@
     function percentage(params) {
         var y = <%= @legal_persona.acciones%>
         console.log(y);
-        var x = (params.value * 100)/y
+        var x = ((params.value * 100)/y).toFixed(2)
         document.getElementById('persona_member_percentage').value = x.toString();
       
       

@@ -1,21 +1,44 @@
+
 <script>
-$(document).ready(function() {
-  var list = ''
-  <%Persona.order(:name).each do |persona| %>
-    list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
-  <%end%>
-  <%LegalPersona.order(:name).each do |legalp| %>
-    list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
-  <%end%>
-  $('.vendedor').html(list);
-  
-});
+  function get_tipo(params) {
+    var list = ''  
+    if (params.value != "Creacion de empresa"){
+      <% PersonaMember.order(:type_member).each do |personam| %>
+        var l = <%= params[:legal_persona_id] %>
+        var id = <%= personam.legal_persona_id %>
+        if (l == id) { 
+          <% if personam.type_member == "Legal" %>
+            <% LegalPersona.order(:id).each do |legalp| %>
+              <% if legalp.id == personam.persona_id%>
+                list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+              <%end%> 
+            <%end%>   
+          <%else%>
+            <% Persona.order(:id).each do |persona| %>
+              <%if persona.id == personam.persona_id%>
+                list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+              <%end%>
+            <%end%>     
+          <%end%>
+        }
+      <%end%>
+      $('.vendedor').html(list);      
+    } else {
+      <%Persona.order(:name).each do |persona| %>
+        list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+      <%end%>
+      <%LegalPersona.order(:name).each do |legalp| %>
+        list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+      <%end%>
+      $('.vendedor').html(list);
+    }
+  }
 </script>
 <script>
   function percentage(params) {
     <% @legal = LegalPersona.find(params[:legal_persona_id]) %>
     var y =  <%= @legal.acciones%>
-    var x = (params.value * 100)/y
+    var x = ((params.value * 100)/y).toFixed(2)
     document.getElementById('domain_percentage').value = x.toString();
   }
 </script>
@@ -49,7 +72,7 @@ $(document).ready(function() {
           <div class="form-row">
             <div class= "col">
               <%= form.label :type_modality, "Modalidad:" %>
-              <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"], ["Modificacion de empresa", "Modificacion de empresa"], ["Compra y Venta de acciones","Compra y Venta de acciones"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2" %>
+              <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"], ["Modificacion de empresa", "Modificacion de empresa"], ["Compra y Venta de acciones","Compra y Venta de acciones"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_tipo(this)" %>
             </div>
 
             <div class= "col">
@@ -87,17 +110,3 @@ $(document).ready(function() {
 <% end %>
 </div>
 
-<script>
-  function percentage(params) {
-    <% LegalPersona.order(:id).each do |legalp| %>´
-      var l = <%= legalp.id %>
-      if l == <%= params[:legal_persona_id] %>
-        var y = <%= legalp.acciones%>
-        console.log(y);
-        var x = (params.value * 100)/y
-    <%end%>    
-    document.getElementById('domainable_percentage').value = x.toString();
-      
-      
-    } 
-</script>

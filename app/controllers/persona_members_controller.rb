@@ -12,6 +12,7 @@ class PersonaMembersController < ApplicationController
 
 
   def create
+    
     @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member], legal_persona_id: params[:persona_member][:legal_persona_id])
     var = 0
     PersonaMember.order(:id).each do |personam|
@@ -20,7 +21,7 @@ class PersonaMembersController < ApplicationController
       end
     end
     
-    if (var + (params[:persona_member][:percentage]).to_i) <= 100
+    if (var.round(2) + (params[:persona_member][:percentage]).to_i) <= 100
       Rails.logger.info "var <= 100"
       if @personamember.length == 0
         @persona_member = PersonaMember.create(persona_member_params)      
@@ -35,7 +36,13 @@ class PersonaMembersController < ApplicationController
           flash[:errors] = @persona_member.errors.full_messages
         end
       else
-        flash[:alert] = "La persona ya esta ingresada"
+        legal = LegalPersona.find(params[:persona_member][:legal_persona_id])
+        acciones = @personamember[0].acciones.to_i + params[:persona_member][:acciones].to_i
+        porcentaje = (100 * acciones)/legal.acciones
+        @personamember[0].update(acciones: acciones, percentage: porcentaje)
+        flash[:notice] = "La persona fue actualizada"
+        redirect_to legal
+        
       end  
     else
       Rails.logger.info "Else 2"

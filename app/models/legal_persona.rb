@@ -18,8 +18,8 @@ class LegalPersona < ApplicationRecord
 
 
   #validacion
-  validates :rut,:name,:notario, presence: true, uniqueness: true
-
+  validates :rut,:name, presence: true, uniqueness: true
+  validates :notario, presence: true
 
   def persona_already_added?(persona)
     personas.where(id: persona.id).exists?
