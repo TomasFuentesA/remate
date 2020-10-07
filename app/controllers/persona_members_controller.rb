@@ -42,7 +42,8 @@ class PersonaMembersController < ApplicationController
         end
         Rails.logger.info var2  
         legal = LegalPersona.find(params[:persona_member][:legal_persona_id])
-        if (legal.acciones >= var2 + params[:persona_member][:acciones].to_i)
+        Rails.logger.info (var2 + params[:persona_member][:acciones].to_i)
+        if (legal.acciones <= var2 + params[:persona_member][:acciones].to_i)
           flash[:alert] = "La cantidad de acciones es mayor"
           redirect_to legal
         else  

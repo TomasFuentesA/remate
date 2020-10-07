@@ -30,8 +30,8 @@
                                             <%else%>
                                                 <td scope= "row"><%= persona.name %> <%= persona.last_name1 %>  </td>
                                                 <td> <%= persona.rut %> </td>
-                                                <td> <%= miembro[0].acciones %> </td>
-                                                <td> <%= miembro[0].percentage %> % </td>
+                                                <td> <%= dom.price %> </td>
+                                                <td> <%= dom.percentage %> % </td>
                                             <%end%>    
                                         </tr>
                                     <%else%>
@@ -98,12 +98,11 @@
                             <div class="form-row">
                                 <div class="field">
                                     <% lista = [] %>
-                                    <% Domain.order(:id).each do |dom| %>
-                                        
-                                        <% if (params[:id].to_i == dom.domainable_id) && (dom.type_modality == "Creacion de empresa") %>
+                                    <% Domain.order(:id).each do |dom| %> 
+                                        <% if ((params[:domainable_id].to_i == dom.domainable_id) && (dom.type_modality == "Creacion de empresa")) %>
                                             <% lista.push(dom.id) %>
-                                        <%end%>
-                                    <%end%>                                   
+                                        <%end%>                                      
+                                    <%end%>                                  
                                     <%= form.hidden_field :domain_id, value: lista %>
                                 </div>
                             </div>
