@@ -40,7 +40,7 @@ $(document).ready(function() {
               </div>
               <div class="col-md-6">
                <%= form.label :judgement_id, "Seleccionar Juicio" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), {}, class:"custom-select" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), {include_blank: "Seleccione", value: '0'}, class:"custom-select" %>
               </div>
             </div>
           </div>
