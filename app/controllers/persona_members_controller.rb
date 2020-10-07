@@ -36,12 +36,22 @@ class PersonaMembersController < ApplicationController
           flash[:errors] = @persona_member.errors.full_messages
         end
       else
+        var2 = 0
+        PersonaMember.order(:id).each do |pers|
+          var2 += pers.acciones
+        end
+        Rails.logger.info var2  
         legal = LegalPersona.find(params[:persona_member][:legal_persona_id])
-        acciones = @personamember[0].acciones.to_i + params[:persona_member][:acciones].to_i
-        porcentaje = (100 * acciones)/legal.acciones
-        @personamember[0].update(acciones: acciones, percentage: porcentaje)
-        flash[:notice] = "La persona fue actualizada"
-        redirect_to legal
+        if (legal.acciones >= var2 + params[:persona_member][:acciones].to_i)
+          flash[:alert] = "La cantidad de acciones es mayor"
+          redirect_to legal
+        else  
+          acciones = @personamember[0].acciones.to_i + params[:persona_member][:acciones].to_i
+          porcentaje = (100 * acciones)/legal.acciones
+          @personamember[0].update(acciones: acciones, percentage: porcentaje)
+          flash[:notice] = "La persona fue actualizada"
+          redirect_to legal
+        end  
         
       end  
     else

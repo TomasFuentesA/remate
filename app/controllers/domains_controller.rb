@@ -111,7 +111,7 @@ class DomainsController < ApplicationController
     DomainRol.order(:id).each do |domrol|
       if domrol.domain_id == @domain.id
         if @domain.type_modality == "Compra y Venta de acciones"
-          member = PersonaMember.where(persona_id: domrol.persona_id, type_member: domrol.type_member)
+          member = PersonaMember.where(persona_id: domrol.persona_id, type_member: domrol.type_member, legal_persona_id: @domain.domainable_id)
           acciones = @domain.price.to_i + member[0].acciones.to_i
           member[0].update(acciones: acciones)
           domrol.destroy
