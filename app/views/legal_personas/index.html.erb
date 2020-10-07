@@ -19,7 +19,7 @@
         <% @legalpersonas.each do |legalpersona| %>
            var legalpersonaId = '<%= legalpersona.id %>'
            if(legalpersonaId == id){
-              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Rut</th><th scope="col">Nombre</th><th scope="col">Nombre Fantasia</th><th scope="col">Alias</th><th scope="col">Web</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= legalpersona.rut %> </td><td><%= legalpersona.name %></td><td><%= legalpersona.fantasy_name %>  <><%= legalpersona.alias %> </td><td><%= link_to 'Ver', legalpersona , class: "btn btn-info" %><%= link_to 'Edit', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %><%= link_to 'Borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+              newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">Rut</th><th scope="col">Nombre</th><th scope="col">Nombre Fantasia</th><th scope="col">Alias</th><th scope="col">Web</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%= legalpersona.rut %> </td><td><%= legalpersona.name %></td><td><%= legalpersona.fantasy_name %>  <><%= legalpersona.alias %> </td><td><%= link_to 'ver', legalpersona , class: "btn btn-info" %><%= link_to 'editar', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %><%= link_to 'borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
            }           
         <% end %>
       return newList
@@ -177,9 +177,9 @@
       
       
       <td>
-        <%= link_to 'Ver', legalpersona , class: "btn btn-info" %>
-        <%= link_to 'Edit', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %>
-        <%= link_to 'Borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+        <%= link_to 'ver', legalpersona , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_legal_persona_path(legalpersona) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', legalpersona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
       </td>
     </tr>
   <% end %>

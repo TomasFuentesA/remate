@@ -216,11 +216,11 @@
                             <%= personam.percentage%> %    
                           </td>
                           <td> 
-                            <%= link_to 'Ver', member , class: "btn btn-info" %>
+                            <%= link_to 'ver', member , class: "btn btn-info" %>
                             <% PersonaMember.order(:id).each do |personam| %>
                               <%if (personam.persona_id == member.id) && (personam.type_member == "Natural") && (personam.legal_persona_id == @legal_persona.id) then %>
-                                <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
-                                <%= link_to 'Borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                                <%= link_to 'editar', edit_persona_member_path(personam) , class: "btn btn-warning" %>
+                                <%= link_to 'borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
                               <%end%>
                             <%end%> 
                           </td>
@@ -237,11 +237,11 @@
                             <%= personam.percentage %> %
                           </td>    
                           <td> 
-                            <%= link_to 'Ver', legalp, class: "btn btn-info" %>
+                            <%= link_to 'ver', legalp, class: "btn btn-info" %>
                             <% LegalPersona.order(:id).each do |legalp| %>
                               <%if (legalp.id == personam.persona_id) && (personam.type_member == "Legal") && (personam.legal_persona_id == @legal_persona.id) then %>
-                                <%= link_to 'Edit', edit_persona_member_path(personam) , class: "btn btn-warning" %>
-                                <%= link_to 'Borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                                <%= link_to 'editar', edit_persona_member_path(personam) , class: "btn btn-warning" %>
+                                <%= link_to 'borrar', personam, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
                               <%end%>
                             <%end%> 
                           </td>

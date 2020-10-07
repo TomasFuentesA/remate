@@ -79,7 +79,7 @@ class DomainsController < ApplicationController
           end     
         redirect_to @domainable, notice: "Dominio añadido!"
         else
-          flash[:errors] = @domains.errors.full_messages
+          flash[:errors] = @domain.errors.full_messages
           redirect_to @domainable
         end
       else
