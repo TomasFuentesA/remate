@@ -107,20 +107,25 @@
         </div>
           <div class="col-sm-5 card card-body">
             Acciones:
-            <div class="row-sm-3">
+            <br>
+            <br>
+             
               <%= link_to "editar trabajo", edit_persona_path(@persona) ,class:"btn btn-primary"%>
+              <br>
               <% unless @persona.phones.any? %>
-                <div class="col-sm-8">
+                
                   <%= link_to 'Nuevo telefono', new_persona_phone_path(@persona) ,class:"btn btn-primary"%>
                   <% else %>
                     <%= link_to 'editar telefono',   edit_persona_phone_path(@persona,@phones.ids) ,class:"btn btn-secondary"%>
               <% end %>
+              <br>
               <% unless @persona.emails.any? %>
                 <%= link_to 'Nuevo Correo', new_persona_email_path(@persona) ,class:"btn btn-primary"%>
               <% else %>
 
                   <%= link_to 'editar correo', edit_persona_email_path(@persona,@emails.ids) ,class:"btn btn-secondary"%>
                   <%end%>
+                  <br>
                   <% unless @persona.directions.any? %>
 
                       <%= link_to 'Nueva direccion', new_persona_direction_path(@persona) ,class:"btn btn-primary"%>
@@ -128,6 +133,7 @@
                     <%= link_to 'editar direccion',   edit_persona_direction_path(@persona,@directions.ids) ,class:"btn btn-secondary"%>
 
                    <% end %>
+                   <br>
                    <% unless @persona.activities.any? %>
 
                        <%= link_to 'Nueva Actividad', new_persona_activity_path(@persona) ,class:"btn btn-primary"%>

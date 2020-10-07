@@ -1,6 +1,16 @@
-
+ 
 <script>
-  function get_tipo(params) {
+$(document).ready(function() {
+  $('select#domain_notario_id').select2({
+    theme: "bootstrap",
+    width: "100%"
+  });
+  $('select#vendedor').select2({
+    theme: "bootstrap",
+    width: "100%"
+  });
+});
+   function get_tipo(params) {
     var list = ''  
     if (params.value != "Creacion de empresa"){
       <% PersonaMember.order(:type_member).each do |personam| %>
@@ -93,7 +103,7 @@
           <div class= "form-row">
             <div class ="col">
               <%= form.label "Vendedor"%>
-              <select class="vendedor form-control" name="vendedor">
+              <select class="vendedor form-control" name="vendedor" id="vendedor">
               </select>
             </div>
             

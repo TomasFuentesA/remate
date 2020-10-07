@@ -4,7 +4,7 @@
   <%= render partial: "errors" %>
 </div>
 <div class="row justify-content-md-center">
-  <div class="card">
+  <div class="card col-md-4">
     <div class="card-body">
       <%= form_with model: @legalpersonas, url: legal_personas_path ,id: :formulary, remote: true  do |form| %>
       <%= form.label :name, "Ingreso de nueva Persona Juridica" %>

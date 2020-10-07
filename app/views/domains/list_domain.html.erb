@@ -103,13 +103,12 @@
                                         <% if (params[:id].to_i == dom.domainable_id) && (dom.type_modality == "Creacion de empresa") %>
                                             <% lista.push(dom.id) %>
                                         <%end%>
-                                    <%end%>
-                                    <%= lista %>                                    
+                                    <%end%>                                   
                                     <%= form.hidden_field :domain_id, value: lista %>
                                 </div>
                             </div>
                             <div class= "form-row">  
-                                <div class="form-group col-md-2">
+                                 <div class="col">
                                     <%= form.label :date, "Fecha" %>
                                     <%= form.text_field :date, class: "form-control border" ,data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
                                 </div>
