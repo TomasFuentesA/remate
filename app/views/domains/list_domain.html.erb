@@ -46,8 +46,8 @@
                                             <%else%>
                                                 <td scope= "row"><%= legal.name %> </td>
                                                 <td> <%= legal.rut %> </td>
-                                                <td> <%= miembro[0].acciones %> </td>
-                                                <td> <%= miembro[0].percentage %> % </td>
+                                                <td> <%= dom.price %> </td>
+                                                <td> <%= dom.percentage %> % </td>
                                             <%end%>    
                                         </tr>
                                     <%end%>
@@ -78,7 +78,7 @@
                                         <tr>
                                             <th scope= "row"> <%= link_to domf.file_name.to_s.split('/')[5], File.join(root_url.to_s,domf.file_name.to_s)%> </th>
                                             <th> <%= domf.obs_string %> </th>
-                                            <th>  </th>
+                                            <th> <%= link_to 'Destroy', domf, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %> </th>
                                         </tr>
                                     <%end%>
                                 <%end%>        

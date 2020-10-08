@@ -19,7 +19,7 @@ class DomainfilesController < ApplicationController
       else
         params[:domain_id].split.each do |id|
           Domainfile.create(domain_id: id, date: params[:date], obs_string: params[:obs_string], file_name: params[:file_name])
-        end  
+        end
       end
       
     end
@@ -31,7 +31,6 @@ class DomainfilesController < ApplicationController
     end
   
     def update
-
       @domainfile.update(domainfile_params)
       redirect_to domainfiles_path
     end
@@ -40,8 +39,20 @@ class DomainfilesController < ApplicationController
   
     def destroy
       @domain = Domain.find(@domainfile.domain_id)
-      @domainfile.destroy
-      redirect_to @domain
+      if @domain.type_modality == "Creacion de empresa"
+        @domain = Domain.where(type_modality: "Creacion de empresa", domainable_id: @domain.domainable_id)
+        @domain.each do |dom|
+          Domainfile.order(:id).each do |domf|
+            if domf.domain_id == dom.id
+              domf.destroy
+            end
+          end
+        end      
+
+      else
+        @domainfile.destroy
+        redirect_to @domain
+      end
     end
   
     private
