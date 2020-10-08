@@ -1,0 +1,54 @@
+<h1>Listado Documentos propiedades</h1>
+
+
+<br>
+<%= link_to 'Nueva documentación', new_document_path ,class: "btn btn-primary"%>
+<br>
+<br>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Fecha</th>
+      <th scope="col">domain_title</th>
+      <th scope="col">gp</th>
+      <th scope="col">tax_appraisal</th>
+      <th scope="col">opciones</th>
+    </tr>
+  </thead>
+  <tbody class="rounded-pill">
+    <% @documents.each do |document| %>
+    <tr>
+      <td><%= document.realty.name_realty %></td>
+      <% if document.domain_title != "" && document.domain_title.to_s.split('/')[5]!=nil %>
+      <td>
+        <%= link_to document.domain_title.to_s.split('/')[5], File.join(root_url.to_s,document.domain_title.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s,document.domain_title.to_s),download:''%>
+      </td>
+      <%else %>
+      <td>Sin Archivo</td>
+      <% end %>
+      <% if document.gp != "" && document.gp.to_s.split('/')[5]!=nil %>
+      <td>
+        <%= link_to document.gp.to_s.split('/')[5], File.join(root_url.to_s,document.gp.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s,document.gp.to_s),download:''%>
+      </td>
+      <%else %>
+      <td>Sin Archivo</td>
+      <% end %>
+      <% if document.tax_appraisal != "" && document.tax_appraisal.to_s.split('/')[5]!=nil %>
+      <td>
+        <%= link_to document.tax_appraisal.to_s.split('/')[5], File.join(root_url.to_s,document.tax_appraisal.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s,document.tax_appraisal.to_s),download:''%>
+      </td>
+      <%else %>
+      <td>Sin Archivo</td>
+      <% end %>
+      <td>
+        <%= link_to 'ver', document , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_document_path(document) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', document, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate(@document, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
