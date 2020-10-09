@@ -12,7 +12,12 @@
       <%= form.label :name, "Ingreso de nueva documentación" %>
       <div class="form-group">
         <%= form.label :realty_id, "Propiedad" %>
-        <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.name_realty, p.id]},@document.realty_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true , disabled: params['format']? true : false %>
+        <% if params['format']%>
+            <%= form.label @document.realty_id, class: "form-control"%>
+            <%= form.hidden_field :realty_id, value: @document.realty_id %>
+         <% else %>
+            <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.name_realty, p.id]},@document.realty_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true%>
+         <% end %>
       </div>
       <div class="form-group">
         <%= form.label :domain_title, "Título de dominio" %>
