@@ -71,9 +71,6 @@
                       <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                       <br>
                       <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                      <%= link_to "Añadir Persona", new_legal_persona_domain_rol_persona_member_path(@legal_persona.id, domrol.id) ,class:"btn btn-primary"%>
-                      <%= link_to 'Edit', edit_domain_rol_path(domrol),class: "btn btn-warning"  %>
-                      <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                     <%end%>
                   <%end%>
                 <%else%>
@@ -82,9 +79,6 @@
                       <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                       <br>
                       <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                      <%= link_to "Añadir Persona", new_legal_persona_domain_rol_persona_member_path(@legal_persona.id, domrol.id) ,class:"btn btn-primary"%>
-                      <%= link_to 'Edit', edit_domain_rol_path(domrol),class: "btn btn-warning"  %>
-                      <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                     <%end%>
                   <%end%>
                 <%end%>
@@ -104,10 +98,7 @@
                         <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                         <br>
                         <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                        <%= link_to "Añadir Persona", new_legal_persona_domain_rol_persona_member_path(@legal_persona.id, domrol.id) ,class:"btn btn-primary"%>
                         <%= link_to 'Añadir Comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
-                        <%= link_to 'Edit', edit_domain_rol_path(domrol), class: "btn btn-warning"  %>
-                        <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                       <%end%>
                     <%end%>
                   <%else%>
@@ -116,10 +107,7 @@
                         <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                         <br>
                         <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                        <%= link_to "Añadir Persona", new_legal_persona_domain_rol_persona_member_path(@legal_persona.id, domrol.id) ,class:"btn btn-primary"%>
                         <%= link_to 'Añadir comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
-                        <%= link_to 'Edit', edit_domain_rol_path(domrol), class: "btn btn-warning"  %>
-                        <%= link_to 'Destroy', domrol, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                       <%end%>
                     <%end%>
                   <%end%>

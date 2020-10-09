@@ -50,7 +50,7 @@ class PersonaMembersController < ApplicationController
           redirect_to legal
         else  
           acciones = @personamember[0].acciones.to_i + params[:persona_member][:acciones].to_i
-          porcentaje = (@personamember[0].percentage + params[:persona_member][:percentage].to_i).round
+          porcentaje = (@personamember[0].percentage + params[:persona_member][:percentage].to_f).round
           Rails.logger.info porcentaje
           @personamember[0].update(acciones: acciones, percentage: porcentaje)
           flash[:notice] = "La persona fue actualizada"

@@ -10,13 +10,13 @@
       <div class="row">
         <div class="col-md-12">
           <label for="name">Razon Social:</label>
-          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value =<%= @legal_persona.name %> readonly>
+          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value ='<%= @legal_persona.name %>' readonly>
         </div>
       </div>
       <div class= "row">
         <div class="col-md-12">
           <label for="name">Rut:</label>
-          <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = <%= @legal_persona.rut %> readonly>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = '<%= @legal_persona.rut %>' readonly>
         </div>
       </div>
       
@@ -26,7 +26,7 @@
           <%if @legal_persona.fantasy_name? %>
           <div class="field">
             <label for="name">Fantasy name:</label>      
-            <input type = "text" id="fantasy_name" class= "form-control" placeholder= "fantasy_name" disable value = <%= @legal_persona.fantasy_name %> readonly>
+            <input type = "text" id="fantasy_name" class= "form-control" placeholder= "fantasy_name" disable value = '<%= @legal_persona.fantasy_name %>' readonly>
           </div>  
           <% end %>
           
@@ -35,7 +35,7 @@
           <%if @legal_persona.alias? %>
           <div class="field">
             <label for="name">Alias:</label>      
-            <input type = "text" id="alias" class= "form-control" placeholder= "alias" disable value = <%= @legal_persona.alias %> readonly>     
+            <input type = "text" id="alias" class= "form-control" placeholder= "alias" disable value = '<%= @legal_persona.alias %>' readonly>     
           </div>  
           <% end %>       
         </div>
@@ -43,7 +43,7 @@
           <%if @legal_persona.web %>
           <div class ="field">
             <label for="name">Web:</label>      
-            <input type = "text" id="web" class= "form-control" placeholder= "web" disable value = <%= @legal_persona.web %> readonly>     
+            <input type = "text" id="web" class= "form-control" placeholder= "web" disable value = '<%= @legal_persona.web %>' readonly>     
           </div>  
           <% end %>
         </div>

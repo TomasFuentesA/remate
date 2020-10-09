@@ -28,8 +28,11 @@ class DomainsController < ApplicationController
         member = PersonaMember.where(persona_id: c.split("N")[0].to_i, type_member: "Natural", legal_persona_id: params[:legal_persona_id])
         Rails.logger.info member[0].acciones
         nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
-        nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_i
-        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje.round(3))
+        Rails.logger.info nueva_accion
+        nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_f
+        Rails.logger.info member[0].percentage
+        Rails.logger.info nuevo_porcentaje
+        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
         if member[0].acciones == 0
           member[0].destroy
         end
@@ -44,9 +47,11 @@ class DomainsController < ApplicationController
         member = PersonaMember.where(persona_id: c.split("L")[0].to_i, type_member: "Legal", legal_persona_id: params[:legal_persona_id])
         Rails.logger.info member[0].acciones
         nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
-        nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_i
-        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje.round(3))
-        Rails.logger.info member[0].acciones
+        Rails.logger.info nueva_accion
+        nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_f
+        Rails.logger.info member[0].percentage
+        Rails.logger.info nuevo_porcentaje
+        member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
         @domain = @domainable.domains.new(domain_params)
         if @domain.save
           DomainRol.create(type_member: 'Legal', type_rol: 'Vendedor', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
@@ -117,14 +122,23 @@ class DomainsController < ApplicationController
           if member.length == 0
             porcentaje = (@domain.price * 100)/@legalpersona.acciones
             PersonaMember.create(legal_persona_id: @domain.domainable_id, type_member: domrol.type_member, persona_id: domrol.persona_id, acciones: @domain.price, percentage: porcentaje)
+            Comprador.order(:id).each do |comp|
+              if domrol.id == comp.domain_rol_id
+                comp.destroy
+              end  
+            end
             domrol.destroy
           else
             acciones = @domain.price.to_i + member[0].acciones.to_i
             porcentaje = (acciones*100)/@legalpersona.acciones
             member[0].update(acciones: acciones, percentage: porcentaje)
+            Comprador.order(:id).each do |comp|
+              if domrol.id == comp.domain_rol_id
+                comp.destroy
+              end  
+            end
             domrol.destroy
-          end
-          
+          end          
         else
           domrol.destroy  
         end
