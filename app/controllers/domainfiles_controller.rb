@@ -17,9 +17,12 @@ class DomainfilesController < ApplicationController
         @domain = Domain.find(params[:domainfile][:domain_id])
         redirect_to @domain
       else
+        @domain = Domain.find(params[:domain_id].split[0])
+        @legalpersona = LegalPersona.find(@domain.domainable_id)
         params[:domain_id].split.each do |id|
           Domainfile.create(domain_id: id, date: params[:date], obs_string: params[:obs_string], file_name: params[:file_name])
         end
+        redirect_to listado_creadores_path(@legalpersona)
       end
       
     end
@@ -39,6 +42,7 @@ class DomainfilesController < ApplicationController
   
     def destroy
       @domain = Domain.find(@domainfile.domain_id)
+      @legalpersona = LegalPersona.find(@domain.domainable_id)
       if @domain.type_modality == "Creacion de empresa"
         @domain = Domain.where(type_modality: "Creacion de empresa", domainable_id: @domain.domainable_id)
         @domain.each do |dom|
@@ -47,7 +51,8 @@ class DomainfilesController < ApplicationController
               domf.destroy
             end
           end
-        end      
+        end
+        redirect_to listado_creadores_path(@legalpersona)      
 
       else
         @domainfile.destroy

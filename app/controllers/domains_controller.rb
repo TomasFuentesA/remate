@@ -30,7 +30,9 @@ class DomainsController < ApplicationController
         nueva_accion = member[0].acciones.to_i - params[:domain][:price].to_i
         nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_i
         member.update(acciones: nueva_accion, percentage: nuevo_porcentaje.round(3))
-        Rails.logger.info member[0].acciones
+        if member[0].acciones == 0
+          member[0].destroy
+        end
         @domain = @domainable.domains.new(domain_params)
         
         if @domain.save
@@ -112,10 +114,17 @@ class DomainsController < ApplicationController
       if domrol.domain_id == @domain.id
         if @domain.type_modality == "Compra y Venta de acciones"
           member = PersonaMember.where(persona_id: domrol.persona_id, type_member: domrol.type_member, legal_persona_id: @domain.domainable_id)
-          acciones = @domain.price.to_i + member[0].acciones.to_i
-          porcentaje = (acciones*100)/@legalpersona.acciones
-          member[0].update(acciones: acciones, percentage: porcentaje)
-          domrol.destroy
+          if member.length == 0
+            porcentaje = (@domain.price * 100)/@legalpersona.acciones
+            PersonaMember.create(legal_persona_id: @domain.domainable_id, type_member: domrol.type_member, persona_id: domrol.persona_id, acciones: @domain.price, percentage: porcentaje)
+            domrol.destroy
+          else
+            acciones = @domain.price.to_i + member[0].acciones.to_i
+            porcentaje = (acciones*100)/@legalpersona.acciones
+            member[0].update(acciones: acciones, percentage: porcentaje)
+            domrol.destroy
+          end
+          
         else
           domrol.destroy  
         end
