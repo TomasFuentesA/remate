@@ -36,11 +36,11 @@ $(document).ready(function() {
             <div class="row ">
               <div class="col-md-6">
                   <%= form.label :realty_id, "Seleccionar Propiedad" %>
-                  <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), {} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple"%>
+                  <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), {} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple", required: true %>
               </div>
               <div class="col-md-6">
                <%= form.label :judgement_id, "Seleccionar Juicio" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), {include_blank: "Seleccione", value: '0'}, class:"custom-select" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), {include_blank: "Seleccione", value: '0'}, class:"custom-select", required: true %>
               </div>
             </div>
           </div>
@@ -48,15 +48,15 @@ $(document).ready(function() {
             <div class="row ">
               <div class="col-md-3">
                 <%= form.label :date, "Fecha" %>
-                <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border" %>
+                <%= form.text_field :date ,id: :date, onchange: "calculo_uf(this)", data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border", required: true %>
               </div>
               <div class="col-md-3">
                 <%= form.label :hour, "Hora" %>
-                <%= form.text_field :hour , class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :hour , class:"form-control border" ,autofocus: true, required: true %>
               </div>
               <div class="col-md-6">
                 <%= form.label :name, "Nombre" %>
-                <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :name, id: :name , class:"form-control border" ,autofocus: true, required: true %>
               </div>
             </div>
           </div>
