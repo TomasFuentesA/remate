@@ -1,9 +1,11 @@
 <% if @persona_member.errors.blank? %>
- alert("persona añadida con éxito")
+  //alert("persona añadida con éxito")
   $('#staticBackdrop1').css("display","none");
   location.reload(true);
 
 <% else %>
-  // TODO: show the errors in the UI
+  //alert("persona no puede ser añadida")
+  $('#staticBackdrop1').css("display","none");
+  location.reload(true);
 
 <% end %>

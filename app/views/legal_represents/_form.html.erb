@@ -1,0 +1,36 @@
+<%= form_with model: @legal_represents , url: legal_persona_legal_represents_path , remote: true do |form| %>
+    <div class= "container">
+    <br>
+        <div class="row justify-content-sm-center">
+            <div class= "card text-center bg-ligth mb-3">
+                <div class= "card-header">
+                    <h1>Nuevo representante legal</h1>
+                </div>
+            <div class= "card-body">
+                <p class= "card-text">
+                    <div class="form-row">
+                        <div class = "col">
+                            <%= form.label "Nombre" %>
+                            <%= form.text_field :name, class: 'form-control'%>
+                        </div>
+                    </div>
+                    <div class= "form-row">
+                        <div class = "col">
+
+                            <%= form.label "Rut" %>
+                            <%= form.text_field :rut, class: 'form-control'%>
+                        </div>
+                    </div>
+                    <%= form.hidden_field :legal_persona_id, value: params[:legal_persona_id] %>
+                </p>
+                <div class="form-row">
+                    <div class = "col">
+                        <%=  form.submit "Guardar miembro", class: "btn btn-primary"%>
+                    </div>
+                </div>  
+            </div>
+        </div>        
+    </div>
+<%end%>
+   
+    

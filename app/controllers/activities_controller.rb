@@ -10,6 +10,9 @@ class ActivitiesController < ApplicationController
     @activity = @activityable.activities.new
   end
 
+  def show
+  end
+  
   def create
     @activity = @activityable.activities.new(activity_params)
     if @activity.save

@@ -1,4 +1,4 @@
-<h1>Nuevo Correo</h1>
+<div class= "container">
 
 <%= form_for [@emailable, @email] do |f| %>
   <% if @email.errors.any? %>
@@ -12,18 +12,28 @@
     </div>
   <% end %>
   
-  <div class="field">
-    <%= f.text_field :email_a %>
-  </div>
-  <div class="field">
-    <%= f.text_field :email_b %>
-  </div>
-  <div class="field">
-    <%= f.text_field :email_c %>
+  <div class="form-group">
+    <div class= "card text-center bg-ligth mb-3">
+      <div class= "card-header">
+        <h1>Nuevo Correo</h1>
+      </div>
+      <div class= "card-body">
+        <p class= "card-text">
+          <div class="form-row">
+            <div class= "col">
+              <%= f.label :email, "Ingrese correo" %>
+              <%= f.text_field :email, class: "form-control" %>
+            </div>
+          </div>
+        </p>    
+        <div class="form-row">
+          <div class="form-group">
+            <%= f.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>  
   </div>
 
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
+</div>

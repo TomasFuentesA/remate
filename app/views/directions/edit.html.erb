@@ -1,2 +1,48 @@
-<h1>Editar Dirección</h1>
-<%= render 'form' %>
+
+
+<script>
+$(document).ready(function() {
+  $('select#direction_realties_id').select2({
+    theme: "bootstrap"
+  });
+});
+</script>
+<div class="container">
+
+
+<%= form_for [@directionable, @direction] do |f| %>
+  <% if @direction.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @direction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <div class= "card text-center bg-ligth mb-3">
+      <div class= "card-header">
+        <h1>Editar Dirección</h1>
+      </div>
+      <div class= "card-body">
+        <p class= "card-text">
+          <div class="form-row">
+            <div class= "col">
+              <%= f.label :realties_id, "Dirección" %>
+              <%= f.select :realties_id, options_for_select(Realty.order(:name_realty).collect {|c| [c.address, c.id]}), {include_blank: "Seleccione"} ,{class:"selectpicker", data: {"live-search": true }} %>
+            </div>
+          </div>
+        </p>    
+        <div class="form-row">
+          <div class="form-group">
+            <%= f.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
+
+<% end %>

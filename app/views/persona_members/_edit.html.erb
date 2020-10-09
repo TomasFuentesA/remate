@@ -1,0 +1,86 @@
+ 
+<script>
+$(document).ready(function() {
+  $('select#persona_member_persona_id').select2({
+    theme: "bootstrap",
+    width: "100%"
+  });
+});
+</script>
+<div class="container-fluid">
+    <div class="container d-flex justify-content-center">
+        <div class="row col-md-6">
+            <div class="card card-body">
+                <%= form_with model: @persona_member, id: :formulary, remote: true do |form| %>
+                <div>
+                    <% LegalPersona.order(:id).each do |legalp| %>
+                        <% if legalp.id == @persona_member.legal_persona_id then %>
+                            <%= form.label "persona jurídica" %>
+                            <%= form.text_field :legal_persona_id, value: legalp.name, class: 'form-control', readonly: true %>
+                            <%= form.hidden_field :legal_persona_id, value: @persona_member.legal_persona_id %>
+                        <%end%>
+                    <% end %>
+                </div>
+                <div>
+                    <%= form.label "Tipo" %>
+                </div>
+                <div>
+                    <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %>
+                    <%= label :type_member_Natural, 'Natural' %>
+                    <%= form.radio_button :type_member, 'Empresa', onchange: "get_value(this)" %>
+                    <%= label :type_member_Empresa, 'Empresa' %>
+                </div>
+                <div>
+                    <%= form.label "Miembro: " %>
+                    <% if @persona_member.type_member == "Empresa" then %>
+                        <% LegalPersona.order(:id).each do |legalp| %>
+                            <% if legalp.id == @persona_member.persona_id then %>
+                                <%= form.select :persona_id , options_for_select([[legalp.name, @persona_member.persona_id]])%>
+                            <%end%>
+                        <%end%>
+                    <%else%>
+                        <% Persona.order(:id).each do |person| %>
+                            <% if person.id == @persona_member.persona_id then %>
+                                <%= form.select :persona_id , options_for_select([[person.name, @persona_member.persona_id]])%>
+                            <%end%>
+                        <%end%>
+                    <%end%>
+                </div>
+                <div>
+                    <%= form.label "Acciones que maneja" %>
+                    <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
+                </div>
+                <div>
+                    <%= form.label "porcentaje de participacion" %>
+                    <%=  form.number_field :percentage, step: :any , class: "form-control"%>
+                </div>
+                <br>
+                <div>
+                    <%=  form.submit "guardar", class: "btn btn-primary"%>
+                </div>
+                <%end%>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function get_value(params) {
+        if(params.value == "Natural") {
+            var list = '<option value=0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list);    
+        } else {
+            var list = '<option value=0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |empresa| %>
+                list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list); 
+        }
+    }
+    function percentage(params) {
+        var x = (params.value * 100)/100000
+        document.getElementById('persona_member_percentage').value = x.toString();
+    } 
+</script>

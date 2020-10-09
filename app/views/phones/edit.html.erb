@@ -1,4 +1,4 @@
-<h1>Nuevo Télefono</h1>
+
 <div class="container">
 
 
@@ -15,30 +15,33 @@
   <% end %>
   <div class="form-group">
     
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.label :phone_a, "Teléfono 1" %>
-        <%= f.text_field :phone_a %>
+    <div class= "card text-center bg-ligth mb-3">
+      <div class= "card-header">
+        <h1>Editar telefono</h1>
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.label :phone_b, "Teléfono 2" %>
-        <%= f.text_field :phone_b %>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.label :phone_c, "Teléfono 3" %>
-        <%= f.text_field :phone_c %>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <%= f.submit "Guardar" %>
-      </div>
-    </div>
+      <div class= "card-body">
+        <p class= "card-text">
+          <div class="form-row">
+            <div class= "col">
+              <%= f.label :type_phone, "Tipo" %>
+              <%= f.text_field :type_phone, class: "form-control" %>
+            </div>
+         
+          
+            <div class= "col">
+              <%= f.label :number_phone, "Teléfono" %>
+              <%= f.text_field :number_phone, class: "form-control" %>
+            </div>
+          </div>
+        </p>
+          <div class="form-row">
+            <div class="form-group">
+              <%= f.submit "Guardar", class: "btn btn-primary btn-lg" %>
+            </div>
+          </div>
+      </div>  
+    </div>    
   </div>
-</div>
 
 <% end %>
+</div>

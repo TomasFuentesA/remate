@@ -31,7 +31,7 @@ class DirectionsController < ApplicationController
 
 private
     def direction_params
-      params.require(:direction).permit(:directiona, :directionb,:directionc,:rut)
+      params.require(:direction).permit(:realties_id)
     end
 
     def load_directionable

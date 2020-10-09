@@ -1,0 +1,55 @@
+<%= link_to 'Volver Listado inscripciones', inscripciones_path %>
+
+<p></p>
+
+
+
+<br>
+<h1>Expediente inscription:</h1>
+
+
+
+
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 card card-body ">
+        <div>
+          <h2>Expediente: <%= @inscriptionfile.domain.foja %> , <%= @inscriptionfile.domain.foja %> </h2>
+        </div>
+
+        <div style='width: 800px;' >
+          <div id="map" style='width: 700px; height: 300px;'></div>
+        </div>
+        <hr>
+        <h1>Información básica:</h1>
+            <div class="field">
+              <h4> Tribunal:</h4>
+              <%= @inscriptionfile.file_name %>
+            </div>
+
+            <div class="field">
+              <h4>Rol</h4>
+              <%= @inscriptionfile.date %>
+            </div>
+
+
+          <div class="field">
+            <h4>Caratulado</h4>
+            <%= @inscriptionfile.judgement.demandante %> / <%= @inscriptionfile.judgement.demandado %>
+          </div>
+
+         
+
+
+        
+
+      </div>
+      <br>
+      <div class="col-md-4 card dard-body">
+
+      </div>
+
+    </div>
+  </div>
+</div>

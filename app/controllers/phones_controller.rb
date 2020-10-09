@@ -28,10 +28,20 @@ class PhonesController < ApplicationController
     end
   end
 
+  def destroy
+    @phone = @phoneable.phones.find(params[:id])
+    @phone.destroy
+    respond_to do |format|
+      format.js
+      format.html {redirect_to @phoneable , notice: "eliminado exitosamente" }
+      format.json {head :no_content }
+    end
+  end
+
   private
 
     def phone_params
-      params.require(:phone).permit(:phone_a, :phone_b,:phone_c,:rut)
+      params.require(:phone).permit(:number_phone, :type_phone)
     end
 
     def load_phoneable
