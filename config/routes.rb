@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
   get 'dashboard/', to:'dashboard#index'
   get 'calendario/', to: 'calendars#index'
+  get 'calendario_garantias/', to: 'calendars#index_warranty'
+
 
 
 

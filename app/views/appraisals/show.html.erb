@@ -1,39 +1,54 @@
+
 <%= link_to 'Volver Listado Tasaciones', appraisals_path %>
-
-<p></p>
-
-<div class="row" id="fileview">
-  <div class="col-principal col-md-8">
-    <div>
-      <h2>
-        Tasación nº  <%= @appraisal.id %> : <%= @appraisal.realty.name_realty %>
-        </h2>
-    </div>
-    <h4>Informacion de la Tasación</h4>
-
-
-      <div>
-        Fecha:  <%= @appraisal.date %>
-      </div>
-       <div>
-         Entidad: <%= @appraisal.entity%>
-       </div>
-      <div>
-         Valor UF:     <%= @appraisal.price_uf %>
-       </div>
-
-       <div>
-          Valor CLP:   <%= @appraisal.price_clp %>
-        </div>
-
+<br>
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 card card-body ">
         <div>
-           Valor USD:     <%= @appraisal.price_usd %>
-         </div>
-
-         <div>
-            Observacion:     <%= @appraisal.observation %>
-          </div>
-
+          <h2>Tasación nº <%= @appraisal.id %> : <%= @appraisal.realty.name_realty %></h2>
+        </div>
+        <hr>
+        <div class="field">
+          <h4> Fecha:</h4>
+          <%= @appraisal.date %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Entidad:</h4>
+          <%= @appraisal.entity%>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Valor UF:</h4>
+          <%= @appraisal.price_uf %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Valor CLP: </h4>
+          <%= @appraisal.price_clp %>
+        </div>
+        <div class="field">
+          <h4>Valor USD: </h4>
+          <%= @appraisal.price_usd %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Observacion:</h4>
+          <%= @appraisal.observation %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Archivo</h4>
+          <% if @appraisal.file_name != "" && @appraisal.file_name.to_s.split('/')[5]!=nil %>
+          <%= link_to @appraisal.file_name.to_s.split('/')[5], File.join(root_url.to_s,@appraisal.file_name.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,@appraisal.file_name.to_s),download:''%>
+          <%else %>
+          Sin Archivo
+          <% end %>
+        </div>
+      </div>
+      <br>
+    </div>
   </div>
-
 </div>

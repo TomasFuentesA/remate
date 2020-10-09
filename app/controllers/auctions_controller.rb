@@ -24,6 +24,12 @@ class AuctionsController < ApplicationController
       @auction = Auction.new(auction_params)
       if @auction.save
         @auction.auctionnotice.update(status: 3)
+        params[:auction][:realty_id].each do |p|
+          if(p.to_s !="")
+            @auctionsRealty = AuctionsRealty.new(auction_id:@auction.id,realty_id:p.to_i)
+            @auctionsRealty.save
+          end
+         end
         redirect_to auctions_path
       else
        render json: { error:  @auction.errors.full_messages }, status: :bad_request
@@ -32,14 +38,23 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    Rails.logger.info "prueba show"
   end
 
   def edit
   end
 
   def update
-    @auction.update(auction_params)
+    if @auction.update(auction_params)
+      AuctionsRealty.where(auction_id:@auction.id).destroy_all
+      params[:auction][:realty_id].each do |p|
+        if(p.to_s !="")
+          @auctionsRealty = AuctionsRealty.new(auction_id:@auction.id,realty_id:p.to_i)
+          @auctionsRealty.save
+        end
+      end
+    else
+      render json: { error:  @auction.errors.full_messages }, status: :bad_request
+    end
     redirect_to auctions_path
   end
 
@@ -115,12 +130,14 @@ class AuctionsController < ApplicationController
 
   def set_auction
     @auction = Auction.find(params[:id])
+    @judgement_id = @auction.judgement_id
+    @judgement = Judgement.find(@judgement_id)
   end
 
   def auction_params
     begin
       params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
-        :total_minimum, :cost, :uf, :realty_id, :auctionnotice_id, :judgement_id)
+        :total_minimum, :cost, :uf, :realty_id, :auctionnotice_id, :judgement_id, :warranty_date, :warranty_time)
     rescue Exception => error
       Rails.logger.info error
     end

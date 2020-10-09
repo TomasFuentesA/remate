@@ -2,7 +2,7 @@
 <div class="row justify-content-md-center">
   <div class="modal fade bd-example-modal-lg" id="Modaljudgement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content" style="margin-left: 500px;">
+      <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ingreso de Juicio:</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,7 +10,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <%= render partial: "judgements/form" , remote:true %>
+            <div style="
+              height: 110px;
+              overflow: auto;
+              width: 430px;
+              margin-left: 20px;">
+              <%= @auctionnotice.auction %>
+            </div>
+          <%= render partial: "judgements/form_modal" , :locals => { :item => @auctionnotice } %>
 
         </div>
         <div class="modal-footer">

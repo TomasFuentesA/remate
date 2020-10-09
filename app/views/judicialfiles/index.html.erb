@@ -1,12 +1,12 @@
-<h1>Listado de Expedientes Judiciales</h1>
+<h1>Listado de Anotaciones Judiciales</h1>
 
 
 <br>
-<%= link_to 'Nuevo Expediente Judicial', new_judicialfile_path ,class: "btn btn-primary"%>
+<%= link_to 'Nueva anotación Judicial', new_judicialfile_path ,class: "btn btn-primary"%>
 </br>
-
-<table   class="table table-bordered table-hover">
-  <thead  class="thead-dark">
+</br>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
       <th scope="col">Tribunal</th>
       <th scope="col">Rol</th>
@@ -17,33 +17,30 @@
       <th scope="col">Opciones</th>
     </tr>
   </thead>
-
-
-
-
   <tbody class="rounded-pill">
     <% @judicialfiles.each do |judicialfile| %>
-
-      <tr>
-        
-        <td><%= judicialfile.judgement.court.name %> </td>
-        <td><%= judicialfile.judgement.rol_trial %> </td>
-        <td><%= judicialfile.judgement.name_judgement %></td>
-        <td><%= judicialfile.date %></td>
-        <% if judicialfile.file_name != "" %>
-                <td><%= link_to judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,judicialfile.file_name.to_s)%> </td>
-        <%else %>
-                <td>Sin Archivo</td>
-        <% end %>
-        <td><%= judicialfile.obs%></td>
-
-
-        <td>
-          <%= link_to 'Ver', judicialfile , class: "btn btn-info" %>
-          <%= link_to 'Edit', edit_judicialfile_path(judicialfile) , class: "btn btn-warning" %>
-          <%= link_to 'Borrar', judicialfile, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+    <tr>
+      <td><%= judicialfile.judgement.court.name %> </td>
+      <td><%= judicialfile.judgement.rol_trial %> </td>
+      <td><%= judicialfile.judgement.name_judgement %></td>
+      <td><%= judicialfile.date %></td>
+      <% if judicialfile.file_name != "" && judicialfile.file_name.to_s.split('/')[5]!=nil %>
+      <td>
+        <%= link_to judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,judicialfile.file_name.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s,judicialfile.file_name.to_s),download:''%>
       </td>
-      </tr>
+      <%else %>
+      <td>Sin Archivo</td>
+      <% end %>
+      <td><%= judicialfile.obs%></td>
+      <td>
+        <%= link_to 'ver', judicialfile , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_judicialfile_path(judicialfile) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', judicialfile, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
+<br>
+<%= will_paginate(@judicialfiles, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>

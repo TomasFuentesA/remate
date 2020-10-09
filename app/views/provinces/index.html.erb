@@ -1,49 +1,33 @@
+<div>
+  <%= link_to 'Nueva Provincia', new_province_path, class: 'btn btn-primary' %>
+  <%= link_to 'Ir a Region', regions_path, class: 'btn btn-primary' %>
+  <%= link_to 'Ir a Comuna', communes_path, class: 'btn btn-primary' %>
+</div>
 <br>
-<table id="myTable" class="table">
-  <thead>
+<table id="myTable" class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th>Seleccionar Provincia: </th>
-      <th>pertenece a Region: </th>
       <th>N° de Provincia: </th>
+      <th>Nombre Provincia: </th>
+      <th>pertenece a Región: </th>
       <th>Opciones</th>
 
     </tr>
   </thead>
-
   <tbody>
     <% @provinces.each do |province| %>
-
-      <tr>
-        <td><%= province.name %></td>
-        <td><%= province.id %></td>
-
-
-        <td>
-          <%= link_to 'Show', province %>
-          <%= link_to 'Edit', edit_province_path(province) %>
-          <%= link_to 'Destroy', province, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-
-      </tr>
+    <tr>
+      <td><%= province.province_id %></td>
+      <td><%= province.name %></td>
+      <td><%= province.region.name %></td>
+      <td>
+        <%= link_to 'ver', province , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_province_path(province) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', province, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <%= will_paginate(@courts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
-
-<br>
-
-<div>
-  <%= link_to 'Nueva Provincia', new_province_path %>
-</div>
-
-<p> </p>
-
-<div>
-  <%= link_to 'Ir a Region', regions_path %>
-</div>
-<p> </p>
-
-<div>
-  <%= link_to 'Ir a Comuna', communes_path %>
-</div>

@@ -27,6 +27,7 @@ $(document).ready(function() {
                 <h2>Propiedad: <%= @realty.address %>, <%= @realty.unit_estate %></h2>
               </div>
             </div>
+            <%= form.hidden_field :auction_id, :value => @auction_id%>
             <div class="form-group">
               <div class="row ">
                 <div class="col-md-6">
@@ -51,11 +52,11 @@ $(document).ready(function() {
                   <%= form.label :commune_id, "Comuna:" %>
                   <%= form.select :commune_id, options_for_select(Commune.all.collect {|p| [p.name+" - "+p.province.name+" - "+p.province.region.name, p.id]}, @realty.commune_id), {include_blank: "Seleccione"} ,{class:"custom-select", data: {"live-search": true }, onchange: "get_value(this)"} %>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5">
                   <%= form.label :street, "Calle:" %>
                   <%= form.text_field :street, id: :street , class:"form-control border" ,autofocus: true, required: true %>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-1">
                   <%= form.label :number_unit, "Numero:" %>
                   <%= form.number_field :number_unit, id: :number_unit , class:"form-control border" ,autofocus: true, required: true %>
                 </div>

@@ -247,7 +247,6 @@ handler.buildMap({
 }, function(){
 markers = handler.addMarkers(<%= raw @hash.to_json %>);
 google.maps.event.addListener(handler.getMap(), "click", function(){
-  console.log("hola");
 
   });
 google.maps.event.addListener(handler.getMap(), 'center_changed', function(){

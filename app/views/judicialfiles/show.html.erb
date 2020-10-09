@@ -1,59 +1,44 @@
-<%= link_to 'Volver Listado Juicios', judgements_path %>
-
-<p></p>
-
-
-
 <br>
-<h1>Expediente Judicial:</h1>
-
-
-
-
+<h1>Anotación Judicial:</h1>
 <div class="main container">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row justify-content-md-center">
       <div class="col-md-8 card card-body ">
         <div>
-          <h2>Expediente: <%= @judicialfile.judgement.court.name %> , <%= @judicialfile.judgement.rol_trial %> </h2>
-        </div>
-
-        <div style='width: 800px;' >
-          <div id="map" style='width: 700px; height: 300px;'></div>
+          <h4>Anotación: <%= @judicialfile.judgement.court.name %> , <%= @judicialfile.judgement.rol_trial %> </h4>
         </div>
         <hr>
-        <h1>Información básica:</h1>
-            <div class="field">
-              <h4> Tribunal:</h4>
-              <%= @judicialfile.judgement.court.name %>
-            </div>
-
-            <div class="field">
-              <h4>Rol</h4>
-              <%= @judicialfile.judgement.rol_trial %>
-            </div>
-
-
-          <div class="field">
-            <h4>Caratulado</h4>
-            <%= @judicialfile.judgement.demandante %> / <%= @judicialfile.judgement.demandado %>
-          </div>
-
-         //agregar los Demandantes y demandados y los abogados 
-
-
-        
-
+        <div class="field">
+          <h4> Tribunal:</h4>
+          <%= @judicialfile.judgement.court.name %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Rol</h4>
+          <%= @judicialfile.judgement.rol_trial %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Caratulado</h4>
+          <%= @judicialfile.judgement.demandante %> / <%= @judicialfile.judgement.demandado %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Observación</h4>
+          <%= @judicialfile.obs %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Archivo</h4>
+             <% if @judicialfile.file_name != "" && @judicialfile.file_name.to_s.split('/')[5]!=nil %>
+              <%= link_to @judicialfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,@judicialfile.file_name.to_s), target: "_blank"%>
+              <%= link_to 'Descargar', File.join(root_url.to_s,@judicialfile.file_name.to_s),download:''%>
+            <%else %>
+              Sin Archivo
+            <% end %>
+        </div>
       </div>
       <br>
-      <div class="col-md-4 card dard-body">
-
-      </div>
-
     </div>
   </div>
 </div>
-
-
-
-

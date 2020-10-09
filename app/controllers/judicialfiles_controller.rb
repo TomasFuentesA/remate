@@ -4,17 +4,24 @@ class JudicialfilesController < ApplicationController
     before_action :set_judicialfile, only:  [:show,:edit]
   
     def index
-      @judicialfiles = Judicialfile.all
+      @judicialfiles = Judicialfile.order("id").page(params[:page]).per_page(10)
     end
   
     def new
+      @judgement_id=params['format']
       @judicialfile = Judicialfile.new
     end
   
     def create
+      @auctions_id=params['format']
       @judicialfile = Judicialfile.new(judicialfile_params)
       @judicialfile.save
-      redirect_to judicialfiles_path
+      @judgement_id=params['judicialfile']['judgement_id'].to_i
+      if @auctions_id
+        redirect_to auction_path(@auctions_id)
+      else
+        redirect_to judgement_path(@judgement_id)
+      end
     end
   
     def show
@@ -31,8 +38,9 @@ class JudicialfilesController < ApplicationController
   
   
     def destroy
+      @judgement_id=Judicialfile.find(params[:id]).judgement_id
       @judicialfile.destroy
-      redirect_to judicialfiles_path
+      redirect_to judgement_path(@judgement_id)
     end
   
     private

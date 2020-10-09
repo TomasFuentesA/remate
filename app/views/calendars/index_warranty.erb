@@ -1,5 +1,5 @@
 <br>
-<h1>Calendario de Avisos</h1>
+<h1>Calendario de Garantias</h1>
 
 <div id="articles">
   <h2 id="month">
@@ -11,8 +11,8 @@
     <%= date.day %>
     <% if @auctions_by_date[date] %>
         <% @auctions_by_date[date].each do |auction| %>
-         <div class="alert alert-success" role="alert">
-            <%= link_to "#{auction.date}-#{auction.hour}-#{auction.judgement.full_name_judgement}", auction %>
+          <div class="alert alert-success" role="alert">
+            <%= link_to "#{auction.warranty_date} #{auction.warranty_time} #{auction.judgement.full_name_judgement}", auction %>
           </div>
         <% end %>
     <% end %>

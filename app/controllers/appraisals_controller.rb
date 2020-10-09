@@ -3,10 +3,11 @@ class AppraisalsController < ApplicationController
   before_action :set_appraisal, only:  [:show,:edit]
 
   def index
-    @appraisals = Appraisal.all
+    @appraisals = Appraisal.order("id").page(params[:page]).per_page(10)
   end
 
   def new
+    @realty_id=params['format']?params['format']:''
     @appraisal = Appraisal.new
   end
 
@@ -41,7 +42,7 @@ class AppraisalsController < ApplicationController
   end
 
   def appraisal_params
-    params.require(:appraisal).permit(:realty_id, :date, :entity, :price_uf, :price_clp, :price_usd, :observation, :address )
+    params.require(:appraisal).permit(:realty_id, :date, :entity, :price_uf, :price_clp, :price_usd, :observation, :address, :file_name )
 
   end
 

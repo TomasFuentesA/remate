@@ -4,6 +4,13 @@ class CalendarsController < ApplicationController
     @auctions_by_date = @auctions.group_by(&:date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
+
+  def index_warranty
+    @auctions = Auction.all
+    @auctions_by_date = @auctions.group_by(&:warranty_date)
+    @date = params[:warranty_date] ? Date.parse(params[:warranty_date]) : Date.today
+  end
+
 end
 
 

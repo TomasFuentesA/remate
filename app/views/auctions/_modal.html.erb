@@ -3,6 +3,8 @@
   <div class="card" style="width: 18rem;">
     <div class="card-body">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Añadir nueva Propiedad</button>
+        <br>
+        <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modaljudgement" >Añadir nuevo Juicio</button>
     </div>
   </div>
@@ -12,7 +14,7 @@
   <div class="row justify-content-md-center">
     <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content" style="margin-left: 400px; width: 130% !important;">
+        <div class="modal-content" style="width: 130% !important;">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ingreso de Propiedad:</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -20,7 +22,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <%= render partial: "realties/form" , remote:true %>
+            <div style="
+              height: 110px;
+              overflow: auto;
+              width: 580px;
+              margin-left: 20px;">
+              <%= @auctionnotice.auction %>
+            </div>
+            <%= render partial: "realties/form_modal" , :locals => { :item => @auctionnotice } %>
 
           </div>
           <div class="modal-footer">

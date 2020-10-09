@@ -1,3 +1,23 @@
+<script>
+$(document).ready(function() {
+  $('select#auction_judgement_id').select2({
+    theme: "bootstrap"
+  });
+  $('select#court_id').select2({
+      dropdownParent: $('#Modaljudgement'),
+      theme: "bootstrap",
+      width: "100%"
+  });
+  $('select#type_judgement').select2({
+      dropdownParent: $('#Modaljudgement'),
+      theme: "bootstrap",
+      width: "100%"
+  });
+   $('.select-multiple').select2({
+      theme: "bootstrap"
+  });
+});
+</script>
 <h1>Asociar Aviso de Remate a Propiedad</h1>
 <div class="jumbotron">
   <div class="row">
@@ -8,7 +28,19 @@
           <div class="form-group">
             <div class="row ">
               <div class="col-md-12">
-                <p class="card-text"><%= @auctionnotice.id%> <br> <%= @auctionnotice.auction %></p>
+                <p class="card-text"><%= @auctionnotice.auction %></p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row ">
+              <div class="col-md-6">
+                  <%= form.label :realty_id, "Seleccionar Propiedad" %>
+                  <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), {} , class:"select-multiple custom-select" ,autofocus: true, multiple: "multiple"%>
+              </div>
+              <div class="col-md-6">
+               <%= form.label :judgement_id, "Seleccionar Juicio" %>
+                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), {include_blank: "Seleccione", value: '0'}, class:"custom-select" %>
               </div>
             </div>
           </div>
@@ -28,14 +60,6 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-              <div class="row ">
-                <div class="col-md-3">
-                    <%= form.label :realty_id, "Seleccionar Propiedad" %>
-                    <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.address, p.id]}), { include_blank: "Seleccione"} , class:"form-control border" ,autofocus: true%>
-                </div>
-              </div>
-            </div>
           <div class="form-group">
             <div class="row ">
               <div class="col-md-3">
@@ -60,7 +84,7 @@
             <div class="row ">
               <div class="col-md-6">
                 <%= form.label :cost, "Costas" %>
-                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true%>
+                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true, onkeyup: "calculateTotalMinimum(this)"%>
               </div>
               <div class="col-md-6">
                 <%= form.label :total_minimum, "Total Mínimo:" %>
@@ -79,8 +103,12 @@
                 <%= form.number_field :fee, id: :fee , class:"form-control border" ,autofocus: true%>
               </div>
               <div class="col-md-6">
-                <%= form.label :judgement_id, "Seleccionar Juicio" %>
-                <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]}), { include_blank: "Seleccione"}, class:"form-control border" %>
+                <%= form.label :warranty_date, "Fecha Garantia" %>
+                <%= form.text_field :warranty_date, id: :warranty_date, data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border" %>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :warranty_time, "Hora Garantia" %>
+                <%= form.text_field :warranty_time, id: :warranty_time, class:"form-control border" ,autofocus: true%>
               </div>
             </div>
           </div>
