@@ -74,7 +74,7 @@ Rails.application.routes.draw do
 
   resources :realties
   resources  :communes, :provinces, :regions
-
+  resources :documents
   resources :courts
   resources :appraisals
   resources :judicialfiles

@@ -13,6 +13,8 @@ class Realty < ApplicationRecord
     #belongs_to :condominio
     #belongs_to :condominio
     has_many :appraisal, dependent: :destroy
+    has_many :document, dependent: :destroy
+
     #has_many :auctionnotices , dependent: :destroy
 
     #atributos anidados

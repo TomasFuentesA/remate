@@ -1,0 +1,45 @@
+
+<%= link_to 'Volver Listado estudios', documents_path %>
+<br>
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 card card-body ">
+        <div>
+          <h2>Documentación de propiedad <%= @document.id %> : <%= @document.realty.name_realty %></h2>
+        </div>
+        <hr>
+        <div class="field">
+          <h4>Título de dominio</h4>
+          <% if @document.domain_title != "" && @document.domain_title.to_s.split('/')[5]!=nil %>
+          <%= link_to @document.domain_title.to_s.split('/')[5], File.join(root_url.to_s,@document.domain_title.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,@document.domain_title.to_s),download:''%>
+          <%else %>
+          Sin Archivo
+          <% end %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>GP</h4>
+          <% if @document.gp != "" && @document.gp.to_s.split('/')[5]!=nil %>
+          <%= link_to @document.gp.to_s.split('/')[5], File.join(root_url.to_s,@document.gp.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,@document.gp.to_s),download:''%>
+          <%else %>
+          Sin Archivo
+          <% end %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Avalúo fiscal</h4>
+          <% if @document.tax_appraisal != "" && @document.tax_appraisal.to_s.split('/')[5]!=nil %>
+          <%= link_to @document.tax_appraisal.to_s.split('/')[5], File.join(root_url.to_s,@document.tax_appraisal.to_s), target: "_blank"%>
+          <%= link_to 'Descargar', File.join(root_url.to_s,@document.tax_appraisal.to_s),download:''%>
+          <%else %>
+          Sin Archivo
+          <% end %>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
