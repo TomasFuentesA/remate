@@ -1,0 +1,16 @@
+<%= form_with model: @legal_member, id: :formulary, remote: true do |form| %>
+
+
+<%= form.label "persona jurídica" %>
+<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}, @legal_member.legal_persona_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+
+<%= form.label "seleccione empresa" %>
+<%=  form.select :legal_asociado_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}, @legal_member.legal_asociado_id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+
+<%= form.label "porcentaje de participacion" %>
+<%=  form.number_field :percentage %>
+
+<%=  form.submit "guardar" %>
+
+<% end %>

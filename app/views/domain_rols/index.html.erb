@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Domain Rols</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type member</th>
+      <th>Type rol</th>
+      <th>Persona</th>
+      <th>Domain</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @domain_rols.each do |domain_rol| %>
+      <tr>
+        <td><%= domain_rol.type_member %></td>
+        <td><%= domain_rol.type_rol %></td>
+        <td><%= domain_rol.persona_id %></td>
+        <td><%= domain_rol.domain %></td>
+        <td><%= link_to 'Show', domain_rol %></td>
+        <td><%= link_to 'Edit', edit_domain_rol_path(domain_rol) %></td>
+        <td><%= link_to 'Destroy', domain_rol, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Domain Rol', new_domain_rol_path %>

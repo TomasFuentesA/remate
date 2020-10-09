@@ -1,16 +1,137 @@
-<%= form_with model: @persona_member, url: persona_members_path ,id: :formulary, remote: true do |form| %>
+<div class="container-fluid">
+  <%= render partial: "errors" %>
+</div>
+
+<%= form_with model: @persona_member, id: :formulary, remote: true do |form| %>
+    <div class= "container">
+        <div class="form-group">
+            <div class= "card text-center bg-ligth mb-3">
+                <div class= "card-header">
+                    <h1>Nuevo Miembro</h1>
+                </div>
+            <div class= "card-body">
+                <p class= "card-text">
+                    <div class="form-row">
+                        <div class = "col">
+                            <%= form.label "persona jurídica" %>
+                            <%= form.text_field :legal_persona_id, value: @legal_persona.name, class: 'form-control', readonly: true %>
+                            <%= form.hidden_field :legal_persona_id, value: @legal_persona.id %>
+                        </div>
+                    </div>
+                    <% if params[:domain_rol_id] %>
+                        <div class= "form-row">
+                            <div class = "col">
+                                <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                                
+                                <%= form.label "Tipo" %>
+                                <%= form.select :type_member, options_for_select([["Natural", "Natural"], ["Legal", "Legal"]], @domain_rol.type_member),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_value(this)" %>  
+                            </div>
+                            <div class = "col">
+                                <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                                <% if @domain_rol.type_member == "Legal" %>
+                                    <% @legal = LegalPersona.find(@domain_rol.persona_id) %>
+                                    <%= form.label "Miembro" %>
+                                    <%= form.select :persona_id , options_for_select(LegalPersona.order(:id).collect{|c|[c.name, c.id]}, @legal.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                                <%else%>
+                                    <% @persona = Persona.find(@domain_rol.persona_id) %>
+                                    <%= form.label "Miembro" %>
+                                    <%= form.select :persona_id , options_for_select(Persona.order(:id).collect{|c|[c.name, c.id]}, @persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%> 
+                                <%end%>       
+                            </div>
+                        </div>
+                        <div class= "form-row">    
+                            <div class = "col">
+                                <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                                <% @dom = Domain.find(@domain_rol.domain_id) %>
+                                <%= form.label "Acciones que maneja" %>
+                                <%= form.number_field :acciones, class: "form-control", onclick: "percentage(this)", value: @dom.price %>
+                            </div>
+                            <div class = "col">
+                                <%= form.label "porcentaje de participacion" %>
+                                <%= form.number_field :percentage, class: "form-control", step: :any ,readonly: true %>
+                            </div>
+                        </div>
+                    <%else%>
+                        <div class= "form-row">
+                            <div class = "col">
+                                <% @comprador = Comprador.find(params[:comprador_id]) %>
+                                
+                                <%= form.label "Tipo" %>
+                                <%= form.select :type_member, options_for_select([["Natural", "Natural"], ["Legal", "Legal"]], @comprador.type_member),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_value(this)" %>  
+                            </div>
+                            <div class = "col">
+                                <% @comprador = Comprador.find(params[:comprador_id]) %>
+                                <% if @comprador.type_member == "Legal" %>
+                                    <% @legal = LegalPersona.find(@comprador.persona_id) %>
+                                    <%= form.label "Miembro" %>
+                                    <%= form.select :persona_id , options_for_select(LegalPersona.order(:id).collect{|c|[c.name, c.id]}, @legal.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                                <%else%>
+                                    <% @persona = Persona.find(@comprador.persona_id) %>
+                                    <%= form.label "Miembro" %>
+                                    <%= form.select :persona_id , options_for_select(Persona.order(:id).collect{|c|[c.name, c.id]}, @persona.id), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%> 
+                                <%end%>       
+                            </div>
+                        </div>
+                        <div class= "form-row">    
+                            <div class = "col">
+                                <% @comprador = Comprador.find(params[:comprador_id]) %>
+                                
+                                <%= form.label "Acciones que maneja" %>
+                                <%= form.number_field :acciones, class: "form-control", onclick: "percentage(this)", value: @comprador.acciones %>
+                            </div>
+                            <div class = "col">
+                                <%= form.label "porcentaje de participacion" %>
+                                <%= form.number_field :percentage, class: "form-control", step: :any ,readonly: true %>
+                            </div>
+                        </div>
+                    <%end%>        
+                </p>
+                <div class="form-row">
+                    <div class = "col">
+                        <%=  form.submit "Guardar miembro", class: "btn btn-primary"%>
+                    </div>
+                </div>  
+            </div>
+        </div>        
+    </div>
 
 
-<%= form.label "persona jurídica" %>
-<%=  form.select :legal_persona_id , options_for_select(LegalPersona.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
 
 
-<%= form.label "persona natural" %>
-<%=  form.select :persona_id , options_for_select(Persona.order(:name).collect {|c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
-<%= form.label "porcentaje de participacion" %>
-<%=  form.number_field :percentage %>
 
 
-<%=  form.submit "guardar" %>
+
+
+
 
 <% end %>
+
+<script>
+    function get_value(params) {
+        console.log(params.value);
+        if(params.value == "Natural") {
+            var list = '<option value= 0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list);    
+        } else {
+            var list = '<option value= 0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |empresa| %>
+                list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+            <%end%>
+            $('#persona_member_persona_id').html(list); 
+        }
+
+        
+    }
+
+    function percentage(params) {
+        var y = <%= @legal_persona.acciones%>
+        console.log(y);
+        var x = ((params.value * 100)/y).toFixed(2)
+        document.getElementById('persona_member_percentage').value = x.toString();
+      
+      
+    }          
+</script>

@@ -1,0 +1,49 @@
+<h1>Listado de documentos de inscripciones</h1>
+
+
+<br>
+<%= link_to 'Nuevo documento de inscripcion', new_domainfile_path ,class: "btn btn-primary"%>
+</br>
+
+<table   class="table table-bordered table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">Accion o Modalidad</th>
+      <th scope="col">Valor</th>
+      <th scope="col">Porcentaje</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Archivo</th>
+      <th scope="col">Observacion</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+
+
+
+
+  <tbody class="rounded-pill">
+    <% @domainfiles.each do |domainfile| %>
+
+      <tr>
+        
+        <td><%= domainfile.domain.type_modality %> </td>
+        <td><%= domainfile.domain.price %> </td>
+        <td><%= domainfile.domain.percentage %></td>
+        <td><%= domainfile.date %></td>
+        <% if domainfile.file_name != "" %>
+                <td><%= link_to domainfile.file_name.to_s.split('/')[5], File.join(root_url.to_s,domainfile.file_name.to_s)%> </td>
+        <%else %>
+                <td>Sin Archivo</td>
+        <% end %>
+        <td><%= domainfile.obs_string%></td>
+
+
+        <td>
+          <%= link_to 'Ver', domainfile , class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_domainfile_path(domainfile) , class: "btn btn-warning" %>
+          <%= link_to 'Borrar', domainfile, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

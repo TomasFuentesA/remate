@@ -1,0 +1,58 @@
+<br>
+<div class="container">
+  <%= render 'layouts/alerts' %>
+</div>
+<div class="row justify-content-md-center">
+  <div class="card col-md-4">
+    <div class="card-body">
+      <%= form_with model: @legalpersona, url: legal_persona_path ,id: :formulary, remote: true  do |form| %>
+      <%= form.label :name, "Ingreso de nueva Persona Juridica" %>
+      <div class="form-group">
+        <div class="col">
+          <%= form.label :rut, "Rut:" %>
+          <%= form.text_field :rut, id: :rut, class:"form-control border"%>
+          <script>
+            $(function () {
+              $("#rut").rut().on('rutValido', function(e, rut, dv) {
+                alert("El rut " + rut + "-" + dv + " es correcto");
+              }, { minimumLength: 7 });
+            })
+          </script>
+        </div>
+        <div class="col">
+          <%= form.label :name, "Nombre:" %>
+          <%= form.text_field :name, id: :name, class:"form-control border ", autofocus: true, required: true %>
+        </div>
+        <div class="col">
+          <%= form.label :fantasy_name, "Nombre Fantasia:" %>
+          <%= form.text_field :fantasy_name, id: :fantasy_name , class:"form-control border", autofocus: true, required: true%>
+        </div>
+        <div class="col">
+          <%= form.label :alias, "Alias:" %>
+          <%= form.text_field :alias, id: :alias , class:"form-control border", autofocus: true, required: true%>
+        </div>
+        <div class="col">
+          <%= form.label :web, "Web:" %>
+          <%= form.text_field :web, id: :web , class:"form-control border", autofocus: true, required: true%>
+        </div>
+        <div class="col">
+          <%= form.label :acciones, "Acciones totales:" %>
+          <%= form.text_field :acciones, class:"form-control border", autofocus: true, required: true%>
+        </div>
+        <br>
+        <div class="col">
+          ¿Es Notario?
+          <%= form.radio_button :notario, 'Si'%>
+          <%= label :type_member_Si, 'Si' %>
+          <%= form.radio_button :notario, 'No' %>
+          <%= label :type_member_No, 'No '%>
+        </div>
+        <br>
+        <div class="col">
+          <%= form.submit "Guardar", class:"btn btn-success" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

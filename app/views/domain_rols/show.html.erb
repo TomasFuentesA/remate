@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type member:</strong>
+  <%= @domain_rol.type_member %>
+</p>
+
+<p>
+  <strong>Type rol:</strong>
+  <%= @domain_rol.type_rol %>
+</p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @domain_rol.persona_id %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @domain_rol.domain %>
+</p>
+
+<%= link_to 'Edit', edit_domain_rol_path(@domain_rol) %> |
+<%= link_to 'Back', domain_rols_path %>

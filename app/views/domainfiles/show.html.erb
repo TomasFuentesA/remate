@@ -1,0 +1,55 @@
+<%= link_to 'Volver Listado domains', domains_path %>
+
+<p></p>
+
+
+
+<br>
+<h1>Expediente domain:</h1>
+
+
+
+
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 card card-body ">
+        <div>
+          <h2>Accion: <%= @domainfile.domain.type_modality %> </h2>
+        </div>
+
+        <div style='width: 800px;' >
+          <div id="map" style='width: 700px; height: 300px;'></div>
+        </div>
+        <hr>
+        <h1>Información básica:</h1>
+            <div class="field">
+              <h4> Fecha cuando se realizo la posecion:</h4>
+              <%= @domainfile.domain.date_posetion %>
+            </div>
+
+            <div class="field">
+              <h4>Rol</h4>
+              <%= @domainfile.domain.id %>
+            </div>
+
+
+          <div class="field">
+            <h4>Valor</h4>
+            <%= @domainfile.domain.price %>
+          </div>
+
+         //agregar los Demandantes y demandados y los abogados 
+
+
+        
+
+      </div>
+      <br>
+      <div class="col-md-4 card dard-body">
+
+      </div>
+
+    </div>
+  </div>
+</div>

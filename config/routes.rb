@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
 
 
+  
   get 'legal_members/new'
   get 'legal_members/create'
   get 'legal_members/destroy'
@@ -19,11 +20,12 @@ Rails.application.routes.draw do
   get 'admins/index'
   post 'modal_auction', to: 'auctions#modal'
 
+  
   get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
   get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
-  
+  get 'list_domain/:domainable_id', to: 'domains#list_domain', as: 'listado_creadores'
 
 
   # devise_for :users, controllers: {{     }
@@ -76,18 +78,28 @@ Rails.application.routes.draw do
   resources :courts
   resources :appraisals
   resources :judicialfiles
-
-
+  resources :inscriptionfiles
+  resources :domainfiles
+  resources :compradors
+  resources :domain_rols do 
+    resources :compradors
+  end
   resources :judgements, :type_realties
   resources :type_realties
   resources :legal_personas do
       resources :directions
       resources :phones
       resources :emails
+      resources :domain_rols do
+        resources :persona_members
+      end
       resources :activities
-      resources :domains
-
-
+      resources :compradors do
+        resources :persona_members
+      end
+      resources :domains 
+      resources :persona_members
+      resources :legal_represents
       end
 
 
@@ -107,8 +119,11 @@ Rails.application.routes.draw do
   resources :auctionlistings
   resources :domains do
     resources :inscriptions
+    resources :domainfiles
   end
-resources :inscriptions
+resources :inscriptions do
+  resources :inscriptionfiles
+end
 
 resources :condominios
 

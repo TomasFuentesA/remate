@@ -18,8 +18,13 @@ class LegalPersonasController < ApplicationController
 
   def create
     @legalpersona = LegalPersona.new(legal_persona_params)
-    @legalpersona.save
-    redirect_to legal_personas_path
+    if  @legalpersona.save
+      flash[:notice] =  "ingresado exitosamente"
+      redirect_to legal_personas_path
+    else
+      flash[:errors] = @legalpersona.errors.full_messages
+      redirect_to new_legal_persona_path
+    end
   end
 
   def edit
@@ -34,8 +39,6 @@ class LegalPersonasController < ApplicationController
     @legalpersona.update(legal_persona_params)
     redirect_to legal_personas_path
   end
-
-
 
   def destroy
     @legalpersona.delete
@@ -56,9 +59,9 @@ private
     @emails = @able.emails
     @domains = @able.domains
     @directions = @able.directions
+    @activities = @able.activities
     @jobs = @able.jobs
-    @persona_members = @able.personas
-    @legal_members = @able.legal_asociados
+    #@legal_members = @able.legal_asociados
   end
 
   def set_legalpersona
@@ -66,6 +69,11 @@ private
   end
 
   def legal_persona_params
-    params.permit(:rut, :name, :fantasy_name, :alias, :web)
+    if params['legal_persona']
+      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+    else
+      params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+    end
   end
+
 end

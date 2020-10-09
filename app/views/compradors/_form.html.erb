@@ -1,0 +1,67 @@
+
+  
+
+<%= form_with model: @comprador do |form| %>
+  <div class = "col">
+    <%= form.label "Tipo" %>
+  </div>
+  <div class = "col">
+    <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
+    <%= label :type_member_Natural, 'Natural' %>
+    <%= form.radio_button :type_member, 'Legal', onchange: "get_value(this)" %>
+    <%= label :type_member_Empresa, 'Legal' %>
+  </div>
+  
+  <div class = "col">
+    <%= form.label "Miembro" %>
+    <%= form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+  </div>
+
+  <div class="col">
+    <%= form.label :acciones %>
+    <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)" %>
+  </div>
+
+  <div class="col">
+    <%= form.label :percentage %>
+    <%= form.text_field :percentage, class:"form-control", readonly: true %>
+  </div>
+
+  <%= form.hidden_field :domain_rol_id, value: params[:domain_rol_id] %>
+  <br>
+  <div class= "col">
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  </div>  
+<% end %>
+
+
+<script>
+    function get_value(params) {
+        if(params.value == "Natural") {
+            var list = '<option value= 0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+            <%end%>
+            $('#comprador_persona_id').html(list);    
+        } else {
+            var list = '<option value= 0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |empresa| %>
+                list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+            <%end%>
+            $('#comprador_persona_id').html(list); 
+        }
+    }
+
+    function percentage(params) {
+      <% @domrol = DomainRol.find(params[:domain_rol_id]) %>
+      <% @domain = Domain.find(@domrol.domain_id) %>
+      var y = <%= @domain.price %>
+      console.log(y); 
+      var x = ((params.value * 100)/y).toFixed(2)
+      document.getElementById('comprador_percentage').value = x.toString();
+      
+      
+    }        
+</script>
