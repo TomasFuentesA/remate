@@ -76,16 +76,16 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Fecha</th>
-                  <th scope="col">domain_title</th>
-                  <th scope="col">gp</th>
-                  <th scope="col">tax_appraisal</th>
+                  <th scope="col">Título de dominio</th>
+                  <th scope="col">GP</th>
+                  <th scope="col">Avalúo fiscal</th>
                   <th scope="col">opciones</th>
                 </tr>
               </thead>
               <tbody class="rounded-pill">
-                <% @realty.document.each do |document| %>
+                <% @realty.document.reverse.each do |document| %>
                 <tr>
-                    <td><%= document.realty.name_realty %></td>
+                    <td><%= document.created_at.to_date %></td>
                     <% if document.domain_title != "" && document.domain_title.to_s.split('/')[5]!=nil %>
                     <td>
                       <%= link_to document.domain_title.to_s.split('/')[5], File.join(root_url.to_s,document.domain_title.to_s), target: "_blank"%>

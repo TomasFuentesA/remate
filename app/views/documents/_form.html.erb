@@ -11,11 +11,11 @@
       <%= form_with model: @document, local: true do |form| %>
       <%= form.label :name, "Ingreso de nueva documentación" %>
       <div class="form-group">
-        <%= form.label :realty_id %>
-        <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.name_realty, p.id]},@document.realty_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true %>
+        <%= form.label :realty_id, "Propiedad" %>
+        <%= form.select :realty_id, options_for_select(Realty.all.collect {|p| [p.name_realty, p.id]},@document.realty_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true , disabled: params['format']? true : false %>
       </div>
       <div class="form-group">
-        <%= form.label :domain_title, "Titulo de dominio" %>
+        <%= form.label :domain_title, "Título de dominio" %>
         <div class="custom-file">
           <%= form.file_field :domain_title, id: :domain_title ,class:"custom-file-input",autofocus: true %>
           <label class="custom-file-label" for="customFile"><%= @document.domain_title.to_s.split('/')[5]%></label>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="form-group">
-        <%= form.label :tax_appraisal, "tax_appraisal" %>
+        <%= form.label :tax_appraisal, "Avalúo fiscal" %>
         <div class="custom-file">
           <%= form.file_field :tax_appraisal, id: :tax_appraisal ,class:"custom-file-input",autofocus: true %>
           <label class="custom-file-label" for="customFile"><%= @document.tax_appraisal.to_s.split('/')[5]%></label>
