@@ -1,22 +1,20 @@
 <br>
-<h1>  Ingresar Nuevo Aviso de Remate individual </h1>
-
+<h1> Ingresar Nuevo Aviso de Remate individual </h1>
 <br>
-
-
 <div class="container" id="wrapper">
-<%= form_with model: Auctionnotice.new  do |form| %>
-  <%= form.label :name, "Ingresar Aviso de Remate" %>
-
-  <div class="field">
-    <%= form.label :auction, "Aviso" %>
-    <%= form.text_area( :auction , size: '20') %>
+  <div class="card card-body">
+    <%= form_with model: Auctionnotice.new  do |form| %>
+    <%= form.label :name, "Ingresar Aviso de Remate" %>
+    <div class="field">
+      <%= form.label :auction, "Aviso" %>
+      <%= form.text_area( :auction , cols: 10, rows: 10, class:"form-control border", required: true)%>
+    </div>
+    <br>
+    <%= form.submit "Guardar", class:"btn btn-success"%>
+    <% end %>
   </div>
-
- <%= form.submit "Guardar" %>
-<% end %>
 </div>
 <br>
-  <li class="list-group-item "><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
-  <li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
-  <li class="list-group-item"><%= link_to 'Ir a Listado Avisos', auctionnotices_path %></li>
+<li class="list-group-item "><%= link_to 'Listado Avisos Seleccionados', auctionnotices_selected_path %></li>
+<li class="list-group-item"><%= link_to 'Listado Avisos Descartados', auctionnotices_rejected_path %></li>
+<li class="list-group-item"><%= link_to 'Ir a Listado Avisos', auctionnotices_path %></li>

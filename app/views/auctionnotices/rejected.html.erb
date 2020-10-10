@@ -1,34 +1,25 @@
+<%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %>
 <h1> Avisos descartados </h1>
-
-
-<table  class="table table-bordered table-hover">
+<table class="table table-bordered table-hover">
   <thead class="thead-dark">
-
     <tr>
       <th scope="col"></th>
       <th scope="col">Auction</th>
       <th scope="col">Opciones</th>
     </tr>
   </thead>
-
-
   <tbody>
-    <% @auctionnotices.each_with_index do |auctionnotice, i| %>
-
-      <tr>
-        <td scope="row"><%= i + 1 %></td>
-        <td><%= auctionnotice.auction %></td>
-
-        <td>
-
-          <%= link_to 'Show', auctionnotice %>
-          <%= link_to 'Edit', edit_auctionnotice_path(auctionnotice) %>
-          <%= link_to 'Seleccionar Aviso', action_selection_path(auctionnotice), method: :post %>
-          <%= link_to 'Destroy', auctionnotice, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
+    <% @auctionnotices.reverse.each_with_index do |auctionnotice, i| %>
+    <tr>
+      <td scope="row"><%= i + 1 %></td>
+      <td><%= auctionnotice.auction %></td>
+      <td>
+        <%= link_to 'ver', auctionnotice , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_auctionnotice_path(auctionnotice) , class: "btn btn-warning" %>
+        <%= link_to 'Seleccionar Aviso', action_selection_path(auctionnotice), method: :post , class: "btn btn-success" %>
+        <%= link_to 'borrar', auctionnotice, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Listado Avisos Pendientes', auctionnotices_pending_path %>
