@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-
-
-
-
-
-
   
   get 'legal_members/new'
   get 'legal_members/create'
@@ -72,6 +66,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :judgement_debts
   resources :realties
   resources  :communes, :provinces, :regions
   resources :documents

@@ -1,0 +1,42 @@
+<h1>Listado deudas judiciales</h1>
+<br>
+<%= link_to 'Nueva deuda judicial', new_judgement_debt_path ,class: "btn btn-primary"%>
+<br>
+<br>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Persona</th>
+      <th scope="col">Tipo persona</th>
+      <th scope="col">total</th>
+      <th scope="col">tipo moneda</th>
+      <th scope="col">fecha deuda</th>
+      <th scope="col">tipo deuda</th>
+      <th scope="col">opciones</th>
+    </tr>
+  </thead>
+  <tbody class="rounded-pill">
+    <% @judgementsDebts.each do |judgementDebt| %>
+    <tr>
+      <td>
+      <% if judgementDebt.person_type == "Natural" %>
+        <%= link_to 'ver',  persona_path(judgementDebt.person_id) , class: "btn btn-info" %>
+      <% else %>
+        <%= link_to 'ver',  legal_persona_path(judgementDebt.person_id) , class: "btn btn-info" %>
+      <% end %>
+      </td>
+      <td><%= judgementDebt.person_type %></td>
+      <td><%= judgementDebt.money_total %></td>
+      <td><%= judgementDebt.money_type %></td>
+      <td><%= judgementDebt.debt_date %></td>
+      <td><%= JudgementDebt.type_judgement_debts.keys.to_a[judgementDebt.debt_type] %></td>
+      <td>
+        <%= link_to 'ver', judgementDebt , class: "btn btn-info" %>
+        <%= link_to 'editar', edit_judgement_debt_path(judgementDebt) , class: "btn btn-warning" %>
+        <%= link_to 'borrar', judgementDebt, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate(@judgementsDebts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
