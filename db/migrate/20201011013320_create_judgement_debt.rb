@@ -7,6 +7,7 @@ class CreateJudgementDebt < ActiveRecord::Migration[5.2]
       t.integer :money_type
       t.date :debt_date
       t.integer :debt_type
+      t.timestamps
     end
   end
 end
