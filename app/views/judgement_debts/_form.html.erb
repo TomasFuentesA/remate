@@ -1,5 +1,9 @@
 <script>
   $(document).ready(function () {
+    $('select#judgement_debt_judgement_id').select2({
+      theme: "bootstrap",
+      width: "100%"
+    });
     $('select#judgement_debt_person_id').select2({
       theme: "bootstrap",
       width: "100%"
@@ -9,8 +13,12 @@
 <div class="row justify-content-md-center">
   <div class="card">
     <div class="card-body">
-      <%= form_with model: @judgementdebt, local: true do |form| %>
-      <div class="col">
+      <%= form_with model: @judgementdebt, url: @judgement_id ? judgement_debts_path(@judgement_id) : judgement_debts_path, remote: true do |form| %>
+      <div class="form-group">
+        <%= form.label :judgement_id, "Seleccionar Juicio" %>
+        <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]},@judgementdebt.judgement_id), {include_blank: "Seleccione", value: '0'}, class:"custom-select", required: true %>
+      </div>
+      <div class="form-group">
         <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %>
         <%= label :type_member_Natural, 'Natural' %>
         <%= form.radio_button :type_member, 'Legal', onchange: "get_value(this)" %>
@@ -19,23 +27,23 @@
       <div class="form-group">
         <%= form.label "Persona" %>
         <%= form.select :person_id , options_for_select([["Seleccione", 0]]) ,class:"custom-select mr-sm-2"%>
-        <%= form.hidden_field :person_type, id: :person_type, class:"form-control border" %>
+        <%= form.hidden_field :person_type, id: :person_type, class:"form-control border", required: true %>
       </div>
       <div class="form-group">
         <%= form.label :money_total, "total:" %>
-        <%= form.number_field :money_total, id: :money_total , class:"form-control border" %>
+        <%= form.number_field :money_total, id: :money_total , class:"form-control border", required: true %>
       </div>
       <div class="form-group">
         <%= form.label :money_type, "tipo moneda:" %>
-        <%= form.number_field :money_type, id: :money_type , class:"form-control border" %>
+        <%= form.number_field :money_type, id: :money_type , class:"form-control border", required: true %>
       </div>
       <div class="form-group">
         <%= form.label :debt_date, "fecha deuda:" %>
-        <%= form.text_field :debt_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border"%>
+        <%= form.text_field :debt_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border", required: true %>
       </div>
       <div class="form-group">
         <%= form.label :debt_type, "tipo deuda:" %>
-        <%= form.select :debt_type, options_for_select(JudgementDebt.type_judgement_debts.map { |k,v| [k.capitalize, v] },@judgementdebt.debt_type), { include_blank: "Seleccione"},class:"form-control border"  %>
+        <%= form.select :debt_type, options_for_select(JudgementDebt.type_judgement_debts.map { |k,v| [k.capitalize, v] },@judgementdebt.debt_type), { include_blank: "Seleccione"},class:"form-control border", required: true %>
       </div>
       <div class="form-group">
         <%= form.submit "Guardar",class: "btn btn-success" %>

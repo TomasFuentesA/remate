@@ -6,6 +6,7 @@
 <table class="table table-bordered table-hover">
   <thead class="thead-dark">
     <tr>
+      <th scope="col">Juicio</th>
       <th scope="col">Persona</th>
       <th scope="col">Tipo persona</th>
       <th scope="col">total</th>
@@ -18,6 +19,7 @@
   <tbody class="rounded-pill">
     <% @judgementsDebts.each do |judgementDebt| %>
     <tr>
+      <td><%= judgementDebt.judgement_id %></td>
       <td>
       <% if judgementDebt.person_type == "Natural" %>
         <%= link_to 'ver',  persona_path(judgementDebt.person_id) , class: "btn btn-info" %>

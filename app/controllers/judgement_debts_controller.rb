@@ -9,12 +9,19 @@ class JudgementDebtsController < ApplicationController
     end
 
     def new
+        @judgement_id= params['format']? params['format']:''
         @judgementdebt = JudgementDebt.new
+        @judgementdebt.judgement_id = @judgement_id
     end
 
     def create
+        @judgement_id=params['format']
         @judgementdebt = JudgementDebt.new(judgement_debt_params)
-        if @judgementdebt.save
+        @judgementdebt.save
+        if @judgement_id
+            @judgement_id=params['judgement_debt']['judgement_id'].to_i
+            redirect_to judgement_path(@judgement_id)
+        else
             redirect_to judgement_debts_path
         end
     end
@@ -50,6 +57,7 @@ class JudgementDebtsController < ApplicationController
         :money_total,
         :money_type,
         :debt_date,
-        :debt_type)
+        :debt_type,
+        :judgement_id)
     end
 end
