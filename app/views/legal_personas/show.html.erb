@@ -288,6 +288,7 @@
             <tr>
               <th scope="col">Notario</th>
               <th scope="col">Modalidad</th>
+              <th scope="col">Acciones
               <th scope="col">Precio</th>
               <th scope="col">Vendedor</th>
               <th scope="col">Comprador</th>
@@ -306,6 +307,13 @@
               <% @creacion.each do |creacion| %>
                 <div class= "col">
                   <%= creacion.price %>
+                </div>
+              <%end%>
+              </td>
+              <td>
+              <% @creacion.each do |creacion| %>
+                <div class= "col">
+                  <%= creacion.valor %>
                 </div>
               <%end%>
               </td>
@@ -353,6 +361,7 @@
                     <%end%>    
                     <td><%= domain.type_modality %></td>
                     <td><%= domain.price %></td>
+                    <td><%= domain.valor %></td>
                     <% DomainRol.order(:id).each do |domrol| %>
                       <% if domrol.domain_id == domain.id %>
                         <% if domrol.type_member == "Legal" %>

@@ -35,7 +35,7 @@ class DomainsController < ApplicationController
           nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_f
           member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
           if member[0].acciones == 0
-            Historico.create(persona_id: member[0].persona_id, legal_persona_id: member[0].legal_persona_id ,type_member: member[0].type_member, entrada: member[0].entrada, salida: Time.new.strftime("%Y-%m-%d") )
+            Historico.create(persona_id: member[0].persona_id, legal_persona_id: member[0].legal_persona_id ,type_member: member[0].type_member, entrada: member[0].entrada, salida: Time.new.strftime("%Y-%m-%d"), acciones: params[:domain][:price], valor: params[:domain][:valor] )
             member[0].destroy
           end
           @domain = @domainable.domains.new(domain_params)
@@ -56,7 +56,7 @@ class DomainsController < ApplicationController
           nuevo_porcentaje = member[0].percentage - params[:domain][:percentage].to_f
           member.update(acciones: nueva_accion, percentage: nuevo_porcentaje)
           if member[0].acciones == 0
-            Historico.create(persona_id: member[0].persona_id, legal_persona_id: member[0].legal_persona_id ,type_member: member[0].type_member, entrada: member[0].entrada, salida: Time.new.strftime("%Y-%m-%d") )
+            Historico.create(persona_id: member[0].persona_id, legal_persona_id: member[0].legal_persona_id ,type_member: member[0].type_member, entrada: member[0].entrada, salida: Time.new.strftime("%Y-%m-%d"), acciones: params[:domain][:price], valor: params[:domain][:valor])
             member[0].destroy
           end
           @domain = @domainable.domains.new(domain_params)
@@ -227,7 +227,7 @@ private
 
 
   def domain_params
-    params.require(:domain).permit(:type_modality,:inscription_id,:price,:date_posetion,:percentage, :notario_id)
+    params.require(:domain).permit(:type_modality, :inscription_id, :price, :date_posetion, :percentage, :notario_id, :valor)
   end
 
   def load_domainable
