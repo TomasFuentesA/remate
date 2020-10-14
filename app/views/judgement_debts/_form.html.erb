@@ -35,7 +35,7 @@
       </div>
       <div class="form-group">
         <%= form.label :money_type, "tipo moneda:" %>
-        <%= form.number_field :money_type, id: :money_type , class:"form-control border", required: true %>
+        <%= select_tag "money_type", options_for_select([["uf", "uf"], ["pesos", "pesos"]]),prompt: "seleccione" , class:"form-control border" ,autofocus: true%>
       </div>
       <div class="form-group">
         <%= form.label :debt_date, "fecha deuda:" %>
