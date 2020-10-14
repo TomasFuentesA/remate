@@ -189,7 +189,19 @@ class DomainsController < ApplicationController
           domrol.destroy  
         end
       end  
-    end    
+    end
+    @activos = PersonaMember.where(legal_persona_id: @legalpersona.id)
+    @historicos = Historico.where(legal_persona_id: @legalpersona.id)
+    @activos.each do |activos|
+      @historicos.each do |historicos|
+        if (activos.persona_id == historicos.persona_id)
+          if (activos.type_member == historicos.type_member)
+            historicos.destroy
+          end
+        end
+      end
+    end        
+          
     @domain.destroy
     redirect_to @legalpersona
 
