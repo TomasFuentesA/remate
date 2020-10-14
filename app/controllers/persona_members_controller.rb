@@ -134,7 +134,7 @@ class PersonaMembersController < ApplicationController
 private
   def persona_member_params
 
-    params.require(:persona_member).permit(:persona_id, :legal_persona_id, :type_member ,:percentage, :acciones)
+    params.require(:persona_member).permit(:persona_id, :legal_persona_id, :type_member ,:percentage, :acciones, :entrada)
     
   end  
 

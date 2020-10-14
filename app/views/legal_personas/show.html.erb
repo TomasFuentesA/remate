@@ -200,6 +200,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Acciones</th>
                 <th scope="col">Participación</th>
+                <th scope="col">Entrada</th>
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
@@ -215,6 +216,7 @@
                           <td scope="row">
                             <%= personam.percentage%> %    
                           </td>
+                          <td scope="row"><%= personam.entrada%></td>
                           <td> 
                             <%= link_to 'ver', member , class: "btn btn-info" %>
                             <% PersonaMember.order(:id).each do |personam| %>
@@ -235,7 +237,8 @@
                           <td scope="row"><%= personam.acciones%></td>
                           <td scope="row">
                             <%= personam.percentage %> %
-                          </td>    
+                          </td> 
+                          <td scope="row"><%= personam.entrada%></td>   
                           <td> 
                             <%= link_to 'ver', legalp, class: "btn btn-info" %>
                             <% LegalPersona.order(:id).each do |legalp| %>
@@ -333,9 +336,7 @@
               </td>
               <td>                   
                 <%= link_to "ver", listado_creadores_path(@legal_persona), class: "btn btn-info" %>
-                <%= link_to "editar", edit_domain_path, class: "btn btn-warning" %>
-                <%= link_to 'Borrar', @domain, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
-                      
+  
               </td>
 
             </tr>
@@ -431,5 +432,37 @@
       </div>
     </div>
   <% end %>
+  <% @historicos = Historico.where(legal_persona_id: @legal_persona.id) %>
+  <% if @historicos.any? %>
+    <div class="row">
+      <div class="col-sm-12 card card-body">
+        <h1> Miembros historicos de <%= @legal_persona.name %> </h1>
+        <table   class="table table-bordered table-hover">
+          <thead  class="thead-dark">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Fecha de Ingreso</th>
+              <th scope="col">Fecha de Salida</th>
+            </tr>
+          </thead>
+          <tbody class="rounded-pill">
+            <% @historicos.each do |historico| %>
+              <tr>
+                <% if historico.type_member == "Legal" %>
+                  <%legalp = LegalPersona.find(historico.persona_id) %>
+                  <td scope ="row"> <%=legalp.name %> </td>
+                <%else%>
+                  <%persona = Persona.find(historico.persona_id) %>
+                  <td scope ="row"> <%= persona.name %> <%= persona.last_name1 %> </td>
+                <%end%>
+                <td> <%= historico.entrada %> </td>
+                <td> <%= historico.salida %> </td>  
+              </tr>
+            <%end%>  
+          </tbody>
+        </table>  
+      </div>
+    </div>
+  <%end%>
 </div>
    

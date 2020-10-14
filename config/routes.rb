@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
 
   
+  resources :historicos
   get 'legal_members/new'
   get 'legal_members/create'
   get 'legal_members/destroy'
