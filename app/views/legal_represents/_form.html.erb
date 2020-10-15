@@ -36,6 +36,12 @@
                             <%= form.select :type_represents, options_for_select([["Conjuntamente", "Conjuntamente"], ["Indistintamente", "Indistintamente"]]) ,{ include_blank: "Seleccione"}, class:"form-control", required: true%>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <%= form.label "Fecha de ingreso"%>
+                            <%= form.text_field :entrada ,data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control", required: true%>
+                        </div>
+                    </div>
                     <%= form.hidden_field :legal_persona_id, value: params[:legal_persona_id] %>
                 </p>
                 <div class="form-row">
