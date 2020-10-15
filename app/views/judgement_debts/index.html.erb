@@ -1,6 +1,6 @@
 <h1>Listado deudas judiciales</h1>
 <br>
-<%= link_to 'Nueva deuda judicial', new_judgement_debt_path ,class: "btn btn-primary"%>
+<%= link_to 'Nueva deuda acreedor', new_judgement_debt_path ,class: "btn btn-primary"%>
 <br>
 <br>
 <table class="table table-bordered table-hover">
@@ -9,10 +9,10 @@
       <th scope="col">Juicio</th>
       <th scope="col">Persona</th>
       <th scope="col">Tipo persona</th>
-      <th scope="col">total</th>
-      <th scope="col">tipo moneda</th>
-      <th scope="col">fecha deuda</th>
       <th scope="col">tipo deuda</th>
+      <th scope="col">fecha deuda</th>
+      <th scope="col">tipo moneda</th>
+      <th scope="col">total</th>
       <th scope="col">opciones</th>
     </tr>
   </thead>
@@ -28,10 +28,10 @@
       <% end %>
       </td>
       <td><%= judgementDebt.person_type %></td>
-      <td><%= judgementDebt.money_total %></td>
-      <td><%= judgementDebt.money_type %></td>
-      <td><%= judgementDebt.debt_date %></td>
       <td><%= JudgementDebt.type_judgement_debts.keys.to_a[judgementDebt.debt_type] %></td>
+      <td><%= judgementDebt.debt_date %></td>
+      <td><%= judgementDebt.money_type %></td>
+      <td><%= judgementDebt.money_total %></td>
       <td>
         <%= link_to 'ver', judgementDebt , class: "btn btn-info" %>
         <%= link_to 'editar', edit_judgement_debt_path(judgementDebt) , class: "btn btn-warning" %>
