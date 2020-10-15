@@ -16,7 +16,7 @@ class LegalRepresentsController < ApplicationController
             if representante != ""
                 repres = LegalRepresent.where(persona_id: representante, legal_persona_id: params[:legal_persona_id])
                 if repres.length == 0
-                    LegalRepresent.create(persona_id: representante.to_i, legal_persona_id: params[:legal_persona_id], type_represents: params[:type_represents])           
+                    LegalRepresent.create(persona_id: representante.to_i, legal_persona_id: params[:legal_persona_id], type_represents: params[:type_represents], entrada: params[:entrada])           
                 end               
             end               
         end
@@ -44,7 +44,7 @@ class LegalRepresentsController < ApplicationController
     private
 
     def legal_represents_params
-        params.permit(:persona_id, :legal_persona_id, :type_represents)
+        params.permit(:persona_id, :legal_persona_id, :type_represents, :entrada)
     end
     
 
