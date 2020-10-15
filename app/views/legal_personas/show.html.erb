@@ -452,6 +452,8 @@
               <th scope="col">Nombre</th>
               <th scope="col">Fecha de Ingreso</th>
               <th scope="col">Fecha de Salida</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody class="rounded-pill">
@@ -465,7 +467,9 @@
                   <td scope ="row"> <%= persona.name %> <%= persona.last_name1 %> </td>
                 <%end%>
                 <td> <%= historico.entrada %> </td>
-                <td> <%= historico.salida %> </td>  
+                <td> <%= historico.salida %> </td>
+                <td> <%= historico.valor %> </td>
+                <td> <%= historico.acciones %> </td>   
               </tr>
             <%end%>  
           </tbody>
