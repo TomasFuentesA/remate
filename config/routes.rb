@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   post 'auctionnotice/:id/joined', to: 'auctionnotices#action_joined', as: 'action_joined'
 
 
+  get '/judgement_debts/new/:id_judgement/auction/:id_auction', to: 'judgement_debts#new_from_auctions', as: 'new_from_auctions'
 
 
 
