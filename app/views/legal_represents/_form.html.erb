@@ -3,6 +3,9 @@
     $('select#legal_represent_persona_id').select2({
       theme: "bootstrap"
     });
+    $('select#type_represents').select2({
+      theme: "bootstrap"
+    });
     $('.select-multiple').select2({
       theme: "bootstrap"
     });    
@@ -24,6 +27,13 @@
                         <div class = "col">
                             <%= form.label "Persona" %>
                             <%= form.select :persona_id, options_for_select(Persona.all.collect{ |p| [p.name + '- ' + p.last_name1 + ' / ' + p.rut, p.id] }) ,{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
+                        </div>
+                        
+                    </div>
+                    <div class ="form-row">
+                        <div class="col">
+                            <%= form.label "Metodo de trabajar" %>
+                            <%= form.select :type_represents, options_for_select([["Conjuntamente", "Conjuntamente"], ["Indistintamente", "Indistintamente"]]) ,{ include_blank: "Seleccione"}, class:"form-control", required: true%>
                         </div>
                     </div>
                     <%= form.hidden_field :legal_persona_id, value: params[:legal_persona_id] %>
