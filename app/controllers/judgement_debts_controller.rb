@@ -18,12 +18,23 @@ class JudgementDebtsController < ApplicationController
         @judgement_id=params['format']
         @judgementdebt = JudgementDebt.new(judgement_debt_params)
         @judgementdebt.save
-        if @judgement_id
+        @id_auction = params['judgement_debt']['id_auction']
+        if @id_auction && @judgement_id
+            redirect_to auction_path(@id_auction)
+        elsif @judgement_id
             @judgement_id=params['judgement_debt']['judgement_id'].to_i
             redirect_to judgement_path(@judgement_id)
         else
             redirect_to judgement_debts_path
         end
+    end
+    
+    def new_from_auctions
+        @judgement_id= params['id_judgement']? params['id_judgement']:''
+        @auctions_id = params['id_auction']? params['id_auction']:''
+        @judgementdebt = JudgementDebt.new
+        @judgementdebt.judgement_id = @judgement_id
+        render :new
     end
 
     def show
@@ -35,7 +46,6 @@ class JudgementDebtsController < ApplicationController
     def update
         Rails.logger.info params
         @judgementdebt.update(judgement_debt_params)
-        redirect_to judgement_debts_path
     end
 
     def destroy

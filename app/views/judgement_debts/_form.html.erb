@@ -14,6 +14,7 @@
   <div class="card">
     <div class="card-body">
       <%= form_with model: @judgementdebt, url: @judgement_id ? judgement_debts_path(@judgement_id) : judgement_debts_path, remote: true do |form| %>
+      <%= form.hidden_field "id_auction", id: "id_auction", class:"form-control border", value: @auctions_id%>
       <div class="form-group">
         <%= form.label :judgement_id, "Seleccionar Juicio" %>
         <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]},@judgementdebt.judgement_id), {include_blank: "Seleccione", value: '0'}, class:"custom-select", required: true %>
