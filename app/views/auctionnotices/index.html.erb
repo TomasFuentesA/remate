@@ -20,7 +20,7 @@
 
   <tbody>
 <%= form_tag discontinue_auctionnotices_path, method: :put do %>
-    <% @auctionnotices.each_with_index do |auctionnotice, i| %>
+    <% @auctionnotices.reverse.each_with_index do |auctionnotice, i| %>
 
       <tr>
         <td><%=check_box_tag "auctionnotice_ids[]",auctionnotice.id %></td>
