@@ -1,0 +1,77 @@
+<script>
+  $(document).ready(function () {
+    $('select#judgement_debt_judgement_id').select2({
+      theme: "bootstrap",
+      width: "100%"
+    });
+    $('select#judgement_debt_person_id').select2({
+      theme: "bootstrap",
+      width: "100%"
+    });
+  });
+</script>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <%= form_with model: @judgementdebt, url: @judgement_id ? judgement_debts_path(@judgement_id) : judgement_debts_path, remote: true do |form| %>
+      <div>
+        <h4><%=params['action']=="edit"? "Editar" : "Nueva"%> deuda acreedor</h4>
+      </div>
+      <%= form.hidden_field "id_auction", id: "id_auction", class:"form-control border", value: @auctions_id%>
+      <div class="form-group">
+        <%= form.label :judgement_id, "Seleccionar Juicio" %>
+        <%= form.select :judgement_id, options_for_select(Judgement.all.collect {|p| [p.full_name_judgement, p.id]},@judgementdebt.judgement_id), {include_blank: "Seleccione", value: '0'}, class:"custom-select", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %>
+        <%= label :type_member_Natural, 'Natural' %>
+        <%= form.radio_button :type_member, 'Legal', onchange: "get_value(this)" %>
+        <%= label :type_member_Empresa, 'Legal' %>
+      </div>
+      <div class="form-group">
+        <%= form.label "Acreedor" %>
+        <%= form.select :person_id , options_for_select([["Seleccione", 0]]) ,class:"custom-select mr-sm-2"%>
+        <%= form.hidden_field :person_type, id: :person_type, class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :debt_type, "tipo deuda:" %>
+        <%= form.select :debt_type, options_for_select(JudgementDebt.type_judgement_debts.map { |k,v| [k.capitalize, v] },@judgementdebt.debt_type), { include_blank: "Seleccione"},class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :debt_date, "fecha deuda:" %>
+        <%= form.text_field :debt_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :money_type, "tipo moneda:" %>
+        <%= form.select :money_type, options_for_select([["uf", "uf"], ["pesos", "pesos"]]), { include_blank: "Seleccione"},class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :money_total, "total:" %>
+        <%= form.number_field :money_total, id: :money_total , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <script>
+    function get_value(params) {
+        if(params.value == "Natural") {
+            var type = "Natural"
+            var list = '<option value= 0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.full_name_persona.capitalize%> </option>'
+            <%end%>
+            $('#judgement_debt_person_id').html(list);    
+        } else {
+            var type = "Legal"
+            var list = '<option value= 0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |legalPersona| %>
+                list += '<option value= <%= legalPersona.id%>> <%= legalPersona.name.capitalize%> </option>'
+            <%end%>
+            $('#judgement_debt_person_id').html(list); 
+        }
+        $('#person_type').val(type);
+    }        
+</script>

@@ -35,8 +35,6 @@ class JudicialfilesController < ApplicationController
       redirect_to judicialfiles_path
     end
   
-  
-  
     def destroy
       @judgement_id=Judicialfile.find(params[:id]).judgement_id
       @judicialfile.destroy

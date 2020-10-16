@@ -1,0 +1,51 @@
+<br>
+<h1>Deuda Acreedores:</h1>
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 card card-body ">
+        <div>
+          <h4>Deuda </h4>
+        </div>
+        <hr>
+        <div class="field">
+          <h4>Acreedor:</h4>
+          <td>
+          <% if @judgementdebt.person_type == "Natural" %>
+            <b><%=Persona.find(@judgementdebt.person_id).full_name_persona.capitalize%></b><br><br><%= link_to 'ver',  persona_path(@judgementdebt.person_id) , class: "btn btn-info" %>
+          <% else %>
+            <b><%=LegalPersona.find(@judgementdebt.person_id).name.capitalize%></b><br><br><%= link_to 'ver',  legal_persona_path(@judgementdebt.person_id) , class: "btn btn-info" %>
+          <% end %>
+          </td>
+        </div>
+        <br>
+        <div class="field">
+          <h4>tipo persona</h4>
+          <%= @judgementdebt.person_type %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>tipo deuda</h4>
+          <%= JudgementDebt.type_judgement_debts.keys.to_a[@judgementdebt.debt_type] %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>fecha deuda</h4>
+          <%= @judgementdebt.debt_date %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>tipo moneda</h4>
+          <%= @judgementdebt.money_type %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>total</h4>
+          <%= @judgementdebt.money_total %>
+        </div>
+        <br>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

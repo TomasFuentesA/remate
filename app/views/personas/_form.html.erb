@@ -34,7 +34,7 @@
           </div>
         </div>
         <%= form.label :e_civil, "Estado Civil" %>
-        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"], ["Q.E.P.D","Q.E.P.D"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
         <br>
         <%= form.label :profesion, "Profesion" %>
         <%= form.text_field :profesion, id: :profesion ,class:"form-control border",autofocus: true  %>
