@@ -52,6 +52,7 @@ Rails.application.routes.draw do
 
   get '/judgement_debts/new/:id_judgement/auction/:id_auction', to: 'judgement_debts#new_from_auctions', as: 'new_from_auctions'
 
+  get 'auctions/:id/update_status_auctions', to: 'auctions#update_status_auctions', as: 'update_status_auctions'
 
 
 

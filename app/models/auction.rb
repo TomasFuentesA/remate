@@ -3,7 +3,8 @@ class Auction < ApplicationRecord
   #belongs_to :realty
   belongs_to :judgement
 
-  enum status: [:in_progress, :suspendend, :discarded]
+  #enum status: [:in_progress, :suspendend, :discarded]
+  enum status: {'Remate en curso'=>0, 'Anulado'=>1, 'Cancelado'=>2 , 'Adjudicado'=>3}
 
   def horary
     "#{self.date} / #{self.hour} hrs."
