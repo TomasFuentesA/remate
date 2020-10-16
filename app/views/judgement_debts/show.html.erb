@@ -9,7 +9,7 @@
         </div>
         <hr>
         <div class="field">
-          <h4>Persona:</h4>
+          <h4>Acreedor:</h4>
           <td>
           <% if @judgementdebt.person_type == "Natural" %>
             <b><%=Persona.find(@judgementdebt.person_id).full_name_persona.capitalize%></b><br><br><%= link_to 'ver',  persona_path(@judgementdebt.person_id) , class: "btn btn-info" %>

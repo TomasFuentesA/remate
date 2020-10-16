@@ -14,6 +14,9 @@
   <div class="card">
     <div class="card-body">
       <%= form_with model: @judgementdebt, url: @judgement_id ? judgement_debts_path(@judgement_id) : judgement_debts_path, remote: true do |form| %>
+      <div>
+        <h4><%=params['action']=="edit"? "Editar" : "Nueva"%> deuda acreedor</h4>
+      </div>
       <%= form.hidden_field "id_auction", id: "id_auction", class:"form-control border", value: @auctions_id%>
       <div class="form-group">
         <%= form.label :judgement_id, "Seleccionar Juicio" %>
@@ -26,7 +29,7 @@
         <%= label :type_member_Empresa, 'Legal' %>
       </div>
       <div class="form-group">
-        <%= form.label "Persona" %>
+        <%= form.label "Acreedor" %>
         <%= form.select :person_id , options_for_select([["Seleccione", 0]]) ,class:"custom-select mr-sm-2"%>
         <%= form.hidden_field :person_type, id: :person_type, class:"form-control border", required: true %>
       </div>
@@ -58,14 +61,14 @@
             var type = "Natural"
             var list = '<option value= 0>Seleccione persona natural</option>'
             <%Persona.order(:name).each do |persona| %>
-                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+                list += '<option value= <%= persona.id%>> <%= persona.full_name_persona.capitalize%> </option>'
             <%end%>
             $('#judgement_debt_person_id').html(list);    
         } else {
             var type = "Legal"
             var list = '<option value= 0>Seleccione empresa</option>'
             <%LegalPersona.order(:name).each do |legalPersona| %>
-                list += '<option value= <%= legalPersona.id%>> <%= legalPersona.name%> </option>'
+                list += '<option value= <%= legalPersona.id%>> <%= legalPersona.name.capitalize%> </option>'
             <%end%>
             $('#judgement_debt_person_id').html(list); 
         }

@@ -82,7 +82,7 @@
             <table class="table table-bordered table-hover">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Persona</th>
+                  <th scope="col">Acreedor</th>
                   <th scope="col">Tipo persona</th>
                   <th scope="col">tipo deuda</th>
                   <th scope="col">fecha deuda</th>
@@ -96,8 +96,10 @@
                  <tr>
                   <td>
                   <% if judgementDebt.person_type == "Natural" %>
+                    <b><%=Persona.find(judgementDebt.person_id).full_name_persona.capitalize%></b>
                     <%= link_to 'ver',  persona_path(judgementDebt.person_id) , class: "btn btn-info" %>
                   <% else %>
+                    <b><%=LegalPersona.find(judgementDebt.person_id).name.capitalize%></b>
                     <%= link_to 'ver',  legal_persona_path(judgementDebt.person_id) , class: "btn btn-info" %>
                   <% end %>
                   </td>
