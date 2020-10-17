@@ -74,7 +74,11 @@ class AuctionsController < ApplicationController
 
   end
 
-
+  def update_status_auctions
+    auction = Auction.find(params[:id])
+    auction.update(status: params[:auction][:status].to_i)
+    redirect_to auctions_path
+  end 
 
   def auctions
       Rails.logger.info "prueba auction"

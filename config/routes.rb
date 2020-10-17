@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
-
-
-
-
-
-
   
+  resources :historicos
   get 'legal_members/new'
   get 'legal_members/create'
   get 'legal_members/destroy'
@@ -55,7 +50,9 @@ Rails.application.routes.draw do
   post 'auctionnotice/:id/joined', to: 'auctionnotices#action_joined', as: 'action_joined'
 
 
+  get '/judgement_debts/new/:id_judgement/auction/:id_auction', to: 'judgement_debts#new_from_auctions', as: 'new_from_auctions'
 
+  get 'auctions/:id/update_status_auctions', to: 'auctions#update_status_auctions', as: 'update_status_auctions'
 
 
 
@@ -72,6 +69,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :judgement_debts
   resources :realties
   resources  :communes, :provinces, :regions
   resources :documents

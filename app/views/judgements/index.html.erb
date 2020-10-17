@@ -88,7 +88,6 @@
 <br>
 <%= link_to "Quitar filtros", judgements_path, class:"btn btn-info"%>
 <br>
-
 <br>
   <div class="dropdown">
     <button onclick="displayButton()" class="dropbtn">Buscar Juicio</button>
@@ -103,7 +102,7 @@
       </div>
     </div>
   </div>
-</br>
+<br>
   <script>
   /* When the user clicks on the button,
   toggle between hiding and showing the dropdown content */
@@ -127,7 +126,7 @@
     }
   }
   </script>
-</br>   
+<br>   
 <div id="live-search-results">
   <table   class="table table-bordered table-hover">
     <thead  class="thead-dark">
@@ -137,14 +136,11 @@
         <th scope="col">Nombre Juicio</th>
         <th scope="col">Tipo de juicio</th>
         <th scope="col">Opciones</th>
-
       </tr>
     </thead>
     <tbody id="bodyData" class="rounded-pill">
       <% @judgements.each do |judgement| %>
-
         <tr>
-          
           <td><%= judgement.court.name %> </td>
           <td><%= judgement.rol_trial %> </td>
           <td><%= judgement.name_judgement %></td>
@@ -153,7 +149,6 @@
             <%= link_to 'ver', judgement , class: "btn btn-info" %>
             <%= link_to 'editar', edit_judgement_path(judgement) , class: "btn btn-warning" %>
             <%= link_to 'borrar', judgement, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
-
         </tr>
       <% end %>
     </tbody>

@@ -85,11 +85,14 @@
       <% end %>
       </td>
       <td><%= auction.total_minimum %></td>
-      <td><%= auction.status %></td>
-
-
+      <td><%= auction.status %><br><br>
+        <%= form_with(model: Auction.find(auction.id), url: update_status_auctions_path(auction.id), local: true, html: { method: :get }) do |form| %>
+          <%= form.select :status, options_for_select([["Remate en curso",0],["Anulado",1],["Cancelado",2] ,["Adjudicado",3]],auction.status), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+          <br><br>
+          <%= form.submit "Guardar",class: "btn btn-success" %>
+        <% end %>
+      </td>
       <td>
-
         <%= link_to 'Ver', auction ,class: "btn btn-info"%>
         <%= link_to 'Editar', edit_auction_path(auction),class: "btn btn-warning" %>
         <%= link_to 'Eliminar',auction, method: :delete, data: { confirm: 'Estas seguro?' } ,remote: true,class: "btn btn-danger" %>

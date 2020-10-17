@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @historico.persona_id %>
+</p>
+
+<p>
+  <strong>Type member:</strong>
+  <%= @historico.type_member %>
+</p>
+
+<p>
+  <strong>Legal persona:</strong>
+  <%= @historico.legal_persona_id %>
+</p>
+
+<p>
+  <strong>Entrada:</strong>
+  <%= @historico.entrada %>
+</p>
+
+<p>
+  <strong>Salida:</strong>
+  <%= @historico.salida %>
+</p>
+
+<%= link_to 'Edit', edit_historico_path(@historico) %> |
+<%= link_to 'Back', historicos_path %>

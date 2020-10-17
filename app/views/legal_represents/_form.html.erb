@@ -1,24 +1,45 @@
+<script>
+  $(document).ready(function () {
+    $('select#legal_represent_persona_id').select2({
+      theme: "bootstrap"
+    });
+    $('select#type_represents').select2({
+      theme: "bootstrap"
+    });
+    $('.select-multiple').select2({
+      theme: "bootstrap"
+    });    
+  });
+</script>    
+
 <%= form_with model: @legal_represents , url: legal_persona_legal_represents_path , remote: true do |form| %>
     <div class= "container">
     <br>
         <div class="row justify-content-sm-center">
             <div class= "card text-center bg-ligth mb-3">
                 <div class= "card-header">
-                    <h1>Nuevo representante legal</h1>
+                    <% @legal_persona = LegalPersona.find(params[:legal_persona_id]) %>
+                    <h1>Nuevo representante legal de <%= @legal_persona.name %></h1>
                 </div>
             <div class= "card-body">
                 <p class= "card-text">
                     <div class="form-row">
                         <div class = "col">
-                            <%= form.label "Nombre" %>
-                            <%= form.text_field :name, class: 'form-control'%>
+                            <%= form.label "Persona" %>
+                            <%= form.select :persona_id, options_for_select(Persona.all.collect{ |p| [p.name + '- ' + p.last_name1 + ' / ' + p.rut, p.id] }) ,{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
+                        </div>
+                        
+                    </div>
+                    <div class ="form-row">
+                        <div class="col">
+                            <%= form.label "Metodo de trabajar" %>
+                            <%= form.select :type_represents, options_for_select([["Conjuntamente", "Conjuntamente"], ["Indistintamente", "Indistintamente"]]) ,{ include_blank: "Seleccione"}, class:"form-control", required: true%>
                         </div>
                     </div>
-                    <div class= "form-row">
-                        <div class = "col">
-
-                            <%= form.label "Rut" %>
-                            <%= form.text_field :rut, class: 'form-control'%>
+                    <div class="form-row">
+                        <div class="col">
+                            <%= form.label "Fecha de ingreso"%>
+                            <%= form.text_field :entrada ,data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control", required: true%>
                         </div>
                     </div>
                     <%= form.hidden_field :legal_persona_id, value: params[:legal_persona_id] %>
@@ -33,4 +54,3 @@
     </div>
 <%end%>
    
-    

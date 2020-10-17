@@ -51,6 +51,9 @@
                                 <%= form.number_field :percentage, class: "form-control", step: :any ,readonly: true %>
                             </div>
                         </div>
+                        <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
+                        <% @dom = Domain.find(@domain_rol.domain_id) %>
+                        <%= form.hidden_field :entrada, value: @dom.date_posetion%>
                     <%else%>
                         <div class= "form-row">
                             <div class = "col">
@@ -84,6 +87,10 @@
                                 <%= form.number_field :percentage, class: "form-control", step: :any ,readonly: true %>
                             </div>
                         </div>
+                        <% @comprador = Comprador.find(params[:comprador_id]) %>
+                        <% @domain_rol = DomainRol.find(@comprador.domain_rol_id) %>
+                        <% @dom = Domain.find(@domain_rol.domain_id) %>
+                        <%= form.hidden_field :entrada, value: @dom.date_posetion%>
                     <%end%>        
                 </p>
                 <div class="form-row">

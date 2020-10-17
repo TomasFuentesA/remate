@@ -6,8 +6,6 @@ class JudgementsController < ApplicationController
       @judgement = Judgement.order("name_judgement").page(params[:page]).per_page(10)
   end
 
-  
-
   def new
     @judgement = Judgement.new
   end
