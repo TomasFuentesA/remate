@@ -5,10 +5,12 @@
       width: "100%"
     });
     $('select#realty_condominio_id').select2({
-      theme: "bootstrap"
+      theme: "bootstrap",
+      width: "100%"
     });
     $('select#realty_street_type_id').select2({
-      theme: "bootstrap"
+      theme: "bootstrap",
+      width: "100%"
     });
   });
 </script>
@@ -64,7 +66,7 @@
             <%= form.label :population_villa, "Población/Villa/Conjunto:" %>
             <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-5">
             <%= form.label :condominio_id, "Condominio:" %>
             <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]]), {include_blank: "Seleccione"} ,{data: {"live-search": true }} %>
           </div>
@@ -73,9 +75,11 @@
       <div class="form-group">
         <div class="row ">
           <div class="col-md-12">
-            <%= form.label :comment, "Comentarios" %>
-            <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
-          </div>
+              <%= form.fields_for :type_realty do |form| %>
+              <%= form.label :comment, "Comentarios" %>
+              <%= form.text_area( :comment , cols: 3, rows: 3, class:"form-control border")%>
+              <% end %>
+            </div>
         </div>
       </div>
       <div class="form-group">
