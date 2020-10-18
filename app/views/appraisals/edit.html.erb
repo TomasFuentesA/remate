@@ -3,6 +3,7 @@
     $('select#appraisal_realty_id').select2({
       theme: "bootstrap"
     });
+    numberFormated();
   });
 </script>
 <br>
@@ -28,15 +29,15 @@
       </div>
       <div class="form-group">
         <%= form.label :price_uf, "Precio UF" %>
-        <%= form.number_field :price_uf, id: :price_uf , class:"form-control border" %>
+        <%= form.text_field :price_uf, id: :price_uf , class:"form-control border number_formated" %>
       </div>
       <div class="form-group">
         <%= form.label :price_clp, "Precio CLP" %>
-        <%= form.number_field :price_clp, id: :price_clp , class:"form-control border" %>
+        <%= form.text_field :price_clp, id: :price_clp , class:"form-control border number_formated" %>
       </div>
       <div class="form-group">
         <%= form.label :price_usd, "Precio USD" %>
-        <%= form.number_field :price_usd, id: :price_usd , class:"form-control border" %>
+        <%= form.text_field :price_usd, id: :price_usd , class:"form-control border number_formated" %>
       </div>
       <div class="form-group">
         <%= form.label :observation, "Observacion:" %>
