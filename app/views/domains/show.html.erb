@@ -100,7 +100,8 @@
                             <div class="col-md-7 mb-4">
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                             </div>
-                            <div class="col-md-5 mb-3">
+                              <div class="col-md-5 mb-3">
+                              <button type="button" id="formButton", class= "btn btn-success">Añadir Comprador</button>                 
                               <%= link_to 'Añadir Comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                             </div>
                           </div>    
@@ -112,6 +113,7 @@
                           <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                           <br>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
+                          
                           <%= link_to 'Añadir comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                         <%end%>
                       <%end%>
@@ -136,7 +138,8 @@
                             <div class="col-md-7 mb-4">
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%>/<%= perso.last_name1%>" readonly>
                             </div>
-                            <div class="col-md-5 mb-3">  
+                            <div class="col-md-5 mb-3">
+                                
                               <%= link_to "Añadir Persona", new_legal_persona_comprador_persona_member_path(@legal_persona.id, comp.id) ,class:"btn btn-primary"%>
                             </div>   
                           </div>  
@@ -167,6 +170,53 @@
       </div>
     </div>  
   </div>
+</div>
+<div class= "container-fluid">
+  <form id="form1">
+    
+    <div class= "row">
+      <div class= "col-sm-12 card card-body">
+        <h1> Añadir Comprador </h1>
+        <% domrol = DomainRol.find_by(domain_id: params[:id]) %>
+        <%= form_with model: @comprador, url: compradors_path ,id: :formulary, remote: true do |form| %>
+                                    
+          <div class = "col">
+            <%= form.label "Tipo" %>
+          </div>
+          <div class = "col">
+            <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
+            <%= label :type_member_Natural, 'Natural' %>
+            <%= form.radio_button :type_member, 'Legal', onchange: "get_value(this)" %>
+            <%= label :type_member_Empresa, 'Legal' %>
+          </div>
+                                        
+          <div class = "col">
+            <%= form.label "Miembro" %>
+            <%= form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+          </div>
+
+          <div class="col">
+            <%= form.label :acciones %>
+            <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)"%>
+                                            
+          </div>
+
+          <div class="col">
+            <%= form.label :percentage %>
+            <%= form.text_field :percentage, class:"form-control", readonly: true %>
+          </div>
+
+          <%= form.hidden_field :domain_rol_id, value: domrol.id %>
+          <br>
+          <div class= "col">
+            <div class="actions">
+              <%= form.submit 'Guardar', class: "btn btn-primary"%>
+            </div>
+          </div>  
+        <% end %>
+      </form>
+    </div>
+  </div>      
 </div>
 <div class= "container-fluid">
   <div class= "row">
@@ -255,3 +305,28 @@
   </div>
   <% end %>
 </div>
+
+<script>
+  function get_value(params) {
+    if(params.value == "Natural") {
+      var list = '<option value= 0>Seleccione persona natural</option>'
+      <%Persona.order(:name).each do |persona| %>
+        list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+      <%end%>
+      $('select#persona_id').html(list);    
+    } else {
+      var list = '<option value= 0>Seleccione empresa</option>'
+      <%LegalPersona.order(:name).each do |empresa| %>
+        list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+      <%end%>
+      $('select#persona_id').html(list); 
+    }
+  }
+  function percentage(params) {
+    <% @domain = Domain.find(params[:id]) %>
+    var y = <%= @domain.price %>
+    console.log(y); 
+    var x = ((params.value * 100)/y).toFixed(2)
+    document.getElementById('percentage').value = x.toString();
+  }
+</script>
