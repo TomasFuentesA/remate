@@ -30,8 +30,26 @@ class CompradorsController < InheritedResources::Base
           #@auction = Comprador.new(persona_id:1, acciones:"ASD", percentage:1,domain_rol_id: 1, type_member:"ASDASD")
           @auction = Comprador.new(comprador_params)
           if @auction.save
-            flash[:notice] =  "Ingresado exitosamente"
-            redirect_to @domain
+            domrol = DomainRol.find(@auction.domain_rol_id)
+            dom = Domain.find(domrol.domain_id)
+            personam = PersonaMember.where(legal_persona_id: dom.domainable_id, persona_id: @auction.persona_id, type_member: @auction.type_member)
+            legalpersona = LegalPersona.find(dom.domainable_id)
+            Rails.logger.info personam.length
+            if personam.length == 0
+              legalpersona = LegalPersona.find(dom.domainable_id)
+              Rails.logger.info legalpersona.acciones
+              porcentaje = (@auction.acciones.to_f * 100)/legalpersona.acciones.to_f
+              PersonaMember.create(persona_id: @auction.persona_id, type_member: @auction.type_member, acciones: @auction.acciones, legal_persona_id: dom.domainable_id, percentage: porcentaje.to_f.round(2), entrada: dom.date_posetion)
+              flash[:notice] =  "Ingresado exitosamente"
+              redirect_to @domain
+            else
+              nuevas_acciones = personam[0].acciones + @auction.acciones
+              porcentaje = (nuevas_acciones.to_f * 100)/legalpersona.acciones.to_f
+              personam[0].update(acciones: nuevas_acciones, percentage: porcentaje.to_f.round(2))
+              flash[:notice] =  "Ingresado exitosamente"
+              redirect_to @domain
+            end  
+            
               
           else
             render json: { error:  @auction.errors.full_messages }, status: :bad_request

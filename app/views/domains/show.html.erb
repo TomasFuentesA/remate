@@ -1,3 +1,43 @@
+<% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
+
+<div class = "container-fluid">
+  <div class= "row">
+    <div class= "card" style= "width: 150rem;">
+      <div class="col-sm-12 card-body">
+      <h1 align="center"> Datos de la empresa: <%= @legal_persona.name %> </h1>
+        <div class= "row">
+          <div class= "col-md-6">
+            <label for= "name"> Nombre de la empresa: </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @legal_persona.name %>" readonly>
+          </div>
+          <div class="col-md-3">
+            <label for="rut"> Rut de la empresa: </label>
+            <input type="text" id="rut" class="form-control" placeholder="Rut" disable value="<%= @legal_persona.rut %>" readonly>
+          </div>
+          <div class="col-md-3">
+            <label for="acciones"> Acciones: </label>
+            <input type="text" id="acciones" class="form-control" placeholder="Acciones" disable value="<%= @legal_persona.acciones %>" readonly>
+          </div>
+        </div>
+        <div class= "row">
+          <div class="col-md-4">
+            <label for="fantasia"> Nombre de fantasía: </label>
+            <input type="text" id="fantasia" class="form-control" placeholder="Fantasia" disable value="<%= @legal_persona.fantasy_name %>" readonly>
+          </div>
+          <div class="col-md-4">
+            <label for="Alias"> Alias: </label>
+            <input type="text" id="alias" class="form-control" placeholder="Alias" disable value="<%= @legal_persona.alias %>" readonly>
+          </div>
+          <div class="col-md-4">
+            <label for="Web"> Web: </label>
+            <input type="text" id="web" class="form-control" placeholder="Web" disable value="<%= @legal_persona.web %>" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container-fluid">
   <div class="row">
     <div class="card" style="width: 150rem;">
@@ -5,20 +45,17 @@
         <div class="row">
           <div class="col-md-6">
             <label for="name"> Modalidad: </label>
-            <input type="text" id="name" class="form-control" placeholder="Name" disable
-              value="<%= @domain.type_modality %>" readonly>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.type_modality %>" readonly>
           </div>
           <div class="col-md-6">
             <label for="name"> Porcentaje </label>
-            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>"
-              readonly>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
             <label for="name"> Precio: </label>
-            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.price %>"
-              readonly>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.price %>" readonly>
           </div>
           <div class="col-md-6">
             <label for="name"> Fecha de posesion </label>
@@ -113,7 +150,7 @@
                           <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                           <br>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          
+                          <button type="button" id="formButton", class= "btn btn-success">Añadir Comprador</button>
                           <%= link_to 'Añadir comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                         <%end%>
                       <%end%>
@@ -172,8 +209,7 @@
   </div>
 </div>
 <div class= "container-fluid">
-  <form id="form1">
-    
+  <form id="form1">    
     <div class= "row">
       <div class= "col-sm-12 card card-body">
         <h1> Añadir Comprador </h1>
