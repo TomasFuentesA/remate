@@ -6,6 +6,7 @@
     $('.select-multiple').select2({
       theme: "bootstrap"
     });
+    numberFormated();
   });
 </script>
 <h1>Editar Aviso de Remate a Propiedad</h1>
@@ -72,11 +73,11 @@
             <div class="row ">
               <div class="col-md-6">
                 <%= form.label :uf, "UF " %>
-                <%= form.number_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)" , class:"form-control border" ,autofocus: true, value: 0%>
+                <%= form.text_field :uf, id: :uf, disabled: @auction.uf.nil? , onchange: "calculo_uf(this)" , class:"form-control border number_formated" ,autofocus: true, value: @auction.uf.to_i %>
               </div>
               <div class="col-md-6">
                 <%= form.label :pesos, "Pesos" %>
-                <%= form.number_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)", class:"form-control border" ,autofocus: true, value: 0%>
+                <%= form.text_field :pesos, id: :pesos, disabled: @auction.pesos.nil?, onchange: "calculo_uf(this)", class:"form-control border number_formated" ,autofocus: true, value: @auction.pesos.to_i%>
               </div>
             </div>
           </div>
@@ -84,11 +85,11 @@
             <div class="row ">
               <div class="col-md-6">
                 <%= form.label :cost, "Costas" %>
-                <%= form.number_field :cost, id: :cost, value: 0 , class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :cost, id: :cost, value: @auction.cost.to_i , class:"form-control border number_formated" ,autofocus: true%>
               </div>
               <div class="col-md-6">
                 <%= form.label :total_minimum, "Total Mínimo:" %>
-                <%= form.number_field :total_minimum, id: :total_minimum, class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :total_minimum, id: :total_minimum, class:"form-control border number_formated" ,autofocus: true%>
               </div>
             </div>
           </div>
@@ -96,11 +97,11 @@
             <div class="row ">
               <div class="col-md-6">
                 <%= form.label :warranty, "Garantia" %>
-                <%= form.number_field :warranty, id: :warranty, class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :warranty, id: :warranty, class:"form-control border number_formated" ,autofocus: true%>
               </div>
               <div class="col-md-6">
                 <%= form.label :fee, "Derechos" %>
-                <%= form.number_field :fee, id: :fee , class:"form-control border" ,autofocus: true%>
+                <%= form.text_field :fee, id: :fee , class:"form-control border number_formated" ,autofocus: true%>
               </div>
               <div class="col-md-6">
                 <%= form.label :warranty_date, "Fecha Garantia" %>

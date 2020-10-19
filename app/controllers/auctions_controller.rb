@@ -20,8 +20,9 @@ class AuctionsController < ApplicationController
   end
 
   def create
+    set_validate_format
     Auction.transaction do
-      @auction = Auction.new(auction_params)
+      @auction = Auction.new(auction_params) 
       if @auction.save
         @auction.auctionnotice.update(status: 3)
         params[:auction][:realty_id].each do |p|
@@ -44,6 +45,7 @@ class AuctionsController < ApplicationController
   end
 
   def update
+    set_validate_format
     if @auction.update(auction_params)
       AuctionsRealty.where(auction_id:@auction.id).destroy_all
       params[:auction][:realty_id].each do |p|
@@ -117,12 +119,16 @@ class AuctionsController < ApplicationController
       redirect_to auctions_path
   end
 
-
-
-
-
-
   private
+
+  def set_validate_format
+    params[:auction][:uf] = params[:auction][:uf] ? (params[:auction][:uf]).gsub(".","") : ''
+    params[:auction][:pesos] = params[:auction][:pesos] ? (params[:auction][:pesos]).gsub(".","") : ''
+    params[:auction][:cost] = params[:auction][:cost] ? (params[:auction][:cost]).gsub(".","") : ''
+    params[:auction][:total_minimum] = params[:auction][:total_minimum] ? (params[:auction][:total_minimum]).gsub(".","") : ''
+    params[:auction][:warranty] = params[:auction][:warranty] ? (params[:auction][:warranty]).gsub(".","") : ''
+    params[:auction][:fee] = params[:auction][:fee] ? (params[:auction][:fee]).gsub(".","") : ''
+  end
 
   def set_auctionnotice
     @auction = Auction.new
@@ -131,6 +137,7 @@ class AuctionsController < ApplicationController
     @realty.build_type_realty
     #@auction.build_judgement
   end
+  
 
   def set_auction
     @auction = Auction.find(params[:id])
@@ -141,7 +148,7 @@ class AuctionsController < ApplicationController
   def auction_params
     begin
       params.require(:auction).permit(:name, :date, :hour, :fee, :warranty,
-        :total_minimum, :cost, :uf, :realty_id, :auctionnotice_id, :judgement_id, :warranty_date, :warranty_time)
+        :total_minimum, :cost, :uf, :pesos, :realty_id, :auctionnotice_id, :judgement_id, :warranty_date, :warranty_time)
     rescue Exception => error
       Rails.logger.info error
     end

@@ -29,16 +29,17 @@ function habilite_money(selector){
      //acceso a valor de la uf a la fecha.
      var lista = data.serie;
      var uf = lista[0].valor;
-
-
+     
+    let pesos = inp.val().replaceAll('.', ',').replace(/[^0-9\.]/g, '')
      //setter de valores para calculo de uf a pesos
      if (inp.attr('id') == 'uf'){
-       $('#pesos').val(inp.val() * uf)
+      
+       $('#pesos').val(number_format(pesos * parseInt(uf)))
        calculateTotalMinimum()
 
 
        }else if($(input).attr('id') == 'pesos'){
-         $('#uf').val(inp.val() / uf)
+         $('#uf').val(number_format(parseInt(pesos / uf)))
          calculateTotalMinimum()
 
          } else {
@@ -55,13 +56,11 @@ function habilite_money(selector){
 
 
 function calculateTotalMinimum(){
-   //var inp = $(input);
 
-   var pesos = $('#pesos').val()
-   //console.log(pesos)
-   var costas = $('#cost').val()
+   var pesos = $('#pesos').val().replaceAll('.', ',').replace(/[^0-9\.]/g, '')
+   var costas = $('#cost').val().replaceAll('.', ',').replace(/[^0-9\.]/g, '')
    //console.log(costas)
-   $('#total_minimum').val(parseInt(pesos) + parseInt(costas));
+   $('#total_minimum').val(number_format(parseInt(pesos) + parseInt(costas)));
 }
 
 
