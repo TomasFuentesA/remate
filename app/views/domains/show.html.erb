@@ -1,5 +1,5 @@
 <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-
+<%= link_to 'Volver a los datos de la empresa', @legal_persona, class: "btn btn-primary" %>
 <div class = "container-fluid">
   <div class= "row">
     <div class= "card" style= "width: 150rem;">
@@ -42,6 +42,7 @@
   <div class="row">
     <div class="card" style="width: 150rem;">
       <div class="col-sm-12 card-body">
+      <h1 align="center">Escrituras de <%= @legal_persona.name%></h1> 
         <div class="row">
           <div class="col-md-6">
             <label for="name"> Modalidad: </label>
@@ -138,7 +139,7 @@
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                             </div>
                               <div class="col-md-5 mb-3">
-                              <button type="button" id="formButton", class= "btn btn-success">Añadir Comprador</button>                 
+                              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>                 
                               <%= link_to 'Añadir Comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                             </div>
                           </div>    
@@ -150,7 +151,7 @@
                           <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                           <br>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          <button type="button" id="formButton", class= "btn btn-success">Añadir Comprador</button>
+                          <button type="button" id="formButton" class= "btn btn-success" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
                           <%= link_to 'Añadir comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                         <%end%>
                       <%end%>
@@ -172,13 +173,13 @@
                         <% if comp.persona_id == perso.id %>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
                           <div class="form-row">
-                            <div class="col-md-7 mb-4">
-                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%>/<%= perso.last_name1%>" readonly>
+                            <div class="col-md-6 mb-4">
+                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%> <%= perso.last_name1%> / <%= perso.rut %>" readonly>
                             </div>
-                            <div class="col-md-5 mb-3">
-                                
-                              <%= link_to "Añadir Persona", new_legal_persona_comprador_persona_member_path(@legal_persona.id, comp.id) ,class:"btn btn-primary"%>
-                            </div>   
+                            <div class="col-md-6 mb-4">
+                              <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+                            </div>
+                               
                           </div>  
                         <%end%>
                       <%end%>
@@ -187,12 +188,13 @@
                         <% if comp.persona_id == legalp.id %>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
                           <div class="form-row">
-                            <div class="col-md-7 mb-3">
+                            <div class="col-md-6 mb-3">
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalp.name%>/<%= legalp.rut%>" readonly>
                             </div>
-                            <div class="col-md-5 mb-3">  
-                              <%= link_to "Añadir Persona", new_legal_persona_comprador_persona_member_path(@legal_persona.id, comp.id) ,class:"btn btn-primary"%>
-                            </div >   
+                            <div class="col-md-6 mb-4">
+                              <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+                            </div>
+                              
                           </div>      
                         <%end%>
                       <%end%>
@@ -209,10 +211,10 @@
   </div>
 </div>
 <div class= "container-fluid">
-  <form id="form1">    
+  <div class="collapse" id="collapseExample">   
     <div class= "row">
       <div class= "col-sm-12 card card-body">
-        <h1> Añadir Comprador </h1>
+        <h1 align="center"> Añadir Comprador </h1>
         <% domrol = DomainRol.find_by(domain_id: params[:id]) %>
         <%= form_with model: @comprador, url: compradors_path ,id: :formulary, remote: true do |form| %>
                                     
@@ -233,7 +235,7 @@
 
           <div class="col">
             <%= form.label :acciones %>
-            <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)"%>
+            <%= form.number_field :acciones, class: "form-control", oninput: "f_percentage(this)"%>
                                             
           </div>
 
@@ -250,7 +252,7 @@
             </div>
           </div>  
         <% end %>
-      </form>
+      </div>
     </div>
   </div>      
 </div>
@@ -259,7 +261,7 @@
     <div class= "col-sm-12 card card-body">
       <% LegalPersona.order(:id).each do |legalp| %>
         <% if legalp.id == @domain.domainable_id%>
-          Documentos de <%= legalp.name %>
+          <h1 align= "center">Documentos de <%= legalp.name %> </h1>
         <%end%>
       <%end%>    
       <br>
@@ -303,7 +305,7 @@
     <div class="col-sm-12 card card-body">
       <% LegalPersona.order(:id).each do |legalp| %>
         <% if legalp.id == @domain.domainable_id%>
-          Inscripciones de <%= legalp.name %>
+          <h1 align="center">Inscripciones de <%= legalp.name %> </h1>
         <%end%>
       <%end%>  
       <br>
@@ -347,18 +349,18 @@
     if(params.value == "Natural") {
       var list = '<option value= 0>Seleccione persona natural</option>'
       <%Persona.order(:name).each do |persona| %>
-        list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+        list += '<option value= <%= persona.id%>> <%= persona.name%> <%=persona.last_name1 %> / <%= persona.rut%> </option>'
       <%end%>
       $('select#persona_id').html(list);    
     } else {
       var list = '<option value= 0>Seleccione empresa</option>'
       <%LegalPersona.order(:name).each do |empresa| %>
-        list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+        list += '<option value= <%= empresa.id%>> <%= empresa.name%> / <%= empresa.rut %> </option>'
       <%end%>
       $('select#persona_id').html(list); 
     }
   }
-  function percentage(params) {
+  function f_percentage(params) {
     <% @domain = Domain.find(params[:id]) %>
     var y = <%= @domain.price %>
     console.log(y); 

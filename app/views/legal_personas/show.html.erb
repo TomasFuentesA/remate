@@ -1,10 +1,7 @@
 <%= link_to 'Volver Listado Persona Juridica', legal_personas_path, class: "btn btn-primary" %>
 
-<p></p>
 
-
-
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-sm-8 card card-body">
       <div class="row">
@@ -79,7 +76,6 @@
           <% end %>
         </div>
       </div>
-
       <div class="row">
         <div class="col-sm-12"><!--Directions-->
           <div class= "field">
@@ -93,10 +89,7 @@
                         <div class="col">
                           <input type = "text" id="direction" class= "form-control" placeholder= "directiona" disable value = "<%= realties.address.to_s %>" readonly>                
                         </div>
-
-                        <%= link_to 'Editar',   edit_legal_persona_direction_path(@legal_persona,@directions.ids) ,class:"btn btn-warning"%>  
-                     
-                       
+                        <%= link_to 'Editar',   edit_legal_persona_direction_path(@legal_persona,@directions.ids) ,class:"btn btn-warning"%>                        
                       </div>
                     <% end %>
                   <%end%>  
@@ -106,11 +99,12 @@
             <%end%>  
           </div>
         </div>
-        <div class = "container"><!--Activities-->
+        <br>
+        <div class = "container-fluid"><!--Activities-->
           <div class = "row">
             <% if @legal_persona.activities.any? %>
               <div class="col-sm-12">
-                Actividades:
+                <h5 align="center"> Actividades: </h5>
                 <table class="table table-bordered table-hover">
                   <thead  class="thead-dark">
                     <tr>
@@ -144,52 +138,91 @@
           </div>  
         </div>
       </div>
-    </div>
-    
-
-
-    <div class= "col-sm-4 card card-body">
-    <p style="margin-bottom: 8px">Acciones:</p>
-      <div class= "btn-group-vertical">
-        <% unless @legal_persona.phones.any? %>
-          <div class="col-sm-8">
-            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-            <% else %>
-            <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-        <% end %>
-        <% unless @legal_persona.directions.any? %>
-          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-          <% else %>
-          <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-        <% end %>
-        <% unless @legal_persona.emails.any? %>
-
-          <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-          <% else %>
-          <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-             
-        <% end %>
-        <% unless @legal_persona.activities.any? %>
-
-          <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-          <% else %>
-          <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
-             
-        <% end %>
-
-        <%= link_to "Nuevo representante legal", new_legal_persona_legal_represent_path(@legal_persona), class: "btn btn-primary", style:"margin-bottom: 6px"  %>
-        <%=link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
-
-      
+      <div class="row">
+        <div class = "container-fluid"><!--Representantes legales-->
+          <div class = "row">
+            <div class="col-sm-12">
+              <h5 align="center"> Representes legales </h5>
+              <table class="table table-bordered table-hover">
+                <thead  class="thead-dark">
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Rut</th>
+                    <th scope="col">Fecha de Ingreso</th>
+                    <th scope="col">Opciones</th> 
+                  </tr>
+                </thead>
+                <tbody class="rounded-pill"> 
+                  <% LegalRepresent.order(:id).each do |representante| %>
+                    <% if representante.legal_persona_id == @legal_persona.id %>
+                      <tr>
+                        <% persona = Persona.find(representante.persona_id) %>
+                        <td scope="row">
+                          <%= persona.name %> <%= persona.last_name1 %>
+                        </td>
+                        <td scope= "row">
+                          <%= persona.rut %>
+                        </td>  
+                        <td scope="row">
+                          <%= representante.entrada %>
+                        </td>
+                        <td scope="row">
+                          <%= link_to 'Destroy', representante, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                        </td>
+                      </tr>
+                    <% end %>    
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div> 
+        </div>       
       </div>
     </div>
-  </div>
-</div>  
-  
     
 
+    
+      <div class= "col-sm-4 card card-body">
+        <p style="margin-bottom: 8px">Acciones:</p>
+        <div class= "btn-group-vertical">
+          <% unless @legal_persona.phones.any? %>
+            <div class="col-sm-8">
+              <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+              <% else %>
+              <%= link_to 'Nuevo telefono', new_legal_persona_phone_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+          <% end %>
+          <% unless @legal_persona.directions.any? %>
+            <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+            <% else %>
+            <%= link_to 'Nueva direccion', new_legal_persona_direction_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+          <% end %>
+          <% unless @legal_persona.emails.any? %>
 
-<div class="container">
+            <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+            <% else %>
+            <%= link_to 'Nuevo Correo', new_legal_persona_email_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+              
+          <% end %>
+          <% unless @legal_persona.activities.any? %>
+
+            <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+            <% else %>
+            <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>
+              
+          <% end %>
+
+
+          <%= link_to "Nuevo representante legal", new_legal_persona_legal_represent_path(@legal_persona), class: "btn btn-primary", style:"margin-bottom: 6px"  %>
+          <%= link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
+
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
+          
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentates" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
+        </div>
+      </div>  
+  </div>
+</div>    
+<div class="container-fluid">
   <% if PersonaMember.any? %>
       <div class="row">
         <div class="col-sm-12 card card-body">
@@ -441,41 +474,45 @@
       </div>
     </div>
   <% end %>
-  <% @historicos = Historico.where(legal_persona_id: @legal_persona.id) %>
-  <% if @historicos.any? %>
-    <div class="row">
-      <div class="col-sm-12 card card-body">
-        <h1> Miembros historicos de <%= @legal_persona.name %> </h1>
-        <table   class="table table-bordered table-hover">
-          <thead  class="thead-dark">
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Fecha de Ingreso</th>
-              <th scope="col">Fecha de Salida</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          <tbody class="rounded-pill">
-            <% @historicos.each do |historico| %>
+</div>
+<div class= "container-fluid">
+  <div class="collapse" id="collapseHistoricos">  
+    <% @historicos = Historico.where(legal_persona_id: @legal_persona.id) %>
+    <% if @historicos.any? %>
+      <div class="row">
+        <div class="col-sm-12 card card-body">
+          <h1> Miembros historicos de <%= @legal_persona.name %> </h1>
+          <table   class="table table-bordered table-hover">
+            <thead  class="thead-dark">
               <tr>
-                <% if historico.type_member == "Legal" %>
-                  <%legalp = LegalPersona.find(historico.persona_id) %>
-                  <td scope ="row"> <%=legalp.name %> </td>
-                <%else%>
-                  <%persona = Persona.find(historico.persona_id) %>
-                  <td scope ="row"> <%= persona.name %> <%= persona.last_name1 %> </td>
-                <%end%>
-                <td> <%= historico.entrada %> </td>
-                <td> <%= historico.salida %> </td>
-                <td> <%= historico.valor %> </td>
-                <td> <%= historico.acciones %> </td>   
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha de Ingreso</th>
+                <th scope="col">Fecha de Salida</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Acciones</th>
               </tr>
-            <%end%>  
-          </tbody>
-        </table>  
+            </thead>
+            <tbody class="rounded-pill">
+              <% @historicos.each do |historico| %>
+                <tr>
+                  <% if historico.type_member == "Legal" %>
+                    <%legalp = LegalPersona.find(historico.persona_id) %>
+                    <td scope ="row"> <%=legalp.name %> </td>
+                  <%else%>
+                    <%persona = Persona.find(historico.persona_id) %>
+                    <td scope ="row"> <%= persona.name %> <%= persona.last_name1 %> </td>
+                  <%end%>
+                  <td> <%= historico.entrada %> </td>
+                  <td> <%= historico.salida %> </td>
+                  <td> <%= historico.valor %> </td>
+                  <td> <%= historico.acciones %> </td>   
+                </tr>
+              <%end%>  
+            </tbody>
+          </table>  
+        </div>
       </div>
-    </div>
-  <%end%>
+    <%end%>
+  </div>  
 </div>
    

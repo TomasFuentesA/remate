@@ -32,6 +32,15 @@ class LegalRepresentsController < ApplicationController
     end
 
     def destroy
+        @legalrepresent = LegalRepresent.find(params[:id])
+        @legal_persona = LegalPersona.find(@legalrepresent.legal_persona_id)
+        @legalrepresent.destroy
+        respond_to do |format|
+            format.js
+            format.html {redirect_to @legal_persona, notice: "Representante legal eliminado!" }
+            format.json {head :no_content }
+        
+        end
     end
 
     def edit

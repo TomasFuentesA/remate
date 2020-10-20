@@ -106,7 +106,7 @@ Rails.application.routes.draw do
 
   resources :persona_members
   resources :legal_members
-
+  resources :legal_represents
 
 
   resources :personas do
