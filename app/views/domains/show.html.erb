@@ -151,7 +151,7 @@
                           <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                           <br>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          <button type="button" id="formButton" class= "btn btn-success" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
+                          <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
                           <%= link_to 'Añadir comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                         <%end%>
                       <%end%>

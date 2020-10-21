@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Representante Historicos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Persona</th>
+      <th>Entrada</th>
+      <th>Salida</th>
+      <th>Legal persona</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @representante_historicos.each do |representante_historico| %>
+      <tr>
+        <td><%= representante_historico.persona_id %></td>
+        <td><%= representante_historico.entrada %></td>
+        <td><%= representante_historico.salida %></td>
+        <td><%= representante_historico.legal_persona_id %></td>
+        <td><%= link_to 'Show', representante_historico %></td>
+        <td><%= link_to 'Edit', edit_representante_historico_path(representante_historico) %></td>
+        <td><%= link_to 'Destroy', representante_historico, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Representante Historico', new_representante_historico_path %>

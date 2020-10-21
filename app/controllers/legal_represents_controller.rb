@@ -34,12 +34,12 @@ class LegalRepresentsController < ApplicationController
     def destroy
         @legalrepresent = LegalRepresent.find(params[:id])
         @legal_persona = LegalPersona.find(@legalrepresent.legal_persona_id)
+        RepresentanteHistorico.create(persona_id: @legalrepresent.persona_id, entrada: @legalrepresent.entrada, salida: Time.new.strftime("%Y-%m-%d"), legal_persona_id: @legalrepresent.legal_persona_id)
         @legalrepresent.destroy
         respond_to do |format|
             format.js
             format.html {redirect_to @legal_persona, notice: "Representante legal eliminado!" }
-            format.json {head :no_content }
-        
+            format.json {head :no_content }        
         end
     end
 
