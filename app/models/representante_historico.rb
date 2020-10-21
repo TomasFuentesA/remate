@@ -1,0 +1,2 @@
+class RepresentanteHistorico < ApplicationRecord
+end

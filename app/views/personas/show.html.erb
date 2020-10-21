@@ -1,4 +1,4 @@
-<%= link_to 'Volver Listado Personas', personas_path %>
+<%= link_to 'Volver Listado Personas', personas_path , class: "btn btn-primary" %>
 
 <p></p>
 
@@ -8,141 +8,227 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-7 card card-body">
-      <div class="field">
-        Rut: <%= @persona.rut %>
+    <div class="col-sm-8 card card-body">
+      <h1 align="center"> Información de <%= @persona.name %> <%= @persona.last_name1 %> </h1>
+      <div class="row">
+        <div class="col-md-6"><!--Nombre-->
+          <label for="name">Nombre Completo:</label>
+          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value ='<%= @persona.name %> <%= @persona.name2 %> <%= @persona.last_name1 %> <%= @persona.last_name2 %>' readonly>
+        </div>
+        <div class="col-md-6"><!--Rut-->
+          <label for="rut">Rut:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = '<%= @persona.rut %>' readonly>
+        </div>
       </div>
-      <div class="field">
-        Nombre: <%= @persona.name %> <%= @persona.name2 %> <%= @persona.last_name1 %> <%= @persona.last_name2 %>
+      <div class= "row">
+        <div class="col-md-5"><!--Estado Civil-->
+          <label for="e_civil">Estado Civil:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "E_civil" disable value = '<%= @persona.e_civil %>' readonly>
+        </div>
+        <div class="col-md-2"><!--Cumpleaños-->
+          <label for="birth_date">Cumpleaños:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Birth_date" disable value = '<%= @persona.birth_date %>' readonly>
+        </div>
+        <div class="col-md-5"><!--Profesion-->
+          <label for="profesion">Profesion:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Profesion" disable value = '<%= @persona.profesion %>' readonly>
+        </div>
       </div>
-      <% if !@persona.job.nil? %>
-      <div class="field">
-        Trabajo: <%= @persona.job.position %>
+      <div class= "row">
+        <div class="col-md-5"><!--Nacionalidad-->
+          <label for="nacionalidad">Nacionalidad:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Nacionalidad" disable value = '<%= @persona.nacionality %>' readonly>
         </div>
-        <div class="field">
-        Salario: <%= @persona.job.salary %>
+        <div class="col-md-7"><!--Pasaporte-->
+          <label for="pasaporte">Pasaporte:</label>
+          <input type = "text" id="rut" class= "form-control" placeholder= "Pasaporte" disable value = '<%= @persona.passport %>' readonly>
         </div>
-        <div class="field">
-        Empresa: <%= @persona.job.business %>
-        </div>
-        <div class="field">
-        Descripcion : <%= @persona.job.description%>
-
+        
       </div>
-      <%end%>
-      <% if @persona.phones.any? %>
-        <div class="field">
-          <% @phones.each do |phone| %>
+      <br>
+      
+      <div class="row">
+        <% if !@persona.job.nil? %>
+          <div class="col-sm-12 card card-body">
+            <h5 align="center"> Información del trabajo </h5>
+            <div class= "row">
+              <div class="col-sm-3"><!--Trabajo-->
+                <label for="Trabajo">Trabajo:</label>
+                <input type = "text" id="rut" class= "form-control" placeholder= "Trabajo" disable value = '<%= @persona.job.position %>' readonly>
+              </div>   
+              <div class= "col-sm"><!--Salario-->
+                <label for="Salario">Salario:</label>
+                <input type = "text" id="rut" class= "form-control" placeholder= "Salario" disable value = '<%= @persona.job.salary %>' readonly>
+              </div>   
+              <div class="col-sm-3"><!--Empresa-->
+                <label for="Empresa">Empresa:</label>  
+                <input type = "text" id="rut" class= "form-control" placeholder= "Empresa" disable value = '<%= @persona.job.business %>' readonly>
+              </div>  
+              <div class= "col-sm-4"><!--Nombre-->
+                <label for="Descripción">Descripción:</label>
+                <input type = "text" id="rut" class= "form-control" placeholder= "Descripción" disable value = '<%= @persona.job.description%>' readonly> 
+              </div>
+            </div>   
+          </div>    
+        <%end%>
+      </div>
+      <br> 
+      <div class= "row"> 
+        <div class= "col-md-3">  
+          <% if @persona.phones.any? %>
             <div class="field">
-              Telefonos:
-              <div class="col">
-                <%= phone.phone_a %>
-              </div>
-              <div class="col">
-                <%= phone.phone_b %>
-              </div>
-              <div class="col">
-                <%= phone.phone_c %>
-              </div>
-          </div>
-        </div>
-          <% end %>
-          <% end %>
-        <% if @persona.directions.any? %>
-          <div class="field">
-            <% @directions.each do |direction| %>
-            <div class="field">
-              Direcciones:
-            <div class="col">
-              <%= direction.directiona %>
-            </div>
-            <div class="col">
-              <%= direction.directionb %>
-            </div>
-            <div class="col">
-              <%= direction.directionc %>
-            </div>
-            </div>
-          </div>
-
-        <% end %>
-        <% end %>
-        <% if @persona.emails.any? %>
-          <div class="field">
-            Correos:
-            <% @emails.each do |email| %>
-            <div class="field">
-              <div class="col">
-              <%= email.email_a %>
-              </div>
-              <div class="col">
-              <%= email.email_b %>
-              </div>
-              <div class="col">
-              <%= email.email_c %>
-              </div>
-            <% end %>
-            <% end %>
-            </div>
-          </div>
-          <% if @persona.activities.any? %>
-            <div class="field">
-              <% @activities.each do |activity| %>
+              <% @phones.each do |phone| %>
                 <div class="field">
-                  actividad:
+                  Telefonos:
                   <div class="col">
-                    Codigo: <%= activity.code %>
-                  </div>
-                  <div class="col">
-                    afecta iva: <%= activity.afect_iva %>
-                  </div>
-                  <div class="col">
-                    Nombre actividad: <%= activity.name_activity %>
+                    <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = "<%= phone.type_phone%>:  <%= phone.number_phone %>" readonly>
                   </div>
                 </div>
-               <% end %>
+              <% end %>  
             </div>
           <% end %>
-
         </div>
-          <div class="col-sm-5 card card-body">
-            Acciones:
-            <br>
-            <br>
-             
-              <%= link_to "editar trabajo", edit_persona_path(@persona) ,class:"btn btn-primary"%>
-              <br>
-              <% unless @persona.phones.any? %>
-                
-                  <%= link_to 'Nuevo telefono', new_persona_phone_path(@persona) ,class:"btn btn-primary"%>
-                  <% else %>
-                    <%= link_to 'editar telefono',   edit_persona_phone_path(@persona,@phones.ids) ,class:"btn btn-secondary"%>
-              <% end %>
-              <br>
-              <% unless @persona.emails.any? %>
-                <%= link_to 'Nuevo Correo', new_persona_email_path(@persona) ,class:"btn btn-primary"%>
-              <% else %>
-
-                  <%= link_to 'editar correo', edit_persona_email_path(@persona,@emails.ids) ,class:"btn btn-secondary"%>
-                  <%end%>
-                  <br>
-                  <% unless @persona.directions.any? %>
-
-                      <%= link_to 'Nueva direccion', new_persona_direction_path(@persona) ,class:"btn btn-primary"%>
-                    <% else %>
-                    <%= link_to 'editar direccion',   edit_persona_direction_path(@persona,@directions.ids) ,class:"btn btn-secondary"%>
-
-                   <% end %>
-                   <br>
-                   <% unless @persona.activities.any? %>
-
-                       <%= link_to 'Nueva Actividad', new_persona_activity_path(@persona) ,class:"btn btn-primary"%>
-                     <% else %>
-                     <%= link_to 'Editar Actividad',   edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
-
+        <div class= "col-md-5"> 
+          <% if @persona.directions.any? %>
+            <div class="field">
+              <% @directions.each do |direction| %>
+                <div class="field">
+                  Direcciones:
+                  <% Realty.order(:id).each do |realties|%>
+                    <% if direction.realties_id == realties.id %>
+                      <div class="row" style="margin-bottom: 6px;">
+                        <div class="col">
+                          <input type = "text" id="direction" class= "form-control" placeholder= "directiona" disable value = "<%= realties.address.to_s %>" readonly>                
+                        </div>                      
+                      </div>
                     <% end %>
-                   </div>
+                  <%end%> 
+                </div>
+              <% end %>  
+            </div>        
+          <% end %>
+        </div>
+        <div class= "col-md-4">
+          <% if @persona.emails.any? %>
+            <div class="field">
+              Correos:
+              <% @emails.each do |email| %>
+                <div class="row">
+                  <div class="col">
+                    <input type = "text" id="emaila" class= "form-control" placeholder= "emaila" disable value = <%= email.email%> readonly>  
                   </div>
                 </div>
+              <% end %>
+            </div>  
+          <% end %> 
+        </div> 
+      </div>
+      <div class= "row">
+        <div class = "container-fluid"><!--Activities-->
+          <div class = "row">
+            <% if @persona.activities.any? %>
+              <div class="col-sm-12">
+                <h5 align="center"> Actividades: </h5>
+                <table class="table table-bordered table-hover">
+                  <thead  class="thead-dark">
+                    <tr>
+                      <th scope="col">Nombre de Actividad</th>
+                      <th scope="col">Rubro</th>
+                      <th scope="col">Afecta IVA?</th>
+                      <th scope="col">codigo de actividad</th>
+                    </tr>
+                  </thead>
+                  <tbody class="rounded-pill"> 
+                    <% @activities.each do |activity| %>
+                    <tr>
+                      <td scope="row">
+                        <%= activity.name_activity %>
+                      </td>
+                      <td scope= "row">
+                        <%= activity.rubro %>
+                      </td>  
+                      <td scope="row">
+                        <%= activity.afect_iva %>
+                      </td>
+                      <td scope="row">
+                        <%= activity.code %>
+                      </td>
+                    </tr>  
+                    <% end %>
+                  </tbody>
+                </table>    
               </div>
-            </div>
+            <% end %>
+          </div>  
+        </div>
+      </div>  
+               
+      
+    </div>
+
+    <div class="col-sm-4 card card-body">
+      <h4 align= "center">Acciones:</h4>
+      <br>
+      <br>
+                
+      <%= link_to "editar trabajo", edit_persona_path(@persona) ,class:"btn btn-primary"%>
+      <br>
+      <% unless @persona.phones.any? %>                    
+        <%= link_to 'Nuevo telefono', new_persona_phone_path(@persona) ,class:"btn btn-primary"%>
+      <% else %>
+        <%= link_to 'editar telefono',   edit_persona_phone_path(@persona,@phones.ids) ,class:"btn btn-secondary"%>
+      <% end %>
+      <br>
+      <% unless @persona.emails.any? %>
+        <%= link_to 'Nuevo Correo', new_persona_email_path(@persona) ,class:"btn btn-primary"%>
+      <% else %>
+        <%= link_to 'editar correo', edit_persona_email_path(@persona,@emails.ids) ,class:"btn btn-secondary"%>
+      <%end%>
+      <br>
+      <% unless @persona.directions.any? %>
+        <%= link_to 'Nueva direccion', new_persona_direction_path(@persona) ,class:"btn btn-primary"%>
+      <% else %>
+        <%= link_to 'editar direccion',   edit_persona_direction_path(@persona,@directions.ids) ,class:"btn btn-secondary"%>
+      <% end %>
+      <br>
+      <% unless @persona.activities.any? %>
+        <%= link_to 'Nueva Actividad', new_persona_activity_path(@persona) ,class:"btn btn-primary"%>
+      <% else %>
+        <%= link_to 'Editar Actividad',   edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
+      <% end %>
+    </div>  
+
+  </div>
+</div>
+<div class="container-fluid">
+  <% if PersonaMember.any?%>   
+    <div class= "row">
+      <div class="col-sm-12 card card-body">
+        <h1 align="center"> Participaciones de <%= @persona.name %> <%= @persona.last_name1 %> </h1>
+        <table   class="table table-bordered table-hover">
+          <thead  class="thead-dark">
+            <tr>
+              <th scope="col">Nombre empresa</th>
+              <th scope="col">Fecha de Ingreso</th>
+              <th scope="col">Acciones</th>
+              <th scope="col">Porcentaje</th>
+            </tr>
+          </thead>
+          <% @participaciones = PersonaMember.where(persona_id: @persona.id) %>
+          <tbody class="rounded-pill">
+            <% @participaciones.each do |participa| %>
+              <tr>
+                <% empresa = LegalPersona.find(participa.legal_persona_id) %>
+                <td scope="row"> <%= empresa.name %></td>
+                <td> <%= participa.entrada %> </td>
+                <td> <%= participa.acciones %> </td>
+                <td> <%= participa.percentage %> </td>   
+              </tr>
+            <%end%>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <%end%>  
+</div>    
+

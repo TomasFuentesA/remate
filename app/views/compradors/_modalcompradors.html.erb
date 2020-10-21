@@ -1,0 +1,99 @@
+<script>
+    $(document).ready(function() {
+        $('select#persona_id').select2({
+            theme: "bootstrap"
+        });
+        
+    });    
+</script>
+
+
+<button type="button" class="btn btn-success openBtn" data-toggle="modal" data-target="#exampleModal" >Añadir Comprador</button>
+
+<div class="col">
+    <div class="row justify-content-md-center">
+        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ingreso de Comprador:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="card-body">
+                                    <% domrol = DomainRol.find_by(domain_id: params[:id]) %>
+                                    <%= form_with model: @comprador, url: new_domain_rol_comprador_path(domrol) ,id: :formulary, remote: true do |form| %>
+                                    
+                                        <div class = "col">
+                                            <%= form.label "Tipo" %>
+                                        </div>
+                                        <div class = "col">
+                                            <%= form.radio_button :type_member, 'Natural', onchange: "get_value(this)" %> 
+                                            <%= label :type_member_Natural, 'Natural' %>
+                                            <%= form.radio_button :type_member, 'Legal', onchange: "get_value(this)" %>
+                                            <%= label :type_member_Empresa, 'Legal' %>
+                                        </div>
+                                        
+                                        <div class = "col">
+                                            <%= form.label "Miembro" %>
+                                            <%= form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                                        </div>
+
+                                        <div class="col">
+                                            <%= form.label :acciones %>
+                                            <%= form.number_field :acciones, class: "form-control", oninput: "percentage(this)"%>
+                                            
+                                        </div>
+
+                                        <div class="col">
+                                            <%= form.label :percentage %>
+                                            <%= form.text_field :percentage, class:"form-control", readonly: true %>
+                                        </div>
+
+                                        <%= form.hidden_field :domain_rol_id, value: domrol.id %>
+                                        <br>
+                                        <div class= "col">
+                                            <div class="actions">
+                                                <%= form.submit %>
+                                            </div>
+                                        </div>  
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<script>
+    function get_value(params) {
+        if(params.value == "Natural") {
+            var list = '<option value= 0>Seleccione persona natural</option>'
+            <%Persona.order(:name).each do |persona| %>
+                list += '<option value= <%= persona.id%>> <%= persona.name%> </option>'
+            <%end%>
+            $('select#persona_id').html(list);    
+        } else {
+            var list = '<option value= 0>Seleccione empresa</option>'
+            <%LegalPersona.order(:name).each do |empresa| %>
+                list += '<option value= <%= empresa.id%>> <%= empresa.name%> </option>'
+            <%end%>
+            $('select#persona_id').html(list); 
+        }
+    }
+
+    function percentage(params) {
+        <% @domain = Domain.find(params[:id]) %>
+        var y = <%= @domain.price %>
+        console.log(y); 
+        var x = ((params.value * 100)/y).toFixed(2)
+        document.getElementById('percentage').value = x.toString();
+    }
+</script>

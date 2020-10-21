@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :representante_historicos
   resources :historicos
   get 'legal_members/new'
   get 'legal_members/create'
@@ -103,7 +104,7 @@ Rails.application.routes.draw do
 
   resources :persona_members
   resources :legal_members
-
+  resources :legal_represents
 
 
   resources :personas do
