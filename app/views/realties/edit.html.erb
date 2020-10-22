@@ -98,6 +98,20 @@
               </div>
               <br>
               <div class="form-group">
+                <h5>Avalúo Fiscal</h5> 
+                <div class="row ">                  
+                  <div class="col-md-3">
+                    <%= form.label :apple, "manzana:" %>
+                    <%= form.number_field :apple, id: :apple , class:"form-control border" ,autofocus: true%>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form.label :property, "properties:" %>
+                    <%= form.number_field :property, id: :property , class:"form-control border" ,autofocus: true%>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
                 <%= form.fields_for :type_realty do |form| %>
                 <p>
                   <a class="btn btn-primary" data-toggle="collapse" href="#type_realty" role="button" aria-expanded="false"
@@ -108,23 +122,23 @@
                 <div class="collapse" id="type_realty">
                   <div class="card card-body">
                     <div class="col-md-10">
-                      <%= form.label :bathroom, "bathroom:" %>
+                      <%= form.label :bathroom, "baños:" %>
                       <%= form.text_field :bathroom, id: :bathroom , class:"form-control border" ,autofocus: true %>
                     </div>
                     <div class="col-md-10">
-                      <%= form.label :parking_lot, "parking_lot:" %>
+                      <%= form.label :parking_lot, "estacionamiento:" %>
                       <%= form.text_field :parking_lot, id: :parking_lot , class:"form-control border" ,autofocus: true %>
                     </div>
                     <div class="col-md-10">
-                      <%= form.label :cellar, "cellar:" %>
+                      <%= form.label :cellar, "bodega:" %>
                       <%= form.text_field :cellar, id: :cellar , class:"form-control border" ,autofocus: true %>
                     </div>
                     <div class="col-md-10">
-                      <%= form.label :bedroom, "bedroom:" %>
+                      <%= form.label :bedroom, "habitaciones:" %>
                       <%= form.text_field :bedroom, id: :bedroom , class:"form-control border" ,autofocus: true %>
                     </div>
                     <div class="col-md-10">
-                      <%= form.label :ambient, "ambient:" %>
+                      <%= form.label :ambient, "ambientes:" %>
                       <%= form.text_field :ambient, id: :ambient , class:"form-control border" ,autofocus: true %>
                     </div>
                   </div>
