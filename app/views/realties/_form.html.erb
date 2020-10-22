@@ -1,16 +1,17 @@
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('select#realty_commune_id').select2({
       theme: "bootstrap",
       width: "100%"
     });
     $('select#realty_condominio_id').select2({
-      theme: "bootstrap"
+      theme: "bootstrap",
+      width: "100%"
     });
     $('select#realty_street_type_id').select2({
-      theme: "bootstrap"
+      theme: "bootstrap",
+      width: "100%"
     });
-
   });
 </script>
 <div class="container">
@@ -21,7 +22,6 @@
         <div class="row ">
           <div class="col-md-6">
             <%= form.fields_for :type_realty do |f| %>
-
             <%= f.label :tipo, "tipo de propiedad" %>
             <%= f.select :tipo, options_for_select(TypeRealty.tipos.keys.to_a),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true %>
             <% end %>
@@ -66,7 +66,7 @@
             <%= form.label :population_villa, "Población/Villa/Conjunto:" %>
             <%= form.text_field :population_villa, id: :population_villa , class:"form-control border" ,autofocus: true%>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-5">
             <%= form.label :condominio_id, "Condominio:" %>
             <%= form.select :condominio_id, options_for_select([["Seleccione condominio", 0]]), {include_blank: "Seleccione"} ,{data: {"live-search": true }} %>
           </div>
@@ -75,10 +75,11 @@
       <div class="form-group">
         <div class="row ">
           <div class="col-md-12">
-            <%= form.label :comment, "Comentarios" %>
-            <%= form.text_field :comment, class:"form-control rounded-0",autofocus: true%>
-
-          </div>
+              <%= form.fields_for :type_realty do |form| %>
+              <%= form.label :comment, "Comentarios" %>
+              <%= form.text_area( :comment , cols: 3, rows: 3, class:"form-control border")%>
+              <% end %>
+            </div>
         </div>
       </div>
       <div class="form-group">
@@ -86,17 +87,18 @@
       </div>
       <% end %>
     </div>
-    <script>
-      function get_value(params) {
-        var list = '<option value=0>Seleccione condominio</option>'
-        <% Condominio.order(:name).each do |condominio| %>
-          var condominioId = '<%= condominio.commune_id %>'
-          var condominioName = '<%= condominio.name %>'
-          if (condominioId == params.value) {
-            list += '<option value= <%= condominio.id%>> <%= condominio.name%> </option>'
-          }
-        <% end %>
-        $('#realty_condominio_id').html(list); 
-      }
-     </script>
   </div>
+</div>
+<script>
+  function get_value(params) {
+    var list = '<option value=0>Seleccione condominio</option>'
+    <% Condominio.order(:name).each do |condominio| %>
+      var condominioId = '<%= condominio.commune_id %>'
+      var condominioName = '<%= condominio.name %>'
+      if (condominioId == params.value) {
+        list += '<option value= <%= condominio.id%>> <%= condominio.name%> </option>'
+      }
+    <% end %>
+    $('#realty_condominio_id').html(list); 
+  }
+</script>
