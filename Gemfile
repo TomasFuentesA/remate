@@ -33,6 +33,7 @@ gem 'csv'
 gem 'activerecord-import'
 gem 'activeadmin'
 gem 'rails-i18n'
+gem 'dropzonejs-rails'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'bootstrap-datepicker-rails'

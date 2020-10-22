@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   
   get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
+  post 'realties/createUpload', to: 'realties#createUpload'
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
   get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
   get 'list_domain/:domainable_id', to: 'domains#list_domain', as: 'listado_creadores'

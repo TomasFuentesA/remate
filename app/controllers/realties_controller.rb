@@ -73,6 +73,19 @@ class RealtiesController < ApplicationController
     render json: @realty
   end
 
+  def createUpload
+    uploaded_pics = params['file']
+    Rails.logger.info uploaded_pics
+    uploaded_pics.each do |pic|
+      File.open(Rails.root.join('public', 'uploads', pic[1].original_filename), 'wb') do |file|
+        file.write(pic[1].read)
+        File.rename(file, 'public/uploads/' + pic[1].original_filename)
+      end
+    end
+    render json: { message: 'Imagenes ingresadas.'}
+  end
+
+
   private
   def set_realty
     @realty = Realty.find(params[:id])
