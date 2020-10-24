@@ -1,0 +1,26 @@
+<br>
+<br>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">nombre archivo</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody class="rounded-pill">
+    <% @fileUpload.each do |fileUpload| %>
+    <tr>
+      <td><%= fileUpload.file_name %> </td>
+      <% if fileUpload.file_name != ""%>
+      <td>
+        <%= link_to 'Ver', File.join(root_url.to_s+"uploads/",fileUpload.file_name.to_s), target: "_blank"%>
+        <%= link_to 'Descargar', File.join(root_url.to_s+"uploads/",fileUpload.file_name.to_s),download:''%>
+      </td>
+      <%else %>
+      <td>Sin Archivo</td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>

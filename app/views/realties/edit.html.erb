@@ -18,7 +18,7 @@
   var AUTH_TOKEN=$('meta[name="csrf-token"]').attr('content');
 
 
-    Dropzone.options.filesField = {
+Dropzone.options.filesField = {
   url: "/realties/createUpload",
   addRemoveLinks: true,
   autoProcessQueue: false,
@@ -45,8 +45,7 @@
     });
 
     myDropzone.on("sendingmultiple", function(file, xhr, formData) {
-      console.log(formData)
-      //formData.append("apple", $('#apple').val());
+      formData.append("realty_id", $('#myDropzoneForm_realty_id').val());
     });
   },
   successmultiple: function(data,response) {
@@ -217,6 +216,9 @@
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                 Subir Imagenes
               </button>
+              <% if @fileUpload.length != 0 %>
+              <%= render partial: "upload" %>
+              <% end %>
               <div class="form-group">
                 <div class="row ">
                   <div class="col-md-12">
@@ -249,6 +251,7 @@
         </div>
         <div class="modal-body">
         <%= form_for :myDropzoneForm, html: {id: "dropzone-form-id"} do |f| %>
+          <%= f.hidden_field :realty_id, :value => @realty.id%>
           <div id="msgBoard"></div>
           <div id="files-field"
             class="dropzone"

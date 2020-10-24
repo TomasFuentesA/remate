@@ -40,6 +40,7 @@ class RealtiesController < ApplicationController
   end
 
   def edit
+    @fileUpload = FileUpload.where(model_id:params['id'])
     @auction_id=params['format']
     @condominios = Condominio.all
     @realty.build_characteristic if @realty.characteristic.nil?
@@ -79,6 +80,9 @@ class RealtiesController < ApplicationController
     uploaded_pics.each do |pic|
       File.open(Rails.root.join('public', 'uploads', pic[1].original_filename), 'wb') do |file|
         file.write(pic[1].read)
+        Rails.logger.info pic[1].original_filename.to_s
+        @fileUpload = FileUpload.new(file_name:pic[1].original_filename.to_s,model:'realty',model_id:params['realty_id'])
+        @fileUpload.save
         File.rename(file, 'public/uploads/' + pic[1].original_filename)
       end
     end
