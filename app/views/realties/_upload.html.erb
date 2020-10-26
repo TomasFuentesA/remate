@@ -1,3 +1,39 @@
+<style>
+  table {
+    max-width: 780px;
+    table-layout: fixed;
+    margin: auto;
+  }
+
+  th,
+  td {
+    padding: 5px 10px;
+    border: 1px solid #000;
+    width: calc(100%/7);
+    overflow: hidden;
+  }
+
+  thead,
+  tfoot {
+    background: #f9f9f9;
+    display: table;
+    width: 100%;
+  }
+
+  tbody {
+    height: 200px;
+    overflow: auto;
+    overflow-x: hidden;
+    display: block;
+    width: 100%;
+  }
+
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+</style>
 <br>
 <br>
 <table class="table table-bordered table-hover">
@@ -7,7 +43,7 @@
       <th scope="col">Opciones</th>
     </tr>
   </thead>
-  <tbody class="rounded-pill">
+  <tbody>
     <% @fileUpload.each do |fileUpload| %>
     <tr>
       <td><%= fileUpload.file_name %> </td>
