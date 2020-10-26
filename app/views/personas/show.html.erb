@@ -229,6 +229,32 @@
         </table>
       </div>
     </div>
-  <%end%>  
-</div>    
+  <%end%>
+  <% if LegalRepresent.any?%>   
+    <div class= "row">
+      <div class="col-sm-12 card card-body">
+        <h1 align="center"> Representante legal </h1>
+        <table   class="table table-bordered table-hover">
+          <thead  class="thead-dark">
+            <tr>
+              <th scope="col">Nombre empresa</th>
+              <th scope="col">Fecha de Ingreso</th>
+            </tr>
+          </thead>
+          <% @participaciones = LegalRepresent.where(persona_id: @persona.id) %>
+          <tbody class="rounded-pill">
+            <% @participaciones.each do |participa| %>
+              <tr>
+                <% empresa = LegalPersona.find(participa.legal_persona_id) %>
+                <td scope="row"> <%= empresa.name %></td>
+                <td> <%= participa.entrada %> </td> 
+              </tr>
+            <%end%>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <%end%>   
+</div>
+ 
 

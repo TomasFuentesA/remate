@@ -1,0 +1,19 @@
+<%= form_for [@domainable, @domain] do |form| %>
+    <div class="form-row" id= "venta1">
+        <div class= "col">
+            <%= form.label :price, "Acciones:" %>
+            <%= form.text_field :price, class: "form-control" , oninput: "percentage(this)" %>
+                
+        </div>
+        <div class= "col">
+            <%= form.label :percentage, "Porcentaje" %>
+            <%= form.text_field :percentage, class: "form-control" %>
+        </div>
+    </div>
+    <div class="form-row" id= "venta2">
+        <div class ="col">
+            <%= form.label "Miembro o Vendedor"%>
+            <select class="vendedor form-control" name="vendedor" id="vendedor" required></select>
+        </div>            
+    </div>
+<%end%>            

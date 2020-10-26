@@ -1,18 +1,21 @@
- 
-<script>
-$(document).ready(function() {
-  $('select#domain_notario_id').select2({
-    theme: "bootstrap",
-    width: "100%"
+ <script>
+  $(document).ready(function() {
+    $('select#domain_notario_id').select2({
+      theme: "bootstrap",
+      width: "100%"
+    });
+    $('select#vendedor').select2({
+      theme: "bootstrap",
+      width: "100%"
+    });
   });
-  $('select#vendedor').select2({
-    theme: "bootstrap",
-    width: "100%"
-  });
-});
-   function get_tipo(params) {
+
+  var global_list = ''
+  var flag = false
+  function get_tipo(params) {
     var list = ''  
     if (params.value != "Creacion de empresa"){
+      x = 1
       <% PersonaMember.order(:type_member).each do |personam| %>
         var l = <%= params[:legal_persona_id] %>
         var id = <%= personam.legal_persona_id %>
@@ -32,26 +35,42 @@ $(document).ready(function() {
           <%end%>
         }
       <%end%>
-      $('.vendedor').html(list);      
+      
+      $('.vendedor').html(list);
+      $('#prueba').html('<% x = 1%>');
+      $('#venta1').show();
+      $('#venta2').show();
+      $('#creacion').hide();        
     } else {
+      x = 0
       <%Persona.order(:name).each do |persona| %>
         list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
       <%end%>
       <%LegalPersona.order(:name).each do |legalp| %>
         list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
       <%end%>
+      global_list = list
       $('.vendedor').html(list);
+      $('#venta1').hide();
+      $('#venta2').hide();
+      $('#creacion').show();
     }
   }
 </script>
 <script>
-  function percentage(params) {
+  function percentage_dom(params) {
     <% @legal = LegalPersona.find(params[:legal_persona_id]) %>
     var y =  <%= @legal.acciones%>
     var x = ((params.value * 100)/y).toFixed(2)
     document.getElementById('domain_percentage').value = x.toString();
   }
 </script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
 <br>
 <div class="container-fluid" id="wrapper" >
 <%= form_for [@domainable, @domain] do |form| %>
@@ -77,7 +96,7 @@ $(document).ready(function() {
             
             <div class="col">
               <%= form.label :notario_id, "Notario: " %>
-              <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+              <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", required: true%>
             </div>
           </div>
           <div class="form-row">
@@ -87,8 +106,8 @@ $(document).ready(function() {
             </div>
 
             <div class= "col">
-              <%= form.label :price, "Acciones:" %>
-              <%= form.text_field :price, class: "form-control" , oninput: "percentage(this)" %>
+              <%= form.label :date_posetion, "Fecha de posesion:" %>
+              <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
             </div>
 
             <div class= "col">
@@ -97,25 +116,45 @@ $(document).ready(function() {
             </div>
 
           </div>
-          <div class="form-row">
-            <div class= "col">
-              <%= form.label :date_posetion, "Fecha de posesion:" %>
-              <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
+          <div id= "creacion" class="form-row">
+            <div id="education_fields">                     
             </div>
-            <div class= "col">
-              <%= form.label :percentage, "Porcentaje" %>
-              <%= form.text_field :percentage, class: "form-control" %>
+            <div class="col-sm-3 nopadding">
+              <div class="form-group">
+                <select class="vendedor form-control" id="vendedor" name="vendedor[]" value="" placeholder="Vendedor">
+              </div>
+            </div>
+            <div class="col-sm-3 nopadding">
+              <div class="form-group">
+                <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Precio" oninput="percentage_dom(this)" >
+              </div>
+            </div>
+            <div class="col-sm-3 nopadding">
+              <div class="form-group">
+                <input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="Porcentaje">
+              </div>
+            </div>
+
+            <div class="col-sm-3 nopadding">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-btn">
+                    <button class="btn btn-success" type="button"  onclick="education_fields(global_list);"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>             
             </div>
           </div>
-          <div class= "form-row">
-            <div class ="col">
-              <%= form.label "Miembro o Vendedor"%>
-              <select class="vendedor form-control" name="vendedor" id="vendedor" required>
-              </select>
-            </div>
-            
-          </div>
-        </p>    
+          <div id= "prueba">
+            <% x = 0 %>
+            <% if x == 1 %>
+              <%= render partial: 'formventa' %>
+            <%end%>
+          </div>            
+        </p>  
+
         <div class="form-row">
           <div class="form-group">
             <%= form.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
