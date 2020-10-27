@@ -5,7 +5,11 @@ class DomainsController < ApplicationController
 
 
   def new
-    Rails.logger.info "test3"
+    Rails.logger.info params
+    @legal_persona_id = params['legal_persona_id']
+    @domain_data = Domain.find(@legal_persona_id) rescue nil
+    @type_modality= @domain_data != nil ? @domain_data.type_modality : ""
+    @flag = @type_modality=="Creacion de empresa" ? true : false
     @domain = @domainable.domains.new
   end
 
