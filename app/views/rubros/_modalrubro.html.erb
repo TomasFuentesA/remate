@@ -1,0 +1,32 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#staticBackdrop">
+  Añadir persona
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_with model: @rubro, url: new_rubro_path do |form| %>
+
+            <div class="field">
+                <%= form.label :nombre %>
+                <%= form.text_field :nombre %>
+            </div>
+
+            <div class="actions">
+                <%= form.submit %>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

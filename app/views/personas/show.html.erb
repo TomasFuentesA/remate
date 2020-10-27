@@ -194,7 +194,7 @@
       <% unless @persona.activities.any? %>
         <%= link_to 'Nueva Actividad', new_persona_activity_path(@persona) ,class:"btn btn-primary"%>
       <% else %>
-        <%= link_to 'Editar Actividad',   edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
+        <%= link_to 'Editar Actividad', edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
       <% end %>
       <br>
       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
