@@ -194,8 +194,12 @@
       <% unless @persona.activities.any? %>
         <%= link_to 'Nueva Actividad', new_persona_activity_path(@persona) ,class:"btn btn-primary"%>
       <% else %>
-        <%= link_to 'Editar Actividad',   edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
+        <%= link_to 'Editar Actividad', edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
       <% end %>
+      <br>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
+      <br>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentantes" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
     </div>  
 
   </div>
@@ -256,5 +260,72 @@
     </div>
   <%end%>   
 </div>
- 
+<div class= "container-fluid">
+  <div class="collapse" id="collapseHistoricos">  
+    <% @historicos = Historico.where(persona_id: @persona.id, type_member: "Natural") %>
+    <% if @historicos.any? %>
+      <div class="row">
+        <div class="col-sm-12 card card-body">
+          <h1 align = "center"> Participaciones historicas de <%= @persona.name %> </h1>
+          <table   class="table table-bordered table-hover">
+            <thead  class="thead-dark">
+              <tr>
+                <th scope="col">Empresa</th>
+                <th scope="col">Rut</th>
+                <th scope="col">Fecha de Ingreso</th>
+                <th scope="col">Fecha de Salida</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Acciones</th>
+
+              </tr>
+            </thead>
+            <tbody class="rounded-pill">
+              <% @historicos.each do |historico| %>
+                <tr>
+                  <% legal = LegalPersona.find(historico.legal_persona_id)  %>
+                  <td> <%= legal.name %> </td>
+                  <td> <%= legal.rut %> </td>
+                  <td> <%= historico.entrada %> </td>
+                  <td> <%= historico.salida %> </td>
+                  <td> <%= historico.valor %> </td>
+                  <td> <%= historico.acciones %> </td>   
+                </tr>
+              <%end%>  
+            </tbody>
+          </table>  
+        </div>
+      </div>
+    <%end%>
+  </div>
+  <div class="collapse" id="collapseRepresentantes">  
+    <% @rep_historico = RepresentanteHistorico.where(persona_id: @persona.id) %>
+    <% if @rep_historico.any? %>
+      <div class="row">
+        <div class="col-sm-12 card card-body">
+          <h1 align="center"> Participaciones historicas como Representante legal de <%= @persona.name %> </h1>
+          <table   class="table table-bordered table-hover">
+            <thead  class="thead-dark">
+              <tr>
+                <th scope="col">Empresa</th>
+                <th scope="col">Fecha de Ingreso</th>
+                <th scope="col">Fecha de Salida</th>
+              </tr>
+            </thead>
+            <tbody class="rounded-pill">
+              <% @rep_historico.each do |rep| %>
+                <tr>
+                  <% legal = LegalPersona.find(rep.legal_persona_id) %>
+                  <td scope ="row"> <%= legal.name %> </td>
+                  <td> <%= rep.entrada %> </td>
+                  <td> <%= rep.salida %> </td>
+
+                </tr>
+              <%end%>  
+            </tbody>
+          </table>  
+        </div>
+      </div>
+    <%end%>
+  </div>  
+</div>
 
