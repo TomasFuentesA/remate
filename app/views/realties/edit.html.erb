@@ -51,6 +51,7 @@ Dropzone.options.filesField = {
   successmultiple: function(data,response) {
     $('#msgBoard').append(response.message).addClass("alert alert-success");
     $('#msgBoard').delay(2000).fadeOut();
+    location.reload();
   }
 };
   });

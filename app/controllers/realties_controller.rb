@@ -60,6 +60,8 @@ class RealtiesController < ApplicationController
 
   def destroy
     @realty.destroy
+    @fileUpload = FileUpload.where(model_id:params['id'])
+    @fileUpload.destroy_all
     respond_to do |format|
       format.js
       format.html {redirect_to realties_path, notice: "Propiedad: #{@realty.name_realty} eliminada exitosamente" }
@@ -72,6 +74,12 @@ class RealtiesController < ApplicationController
     #Realty.where("concat( number_unit , name_realty, population_villa, street) like ?",@param)
     @realty = Realty.joins(:commune, :condominio).where("lower(concat( number_unit , name_realty, population_villa, street, communes.name, condominios.name)) like ?",@param)
     render json: @realty
+  end
+
+  def deleteUpload
+    @fileUpload = FileUpload.find(params[:format])
+    @fileUpload.destroy
+    redirect_to edit_realty_path(@fileUpload.model_id)
   end
 
   def createUpload

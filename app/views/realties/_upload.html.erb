@@ -51,6 +51,7 @@
       <td>
         <%= link_to 'Ver', File.join(root_url.to_s+"uploads/",fileUpload.file_name.to_s), target: "_blank"%>
         <%= link_to 'Descargar', File.join(root_url.to_s+"uploads/",fileUpload.file_name.to_s),download:''%>
+        <%= link_to 'Eliminar', realties_deleteUpload_path(fileUpload), method: :delete, data: { confirm: 'Estas seguro?' }, class:"btn btn-danger", remote: true %>
       </td>
       <%else %>
       <td>Sin Archivo</td>
