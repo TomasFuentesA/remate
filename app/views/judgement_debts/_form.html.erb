@@ -8,6 +8,7 @@
       theme: "bootstrap",
       width: "100%"
     });
+    numberFormated();
   });
 </script>
 <div class="row justify-content-md-center">
@@ -47,7 +48,7 @@
       </div>
       <div class="form-group">
         <%= form.label :money_total, "total:" %>
-        <%= form.number_field :money_total, id: :money_total , class:"form-control border", required: true %>
+        <%= form.text_field :money_total, id: :money_total , class:"form-control border number_formated", required: true %>
       </div>
       <div class="form-group">
         <%= form.submit "Guardar",class: "btn btn-success" %>
