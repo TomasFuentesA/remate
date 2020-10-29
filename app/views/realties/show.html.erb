@@ -65,6 +65,9 @@
             <%= @realty.fiscal_destination %>
           </div>
         </div>
+        <% if @fileUpload.length != 0 %>
+          <%= render partial: "carousel" %>
+        <% end %>
         <div>
           <h1>Fichas Estudios:</h1>
           <%= link_to 'Nuevos estudios', new_document_path(@realty) ,class: "btn btn-primary"%>

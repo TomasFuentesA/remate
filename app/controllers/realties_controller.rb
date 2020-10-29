@@ -36,6 +36,7 @@ class RealtiesController < ApplicationController
 
   def show
     @auction_id=params['format']?params['format']:''
+    @fileUpload = FileUpload.where(model_id:params['id'])
     @condominios = Condominio.all
   end
 
