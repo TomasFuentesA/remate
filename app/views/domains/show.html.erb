@@ -49,19 +49,33 @@
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.type_modality %>" readonly>
           </div>
           <div class="col-md-6">
-            <label for="name"> Porcentaje </label>
-            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
+            <label for="name"> Fecha de posesion </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.date_posetion %>" readonly>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <label for="name"> Precio: </label>
+          <div class="col-md-3">
+            <label for="name"> Acciones: </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.price %>" readonly>
           </div>
-          <div class="col-md-6">
-            <label for="name"> Fecha de posesion </label>
-            <input type="text" id="name" class="form-control" placeholder="Name" disable
-              value="<%= @domain.date_posetion %>" readonly>
+          <div class="col-md-3">
+            <% actual = @domain.price %>
+            <% domrol = DomainRol.find_by(domain_id: @domain.id) %>
+            <% Comprador.order(:id).each do |comprador| %>
+              <% if comprador.domain_rol_id == domrol.id %>
+                <% actual -= comprador.acciones %>
+              <%end%>
+            <%end%>
+            <label for="name"> Acciones disponibles: </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= actual %>" readonly>
+          </div>
+          <div class="col-md-3">
+            <label for="name"> Precio: </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.valor %>" readonly>
+          </div>
+          <div class="col-md-3">
+            <label for="name"> Porcentaje </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
           </div>
         </div>
         <div class="row">
@@ -139,8 +153,7 @@
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                             </div>
                               <div class="col-md-5 mb-3">
-                              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>                 
-                              <%= link_to 'Añadir Comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
+                              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
                             </div>
                           </div>    
                         <%end%>
@@ -152,7 +165,6 @@
                           <br>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
                           <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
-                          <%= link_to 'Añadir comprador', new_domain_rol_comprador_path(domrol), class: "btn btn-success" %>
                         <%end%>
                       <%end%>
                     <%end%>

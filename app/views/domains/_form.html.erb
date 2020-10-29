@@ -1,129 +1,132 @@
  
 <script>
-$(document).ready(function() {
-  $('select#domain_notario_id').select2({
-    theme: "bootstrap",
-    width: "100%"
-  });
-  $('select#vendedor').select2({
-    theme: "bootstrap",
-    width: "100%"
-  });
-});
-   function get_tipo(params) {
-    var list = ''  
-    if (params.value != "Creacion de empresa"){
-      <% PersonaMember.order(:type_member).each do |personam| %>
-        var l = <%= params[:legal_persona_id] %>
-        var id = <%= personam.legal_persona_id %>
-        if (l == id) { 
-          <% if personam.type_member == "Legal" %>
-            <% LegalPersona.order(:id).each do |legalp| %>
-              <% if legalp.id == personam.persona_id%>
-                list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
-              <%end%> 
-            <%end%>   
-          <%else%>
-            <% Persona.order(:id).each do |persona| %>
-              <%if persona.id == personam.persona_id%>
-                list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+    $(document).ready(function() {
+      $('select#domain_notario_id').select2({
+        theme: "bootstrap",
+        width: "100%"
+      });
+      $('select#vendedor').select2({
+        theme: "bootstrap",
+        width: "100%"
+      });
+      $('select#tdomain_type_modality').select2({
+        theme: "bootstrap",
+        width: "100%"
+      });
+    });
+       function get_tipo(params) {
+        var list = ''  
+        if (params.value != "Creacion de empresa"){
+          <% PersonaMember.order(:type_member).each do |personam| %>
+            var l = <%= params[:legal_persona_id] %>
+            var id = <%= personam.legal_persona_id %>
+            if (l == id) { 
+              <% if personam.type_member == "Legal" %>
+                <% LegalPersona.order(:id).each do |legalp| %>
+                  <% if legalp.id == personam.persona_id%>
+                    list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+                  <%end%> 
+                <%end%>   
+              <%else%>
+                <% Persona.order(:id).each do |persona| %>
+                  <%if persona.id == personam.persona_id%>
+                    list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+                  <%end%>
+                <%end%>     
               <%end%>
-            <%end%>     
+            }
           <%end%>
+          $('.vendedor').html(list);      
+        } else {
+          <%Persona.order(:name).each do |persona| %>
+            list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+          <%end%>
+          <%LegalPersona.order(:name).each do |legalp| %>
+            list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+          <%end%>
+          global_list = list
+          $('.vendedor').html(list);
         }
-      <%end%>
-      $('.vendedor').html(list);      
-    } else {
-      <%Persona.order(:name).each do |persona| %>
-        list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
-      <%end%>
-      <%LegalPersona.order(:name).each do |legalp| %>
-        list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
-      <%end%>
-      $('.vendedor').html(list);
-    }
-  }
-</script>
-<script>
-  function percentage(params) {
-    <% @legal = LegalPersona.find(params[:legal_persona_id]) %>
-    var y =  <%= @legal.acciones%>
-    var x = ((params.value * 100)/y).toFixed(2)
-    document.getElementById('domain_percentage').value = x.toString();
-  }
-</script>
+      }
+ 
+      function percentage(params) {
+        <% @legal = LegalPersona.find(params[:legal_persona_id]) %>
+        var y =  <%= @legal.acciones%>
+        var x = ((params.value * 100)/y).toFixed(2)
+        document.getElementById('domain_percentage').value = x.toString();
+      }
+    </script>
 <br>
-<div class="container-fluid" id="wrapper" >
-<%= form_for [@domainable, @domain] do |form| %>
-<% if @domain.errors.any? %>
-  <div class="error_messages">
-    <h2>Please correct the following errors.</h2>
-    <ul>
-    <% @domain.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<div class="form-group">
-    <div class= "card text-center bg-ligth mb-6">
-      <div class= "card-header">
-        <% @legal_persona = LegalPersona.find(params[:legal_persona_id])%>
-        <h1>Nueva escritura de <%= @legal_persona.name %></h1>
+<div class="container-fluid" id="wrapper">
+  <%= form_for [@domainable, @domain] do |form| %>
+    <% if @domain.errors.any? %>
+      <div class="error_messages">
+        <h2>Please correct the following errors.</h2>
+        <ul>
+          <% @domain.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
       </div>
-      <div class= "card-body">
-        <p class= "card-text">
-          <div class= "form-row">
-            
-            <div class="col">
-              <%= form.label :notario_id, "Notario: " %>
-              <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+    <% end %>
+ 
+    <div class="form-group">
+      <div class="card text-center bg-ligth mb-6">
+        <div class="card-header">
+          <% @legal_persona = LegalPersona.find(params[:legal_persona_id])%>
+          <h1>Nueva escritura de <%= @legal_persona.name %></h1>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <div class="form-row">
+
+              <div class="col">
+                <%= form.label :notario_id, "Notario: " %>
+                <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+              </div>
             </div>
-          </div>
+            <div class="form-row">
+              <div class="col">
+                <%= form.label :type_modality, "Modalidad:" %>
+                <%= form.select :type_modality, options_for_select([["Modificacion de empresa", "Modificacion de empresa"], ["Compra y Venta de acciones","Compra y Venta de acciones"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_tipo(this)" %>
+              </div>
+              <div class="col">
+                <%= form.label :date_posetion, "Fecha de posesion:" %>
+                <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
+              </div>
+              <div class="col">
+                <%= form.label :valor, "Precio:" %>
+                <%= form.text_field :valor,  class: "form-control"  %>
+              </div>
+            </div>
+            <div class="form-row">
+              
+              <div class="col">
+                <%= form.label :price, "Acciones:" %>
+                <%= form.text_field :price, class: "form-control" , oninput: "percentage(this)" %>
+              </div>
+              <div class="col">
+                <%= form.label :percentage, "Porcentaje" %>
+                <%= form.text_field :percentage, class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <%= form.label "Miembro o Vendedor"%>
+                <select class="vendedor form-control" name="vendedor" id="vendedor" required>
+                </select>
+              </div>
+
+            </div>
+
+          </p>
           <div class="form-row">
-            <div class= "col">
-              <%= form.label :type_modality, "Modalidad:" %>
-              <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"], ["Modificacion de empresa", "Modificacion de empresa"], ["Compra y Venta de acciones","Compra y Venta de acciones"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_tipo(this)" %>
+            <div class="form-group">
+              <%= form.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
             </div>
-
-            <div class= "col">
-              <%= form.label :price, "Acciones:" %>
-              <%= form.text_field :price, class: "form-control" , oninput: "percentage(this)" %>
-            </div>
-
-            <div class= "col">
-              <%= form.label :valor, "Valor:" %>
-              <%= form.text_field :valor, class: "form-control" %>
-            </div>
-
-          </div>
-          <div class="form-row">
-            <div class= "col">
-              <%= form.label :date_posetion, "Fecha de posesion:" %>
-              <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
-            </div>
-            <div class= "col">
-              <%= form.label :percentage, "Porcentaje" %>
-              <%= form.text_field :percentage, class: "form-control" %>
-            </div>
-          </div>
-          <div class= "form-row">
-            <div class ="col">
-              <%= form.label "Miembro o Vendedor"%>
-              <select class="vendedor form-control" name="vendedor" id="vendedor" required>
-              </select>
-            </div>
-            
-          </div>
-        </p>    
-        <div class="form-row">
-          <div class="form-group">
-            <%= form.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
           </div>
         </div>
       </div>
-    </div>  
-  </div>
-<% end %>
+    </div>
+  <% end %>
 </div>
-

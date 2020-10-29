@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :rubros
   resources :representante_historicos
   resources :historicos
   get 'legal_members/new'
@@ -24,7 +25,8 @@ Rails.application.routes.draw do
   get 'personas/searchFilterData', to: 'personas#searchFilterData'
   get 'legal_personas/searchFilterData', to: 'legal_personas#searchFilterData'
   get 'list_domain/:domainable_id', to: 'domains#list_domain', as: 'listado_creadores'
-
+  get 'creador_empresa/:legal_persona_id', to: 'domains#creador_empresa', as: 'creador'
+  post 'creador_empresa/:legal_persona_id', to: 'domains#creador_empresa', as: 'creadores'
 
   # devise_for :users, controllers: {{     }
   #   registrations: 'users/registrations'}

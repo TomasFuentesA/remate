@@ -70,9 +70,9 @@ private
 
   def legal_persona_params
     if params['legal_persona']
-      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones, :total)
     else
-      params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones)
+      params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones, :total)
     end
   end
 

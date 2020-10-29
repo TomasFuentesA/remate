@@ -204,11 +204,14 @@
           <% else %>
             <%= link_to 'Nueva Actividad', new_legal_persona_activity_path(@legal_persona) ,class:"btn btn-primary", style:"margin-bottom: 6px"%>             
           <% end %>
-
+          
 
           <%= link_to "Nuevo representante legal", new_legal_persona_legal_represent_path(@legal_persona), class: "btn btn-primary", style:"margin-bottom: 6px"  %>
-          <%= link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona) ,class:"btn btn-primary" , style:"margin-bottom: 6px"%>
-
+          <%unless @legal_persona.domains.any? %>
+            <%= link_to "Creación Empresa", creadores_path(@legal_persona), class: "btn btn-primary", style:"margin-bottom: 6px" %>
+          <%else%>
+            <%= link_to "Nuevo Dominio", new_legal_persona_domain_path(@legal_persona), class:"btn btn-primary", style:"margin-bottom: 6px" %>
+          <%end%>
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
           
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentantes" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
