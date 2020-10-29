@@ -35,7 +35,7 @@ gem 'activeadmin'
 gem 'rails-i18n'
 gem 'dropzonejs-rails'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'bootstrap-datepicker-rails'
 gem "select2-rails"
 gem 'chartkick'
