@@ -11,8 +11,7 @@ class PersonaMembersController < ApplicationController
   end
 
 
-  def create
-    
+  def create    
     @personamember = PersonaMember.where(persona_id: params[:persona_member][:persona_id], type_member: params[:persona_member][:type_member], legal_persona_id: params[:persona_member][:legal_persona_id])
     var = 0
     PersonaMember.order(:id).each do |personam|

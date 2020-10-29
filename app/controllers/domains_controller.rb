@@ -216,8 +216,52 @@ class DomainsController < ApplicationController
       @domain = Domain.where(type_modality: "Creacion de empresa", domainable_id: params[:domainable_id])  
     rescue => exception
       Rails.logger.info exception.to_s
-    end
-    
+    end   
+  end
+
+  def creador_empresa
+    total = 0
+    porcentaje = 0
+    begin
+      @legalpersona = LegalPersona.find(params[:legal_persona_id])
+      Rails.logger.info params[:vendedor]
+      (0..params[:price].length-1).each do |i|
+        total += params[:price][i].to_i
+        Rails.logger.info params[:price][i]
+      end
+      if (total != @legalpersona.total)  
+        flash[:alert] = "El dinero es distinto"
+        redirect_to creadores_path(@legalpersona)
+      else
+        (0..params[:percentage].length-1).each do |i|
+          porcentaje += params[:percentage][i].to_f
+          Rails.logger.info params[:percentage][i]
+        end
+        if porcentaje != 100
+          flash[:alert] = "Porcentaje distinto a 100"
+          redirect_to creadores_path(@legalpersona)
+        else
+          (0..params[:vendedor].length-1).each do |i|
+            if params[:vendedor][i].chars[params[:vendedor][i].length - 1] == 'N'
+              acciones = (params[:percentage][i].to_f * @legalpersona.acciones)/100
+              PersonaMember.create(legal_persona_id: @legalpersona.id, percentage: params[:percentage][i].to_f, type_member: "Natural", persona_id: params[:vendedor][i].split("N")[0].to_i, acciones: acciones.to_i, entrada: params[:date_posetion]) 
+              @domain = Domain.create(type_modality: params[:type_modality], price: acciones.to_i, date_posetion: params[:date_posetion], domainable_id: @legalpersona.id, domainable_type: 'LegalPersona', percentage: params[:percentage][i].to_f, notario_id: params[:notario_id], valor: params[:price][i].to_i)
+              DomainRol.create(type_member: "Natural", type_rol: "Creador", persona_id: params[:vendedor][i].split("N")[0].to_i, domain_id: @domain.id)
+            else
+              Rails.logger.info "Es legal"
+              acciones = (params[:percentage][i].to_f * @legalpersona.acciones)/100
+              PersonaMember.create(legal_persona_id: @legalpersona.id, percentage: params[:percentage][i].to_f, type_member: "Legal", persona_id: params[:vendedor][i].split("L")[0].to_i, acciones: acciones.to_i, entrada: params[:date_posetion])
+              @domain = Domain.create(type_modality: params[:type_modality], price: acciones.to_i, date_posetion: params[:date_posetion], domainable_id: @legalpersona.id, domainable_type: 'LegalPersona', percentage: params[:percentage][i].to_f, notario_id: params[:notario_id], valor: params[:price][i].to_i) 
+              DomainRol.create(type_member: "Legal", type_rol: "Creador", persona_id: params[:vendedor][i].split("L")[0].to_i, domain_id: @domain.id)
+            end
+          end
+          redirect_to @legalpersona
+        end  
+        
+      end
+    rescue => exception
+      Rails.logger.info exception.to_s
+    end 
   end
 
 private
@@ -231,7 +275,12 @@ private
 
 
   def domain_params
-    params.require(:domain).permit(:type_modality, :inscription_id, :price, :date_posetion, :percentage, :notario_id, :valor)
+    begin
+      params.require(:domain).permit(:type_modality, :inscription_id, :price, :date_posetion, :percentage, :notario_id, :valor)
+    rescue => exception
+      params.permit(:type_modality, :inscription_id, :price, :date_posetion, :percentage, :notario_id, :valor)
+    end
+    
   end
 
   def load_domainable

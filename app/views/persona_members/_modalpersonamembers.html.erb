@@ -26,7 +26,7 @@
                                         <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
                                         
                                         <%= form.label "Tipo" %>
-                                        <%= form.select :type_member, options_for_select([["Natural", "Natural"], ["Legal", "Legal"]], @domain_rol.type_member),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_value(this)" %>  
+                                        <%= form.select :type_member, options_for_select([["Natural", "Natural"], ["Legal", "Legal"]]), @domain_rol.type_member),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_value(this)" %>  
                                     </div>
                                     <div class = "col">
                                         <% @domain_rol = DomainRol.find(params[:domain_rol_id]) %>
