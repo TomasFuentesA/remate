@@ -65,7 +65,7 @@
         <div class="card-body">
           <p class="card-text">
             <div class="form-row">
-
+              
               <div class="col">
                 <%= form.label :notario_id, "Notario: " %>
                 <%= form.select :notario_id , options_for_select(LegalPersona.where(notario: "Si").collect{ |c| [c.name,c.id]}), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
@@ -76,7 +76,11 @@
                 <%= form.label :type_modality, "Modalidad:" %>
                 <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_tipo(this)" %>
               </div>
-              
+              <div class="col">
+                <% @legal_persona = LegalPersona.find(params[:legal_persona_id])%>
+                <label for="name">Dinero Total:</label>
+                <input type = "text" id="total" class= "form-control" placeholder= "Total" disable value = '<%= @legal_persona.total %>' readonly>
+              </div>
               <div class="col">
                 <%= form.label :date_posetion, "Fecha de posesion:" %>
                 <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
