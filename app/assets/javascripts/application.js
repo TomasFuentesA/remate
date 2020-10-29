@@ -20,6 +20,7 @@
 //= require arctic_admin/base
 //= require activestorage
 //= require turbolinks
+//= require dropzone
 
 //= require_tree .
 //= require select2

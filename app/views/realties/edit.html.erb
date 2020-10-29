@@ -15,6 +15,45 @@
       theme: "bootstrap",
       width: "100%"
     });
+  var AUTH_TOKEN=$('meta[name="csrf-token"]').attr('content');
+
+
+Dropzone.options.filesField = {
+  url: "/realties/createUpload",
+  addRemoveLinks: true,
+  autoProcessQueue: false,
+  uploadMultiple: true,
+  parallelUploads:10,
+  accept: function(file, done) {
+    $("div#files-field").css({"height": "auto"});
+    done();
+  },
+   params:{
+      'authenticity_token':  AUTH_TOKEN
+    },
+  init: function() {
+    var myDropzone = this;
+
+    var form = document.getElementById('dropzone-form-id');
+    form.addEventListener('submit', function(event) {
+      // stop the form's submit event
+      if(myDropzone.getQueuedFiles().length > 0){
+        event.preventDefault();
+        event.stopPropagation();
+        myDropzone.processQueue();
+      }
+    });
+
+    myDropzone.on("sendingmultiple", function(file, xhr, formData) {
+      formData.append("realty_id", $('#myDropzoneForm_realty_id').val());
+    });
+  },
+  successmultiple: function(data,response) {
+    $('#msgBoard').append(response.message).addClass("alert alert-success");
+    $('#msgBoard').delay(2000).fadeOut();
+    location.reload();
+  }
+};
   });
 </script>
 <div class="row justify-content-md-center">
@@ -175,6 +214,12 @@
                   </div>
                   <% end %>
               </div>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Subir Imagenes
+              </button>
+              <% if @fileUpload.length != 0 %>
+              <%= render partial: "upload" %>
+              <% end %>
               <div class="form-group">
                 <div class="row ">
                   <div class="col-md-12">
@@ -192,6 +237,40 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Subir Imagenes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <%= form_for :myDropzoneForm, html: {id: "dropzone-form-id"} do |f| %>
+          <%= f.hidden_field :realty_id, :value => @realty.id%>
+          <div id="msgBoard"></div>
+          <div id="files-field"
+            class="dropzone"
+            style="border: 2px dashed rgba(0, 0, 0, 0.3);
+                    min-height: 100px !important; padding: 0px !important;">
+          <div class="dz-message"
+              style="margin: 20px">
+            <button type="button">
+              Seleccione archivos
+            </button>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <%= f.submit "Guardar",class: "btn btn-primary" %>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -36,10 +36,12 @@ class RealtiesController < ApplicationController
 
   def show
     @auction_id=params['format']?params['format']:''
+    @fileUpload = FileUpload.where(model_id:params['id'])
     @condominios = Condominio.all
   end
 
   def edit
+    @fileUpload = FileUpload.where(model_id:params['id'])
     @auction_id=params['format']
     @condominios = Condominio.all
     @realty.build_characteristic if @realty.characteristic.nil?
@@ -59,6 +61,8 @@ class RealtiesController < ApplicationController
 
   def destroy
     @realty.destroy
+    @fileUpload = FileUpload.where(model_id:params['id'])
+    @fileUpload.destroy_all
     respond_to do |format|
       format.js
       format.html {redirect_to realties_path, notice: "Propiedad: #{@realty.name_realty} eliminada exitosamente" }
@@ -72,6 +76,28 @@ class RealtiesController < ApplicationController
     @realty = Realty.joins(:commune, :condominio).where("lower(concat( number_unit , name_realty, population_villa, street, communes.name, condominios.name)) like ?",@param)
     render json: @realty
   end
+
+  def deleteUpload
+    @fileUpload = FileUpload.find(params[:format])
+    @fileUpload.destroy
+    redirect_to edit_realty_path(@fileUpload.model_id)
+  end
+
+  def createUpload
+    uploaded_pics = params['file']
+    Rails.logger.info uploaded_pics
+    uploaded_pics.each do |pic|
+      File.open(Rails.root.join('public', 'uploads', pic[1].original_filename), 'wb') do |file|
+        file.write(pic[1].read)
+        Rails.logger.info pic[1].original_filename.to_s
+        @fileUpload = FileUpload.new(file_name:pic[1].original_filename.to_s,model:'realty',model_id:params['realty_id'])
+        @fileUpload.save
+        File.rename(file, 'public/uploads/' + pic[1].original_filename)
+      end
+    end
+    render json: { message: 'Imagenes ingresadas.'}
+  end
+
 
   private
   def set_realty
