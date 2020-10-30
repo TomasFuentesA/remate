@@ -70,11 +70,11 @@
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= actual %>" readonly>
           </div>
           <div class="col-md-3">
-            <label for="name"> Precio: </label>
+            <label for="name"> Precio de las acciones: </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.valor %>" readonly>
           </div>
           <div class="col-md-3">
-            <label for="name"> Porcentaje </label>
+            <label for="name"> Porcentaje del vendedor: </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
           </div>
         </div>
@@ -153,7 +153,6 @@
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
                             </div>
                               <div class="col-md-5 mb-3">
-                              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
                             </div>
                           </div>    
                         <%end%>
@@ -164,7 +163,7 @@
                           <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
                           <br>
                           <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
+                          
                         <%end%>
                       <%end%>
                     <%end%>
@@ -176,6 +175,8 @@
           <div class="col-md-6">
           <% if @domain.type_modality == "Compra y Venta de acciones"%>
             <label for="name"> Comprador(es): </label>
+            
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
             <% DomainRol.order(:id).each do |domrol| %>
               <% if domrol.domain_id == @domain.id %>
                 <% Comprador.order(:id).each do |comp| %>
@@ -188,7 +189,10 @@
                             <div class="col-md-6 mb-4">
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%> <%= perso.last_name1%> / <%= perso.rut %>" readonly>
                             </div>
-                            <div class="col-md-6 mb-4">
+                            <div class="col-md-2 mb-4">
+                              <input type="text" id="valor" class="form-control" placeholder="valor" disable value="<%= comp.acciones%>" readonly>
+                            </div>
+                            <div class="col-md-4 mb-4">
                               <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
                             </div>
                                
@@ -202,6 +206,9 @@
                           <div class="form-row">
                             <div class="col-md-6 mb-3">
                               <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalp.name%>/<%= legalp.rut%>" readonly>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                              <input type="text" id="valor" class="form-control" placeholder="valor" disable value="<%= comp.acciones%>" readonly>
                             </div>
                             <div class="col-md-6 mb-4">
                               <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
