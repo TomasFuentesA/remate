@@ -1,0 +1,308 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal<%= @memberp.id %>">
+  Ver
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal<%= @memberp.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card card-body">
+              <h1 align="center"> Información de <%= @memberp.name %> <%= @memberp.last_name1 %> </h1>
+              <div class="row">
+                <div class="col-md-6"><!--Nombre-->
+                  <label for="name">Nombre Completo:</label>
+                  <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value ='<%= @memberp.name %> <%= @memberp.name2 %> <%= @memberp.last_name1 %> <%= @memberp.last_name2 %>' readonly>
+                </div>
+                <div class="col-md-6"><!--Rut-->
+                  <label for="rut">Rut:</label>
+                  <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = '<%= @memberp.rut %>' readonly>
+                </div>
+              </div>
+              <div class= "row">
+                <div class="col-md-5"><!--Estado Civil-->
+                  <label for="e_civil">Estado Civil:</label>
+                  <input type = "text" id="rut" class= "form-control" placeholder= "E_civil" disable value = '<%= @memberp.e_civil %>' readonly>
+                </div>
+                <div class="col-md-2"><!--Cumpleaños-->
+                  <label for="birth_date">Cumpleaños:</label>
+                  <input type = "text" id="rut" class= "form-control" placeholder= "Birth_date" disable value = '<%= @memberp.birth_date %>' readonly>
+                </div>
+                <div class="col-md-5"><!--Profesion-->
+                  <label for="profesion">Profesion:</label>
+                  <input type = "text" id="rut" class= "form-control" placeholder= "Profesion" disable value = '<%= @memberp.profesion %>' readonly>
+                </div>
+              </div>
+              <div class= "row">
+                <div class="col-md-5"><!--Nacionalidad-->
+                  <label for="nacionalidad">Nacionalidad:</label>
+                  <input type = "text" id="rut" class= "form-control" placeholder= "Nacionalidad" disable value = '<%= @memberp.nacionality %>' readonly>
+                </div>
+                <div class="col-md-7"><!--Pasaporte-->
+                  <label for="pasaporte">Pasaporte:</label>
+                  <input type = "text" id="rut" class= "form-control" placeholder= "Pasaporte" disable value = '<%= @memberp.passport %>' readonly>
+                </div>
+                
+              </div>
+              <br>
+              
+              <div class="row">
+                <% if !@memberp.job.nil? %>
+                  <div class="col-sm-12 card card-body">
+                    <h5 align="center"> Información del trabajo </h5>
+                    <div class= "row">
+                      <div class="col-sm-3"><!--Trabajo-->
+                        <label for="Trabajo">Trabajo:</label>
+                        <input type = "text" id="rut" class= "form-control" placeholder= "Trabajo" disable value = '<%= @memberp.job.position %>' readonly>
+                      </div>   
+                      <div class= "col-sm"><!--Salario-->
+                        <label for="Salario">Salario:</label>
+                        <input type = "text" id="rut" class= "form-control" placeholder= "Salario" disable value = '<%= @memberp.job.salary %>' readonly>
+                      </div>   
+                      <div class="col-sm-3"><!--Empresa-->
+                        <label for="Empresa">Empresa:</label>  
+                        <input type = "text" id="rut" class= "form-control" placeholder= "Empresa" disable value = '<%= @memberp.job.business %>' readonly>
+                      </div>  
+                      <div class= "col-sm-4"><!--Nombre-->
+                        <label for="Descripción">Descripción:</label>
+                        <input type = "text" id="rut" class= "form-control" placeholder= "Descripción" disable value = '<%= @memberp.job.description%>' readonly> 
+                      </div>
+                    </div>   
+                  </div>    
+                <%end%>
+              </div>
+              <br> 
+              <div class= "row"> 
+                <div class= "col-md-3">  
+                  <% if @memberp.phones.any? %>
+                    <div class="field">
+                      <% @phones.each do |phone| %>
+                        <div class="field">
+                          Telefonos:
+                          <div class="col">
+                            <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = "<%= phone.type_phone%>:  <%= phone.number_phone %>" readonly>
+                          </div>
+                        </div>
+                      <% end %>  
+                    </div>
+                  <% end %>
+                </div>
+                <div class= "col-md-5"> 
+                  <% if @memberp.directions.any? %>
+                    <div class="field">
+                      <% @directions.each do |direction| %>
+                        <div class="field">
+                          Direcciones:
+                          <% Realty.order(:id).each do |realties|%>
+                            <% if direction.realties_id == realties.id %>
+                              <div class="row" style="margin-bottom: 6px;">
+                                <div class="col">
+                                  <input type = "text" id="direction" class= "form-control" placeholder= "directiona" disable value = "<%= realties.address.to_s %>" readonly>                
+                                </div>                      
+                              </div>
+                            <% end %>
+                          <%end%> 
+                        </div>
+                      <% end %>  
+                    </div>        
+                  <% end %>
+                </div>
+                <div class= "col-md-4">
+                  <% if @memberp.emails.any? %>
+                    <div class="field">
+                      Correos:
+                      <% @emails.each do |email| %>
+                        <div class="row">
+                          <div class="col">
+                            <input type = "text" id="emaila" class= "form-control" placeholder= "emaila" disable value = <%= email.email%> readonly>  
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>  
+                  <% end %> 
+                </div> 
+              </div>
+              <div class= "row">
+                <div class = "container-fluid"><!--Activities-->
+                  <div class = "row">
+                    <% if @memberp.activities.any? %>
+                      <div class="col-sm-12">
+                        <h5 align="center"> Actividades: </h5>
+                        <table class="table table-bordered table-hover">
+                          <thead  class="thead-dark">
+                            <tr>
+                              <th scope="col">Nombre de Actividad</th>
+                              <th scope="col">Rubro</th>
+                              <th scope="col">Afecta IVA?</th>
+                              <th scope="col">codigo de actividad</th>
+                            </tr>
+                          </thead>
+                          <tbody class="rounded-pill"> 
+                            <% @activities.each do |activity| %>
+                            <tr>
+                              <td scope="row">
+                                <%= activity.name_activity %>
+                              </td>
+                              <td scope= "row">
+                                <%= activity.rubro %>
+                              </td>  
+                              <td scope="row">
+                                <%= activity.afect_iva %>
+                              </td>
+                              <td scope="row">
+                                <%= activity.code %>
+                              </td>
+                            </tr>  
+                            <% end %>
+                          </tbody>
+                        </table>    
+                      </div>
+                    <% end %>
+                  </div>  
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div> 
+        <div class="container-fluid">
+          <% if PersonaMember.any?%>   
+            <div class= "row">
+              <div class="col-sm-12 card card-body">
+                <h1 align="center"> Participaciones de <%= @memberp.name %> <%= @memberp.last_name1 %> </h1>
+                <table   class="table table-bordered table-hover">
+                  <thead  class="thead-dark">
+                    <tr>
+                      <th scope="col">Nombre empresa</th>
+                      <th scope="col">Fecha de Ingreso</th>
+                      <th scope="col">Acciones</th>
+                      <th scope="col">Porcentaje</th>
+                    </tr>
+                  </thead>
+                  <% @participaciones = PersonaMember.where(persona_id: @memberp.id) %>
+                  <tbody class="rounded-pill">
+                    <% @participaciones.each do |participa| %>
+                      <tr>
+                        <% empresa = LegalPersona.find(participa.legal_persona_id) %>
+                        <td scope="row"> <%= empresa.name %></td>
+                        <td> <%= participa.entrada %> </td>
+                        <td> <%= participa.acciones %> </td>
+                        <td> <%= participa.percentage %> </td>   
+                      </tr>
+                    <%end%>  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <%end%>
+          <% if LegalRepresent.any?%>   
+            <div class= "row">
+              <div class="col-sm-12 card card-body">
+                <h1 align="center"> Representante legal </h1>
+                <table   class="table table-bordered table-hover">
+                  <thead  class="thead-dark">
+                    <tr>
+                      <th scope="col">Nombre empresa</th>
+                      <th scope="col">Fecha de Ingreso</th>
+                    </tr>
+                  </thead>
+                  <% @participaciones = LegalRepresent.where(persona_id: @memberp.id) %>
+                  <tbody class="rounded-pill">
+                    <% @participaciones.each do |participa| %>
+                      <tr>
+                        <% empresa = LegalPersona.find(participa.legal_persona_id) %>
+                        <td scope="row"> <%= empresa.name %></td>
+                        <td> <%= participa.entrada %> </td> 
+                      </tr>
+                    <%end%>  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <%end%>   
+        </div>
+        <div class= "container-fluid">
+          <div class="collapse" id="collapseHistoricos">  
+            <% @historicos = Historico.where(persona_id: @memberp.id, type_member: "Natural") %>
+            <% if @historicos.any? %>
+              <div class="row">
+                <div class="col-sm-12 card card-body">
+                  <h1 align = "center"> Participaciones historicas de <%= @memberp.name %> </h1>
+                  <table   class="table table-bordered table-hover">
+                    <thead  class="thead-dark">
+                      <tr>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Rut</th>
+                        <th scope="col">Fecha de Ingreso</th>
+                        <th scope="col">Fecha de Salida</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Acciones</th>
+
+                      </tr>
+                    </thead>
+                    <tbody class="rounded-pill">
+                      <% @historicos.each do |historico| %>
+                        <tr>
+                          <% legal = LegalPersona.find(historico.legal_persona_id)  %>
+                          <td> <%= legal.name %> </td>
+                          <td> <%= legal.rut %> </td>
+                          <td> <%= historico.entrada %> </td>
+                          <td> <%= historico.salida %> </td>
+                          <td> <%= historico.valor %> </td>
+                          <td> <%= historico.acciones %> </td>   
+                        </tr>
+                      <%end%>  
+                    </tbody>
+                  </table>  
+                </div>
+              </div>
+            <%end%>
+          </div>
+          <div class="collapse" id="collapseRepresentantes">  
+            <% @rep_historico = RepresentanteHistorico.where(persona_id: @memberp.id) %>
+            <% if @rep_historico.any? %>
+              <div class="row">
+                <div class="col-sm-12 card card-body">
+                  <h1 align="center"> Participaciones historicas como Representante legal de <%= @memberp.name %> </h1>
+                  <table   class="table table-bordered table-hover">
+                    <thead  class="thead-dark">
+                      <tr>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Fecha de Ingreso</th>
+                        <th scope="col">Fecha de Salida</th>
+                      </tr>
+                    </thead>
+                    <tbody class="rounded-pill">
+                      <% @rep_historico.each do |rep| %>
+                        <tr>
+                          <% legal = LegalPersona.find(rep.legal_persona_id) %>
+                          <td scope ="row"> <%= legal.name %> </td>
+                          <td> <%= rep.entrada %> </td>
+                          <td> <%= rep.salida %> </td>
+
+                        </tr>
+                      <%end%>  
+                    </tbody>
+                  </table>  
+                </div>
+              </div>
+            <%end%>
+          </div>  
+        </div>      
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
+      <br>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentantes" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
+      </div>
+    </div>
+  </div>
+</div>

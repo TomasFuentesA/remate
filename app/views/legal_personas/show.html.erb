@@ -222,7 +222,7 @@
   <% if PersonaMember.any? %>
       <div class="row">
         <div class="col-sm-12 card card-body">
-          Miembros:
+          <h1 align = "center"> Miembros </h1>
           <table class="table table-bordered table-hover">
             <thead  class="thead-dark">
               <tr>
@@ -240,14 +240,16 @@
                     <% Persona.order(:id).each do |member| %>
                       <%if (personam.persona_id == member.id) %>  
                         <tr>
+                          
                           <td scope="row"><%= member.rut %>, <%= member.name%></td>
                           <td scope="row"><%= personam.acciones%></td>
                           <td scope="row">
                             <%= personam.percentage%> %    
                           </td>
                           <td scope="row"><%= personam.entrada%></td>
-                          <td> 
-                            <%= link_to 'ver', member , class: "btn btn-info" %>
+                          <td>
+                            <% @memberp = member%> 
+                            <%= render "personas/modal", object: @memberp %>
                             <% PersonaMember.order(:id).each do |personam| %>
                               <%if (personam.persona_id == member.id) && (personam.type_member == "Natural") && (personam.legal_persona_id == @legal_persona.id) then %>
                                 <%= link_to 'editar', edit_persona_member_path(personam) , class: "btn btn-warning" %>
@@ -268,8 +270,9 @@
                             <%= personam.percentage %> %
                           </td> 
                           <td scope="row"><%= personam.entrada%></td>   
-                          <td> 
-                            <%= link_to 'ver', legalp, class: "btn btn-info" %>
+                          <td>
+                            <% @legalpersona = legalp %> 
+                            <%= render "modallegal", object: @legalpersona %>
                             <% LegalPersona.order(:id).each do |legalp| %>
                               <%if (legalp.id == personam.persona_id) && (personam.type_member == "Legal") && (personam.legal_persona_id == @legal_persona.id) then %>
                                 <%= link_to 'editar', edit_persona_member_path(personam) , class: "btn btn-warning" %>
@@ -305,13 +308,13 @@
           </table>   
             
         </div>
-      </div>
-     
-  <%end%>  
+      </div>     
+  <%end%>
+
   <% if @legal_persona.domains.any? %>
     <div class="row">
       <div class="col-sm-12 card card-body">
-        Dominios de <%= @legalpersona.name %>:
+        <h1 align= "center">Escrituras de <%= @legalpersona.name %>: </h1>
         <table   class="table table-bordered table-hover">
           <thead  class="thead-dark">
             <tr>
