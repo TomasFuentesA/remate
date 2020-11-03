@@ -70,11 +70,11 @@
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= actual %>" readonly>
           </div>
           <div class="col-md-3">
-            <label for="name"> Precio: </label>
+            <label for="name"> Precio de las acciones: </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.valor %>" readonly>
           </div>
           <div class="col-md-3">
-            <label for="name"> Porcentaje </label>
+            <label for="name"> Porcentaje del vendedor: </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
           </div>
         </div>
@@ -138,84 +138,100 @@
                 <%end%>
               <%end%>
             <%end%>
-            </div>
+          </div>
           <%else%>
-            <div class="col-md-6">
-              <label for="name"> Vendedor(es): </label>
-              <% DomainRol.order(:id).each do |domrol| %>
-                <% if domrol.domain_id == @domain.id %>
-                  <% if domrol.type_rol == "Vendedor"%>
-                    <% if domrol.type_member == "Natural" %>
-                      <% Persona.order(:id).each do |persona| %>
-                        <% if persona.id == domrol.persona_id%>
-                          <div class="form-row">
-                            <div class="col-md-7 mb-4">
-                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
-                            </div>
-                              <div class="col-md-5 mb-3">
-                              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
-                            </div>
-                          </div>    
-                        <%end%>
-                      <%end%>
-                    <%else%>
-                      <% LegalPersona.order(:id).each do |legalpersona| %>
-                        <% if legalpersona.id == domrol.persona_id%>
-                          <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
-                          <br>
-                          <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
+          <br>
+          <div class= "card" style="width:1400px">
+            <div class = "card-body">
+              <div class= "row">  
+                <div class="col-md-6">
+                  <label for="name"> Vendedor(es): </label>
+                  <br>
+                  <% DomainRol.order(:id).each do |domrol| %>
+                    <% if domrol.domain_id == @domain.id %>
+                      <% if domrol.type_rol == "Vendedor"%>
+                        <% if domrol.type_member == "Natural" %>
+                          <% Persona.order(:id).each do |persona| %>
+                            <% if persona.id == domrol.persona_id%>
+                              <div class="form-row">
+                                <div class="col-md-10 mb-4">
+                                  <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> " readonly>
+                                </div>
+                                  <div class="col-md-5 mb-3">
+                                </div>
+                              </div>    
+                            <%end%>
+                          <%end%>
+                        <%else%>
+                          <% LegalPersona.order(:id).each do |legalpersona| %>
+                            <% if legalpersona.id == domrol.persona_id%>
+                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalpersona.name%>/<%= legalpersona.rut%>" readonly>
+                              <br>
+                              <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
+                              
+                            <%end%>
+                          <%end%>
                         <%end%>
                       <%end%>
                     <%end%>
                   <%end%>
-                <%end%>
-              <%end%>
-            </div>
+                </div>
+               
           <%end%>        
-          <div class="col-md-6">
-          <% if @domain.type_modality == "Compra y Venta de acciones"%>
-            <label for="name"> Comprador(es): </label>
-            <% DomainRol.order(:id).each do |domrol| %>
-              <% if domrol.domain_id == @domain.id %>
-                <% Comprador.order(:id).each do |comp| %>
-                  <% if comp.domain_rol_id == domrol.id %>
-                    <% if comp.type_member == "Natural" %>
-                      <% Persona.order(:id).each do |perso| %>
-                        <% if comp.persona_id == perso.id %>
-                          <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          <div class="form-row">
-                            <div class="col-md-6 mb-4">
-                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%> <%= perso.last_name1%> / <%= perso.rut %>" readonly>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                              <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
-                            </div>
-                               
-                          </div>  
-                        <%end%>
-                      <%end%>
-                    <%else%>
-                      <% LegalPersona.order(:id).each do |legalp| %>
-                        <% if comp.persona_id == legalp.id %>
-                          <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
-                          <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalp.name%>/<%= legalp.rut%>" readonly>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                              <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
-                            </div>
-                              
-                          </div>      
-                        <%end%>
-                      <%end%>
+                <div class="col-md-6">
+                  <% if @domain.type_modality == "Compra y Venta de acciones"%>
+                    <label for="name"> Comprador(es): </label>
+                    <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Añadir Comprador</button>
+                    <br>
+                    <% DomainRol.order(:id).each do |domrol| %>
+                      <% if domrol.domain_id == @domain.id %>
+                        <% Comprador.order(:id).each do |comp| %>
+                          <% if comp.domain_rol_id == domrol.id %>
+                            <% if comp.type_member == "Natural" %>
+                              <% Persona.order(:id).each do |perso| %>
+                                <% if comp.persona_id == perso.id %>
+                                  <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
+                                  <div class="form-row">
+                                    <div class="col-md-6 mb-4">
+                                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= perso.name%> <%= perso.last_name1%> / <%= perso.rut %>" readonly>
+                                    </div>
+                                    <div class="col-md-2 mb-4">
+                                      <input type="text" id="valor" class="form-control" placeholder="valor" disable value="<%= comp.acciones%>" readonly>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                      <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+                                    </div>
+                                      
+                                  </div>  
+                                <%end%>
+                              <%end%>
+                            <%else%>
+                              <% LegalPersona.order(:id).each do |legalp| %>
+                                <% if comp.persona_id == legalp.id %>
+                                  <% @legal_persona = LegalPersona.find(@domain.domainable_id) %>
+                                  <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                      <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= legalp.name%>/<%= legalp.rut%>" readonly>
+                                    </div>
+                                    <div class="col-md-2 mb-4">
+                                      <input type="text" id="valor" class="form-control" placeholder="valor" disable value="<%= comp.acciones%>" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                      <%= link_to 'Destroy', comp, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+                                    </div>
+                                      
+                                  </div>      
+                                <%end%>
+                              <%end%>
+                            <%end%>
+                          <%end%>      
+                        <%end%>    
+                      <%end%>    
                     <%end%>
-                  <%end%>      
-                <%end%>    
-              <%end%>    
-            <%end%>
-          <%end%>  
+                  <%end%>
+                </div>
+              </div>
+            </div>      
           </div> 
         </div> 
       </div>

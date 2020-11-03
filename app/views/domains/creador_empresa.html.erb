@@ -11,7 +11,7 @@
     });
     var global_list = '';
     function get_tipo(params) {
-      var list = ''  
+      var list = '<option value= 0> Seleccione </option>'  
       if (params.value != "Creacion de empresa"){
         <% PersonaMember.order(:type_member).each do |personam| %>
           var l = <%= params[:legal_persona_id] %>
@@ -35,10 +35,10 @@
         $('.vendedor').html(list);      
       } else {
         <%Persona.order(:name).each do |persona| %>
-          list += '<option value= <%= persona.id%>N> <%= persona.name%> </option>'
+          list += '<option value= <%= persona.id%>N> <%= persona.name%> <%= persona.last_name1%> / <%= persona.rut%> </option>'
         <%end%>
         <%LegalPersona.order(:name).each do |legalp| %>
-          list += '<option value= <%= legalp.id%>L> <%= legalp.name%> </option>'
+          list += '<option value= <%= legalp.id%>L> <%= legalp.name%> / <%= legalp.rut%>  </option>'
         <%end%>
         global_list = list
         console.log(global_list)
@@ -86,7 +86,7 @@
                 <%= form.text_field :date_posetion,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class: "form-control"  %>
               </div>
             </div>
-            </div>
+            <br>
             <div class="form-row" >
               <div class="col"><select class="vendedor form-control" id="vendedor" name="vendedor[]" value=""
                   placeholder="Vendedor" required></select></div>
@@ -94,16 +94,15 @@
                   placeholder="price" required></div>
               <div class="col"><input type="text" class="form-control" id="percentage" name="percentage[]" value=""
                   placeholder="percentage" required></div>
-              <div class="col"><button class="btn btn-success" type="button" onclick="education_fields(global_list)">
-                  agregar </button></div>
+              <div class="col"><button class="btn btn-primary" type="button" onclick="education_fields(global_list)">
+                  Añadir Nuevo </button></div>
             </div>
-            <div class="form-row">
-              <div id="education_fields">
-              </div>
+            <div class="form-row" id="education_fields">
+              
             </div>  
           <div class="form-row">
             <div class="form-group">
-              <%= form.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+              <%= form.submit "Guardar Creador(es)", class: "btn btn-success btn-lg btn-block" %>
             </div>
           </div>
         </div>

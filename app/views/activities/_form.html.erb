@@ -32,26 +32,26 @@
           <div class="form-row">
             <div class= "col">
               <%= f.label :code, "Codigo" %>
-              <%= f.text_field :code , class: "form-control"%>
+              <%= f.text_field :code , class: "form-control", required: true %>
             </div>
 
             <div class= "col">
               <%= f.label :rubro, "Rubro" %>
-              <%= f.select :rubro, options_for_select([["Abogado", "Abogado"], ["Cocina", "Cocina"]])%>
+              <%= f.select :rubro, options_for_select(Rubro.order(:id).collect{|c|[c.nombre, c.id]}), { include_blank: "Seleccione"}, required: true%>
 
             </div>
           </div>
           <div class="form-row">
             <div class= "col">
               <%= f.label :name_activity, "Nombre de Actividad" %>
-              <%= f.text_field :name_activity , class: "form-control"%>
+              <%= f.text_field :name_activity , class: "form-control", required: true%>
             </div>
 
             <div class= "col">
               <%= f.label :afect_iva, "Afecta IVA?" %>
-              <%= f.radio_button :afect_iva, 'Si' %> 
+              <%= f.radio_button :afect_iva, 'Si' ,required: true%> 
               <%= label :afect_iva_Si, 'Si' %>
-              <%= f.radio_button :afect_iva, 'No' %>
+              <%= f.radio_button :afect_iva, 'No' , required: true%>
               <%= label :afect_iva_No, 'No' %>
             </div>
           </div>
@@ -67,3 +67,4 @@
 
 <% end %>
 </div>
+<%= render "rubros/modalrubro", object: @activityable  %>

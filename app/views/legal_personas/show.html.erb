@@ -153,7 +153,7 @@
                   </tr>
                 </thead>
                 <tbody class="rounded-pill"> 
-                  <% LegalRepresent.order(:id).each do |representante| %>
+                  <% LegalRepresent.order(:entrada).each do |representante| %>
                     <% if representante.legal_persona_id == @legal_persona.id %>
                       <tr>
                         <% persona = Persona.find(representante.persona_id) %>
@@ -222,7 +222,7 @@
   <% if PersonaMember.any? %>
       <div class="row">
         <div class="col-sm-12 card card-body">
-          Miembros:
+          <h1 align = "center"> Miembros </h1>
           <table class="table table-bordered table-hover">
             <thead  class="thead-dark">
               <tr>
@@ -234,20 +234,22 @@
               </tr>
             </thead>
             <tbody class="rounded-pill">
-              <% PersonaMember.order(:id).each do |personam| %>
+              <% PersonaMember.order(:entrada).each do |personam| %>
                 <% if personam.legal_persona_id == @legal_persona.id %>
                   <% if (personam.type_member == "Natural")%>
                     <% Persona.order(:id).each do |member| %>
                       <%if (personam.persona_id == member.id) %>  
                         <tr>
+                          
                           <td scope="row"><%= member.rut %>, <%= member.name%></td>
                           <td scope="row"><%= personam.acciones%></td>
                           <td scope="row">
                             <%= personam.percentage%> %    
                           </td>
                           <td scope="row"><%= personam.entrada%></td>
-                          <td> 
-                            <%= link_to 'ver', member , class: "btn btn-info" %>
+                          <td>
+                            <% @memberp = member%> 
+                            <%= render "personas/modal", object: @memberp %>
                             <% PersonaMember.order(:id).each do |personam| %>
                               <%if (personam.persona_id == member.id) && (personam.type_member == "Natural") && (personam.legal_persona_id == @legal_persona.id) then %>
                                 <%= link_to 'editar', edit_persona_member_path(personam) , class: "btn btn-warning" %>
@@ -268,8 +270,9 @@
                             <%= personam.percentage %> %
                           </td> 
                           <td scope="row"><%= personam.entrada%></td>   
-                          <td> 
-                            <%= link_to 'ver', legalp, class: "btn btn-info" %>
+                          <td>
+                            <% @legalpersona = legalp %> 
+                            <%= render "modallegal", object: @legalpersona %>
                             <% LegalPersona.order(:id).each do |legalp| %>
                               <%if (legalp.id == personam.persona_id) && (personam.type_member == "Legal") && (personam.legal_persona_id == @legal_persona.id) then %>
                                 <%= link_to 'editar', edit_persona_member_path(personam) , class: "btn btn-warning" %>
@@ -299,19 +302,19 @@
             </thead> 
             <tbody class= "rounded-pill">
               <tr>
-                <td scope = "row"> <%= var%> % </td>
+                <td scope = "row"> <%= var.round(2)%> % </td>
               </tr>
             </tbody>
           </table>   
             
         </div>
-      </div>
-     
-  <%end%>  
+      </div>     
+  <%end%>
+
   <% if @legal_persona.domains.any? %>
     <div class="row">
       <div class="col-sm-12 card card-body">
-        Dominios de <%= @legalpersona.name %>:
+        <h1 align= "center">Escrituras de <%= @legalpersona.name %>: </h1>
         <table   class="table table-bordered table-hover">
           <thead  class="thead-dark">
             <tr>
@@ -327,24 +330,36 @@
             </tr>
           </thead>
           <tbody class="rounded-pill">
+            
             <% @creacion = Domain.where(type_modality: "Creacion de empresa", domainable_id: @legal_persona.id) %>
             <tr>
               <% notario = LegalPersona.find(@creacion[0].notario_id) %>
               <td scope= "row"><%= notario.name%> </td>
               <td>Creacion de empresa</td>
               <td>
+              <% total = 0 %>
               <% @creacion.each do |creacion| %>
                 <div class= "col">
+                  <% total += creacion.price %>
                   <%= creacion.price %>
                 </div>
               <%end%>
+              <div class = "col">
+                Total: <%= total %>
+              </div>
               </td>
               <td>
+              <% total = 0 %>
               <% @creacion.each do |creacion| %>
                 <div class= "col">
+                  <% total += creacion.valor %>
                   <%= creacion.valor %>
                 </div>
               <%end%>
+              <div class ="col">
+              Total:  <%= total %>
+              </div>  
+
               </td>
               <td>
               <% @creacion.each do |creacion| %>
@@ -381,7 +396,7 @@
             
             <% Domain.order(:date_posetion).each do |domain| %>
               <% if domain.domainable_id == @legal_persona.id %>
-                <% if domain.type_modality != "Creacion de empresa"%>
+                <% if (domain.type_modality != "Creacion de empresa") && (domain.type_modality != "Añadir acciones") %>
                   <tr>
                     <% LegalPersona.order(:id).each do |legalp|%>
                       <% if legalp.id == domain.notario_id %>
@@ -466,6 +481,64 @@
                 <td scope = "row"> <%= var.round(2)%> % </td>
               </tr>
             </tbody>
+        </table>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 card card-body">
+        <h1 align= "center">Actualizaciones de Acciones de <%= @legalpersona.name %>: </h1>
+        <table   class="table table-bordered table-hover">
+          <thead  class="thead-dark">
+            <tr>
+              <th scope="col">Notario</th>
+              <th scope="col">Modalidad</th>
+              <th scope="col">Acciones
+              <th scope="col">Precio</th>
+              <th scope="col">Persona</th>
+              <th scope="col">Fecha de adicion</th>
+              <th scope="col">Porcentaje</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody class="rounded-pill">
+            <% Domain.order(:date_posetion).each do |domain| %>
+              <% if domain.domainable_id == @legal_persona.id %>
+                <% if domain.type_modality == "Añadir acciones"%>
+                  <tr>
+                    <% LegalPersona.order(:id).each do |legalp|%>
+                      <% if legalp.id == domain.notario_id %>
+                        <td scope="row"><%= legalp.name%></td>
+                      <%end%>
+                    <%end%>    
+                    <td><%= domain.type_modality %></td>
+                    <td><%= domain.price %></td>
+                    <td><%= domain.valor %></td>
+                    <% DomainRol.order(:id).each do |domrol| %>
+                      <% if domrol.domain_id == domain.id %>
+                        <% if domrol.type_member == "Legal" %>
+                          <% @legal = LegalPersona.find(domrol.persona_id) %>
+                          <td scope = "row"><%= @legal.name%></td>
+                        <% else %>
+                          <% @persona = Persona.find(domrol.persona_id) %>
+                          <td scope = "row"><%= @persona.name%></td>
+                        <%end%>
+                      <%end%>
+                    <%end%>
+                                                      
+                    <td><%= domain.date_posetion %></td>
+                    <td><%= domain.percentage %></td>
+                    <td>                   
+                        <%= link_to "ver", domain, class: "btn btn-info" %>
+                        <%= link_to "editar", edit_domain_path(domain), class: "btn btn-warning" %>
+                        <%= link_to 'Borrar', domain, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                        
+                    </td>
+
+                  </tr>
+                <%end%>
+              <%end%>    
+            <%end%>  
+          </tbody> 
         </table>        
       </div>
     </div>
