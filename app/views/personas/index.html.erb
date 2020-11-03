@@ -170,25 +170,25 @@
   </thead>
 
   <tbody id="bodyData" class="rounded-pill">
-  <% @personas.each do |persona| %>
+    <% Persona.order(:id).each do |persona| %>
 
-    <tr>
-      <td><%= persona.rut %></td>
-      <td><%= persona.full_name_persona %></td>
-      <td><%= persona.e_civil %> </td>
-      <td><%= persona.profesion %> </td>
-      <td><%= persona.birth_date %> </td>
-      <td><%= persona.nacionality %> </td>
-      <td><%= persona.passport %> </td>
-      
-      <td>
-        <%= link_to 'ver', persona , class: "btn btn-info" %>
-        <%= link_to 'editar', edit_persona_path(persona) , class: "btn btn-warning" %>
-        <%= link_to 'borrar', persona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      <tr>
+        <td><%= persona.rut %></td>
+        <td><%= persona.full_name_persona %></td>
+        <td><%= persona.e_civil %> </td>
+        <td><%= persona.profesion %> </td>
+        <td><%= persona.birth_date %> </td>
+        <td><%= persona.nacionality %> </td>
+        <td><%= persona.passport %> </td>
+        
+        <td>
+          <%= link_to 'ver', persona , class: "btn btn-info" %>
+          <%= link_to 'editar', edit_persona_path(persona) , class: "btn btn-warning" %>
+          <%= link_to 'borrar', persona, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
 
-    </tr>
-  <% end %>
-</tbody>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 

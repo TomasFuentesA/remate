@@ -218,7 +218,7 @@
               <th scope="col">Porcentaje</th>
             </tr>
           </thead>
-          <% @participaciones = PersonaMember.where(persona_id: @persona.id) %>
+          <% @participaciones = PersonaMember.where(persona_id: @persona.id, type_member: "Natural") %>
           <tbody class="rounded-pill">
             <% @participaciones.each do |participa| %>
               <tr>

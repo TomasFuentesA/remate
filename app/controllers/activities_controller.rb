@@ -8,7 +8,6 @@ class ActivitiesController < ApplicationController
 
   def new
     @activity = @activityable.activities.new
-    @rubro = Rubro.all
   end
 
   def show

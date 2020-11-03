@@ -25,7 +25,7 @@ class DomainsController < ApplicationController
       end  
     end
     
-    if params[:domain][:type_modality] == "Compra y Venta de acciones"
+    if params[:domain][:type_modality] == "Compra y Venta de acciones" then
       c = params[:vendedor]
       if c.chars[c.length - 1] == "N"
         legal = LegalPersona.find(params[:legal_persona_id])
@@ -69,34 +69,20 @@ class DomainsController < ApplicationController
             redirect_to @domainable, notice: "Dominio añadido!"
           end
         end  
-        
       end
-    else
+    elsif params[:domain][:type_modality] == "Modificacion de empresa" then
+      params[:domain][:percentage] = 0
+      params[:domain][:price] = 0
       if (var + (params[:domain][:percentage]).to_i ) <= 100
-        Rails.logger.info "var <= 100"
-        
         @domain = @domainable.domains.new(domain_params)
         if @domain.save
           c = params[:vendedor]
-          if c.chars[c.length - 1] == "N"
-            if @domain.type_modality == "Creacion de empresa"
-              DomainRol.create(type_member: 'Natural', type_rol: 'Creador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-              PersonaMember.create(legal_persona_id: @domain.domainable_id, percentage: @domain.percentage.round(2), type_member: 'Natural', persona_id: c.split("N")[0].to_i, acciones: @domain.price, entrada: @domain.date_posetion)
-            end                
-            if @domain.type_modality == "Modificacion de empresa"
-              DomainRol.create(type_member: 'Natural', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
-            end
-          else
-            if @domain.type_modality == "Creacion de empresa"
-              DomainRol.create(type_member: 'Legal', type_rol: 'Creador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
-              PersonaMember.create(legal_persona_id: @domain.domainable_id, percentage: @domain.percentage.round(2), type_member: 'Legal', persona_id: c.split("N")[0].to_i, acciones: @domain.price, entrada: @domain.date_posetion)
-            end  
-            if @domain.type_modality == "Modificacion de empresa"
-              DomainRol.create(type_member: 'Legal', type_rol: 'Modificador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)
-            end
-         
+          if c.chars[c.length - 1] == "N"                
+            DomainRol.create(type_member: 'Natural', type_rol: 'Modificador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)     
+          else 
+            DomainRol.create(type_member: 'Legal', type_rol: 'Modificador', persona_id: c.split("L")[0].to_i, domain_id: @domain.id)         
           end     
-        redirect_to @domainable, notice: "Dominio añadido!"
+          redirect_to @domainable, notice: "Dominio añadido!"
         else
           flash[:errors] = @domain.errors.full_messages
           redirect_to @domainable
@@ -104,6 +90,82 @@ class DomainsController < ApplicationController
       else
         flash[:alert] = "El porcentaje de participacion excede el 100%"
         redirect_to @domainable      
+      end
+    else
+      Rails.logger.info params
+      c = params[:vendedor]
+      if c.chars[c.length - 1] == "N"
+        Rails.logger.info "Es Natural"
+        member = PersonaMember.where(persona_id: c.chars[0].to_i, type_member: "Natural", legal_persona_id: params[:legal_persona_id])
+        if member.length == 0
+          @legalpersona = LegalPersona.find(params[:legal_persona_id])
+          @legalpersona.update(acciones: (@legalpersona.acciones + params[:domain][:price].to_i), total: (@legalpersona.total + params[:domain][:valor].to_i ))
+          porcentaje = (params[:domain][:price].to_i * 100).to_f/@legalpersona.acciones
+          PersonaMember.create(legal_persona_id: @legalpersona.id, percentage: porcentaje.to_f.round(2), type_member: "Natural", persona_id: c.chars[0].to_i, acciones: params[:domain][:price].to_i, entrada: params[:domain][:date_posetion] )
+          @actuales = PersonaMember.where(legal_persona_id: @legalpersona.id)
+          @actuales.each do |actual|
+            if actual.id != member[0].id
+              nuevo_porcentaje = (actual.acciones * 100).to_f/@legalpersona.acciones
+              actual.update(percentage: nuevo_porcentaje.round(2))
+            end 
+          end
+          @domain = Domain.create(type_modality: params[:domain][:type_modality], price: params[:domain][:price].to_i, date_posetion: params[:domain][:date_posetion], domainable_id: @legalpersona.id, domainable_type: 'LegalPersona', percentage: params[:domain][:percentage].to_f, notario_id: params[:domain][:notario_id], valor: params[:domain][:valor].to_i) 
+          DomainRol.create(type_member: 'Natural', type_rol: 'Aumentador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+          Rails.logger.info "No existe"
+          redirect_to legalpersona
+        else
+          @legalpersona = LegalPersona.find(params[:legal_persona_id])
+          nueva_accion = @legalpersona.acciones + params[:domain][:price].to_i
+          nuevo_total = @legalpersona.total + params[:domain][:valor].to_i
+          @legalpersona.update(acciones: nueva_accion, total: nuevo_total)
+          nueva_accion = member[0].acciones + params[:domain][:price].to_i 
+          member[0].update(acciones: nueva_accion, percentage: ((nueva_accion*100)/@legalpersona.acciones).to_f)
+          @actuales = PersonaMember.where(legal_persona_id: @legalpersona.id)
+          @actuales.each do |actual|
+            if actual.id != member[0].id
+              nuevo_porcentaje = (actual.acciones * 100).to_f/@legalpersona.acciones
+              actual.update(percentage: nuevo_porcentaje.round(2))
+            end 
+          end
+          @domain = Domain.create(type_modality: params[:domain][:type_modality], price: params[:domain][:price].to_i, date_posetion: params[:domain][:date_posetion], domainable_id: @legalpersona.id, domainable_type: 'LegalPersona', percentage: params[:domain][:percentage].to_f, notario_id: params[:domain][:notario_id], valor: params[:domain][:valor].to_i) 
+          DomainRol.create(type_member: 'Natural', type_rol: 'Aumentador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+          redirect_to @legalpersona
+        end
+      else
+        Rails.logger.info "Es Legal"
+        member = PersonaMember.where(persona_id: c.chars[0].to_i, type_member: "Legal", legal_persona_id: params[:legal_persona_id])
+        if member.length == 0
+          @legalpersona = LegalPersona.find(params[:legal_persona_id])
+          @legalpersona.update(acciones: (@legalpersona.acciones + params[:domain][:price].to_i), total: (@legalpersona.total + params[:domain][:valor].to_i ))
+          porcentaje = (params[:domain][:price].to_i * 100).to_f/@legalpersona.acciones
+          PersonaMember.create(legal_persona_id: @legalpersona.id, percentage: porcentaje.to_f.round(2), type_member: "Legal", persona_id: c.chars[0].to_i, acciones: params[:domain][:price].to_i, entrada: params[:domain][:date_posetion] )
+          @actuales = PersonaMember.where(legal_persona_id: @legalpersona.id)
+          @actuales.each do |actual|
+            nuevo_porcentaje = (actual.acciones * 100).to_f/@legalpersona.acciones
+            actual.update(percentage: nuevo_porcentaje.round(2))
+          end 
+          @domain = Domain.create(type_modality: params[:domain][:type_modality], price: params[:domain][:price].to_i, date_posetion: params[:domain][:date_posetion], domainable_id: @legalpersona.id, domainable_type: 'LegalPersona', percentage: params[:domain][:percentage].to_f, notario_id: params[:domain][:notario_id], valor: params[:domain][:valor].to_i) 
+          DomainRol.create(type_member: 'Legal', type_rol: 'Aumentador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+          Rails.logger.info "No existe"
+          redirect_to legalpersona
+        else
+          @legalpersona = LegalPersona.find(params[:legal_persona_id])
+          nueva_accion = @legalpersona.acciones + params[:domain][:price].to_i
+          nuevo_total = @legalpersona.total + params[:domain][:valor].to_i
+          @legalpersona.update(acciones: nueva_accion, total: nuevo_total)
+          nueva_accion = member[0].acciones + params[:domain][:price].to_i 
+          member[0].update(acciones: nueva_accion, percentage: ((nueva_accion*100)/@legalpersona.acciones).to_f)
+          @actuales = PersonaMember.where(legal_persona_id: @legalpersona.id)
+          @actuales.each do |actual|
+            if actual.id != member[0].id
+              nuevo_porcentaje = (actual.acciones * 100).to_f/@legalpersona.acciones
+              actual.update(percentage: nuevo_porcentaje.round(2))
+            end 
+          end
+          @domain = Domain.create(type_modality: params[:domain][:type_modality], price: params[:domain][:price].to_i, date_posetion: params[:domain][:date_posetion], domainable_id: @legalpersona.id, domainable_type: 'LegalPersona', percentage: params[:domain][:percentage].to_f, notario_id: params[:domain][:notario_id], valor: params[:domain][:valor].to_i) 
+          DomainRol.create(type_member: 'Legal', type_rol: 'Aumentador', persona_id: c.split("N")[0].to_i, domain_id: @domain.id)
+          redirect_to @legalpersona
+        end
       end
     end    
   end
@@ -188,7 +250,32 @@ class DomainsController < ApplicationController
               end  
             end
             domrol.destroy
-          end          
+          end
+        elsif @domain.type_modality == "Añadir acciones"
+          @legalpersona = LegalPersona.find(@domain.domainable_id)
+          DomainRol.order(:id).each do |domrol|
+            if domrol.domain_id == @domain.id
+              member = PersonaMember.where(persona_id: domrol.persona_id, type_member: domrol.type_member, legal_persona_id: @domain.domainable_id)
+              if member[0].acciones - @domain.price == 0
+                member[0].destroy
+                @legalpersona.update(acciones: @legalpersona.acciones - @domain.price, total: @legalpersona.total - @domain.valor)
+                domrol.destroy
+                flash[:notice] = "Eliminado correctamente"
+              else
+                @legalpersona.update(acciones: @legalpersona.acciones - @domain.price, total: @legalpersona.total - @domain.valor)
+                accion = member[0].acciones - @domain.price
+                porcentaje = ((accion*100)/@legalpersona.acciones).to_f
+                member[0].update(acciones: accion, percentage: porcentaje)
+                domrol.destroy
+                flash[:notice] = "Eliminado correctamente"
+              end
+            end
+          end
+          @miembros = PersonaMember.where(legal_persona_id: @legalpersona.id)
+          @miembros.each do |miembro|
+            new_percentage = (miembro.acciones*100).to_f/@legalpersona.acciones
+            miembro.update(percentage: new_percentage.round(2))
+          end    
         else
           domrol.destroy  
         end

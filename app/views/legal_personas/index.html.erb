@@ -165,7 +165,7 @@
   </thead>
 
   <tbody id="bodyData" class="rounded-pill">
-  <% @legalpersonas.each do |legalpersona| %>
+  <% LegalPersona.order(:id).each do |legalpersona| %>
 
     <tr>
       <td><%= legalpersona.rut %></td>
