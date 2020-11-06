@@ -1,4 +1,67 @@
 <script>
+ function getPersonDemandado(params) {
+      var option = '<option value=0>Seleccione persona natural / empresa</option>'
+      var list = option 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandado") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
+      <%end%>
+      $('#judgement_demandadoList').html(list);       
+    }
+
+    function getPersonDemandante(params) {
+      var option = '<option value=0>Seleccione persona natural / empresa</option>'
+      var list = option
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandante") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandante") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
+      <%end%>
+      $('#judgement_demandanteList').html(list);       
+    }
+
+    function validatePersonaLegal(pesonaLegalId,type){
+      <% @judgementPersonas = JudgementPersonas.where(judgement_id:params[:id]) %>
+      var count = <%=@judgementPersonas != "" ? @judgementPersonas.size : 0 %>
+      if(count > 0){
+        <% @judgementPersonas.each do |judgementPersona| %>
+        var persona_id = '<%=judgementPersona.persona_id%>'
+        var persona_type = '<%=judgementPersona.persona_type%>'
+        var judgement_type = '<%=judgementPersona.judgement_type%>'
+          if(persona_id==pesonaLegalId && judgement_type==type && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNatural(pesonaNaturalId,type){
+      <% @judgementPersonas = JudgementPersonas.where(judgement_id:params[:id]) %>
+      var count = <%=@judgementPersonas != "" ? @judgementPersonas.size : 0 %>
+      if(count > 0){
+        <% @judgementPersonas.each do |judgementPersona| %>
+        var persona_id = '<%=judgementPersona.persona_id%>'
+        var persona_type = '<%=judgementPersona.persona_type%>'
+        var judgement_type = '<%=judgementPersona.judgement_type%>'
+          if(persona_id==pesonaNaturalId && judgement_type==type && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
   $(document).ready(function() {
     $('select#judgement_court_id').select2({
       theme: "bootstrap"
@@ -6,6 +69,12 @@
      $('select#judgement_type_judgement').select2({
       theme: "bootstrap"
     });
+    $('.select-multiple').select2({
+      theme: "bootstrap",
+      width: "100%"
+    }); 
+    getPersonDemandante();
+    getPersonDemandado();
   });
   </script>
 <div class="main container">
@@ -38,11 +107,11 @@
         </div>
         <div class="field">
           <%= form.label :demandante, "Demandante:" %>
-          <%= form.text_field :demandante, id: :demandante , class:"form-control border" %>
+          <%= form.select :demandanteList , options_for_select([[]]),{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
         </div>
-        <div class="field">
+          <div class="field">
           <%= form.label :demandado, "Demandado:" %>
-          <%= form.text_field :demandado, id: :demandado , class:"form-control border" %>
+          <%= form.select :demandadoList , options_for_select([[]]),{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
         </div>
         <br>
         <%= form.submit "Guardar",class: "btn btn-success" %>

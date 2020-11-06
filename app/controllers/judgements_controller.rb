@@ -23,13 +23,34 @@ class JudgementsController < ApplicationController
   end
 
   def edit
-
+ 
   end
   def show
 
   end
 
   def update
+    Rails.logger.info params
+    @judgementPersonasValidate = JudgementPersonas.where(judgement_id:params[:id])
+    @judgementPersonasValidate.destroy_all
+    params[:judgement][:demandadoList].each do |p|
+      if(p.to_s !="")
+        @num = p.to_i
+        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+        @judgementPersonas = JudgementPersonas.new(judgement_id:params[:id],persona_id:@idPersona,persona_type:@tipo,judgement_type:"demandado")
+        @judgementPersonas.save
+      end
+    end
+    params[:judgement][:demandanteList].each do |p|
+      if(p.to_s !="")
+        @num = p.to_i
+        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+        @judgementPersonas = JudgementPersonas.new(judgement_id:params[:id],persona_id:@idPersona,persona_type:@tipo,judgement_type:"demandante")
+        @judgementPersonas.save
+      end
+    end
     @judgement.update(judgement_params)
     redirect_to judgements_path
   end
