@@ -44,13 +44,17 @@
       <div class="col-sm-12 card-body">
       <h1 align="center">Escrituras de <%= @legal_persona.name%></h1> 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="name"> Modalidad: </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.type_modality %>" readonly>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="name"> Fecha de posesion </label>
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.date_posetion %>" readonly>
+          </div>
+          <div class="col-md-4">
+            <label for="name"> Porcentaje del vendedor: </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
           </div>
         </div>
         <div class="row">
@@ -74,9 +78,17 @@
             <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.valor %>" readonly>
           </div>
           <div class="col-md-3">
-            <label for="name"> Porcentaje del vendedor: </label>
-            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= @domain.percentage %>" readonly>
+            <% actual2 = @domain.valor %>
+            <% domrol = DomainRol.find_by(domain_id: @domain.id) %>
+            <% Comprador.order(:id).each do |comprador| %>
+              <% if comprador.domain_rol_id == domrol.id %>
+                <% actual2 -= comprador.precio %>
+              <%end%>
+            <%end%>
+            <label for="name"> Precio restante: </label>
+            <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= actual2 %>" readonly>
           </div>
+
         </div>
         <div class="row">
           <%if @domain.type_modality == "Creacion de empresa"%>
@@ -141,7 +153,7 @@
           </div>
           <%else%>
           <br>
-          <div class= "card" style="width:1400px">
+          <div class= "card" style="width:2000px">
             <div class = "card-body">
               <div class= "row">  
                 <div class="col-md-6">
@@ -262,14 +274,19 @@
           </div>
 
           <div class="col">
-            <%= form.label :acciones %>
-            <%= form.number_field :acciones, class: "form-control", oninput: "f_percentage(this)"%>
+            <%= form.label :acciones, "Acciones" %>
+            <%= form.number_field :acciones, class: "form-control", oninput: "f_percentage(this)", required: true%>
                                             
           </div>
 
           <div class="col">
-            <%= form.label :percentage %>
+            <%= form.label :percentage, "Porcentaje" %>
             <%= form.text_field :percentage, class:"form-control", readonly: true %>
+          </div>
+
+          <div class="col">
+            <%= form.label :precio, "Valor a pagar" %>
+            <%= form.number_field :precio, class:"form-control", required: true %>
           </div>
 
           <%= form.hidden_field :domain_rol_id, value: domrol.id %>

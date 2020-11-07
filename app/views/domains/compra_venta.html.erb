@@ -47,6 +47,8 @@
             <%end%>
           }
         <%end%>
+        global_list = list
+        console.log(global_list)
         $('.vendedor').html(list);      
       } else {
         <%Persona.order(:name).each do |persona| %>
@@ -75,7 +77,7 @@
       <div class="card text-center bg-ligth mb-6">
         <div class="card-header">
           <% @legal_persona = LegalPersona.find(params[:legal_persona_id])%>
-          <h1>Creación de <%= @legal_persona.name %></h1>
+          <h1>Escritura de Compra y Venta de <%= @legal_persona.name %></h1>
         </div>
         <div class="card-body">
           <p class="card-text">
@@ -89,7 +91,7 @@
             <div class="form-row">
               <div class="col">
                 <%= form.label :type_modality, "Modalidad:" %>
-                <%= form.select :type_modality, options_for_select([["Creacion de empresa", "Creacion de empresa"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_tipo(this)" %>
+                <%= form.select :type_modality, options_for_select([["Compra y Venta de acciones","Compra y Venta de acciones"]]),{include_blank: "Seleccione"} ,class:"custom-select mr-sm-2", onchange: "get_tipo(this)" %>
               </div>
               <div class="col">
                 <% @legal_persona = LegalPersona.find(params[:legal_persona_id])%>
@@ -103,22 +105,28 @@
             </div>
             <br>
             <div class="form-row" >
-              <div class="col"><select class="vendedor form-control" id="vendedor" name="vendedor[]" value=""
-                  placeholder="Vendedor" required></select></div>
-              <div class="col"><input type="text" class="form-control" id="price" name="price[]" value=""
-                  placeholder="price" required></div>
-              <div class="col"><input type="text" class="form-control" id="percentage" name="percentage[]" value=""
-                  placeholder="percentage" required></div>
-              <div class="col"><button class="btn btn-primary" type="button" onclick="education_fields(global_list)">
-                  Añadir Nuevo </button></div>
+                <div class="col">
+                    <select class="vendedor form-control" id="vendedor" name="vendedor[]" value="" placeholder="Vendedor" required></select>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="price" required>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="percentage" required>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" type="button" onclick="education_fields(global_list)">Añadir Nuevo </button>
+                </div>
             </div>
+            <br>
             <div class="form-row" id="education_fields">
-              
-            </div>  
-          <div class="form-row">
-            <div class="form-group">
-              <%= form.submit "Guardar Creador(es)", class: "btn btn-success btn-lg btn-block" %>
+            
             </div>
+              
+            <div class="form-row">
+                <div class="form-group">
+                <%= form.submit "Agregar Compra y Venta", class: "btn btn-success btn-lg btn-block" %>
+                </div>
           </div>
         </div>
       </div>

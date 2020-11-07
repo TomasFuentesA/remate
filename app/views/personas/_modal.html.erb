@@ -185,6 +185,7 @@
                       <th scope="col">Fecha de Ingreso</th>
                       <th scope="col">Acciones</th>
                       <th scope="col">Porcentaje</th>
+                      <th scope="col">Capital</th>
                     </tr>
                   </thead>
                   <% @participaciones = PersonaMember.where(persona_id: @memberp.id) %>
@@ -195,7 +196,8 @@
                         <td scope="row"> <%= empresa.name %></td>
                         <td> <%= participa.entrada %> </td>
                         <td> <%= participa.acciones %> </td>
-                        <td> <%= participa.percentage %> </td>   
+                        <td> <%= participa.percentage.round(2) %> </td>
+                        <td> <%= participa.capital_actual %> </td>      
                       </tr>
                     <%end%>  
                   </tbody>

@@ -197,7 +197,7 @@
         <%= link_to 'Editar Actividad', edit_persona_activity_path(@persona,@activities.ids) ,class:"btn btn-secondary"%>
       <% end %>
       <br>
-      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar participaciones historicas</button>
       <br>
       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentantes" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
     </div>  
@@ -216,6 +216,7 @@
               <th scope="col">Fecha de Ingreso</th>
               <th scope="col">Acciones</th>
               <th scope="col">Porcentaje</th>
+              <th scope="col">Capital</th>
             </tr>
           </thead>
           <% @participaciones = PersonaMember.where(persona_id: @persona.id, type_member: "Natural") %>
@@ -226,7 +227,8 @@
                 <td scope="row"> <%= empresa.name %></td>
                 <td> <%= participa.entrada %> </td>
                 <td> <%= participa.acciones %> </td>
-                <td> <%= participa.percentage %> </td>   
+                <td> <%= participa.percentage.round(2) %> </td>
+                <td> <%= participa.capital_actual %> </td>    
               </tr>
             <%end%>  
           </tbody>

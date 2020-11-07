@@ -31,6 +31,13 @@ Rails.application.routes.draw do
   get 'list_domain/:domainable_id', to: 'domains#list_domain', as: 'listado_creadores'
   get 'creador_empresa/:legal_persona_id', to: 'domains#creador_empresa', as: 'creador'
   post 'creador_empresa/:legal_persona_id', to: 'domains#creador_empresa', as: 'creadores'
+  get 'compra_venta/:legal_persona_id', to: 'domains#compra_venta', as: 'compraventa'
+  post 'compra_venta/:legal_persona_id', to: 'domains#compra_venta', as: 'compraventas'
+  get 'modificacion/:legal_persona_id', to: 'domains#modificacion', as: 'modificacion'
+  post 'modificacion/:legal_persona_id', to: 'domains#modificacion', as: 'modificaciones'
+  get 'agregar_accion/:legal_persona_id', to: 'domains#agregar_accion', as: 'agregar_accion'
+  post 'agregar_accion/:legal_persona_id', to: 'domains#agregar_accion', as: 'agregar_acciones'
+  
 
   # devise_for :users, controllers: {{     }
   #   registrations: 'users/registrations'}
