@@ -1,9 +1,10 @@
+<% legal_persona = LegalPersona.find(params[:domainable_id]) %>
+<%= link_to 'Volver a Persona Legal', legal_persona, class: "btn btn-primary" %>
 <div class= "row">
     <div class= "col">
         <div class= "container">
             <div class="card text-center bg-light mb-3">
-                <% legal_persona = LegalPersona.find(params[:domainable_id]) %>
-                <div class="card-header"><h1>Listado de creadores de <%= legal_persona.name%></h1></div>
+                <div class="card-header"><h2>Listado de creadores de <%= legal_persona.name%>/<%= legal_persona.rut%></h2></div>
                 <div class="card-body">
                     <p class="card-text">
                         <table class = "table table-bordered table-hover">

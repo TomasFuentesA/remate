@@ -29,7 +29,7 @@
         <%= link_to 'propiedades', '#propiedades', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
         <%=link_to 'avisos', '#avisos', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
         <%=link_to 'estadisticas', '#estadisticas', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
-
+        <%=link_to 'configuraciones', '#configuraciones', class: 'list-group-item list-group-item-action ', data: {toggle: "list"}, role: 'tab' ,remote: true  %>
       </div>
     </div>
     <div class="col-8">
@@ -40,6 +40,7 @@
         <div class="tab-pane fade" id="propiedades" role="tabpanel"><%= render partial: 'propiedades', remote: true%></div>
         <div class="tab-pane fade" id="avisos" role="tabpanel"><%= render partial: 'avisos', remote: true%></div>
         <div class="tab-pane fade" id="estadisticas" role="tabpanel"><%= render partial: 'estadisticas', remote: true%></div>
+        <div class="tab-pane fade" id="configuraciones" role="tabpanel"><%= render partial: 'configuraciones', remote: true%></div>
 
       </div>
     </div>

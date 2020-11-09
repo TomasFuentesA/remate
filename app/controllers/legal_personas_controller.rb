@@ -17,8 +17,9 @@ class LegalPersonasController < ApplicationController
   end
 
   def create
+    Rails.logger.info params
     @legalpersona = LegalPersona.new(legal_persona_params)
-    if  @legalpersona.save
+    if @legalpersona.save
       flash[:notice] =  "ingresado exitosamente"
       redirect_to legal_personas_path
     else
@@ -70,9 +71,9 @@ private
 
   def legal_persona_params
     if params['legal_persona']
-      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones, :total)
+      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :acciones, :total)
     else
-      params.permit(:rut, :name, :fantasy_name, :alias, :web, :notario, :acciones, :total)
+      params.permit(:rut, :name, :fantasy_name, :alias, :web, :acciones, :total)
     end
   end
 

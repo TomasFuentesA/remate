@@ -1,0 +1,554 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop<%= @legalpersona.id %>">
+  Ver
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop<%= @legalpersona.id %>" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <h1 align="center"> Información de <%= @legalpersona.name%> </h1>
+                <div class="col-sm-12 card card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="name">Razon Social:</label>
+                            <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value ='<%= @legalpersona.name %>' readonly>
+                        </div>
+                    </div>
+                    <div class= "row">
+                        <div class="col-md-12">
+                            <label for="name">Rut:</label>
+                            <input type = "text" id="rut" class= "form-control" placeholder= "Rut" disable value = '<%= @legalpersona.rut %>' readonly>
+                        </div>
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="col-sm-4"> <!--FANTASY NAME-->
+                            <%if @legal_persona.fantasy_name? %>
+                                <div class="field">
+                                    <label for="name">Fantasy name:</label>      
+                                    <input type = "text" id="fantasy_name" class= "form-control" placeholder= "fantasy_name" disable value = '<%= @legal_persona.fantasy_name %>' readonly>
+                                </div>  
+                            <% end %>
+                        
+                        </div>
+                        <div class="col-sm-4"> <!--ALIAS-->
+                            <%if @legal_persona.alias? %>
+                                <div class="field">
+                                    <label for="name">Alias:</label>      
+                                    <input type = "text" id="alias" class= "form-control" placeholder= "alias" disable value = '<%= @legal_persona.alias %>' readonly>     
+                                </div>  
+                            <% end %>       
+                        </div>
+                        <div class="col-sm-4"> <!--WEB-->
+                            <%if @legal_persona.web %>
+                                <div class ="field">
+                                    <label for="name">Web:</label>      
+                                    <input type = "text" id="web" class= "form-control" placeholder= "web" disable value = '<%= @legal_persona.web %>' readonly>     
+                                </div>  
+                            <% end %>
+                        </div>
+
+                        <div class="col-sm-5"> <!--Phones-->
+                            <% if @legal_persona.phones.any? %>
+                                <div class="field"> 
+                                    <label for="name">Phones:</label>
+                                    <% @phones.each do |phone| %>
+                                        <div class="row" style="margin-bottom: 6px;">
+                                            <div class="col">
+                                                <input type = "text" id="phone_a" class= "form-control" placeholder= "phone_a" disable value = "<%= phone.type_phone%>:  <%= phone.number_phone %>" readonly>
+                                            </div>  
+                                        </div>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                        </div>
+                        <div class="col-sm-7"> <!--Emails-->
+                            <% if @legal_persona.emails.any? %> 
+                                <div class="field">
+                                    <label for="name">Emails:</label>
+                                    <% @emails.each do |email| %>
+                                        <div class="row" style="margin-bottom: 6px;">
+                                            <div class="col">
+                                                <input type = "text" id="emaila" class= "form-control" placeholder= "emaila" disable value = <%= email.email%> readonly>  
+                                            </div> 
+                                        </div>
+                                    <% end %>  
+                                </div> 
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12"><!--Directions-->
+                            <div class= "field">
+                                <% if @legal_persona.directions.any? %>
+                                    <div class="field">
+                                        <label for="name">Directions:</label>
+                                        <% @directions.each do |direction| %>
+                                        <% Realty.order(:id).each do |realties|%>
+                                            <% if direction.realties_id == realties.id %>
+                                            <div class="row" style="margin-bottom: 6px;">
+                                                <div class="col">
+                                                    <input type = "text" id="direction" class= "form-control" placeholder= "directiona" disable value = "<%= realties.address.to_s %>" readonly>                
+                                                </div>                        
+                                            </div>
+                                            <% end %>
+                                        <%end%>  
+                                    
+                                        <% end %>
+                                    </div>
+                                <%end%>  
+                            </div>
+                        </div>
+                        <br>
+                        <div class = "container-fluid"><!--Activities-->
+                            <div class = "row">
+                                <% if @legal_persona.activities.any? %>
+                                <div class="col-sm-12">
+                                    <h5 align="center"> Actividades: </h5>
+                                    <table class="table table-bordered table-hover">
+                                    <thead  class="thead-dark">
+                                        <tr>
+                                        <th scope="col">Nombre de Actividad</th>
+                                        <th scope="col">Rubro</th>
+                                        <th scope="col">Afecta IVA?</th>
+                                        <th scope="col">codigo de actividad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="rounded-pill"> 
+                                        <% @activities.each do |activity| %>
+                                        <tr>
+                                        <td scope="row">
+                                            <%= activity.name_activity %>
+                                        </td>
+                                        <td scope= "row">
+                                            <%= activity.rubro %>
+                                        </td>  
+                                        <td scope="row">
+                                            <%= activity.afect_iva %>
+                                        </td>
+                                        <td scope="row">
+                                            <%= activity.code %>
+                                        </td>
+                                        </tr>  
+                                        <% end %>
+                                    </tbody>
+                                    </table>    
+                                </div>
+                                <% end %>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class = "container-fluid"><!--Representantes legales-->
+                            <div class = "row">
+                                <div class="col-sm-12">
+                                <h5 align="center"> Representes legales </h5>
+                                <table class="table table-bordered table-hover">
+                                    <thead  class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Rut</th>
+                                            <th scope="col">Fecha de Ingreso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="rounded-pill"> 
+                                        <% LegalRepresent.order(:id).each do |representante| %>
+                                            <% if representante.legal_persona_id == @legal_persona.id %>
+                                            <tr>
+                                                <% persona = Persona.find(representante.persona_id) %>
+                                                <td scope="row">
+                                                <%= persona.name %> <%= persona.last_name1 %>
+                                                </td>
+                                                <td scope= "row">
+                                                <%= persona.rut %>
+                                                </td>  
+                                                <td scope="row">
+                                                <%= representante.entrada %>
+                                                </td>
+                                            </tr>
+                                            <% end %>    
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div> 
+                        </div>       
+                    </div>
+                </div>
+                
+
+        </div>    
+        <div class="container-fluid">
+            <% if PersonaMember.any? %>
+                <div class="row">
+                    <div class="col-sm-12 card card-body">
+                    <h1 align = "center"> Miembros </h1>
+                    <table class="table table-bordered table-hover">
+                        <thead  class="thead-dark">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Acciones</th>
+                            <th scope="col">Participación</th>
+                            <th scope="col">Entrada</th>
+                        </tr>
+                        </thead>
+                        <tbody class="rounded-pill">
+                        <% PersonaMember.order(:id).each do |personam| %>
+                            <% if personam.legal_persona_id == @legal_persona.id %>
+                            <% if (personam.type_member == "Natural")%>
+                                <% Persona.order(:id).each do |member| %>
+                                <%if (personam.persona_id == member.id) %>  
+                                    <tr>
+                                    
+                                    <td scope="row"><%= member.rut %>, <%= member.name%></td>
+                                    <td scope="row"><%= personam.acciones%></td>
+                                    <td scope="row">
+                                        <%= personam.percentage%> %    
+                                    </td>
+                                    <td scope="row"><%= personam.entrada%></td>
+                                    </tr>
+                                <%end%> 
+                                <%end%>  
+                            <% else %>
+                                <% LegalPersona.order(:id).each do |legalp| %>
+                                <%if (legalp.id == personam.persona_id) %>
+                                    <tr>
+                                    <td scope="row"><%= legalp.rut %>, <%= legalp.name%></td>
+                                    <td scope="row"><%= personam.acciones%></td>
+                                    <td scope="row">
+                                        <%= personam.percentage %> %
+                                    </td> 
+                                    <td scope="row"><%= personam.entrada%></td>   
+                                    </tr>
+                                <%end%>  
+                                <%end%>
+                            <%end%>
+                            <%end%>
+                        <%end%>      
+                        </tbody> 
+                        <% var = 0 %>
+                        <% PersonaMember.order(:id).each do |personam| %>
+                        <% if personam.legal_persona_id == @legal_persona.id%>
+                            <% var += personam.percentage%>
+                        <% end %>
+                        <% end %>  
+                        <thead class= "thead-light">
+                        <tr>
+                            <th scope= "col"> 
+                            Total
+                            </th>
+                        </tr>
+                        </thead> 
+                        <tbody class= "rounded-pill">
+                        <tr>
+                            <td scope = "row"> <%= var%> % </td>
+                        </tr>
+                        </tbody>
+                    </table>   
+                        
+                    </div>
+                </div>     
+            <%end%>
+
+            <% if @legal_persona.domains.any? %>
+                <div class="row">
+                    <div class="col-sm-12 card card-body">
+                        <h1 align= "center">Escrituras de <%= @legalpersona.name %>: </h1>
+                        <table   class="table table-bordered table-hover">
+                        <thead  class="thead-dark">
+                            <tr>
+                            <th scope="col">Notario</th>
+                            <th scope="col">Modalidad</th>
+                            <th scope="col">Acciones
+                            <th scope="col">Precio</th>
+                            <th scope="col">Vendedor</th>
+                            <th scope="col">Comprador</th>
+                            <th scope="col">Fecha de posecion</th>
+                            <th scope="col">Porcentaje</th>
+                            </tr>
+                        </thead>
+                        <tbody class="rounded-pill">
+                            <% @creacion = Domain.where(type_modality: "Creacion de empresa", domainable_id: @legal_persona.id) %>
+                            <tr>
+                            <% notario = LegalPersona.find(@creacion[0].notario_id) %>
+                            <td scope= "row"><%= notario.name%> </td>
+                            <td>Creacion de empresa</td>
+                            <td>
+                            <% @creacion.each do |creacion| %>
+                                <div class= "col">
+                                <%= creacion.price %>
+                                </div>
+                            <%end%>
+                            </td>
+                            <td>
+                            <% @creacion.each do |creacion| %>
+                                <div class= "col">
+                                <%= creacion.valor %>
+                                </div>
+                            <%end%>
+                            </td>
+                            <td>
+                            <% @creacion.each do |creacion| %>
+                                <% creador = DomainRol.where(type_rol: "Creador", domain_id: creacion.id) %>
+                                <% if creador[0].type_member == "Legal" %>
+                                <% legal = LegalPersona.find(creador[0].persona_id) %>
+                                <div class= "col">
+                                    <%= legal.name %>
+                                </div>
+                                <%else%>
+                                <% persona = Persona.find(creador[0].persona_id) %>
+                                <div class= "col">
+                                    <%= persona.name %>
+                                </div>    
+                                <%end%>  
+                            <%end%>
+                            </td>
+                            <td> No figura comprador </td>
+                            <td><%= @creacion[0].date_posetion %></td>
+                            <td>
+                            <% @creacion.each do |creacion| %>
+                                <div class= "col">
+                                <%= creacion.percentage %>
+                                </div>
+                            <%end%>
+                            </td>
+
+                            </tr>
+                            
+                            
+                            <% Domain.order(:date_posetion).each do |domain| %>
+                            <% if domain.domainable_id == @legal_persona.id %>
+                                <% if (domain.type_modality != "Creacion de empresa") && (domain.type_modality != "Añadir acciones")%>
+                                <tr>
+                                    <% LegalPersona.order(:id).each do |legalp|%>
+                                    <% if legalp.id == domain.notario_id %>
+                                        <td scope="row"><%= legalp.name%></td>
+                                    <%end%>
+                                    <%end%>    
+                                    <td><%= domain.type_modality %></td>
+                                    <td><%= domain.price %></td>
+                                    <td><%= domain.valor %></td>
+                                    <% DomainRol.order(:id).each do |domrol| %>
+                                    <% if domrol.domain_id == domain.id %>
+                                        <% if domrol.type_member == "Legal" %>
+                                        <% @legal = LegalPersona.find(domrol.persona_id) %>
+                                        <td scope = "row"><%= @legal.name%></td>
+                                        <% else %>
+                                        <% @persona = Persona.find(domrol.persona_id) %>
+                                        <td scope = "row"><%= @persona.name%></td>
+                                        <%end%>
+                                    <%end%>
+                                    <%end%>
+                                    
+                                    <% if domain.type_modality == "Compra y Venta de acciones" %>
+                                                    
+                                    <% DomainRol.order(:id).each do |domrol| %>
+                                        <% if domrol.domain_id == domain.id %>
+                                        <% @compradors = Comprador.where(domain_rol_id: domrol.id) %>
+                                        <% if @compradors.length != 0 %>
+                                            <td>
+                                            <% @compradors.each do |comp| %>
+                                                <%if comp.type_member == "Legal" %>
+                                                <% @legal = LegalPersona.find(comp.persona_id) %>
+                                                <div class= "col">
+                                                <%= @legal.name %>
+                                                </div>
+                                                <%else%>
+                                                <% @persona = Persona.find(comp.persona_id) %>
+                                                <div class = "col">
+                                                <%= @persona.name %>
+                                                </div>  
+                                                <%end%>
+                                            <%end%>  
+                                            </td>
+                                        <%else%>
+                                            <td> No figura </td> 
+                                        <%end%> 
+                                        <%end%>
+                                    <%end%>
+                                    <%else%>
+                                    <td> No figura comprador</td>
+                                    <%end%>                                  
+                                    <td><%= domain.date_posetion %></td>
+                                    <td><%= domain.percentage %></td>
+
+                                </tr>
+                                <%end%>
+                            <%end%>    
+                            <%end%>  
+                        </tbody> 
+                            <% var = 0 %>
+                            <% var2 = 0 %>
+                            <% PersonaMember.order(:id).each do |personam| %>
+                                <% if personam.legal_persona_id == @legal_persona.id%>
+                                    <% var += personam.percentage %>
+                                    <% var2 += personam.acciones %>
+                                <% end %>
+                            <% end %>  
+                            <thead class= "thead-light">
+                                <tr>
+                                    <th scope= "col">Acciones</th>
+                                    <th scope= "col">Total</th>
+                                </tr>
+                            </thead> 
+                            <tbody class= "rounded-pill">
+                                <tr>
+                                    <td scope = "row"> <%= var2%> </td>
+                                    <td scope = "row"> <%= var.round(2)%> % </td>
+                                </tr>
+                            </tbody>
+                        </table>        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 card card-body">
+                        <h1 align= "center">Actualizaciones de Acciones de <%= @legalpersona.name %>: </h1>
+                        <table   class="table table-bordered table-hover">
+                        <thead  class="thead-dark">
+                            <tr>
+                            <th scope="col">Notario</th>
+                            <th scope="col">Modalidad</th>
+                            <th scope="col">Acciones
+                            <th scope="col">Precio</th>
+                            <th scope="col">Persona</th>
+                            <th scope="col">Fecha de adicion</th>
+                            <th scope="col">Porcentaje</th>
+                            <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="rounded-pill">
+                            <% Domain.order(:date_posetion).each do |domain| %>
+                            <% if domain.domainable_id == @legal_persona.id %>
+                                <% if domain.type_modality == "Añadir acciones"%>
+                                <tr>
+                                    <% LegalPersona.order(:id).each do |legalp|%>
+                                    <% if legalp.id == domain.notario_id %>
+                                        <td scope="row"><%= legalp.name%></td>
+                                    <%end%>
+                                    <%end%>    
+                                    <td><%= domain.type_modality %></td>
+                                    <td><%= domain.price %></td>
+                                    <td><%= domain.valor %></td>
+                                    <% DomainRol.order(:id).each do |domrol| %>
+                                    <% if domrol.domain_id == domain.id %>
+                                        <% if domrol.type_member == "Legal" %>
+                                        <% @legal = LegalPersona.find(domrol.persona_id) %>
+                                        <td scope = "row"><%= @legal.name%></td>
+                                        <% else %>
+                                        <% @persona = Persona.find(domrol.persona_id) %>
+                                        <td scope = "row"><%= @persona.name%></td>
+                                        <%end%>
+                                    <%end%>
+                                    <%end%>
+                                                                    
+                                    <td><%= domain.date_posetion %></td>
+                                    <td><%= domain.percentage %></td>
+                                    <td>                   
+                                        <%= link_to "ver", domain, class: "btn btn-info" %>
+                                        <%= link_to "editar", edit_domain_path(domain), class: "btn btn-warning" %>
+                                        <%= link_to 'Borrar', domain, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+                                        
+                                    </td>
+
+                                </tr>
+                                <%end%>
+                            <%end%>    
+                            <%end%>  
+                        </tbody> 
+                        </table>        
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        <div class= "container-fluid">
+            <div class="collapse" id="collapseHistoricos">  
+                <% @historicos = Historico.where(legal_persona_id: @legal_persona.id) %>
+                <% if @historicos.any? %>
+                <div class="row">
+                    <div class="col-sm-12 card card-body">
+                    <h1> Miembros historicos de <%= @legal_persona.name %> </h1>
+                    <table   class="table table-bordered table-hover">
+                        <thead  class="thead-dark">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha de Ingreso</th>
+                            <th scope="col">Fecha de Salida</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody class="rounded-pill">
+                        <% @historicos.each do |historico| %>
+                            <tr>
+                            <% if historico.type_member == "Legal" %>
+                                <%legalp = LegalPersona.find(historico.persona_id) %>
+                                <td scope ="row"> <%=legalp.name %> </td>
+                            <%else%>
+                                <%persona = Persona.find(historico.persona_id) %>
+                                <td scope ="row"> <%= persona.name %> <%= persona.last_name1 %> </td>
+                            <%end%>
+                            <td> <%= historico.entrada %> </td>
+                            <td> <%= historico.salida %> </td>
+                            <td> <%= historico.valor %> </td>
+                            <td> <%= historico.acciones %> </td>   
+                            </tr>
+                        <%end%>  
+                        </tbody>
+                    </table>  
+                    </div>
+                </div>
+                <%end%>
+            </div>  
+        </div>
+        <div class= "container-fluid">
+            <div class="collapse" id="collapseRepresentantes">  
+                <% @rep_historico = RepresentanteHistorico.where(legal_persona_id: @legal_persona.id) %>
+                <% if @rep_historico.any? %>
+                <div class="row">
+                    <div class="col-sm-12 card card-body">
+                    <h1> Representantes historicos de <%= @legal_persona.name %> </h1>
+                    <table   class="table table-bordered table-hover">
+                        <thead  class="thead-dark">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha de Ingreso</th>
+                            <th scope="col">Fecha de Salida</th>
+                        </tr>
+                        </thead>
+                        <tbody class="rounded-pill">
+                        <% @rep_historico.each do |rep| %>
+                            <tr>
+                            <% if rep.legal_persona_id == @legal_persona.id %>
+                                <% persona = Persona.find(rep.persona_id) %>
+                                <td scope ="row"> <%=persona.name %> <%=persona.last_name1 %> </td>
+                                <td> <%= rep.entrada %> </td>
+                                <td> <%= rep.salida %> </td>
+                            <%end%>
+                            </tr>
+                        <%end%>  
+                        </tbody>
+                    </table>  
+                    </div>
+                </div>
+                <%end%>
+            </div>  
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar miembros historicos</button>
+                
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentantes" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
+      </div>
+    </div>
+  </div>
+</div>
+                
