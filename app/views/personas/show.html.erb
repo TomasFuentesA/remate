@@ -214,9 +214,9 @@
             <tr>
               <th scope="col">Nombre empresa</th>
               <th scope="col">Fecha de Ingreso</th>
+              <th scope="col">Valor</th>
               <th scope="col">Acciones</th>
               <th scope="col">Porcentaje</th>
-              <th scope="col">Capital</th>
             </tr>
           </thead>
           <% @participaciones = PersonaMember.where(persona_id: @persona.id, type_member: "Natural") %>
@@ -226,9 +226,9 @@
                 <% empresa = LegalPersona.find(participa.legal_persona_id) %>
                 <td scope="row"> <%= empresa.name %></td>
                 <td> <%= participa.entrada %> </td>
+                <td> <%= participa.valor %> </td>
                 <td> <%= participa.acciones %> </td>
-                <td> <%= participa.percentage.round(2) %> </td>
-                <td> <%= participa.capital_actual %> </td>    
+                <td> <%= participa.percentage.round(2) %> </td>   
               </tr>
             <%end%>  
           </tbody>

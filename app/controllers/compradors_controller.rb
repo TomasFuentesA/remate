@@ -46,7 +46,7 @@ class CompradorsController < InheritedResources::Base
                 legalpersona = LegalPersona.find(dom.domainable_id)
                 Rails.logger.info legalpersona.acciones
                 porcentaje = (@auction.acciones.to_f * 100)/legalpersona.acciones.to_f
-                PersonaMember.create(persona_id: @auction.persona_id, type_member: @auction.type_member, acciones: @auction.acciones, legal_persona_id: dom.domainable_id, percentage: porcentaje.to_f.round(2), entrada: dom.date_posetion, capital_actual: -params[:comprador][:precio].to_i)
+                PersonaMember.create(persona_id: @auction.persona_id, type_member: @auction.type_member, acciones: @auction.acciones, legal_persona_id: dom.domainable_id, percentage: porcentaje.to_f.round(2), entrada: dom.date_posetion, capital_actual: -params[:comprador][:precio].to_i, valor: params[:comprador][:precio].to_i)
                 flash[:notice] =  "Ingresado exitosamente"
                 redirect_to @domain
               else
@@ -103,7 +103,7 @@ class CompradorsController < InheritedResources::Base
                 legalpersona = LegalPersona.find(dom.domainable_id)
                 Rails.logger.info legalpersona.acciones
                 porcentaje = (@auction.acciones.to_f * 100)/legalpersona.acciones.to_f
-                PersonaMember.create(persona_id: @auction.persona_id, type_member: @auction.type_member, acciones: @auction.acciones, legal_persona_id: dom.domainable_id, percentage: porcentaje.to_f.round(2), entrada: dom.date_posetion, capital_actual: -params[:precio].to_i)
+                PersonaMember.create(persona_id: @auction.persona_id, type_member: @auction.type_member, acciones: @auction.acciones, legal_persona_id: dom.domainable_id, percentage: porcentaje.to_f.round(2), entrada: dom.date_posetion, capital_actual: -params[:precio].to_i, valor: params[:precio].to_i)
                 flash[:notice] =  "Ingresado exitosamente"
                 redirect_to @domain
               else

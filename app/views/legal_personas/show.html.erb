@@ -428,26 +428,26 @@
                     <% if domain.type_modality == "Compra y Venta de acciones" %>
                       <% @domrol = DomainRol.where(domain_id: domain.id) %>
                       <% cont = 0 %>
+                      <% array = [] %>
                       <% if @domrol.length != 0 %>
                         <% @domrol.each do |dom| %>
+                          <% array1 = [] %>
                           <% cont += 1 %>
                           <% @compradors = Comprador.where(domain_rol_id: dom.id) %>     
                           <% if @compradors.length != 0 %>
-                            <td>
-                              <% @compradors.each do |comp| %>
-                                <%if comp.type_member == "Legal" %>
-                                  <% @legal = LegalPersona.find(comp.persona_id) %>
-                                  <div class= "col">
-                                  <%= @legal.name %>
-                                  </div>
-                                <%else%>
-                                  <% @persona = Persona.find(comp.persona_id) %>
-                                  <div class = "col">
-                                  <%= @persona.name %>
-                                  </div>  
-                                <%end%>
-                              <%end%>  
-                            </td>
+                            <% @compradors.each do |comp| %>
+                              <%if comp.type_member == "Legal" %>
+                                <% @legal = LegalPersona.find(comp.persona_id) %>
+                                <div class= "col">
+                                  <% array.push(@legal.name) %>
+                                </div>
+                              <%else%>
+                                <% @persona = Persona.find(comp.persona_id) %>
+                                <div class = "col">
+                                  <% array.push(@persona.name) %>
+                                </div>  
+                              <%end%>
+                            <%end%>                               
                           <%else%>
                             <% if cont == 1 %>
                               <div class= "col">
@@ -456,7 +456,17 @@
                             <%end%>  
                           <%end%>
                         <%end%>
-                      <%end%>                      
+                      <%end%>
+                      <%if array.length != 0 %>
+                        <% array = array.uniq %>
+                        <td>
+                          <% array.each do |list| %>
+                            <div class= "col">
+                              <%= list %>
+                            </div>
+                          <%end%>
+                        </td>
+                      <%end%>                        
                     <%else%>        
                       <td> No figura comprador</td>
                     <%end%>                                  
@@ -465,8 +475,7 @@
                     <td>                   
                         <%= link_to "ver", domain, class: "btn btn-info" %>
                         <%= link_to "editar", edit_domain_path(domain), class: "btn btn-warning" %>
-                        <%= link_to 'Borrar', domain, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
-                        
+                        <%= link_to 'Borrar', domain, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>                   
                     </td>
 
                   </tr>
@@ -474,26 +483,26 @@
               <%end%>    
             <%end%>  
           </tbody> 
-            <% var = 0 %>
-            <% var2 = 0 %>
-            <% PersonaMember.order(:id).each do |personam| %>
-              <% if personam.legal_persona_id == @legal_persona.id%>
-                <% var += personam.percentage %>
-                <% var2 += personam.acciones %>
-              <% end %>
-            <% end %>  
-            <thead class= "thead-light">
-              <tr>
-                <th scope= "col">Acciones</th>
-                <th scope= "col">Total</th>
-              </tr>
-            </thead> 
-            <tbody class= "rounded-pill">
-              <tr>
-                <td scope = "row"> <%= var2%> </td>
-                <td scope = "row"> <%= var.round(2)%> % </td>
-              </tr>
-            </tbody>
+          <% var = 0 %>
+          <% var2 = 0 %>
+          <% PersonaMember.order(:id).each do |personam| %>
+            <% if personam.legal_persona_id == @legal_persona.id%>
+              <% var += personam.percentage %>
+              <% var2 += personam.acciones %>
+            <% end %>
+          <% end %>  
+          <thead class= "thead-light">
+            <tr>
+              <th scope= "col">Acciones</th>
+              <th scope= "col">Total</th>
+            </tr>
+          </thead> 
+          <tbody class= "rounded-pill">
+            <tr>
+              <td scope = "row"> <%= var2%> </td>
+              <td scope = "row"> <%= var.round(2)%> % </td>
+            </tr>
+          </tbody>
         </table>        
       </div>
     </div>
@@ -556,6 +565,41 @@
       </div>
     </div>
   <% end %>
+</div>
+<div class= "container-fluid"> 
+  <% @participaciones = PersonaMember.where(persona_id: @legal_persona.id, type_member: "Legal") %>
+  <% if @participaciones.any? %>
+    <div class="row">
+      <div class="col-sm-12 card card-body">
+        <h1 align= "center"> Participaciones de <%= @legal_persona.name %> </h1>
+        <table   class="table table-bordered table-hover">
+          <thead  class="thead-dark">
+            <tr>
+              <th scope="col">Empresa</th>
+              <th scope="col">Rut</th>
+              <th scope="col">Fecha de Ingreso</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Acciones</th>
+              <th scope="col">Porcentaje</th>
+            </tr>
+          </thead>
+          <tbody class="rounded-pill">
+            <% @participaciones.each do |participa| %>
+              <tr>
+                <%legalp = LegalPersona.find(participa.legal_persona_id) %>
+                <td scope ="row"> <%=legalp.name %> </td>
+                <td> <%= legalp.rut %> </td>
+                <td> <%= participa.entrada %> </td>
+                <td> <%= participa.valor %> </td>
+                <td> <%= participa.acciones %> </td>
+                <td> <%= participa.percentage %> </td>   
+              </tr>
+            <%end%>  
+          </tbody>
+        </table>  
+      </div>
+    </div>
+  <%end%>
 </div>
 <div class= "container-fluid">
   <div class="collapse" id="collapseHistoricos">  
