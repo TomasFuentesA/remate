@@ -178,24 +178,26 @@
             <div class= "row">
               <div class="col-sm-12 card card-body">
                 <h1 align="center"> Participaciones de <%= @memberp.name %> <%= @memberp.last_name1 %> </h1>
-                <table   class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover">
                   <thead  class="thead-dark">
                     <tr>
                       <th scope="col">Nombre empresa</th>
                       <th scope="col">Fecha de Ingreso</th>
+                      <th scope="col">Valor</th>
                       <th scope="col">Acciones</th>
                       <th scope="col">Porcentaje</th>
                     </tr>
                   </thead>
-                  <% @participaciones = PersonaMember.where(persona_id: @memberp.id) %>
+                  <% @participaciones = PersonaMember.where(persona_id: @memberp.id, type_member: "Natural") %>
                   <tbody class="rounded-pill">
                     <% @participaciones.each do |participa| %>
                       <tr>
                         <% empresa = LegalPersona.find(participa.legal_persona_id) %>
                         <td scope="row"> <%= empresa.name %></td>
                         <td> <%= participa.entrada %> </td>
+                        <td> <%= participa.valor %> </td>
                         <td> <%= participa.acciones %> </td>
-                        <td> <%= participa.percentage %> </td>   
+                        <td> <%= participa.percentage.round(2) %> </td>      
                       </tr>
                     <%end%>  
                   </tbody>

@@ -37,7 +37,7 @@
 
             <div class= "col">
               <%= f.label :rubro, "Rubro" %>
-              <%= f.select :rubro, options_for_select(Rubro.order(:id).collect{|c|[c.nombre, c.id]}), { include_blank: "Seleccione"}, required: true%>
+              <%= f.select :rubro, options_for_select(Rubro.order(:id).collect{|c|[c.nombre, c.nombre]}), { include_blank: "Seleccione"}, required: true%>
 
             </div>
           </div>
