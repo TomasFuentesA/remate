@@ -1,0 +1,32 @@
+<%= form_with(model: realty_domain, local: true) do |form| %>
+  <% if realty_domain.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(realty_domain.errors.count, "error") %> prohibited this realty_domain from being saved:</h2>
+
+      <ul>
+      <% realty_domain.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :type_modality %>
+    <%= form.text_field :type_modality %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_posetion %>
+    <%= form.date_select :date_posetion %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

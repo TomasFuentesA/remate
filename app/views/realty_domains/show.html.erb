@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type modality:</strong>
+  <%= @realty_domain.type_modality %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @realty_domain.price %>
+</p>
+
+<p>
+  <strong>Date posetion:</strong>
+  <%= @realty_domain.date_posetion %>
+</p>
+
+<%= link_to 'Edit', edit_realty_domain_path(@realty_domain) %> |
+<%= link_to 'Back', realty_domains_path %>

@@ -1,0 +1,2 @@
+class RealtyDomainfile < ApplicationRecord
+end

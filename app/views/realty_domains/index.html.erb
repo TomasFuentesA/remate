@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Realty Domains</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type modality</th>
+      <th>Price</th>
+      <th>Date posetion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @realty_domains.each do |realty_domain| %>
+      <tr>
+        <td><%= realty_domain.type_modality %></td>
+        <td><%= realty_domain.price %></td>
+        <td><%= realty_domain.date_posetion %></td>
+        <td><%= link_to 'Show', realty_domain %></td>
+        <td><%= link_to 'Edit', edit_realty_domain_path(realty_domain) %></td>
+        <td><%= link_to 'Destroy', realty_domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Realty Domain', new_realty_domain_path %>

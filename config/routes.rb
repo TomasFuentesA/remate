@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   
+  resources :realty_compradors
+  resources :realty_domainrols
+  resources :realty_inscriptionfiles
+  resources :realty_inscriptions
+  resources :realty_domainfiles
+  resources :realty_domains
   resources :rubros
   resources :representante_historicos
   resources :historicos

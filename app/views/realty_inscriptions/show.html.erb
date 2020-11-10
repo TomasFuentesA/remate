@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Foja:</strong>
+  <%= @realty_inscription.foja %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @realty_inscription.number %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @realty_inscription.year %>
+</p>
+
+<p>
+  <strong>Cbrs:</strong>
+  <%= @realty_inscription.cbrs %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @realty_inscription.date %>
+</p>
+
+<p>
+  <strong>Realty domains:</strong>
+  <%= @realty_inscription.realty_domains %>
+</p>
+
+<%= link_to 'Edit', edit_realty_inscription_path(@realty_inscription) %> |
+<%= link_to 'Back', realty_inscriptions_path %>

@@ -1,0 +1,37 @@
+<%= form_with(model: realty_inscriptionfile, local: true) do |form| %>
+  <% if realty_inscriptionfile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(realty_inscriptionfile.errors.count, "error") %> prohibited this realty_inscriptionfile from being saved:</h2>
+
+      <ul>
+      <% realty_inscriptionfile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :file_name %>
+    <%= form.text_field :file_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observation %>
+    <%= form.text_field :observation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :realty_inscription_id %>
+    <%= form.text_field :realty_inscription_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
