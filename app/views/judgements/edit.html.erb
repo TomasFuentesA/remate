@@ -1,7 +1,6 @@
 <script>
  function getPersonDemandado(params) {
-      var option = '<option value=0>Seleccione persona natural / empresa</option>'
-      var list = option 
+      var list = '' 
       <%Persona.order(:name).each do |persona| %>
           var pesonaNaturalId = '<%=persona.id %>'
           var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado") ? "selected" : ""
@@ -16,8 +15,7 @@
     }
 
     function getPersonDemandante(params) {
-      var option = '<option value=0>Seleccione persona natural / empresa</option>'
-      var list = option
+      var list = ''
       <%Persona.order(:name).each do |persona| %>
           var pesonaNaturalId = '<%=persona.id %>'
           var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandante") ? "selected" : ""
@@ -85,6 +83,7 @@
           <h2><%= @judgement.court.name %>, <%= @judgement.rol_trial %> </h2>
         </div>
         <%= form_with model: @judgement do |form| %>
+        <%= form.hidden_field :auction_id, :value => @auction_id%>
         <div class="field">
           <%= form.label :court_id, "Seleccionar Tribunal" %>
           <%= form.select :court_id, options_for_select(Court.all.collect {|p| [p.name, p.id]}, @judgement.court_id), { include_blank: "Seleccione"} , class:"form-control border" %>

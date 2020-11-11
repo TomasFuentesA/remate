@@ -1,3 +1,70 @@
+<script>
+ function getPersonDemandado() {
+      var list = '' 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado") ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>' : ''
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandado") ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>' : ''
+      <%end%>
+      $('#demandadoList').html(list);       
+    }
+
+    function getPersonDemandante() {
+      var list = ''
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandante") ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>' : ''
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandante") ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>' : ''
+      <%end%>
+      $('#demandanteList').html(list);       
+    }
+
+    function validatePersonaLegal(pesonaLegalId,type){
+      <% @judgementPersonas = JudgementPersonas.where(judgement_id:params[:id]) %>
+      var count = <%=@judgementPersonas != "" ? @judgementPersonas.size : 0 %>
+      if(count > 0){
+        <% @judgementPersonas.each do |judgementPersona| %>
+        var persona_id = '<%=judgementPersona.persona_id%>'
+        var persona_type = '<%=judgementPersona.persona_type%>'
+        var judgement_type = '<%=judgementPersona.judgement_type%>'
+          if(persona_id==pesonaLegalId && judgement_type==type && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNatural(pesonaNaturalId,type){
+      <% @judgementPersonas = JudgementPersonas.where(judgement_id:params[:id]) %>
+      var count = <%=@judgementPersonas != "" ? @judgementPersonas.size : 0 %>
+      if(count > 0){
+        <% @judgementPersonas.each do |judgementPersona| %>
+        var persona_id = '<%=judgementPersona.persona_id%>'
+        var persona_type = '<%=judgementPersona.persona_type%>'
+        var judgement_type = '<%=judgementPersona.judgement_type%>'
+          if(persona_id==pesonaNaturalId && judgement_type==type && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+  $(document).ready(function() {
+    getPersonDemandante();
+    getPersonDemandado();
+  });
+  </script>
 <%= link_to 'Volver Listado Remate', auctions_path %>
 <br>
 <br>
@@ -103,24 +170,20 @@
             <%= @judgement.rol_trial %>
           </div>
           <div class="field">
-            <h4>Caratulado</h4>
-            <%= @judgement.demandante %> / <%= @judgement.demandado %>
+          <h4>Demandante</h4>
+          <%= @judgement.demandante %>
+          <div id="demandanteList"></div>
           </div>
           <div class="field">
-            <h4>Demandante</h4>
-            <%= @judgement.demandante %>
-          </div>
-          <div class="field">
-            <h4>Abogado Demandante</h4>
+            <h4>Demandado</h4>
             <%= @judgement.demandado %>
-          </div>
-          <div class="field">
-            <h4>Demandanto</h4>
-          </div>
-          <div class="field">
-            <h4>Abogado Demandanto</h4>
+            <div id="demandadoList"></div>
           </div>
           <div>
+          </div>
+          <br>
+          <div class="field">
+            <%= link_to 'editar', edit_judgement_path(@judgement,@auction.id) , class: "btn btn-warning" %>
           </div>
         </div>
       </div>
