@@ -63,6 +63,8 @@ class JudgementsController < ApplicationController
   end
 
   def destroy
+    @judgementPersonasValidate = JudgementPersonas.where(judgement_id:params[:id])
+    @judgementPersonasValidate.destroy_all
     @judgement.destroy
     respond_to do |format|
       format.js
