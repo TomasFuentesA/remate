@@ -1,0 +1,2 @@
+class JudgementPersonas < ApplicationRecord
+end

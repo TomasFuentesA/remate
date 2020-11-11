@@ -1,6 +1,79 @@
 
-
 <script>
+
+ function getPersonDemandado(judgementId,divId) {
+      var list = '' 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado",judgementId) ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>' : ''
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandado",judgementId) ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>' : ''
+      <%end%>
+      var id = "#"+divId+""
+      $(id).html(list);       
+
+    }
+
+    function getPersonDemandante(judgementId,divId) {
+      var list = ''
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandante",judgementId) ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>' : ''
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandante",judgementId) ? true : false
+          validateSelected ? list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>' : ''
+      <%end%>
+      var id = "#"+divId+""
+      $(id).html(list);        
+   
+    }
+
+    function validatePersonaLegal(pesonaLegalId,type,judgementId){
+      <% @judgementPersonas = JudgementPersonas.where(judgement_id:`${judgementId}`) %>
+      var count = <%=@judgementPersonas != "" ? @judgementPersonas.size : 0 %>
+      if(count > 0){
+        <% @judgementPersonas.each do |judgementPersona| %>
+        var persona_id = '<%=judgementPersona.persona_id%>'
+        var persona_type = '<%=judgementPersona.persona_type%>'
+        var judgement_type = '<%=judgementPersona.judgement_type%>'
+          if(persona_id==pesonaLegalId && judgement_type==type && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNatural(pesonaNaturalId,type,judgementId){
+ 
+      <% @judgementPersonas = JudgementPersonas.where(judgement_id:`${judgementId}`) %>
+      var count = <%=@judgementPersonas != "" ? @judgementPersonas.size : 0 %>
+      if(count > 0){
+        <% @judgementPersonas.each do |judgementPersona| %>
+        var persona_id = '<%=judgementPersona.persona_id%>'
+        var persona_type = '<%=judgementPersona.persona_type%>'
+        var judgement_type = '<%=judgementPersona.judgement_type%>'
+          if(persona_id==pesonaNaturalId && judgement_type==type && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+  function callPerson(){
+     <% @judgements.each do |judgement| %>
+      getPersonDemandante('<%=judgement.id%>','jud_<%=judgement.id%>_demandante')
+      getPersonDemandado('<%=judgement.id%>','jud_<%=judgement.id%>_demandado')
+    <% end %>
+  }
 
   function elementJudgementList(id){
     var newList = ''
@@ -30,7 +103,6 @@
 
 
    function changeDataTable(id){
-     console.log(id)
     $('div#live-search-results').html(table(id));
     displayButton()
     //<tbody id="bodyData" class="rounded-pill">
@@ -52,7 +124,7 @@
 
     $.get(url, formData, function(json) { // perform an AJAX get
       //$("#live-search-results").html(json); // replace the "results" div with the results
-      console.log(json)
+      //console.log(json)
      // console.log(json[0].id)
      //$('div#listSearch').text(json[0].id);
 
@@ -66,7 +138,7 @@
         //elementJudgementList(json[i].id);
         list.push(elementJudgementList(json[i].id))
     });
-        console.log(list)
+        //console.log(list)
         //var newList = elementJudgementList(4)
         /*for (var i = 0; i < 9; i++) {
           n += i;
@@ -133,7 +205,8 @@
       <tr> 
         <th scope="col">Tribunal</th>
         <th scope="col">Rol</th>
-        <th scope="col">Nombre Juicio</th>
+       <!-- <th scope="col">Demandante</th>
+        <th scope="col">Demandado</th>-->
         <th scope="col">Tipo de juicio</th>
         <th scope="col">Opciones</th>
       </tr>
@@ -143,7 +216,8 @@
         <tr>
           <td><%= judgement.court.name %> </td>
           <td><%= judgement.rol_trial %> </td>
-          <td><%= judgement.name_judgement %></td>
+           <!-- <td><div id="jud_<%=judgement.id%>_demandante"></div></td>
+          <td><div id="jud_<%=judgement.id%>_demandado"></div></td>-->
           <td><%= judgement.type_judgement %></td>
           <td>
             <%= link_to 'ver', judgement , class: "btn btn-info" %>
@@ -154,5 +228,6 @@
     </tbody>
   </table>
   <br>
+<script>callPerson();</script>
 <%= will_paginate(@judgement, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
 </div>

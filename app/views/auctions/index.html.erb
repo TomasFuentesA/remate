@@ -87,7 +87,7 @@
       <td><%= auction.total_minimum %></td>
       <td><%= auction.status %><br><br>
         <%= form_with(model: Auction.find(auction.id), url: update_status_auctions_path(auction.id), local: true, html: { method: :get }) do |form| %>
-          <%= form.select :status, options_for_select([["Remate en curso",0],["Anulado",1],["Cancelado",2] ,["Adjudicado",3]],auction.status), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+          <%= form.select :status, options_for_select([["Remate en curso",0],["Anulado",1],["Suspendido",2] ,["Adjudicado",3]],auction.status), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
           <br><br>
           <%= form.submit "Guardar",class: "btn btn-success" %>
         <% end %>

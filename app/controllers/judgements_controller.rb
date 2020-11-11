@@ -23,18 +23,48 @@ class JudgementsController < ApplicationController
   end
 
   def edit
-
+    @auction_id=params['format']
   end
-  def show
 
+  def show
   end
 
   def update
+    Rails.logger.info params
+    @judgementPersonasValidate = JudgementPersonas.where(judgement_id:params[:id])
+    @judgementPersonasValidate.destroy_all
+    params[:judgement][:demandadoList].each do |p|
+      if(p.to_s !="")
+        @num = p.to_i
+        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+        @judgementPersonas = JudgementPersonas.new(judgement_id:params[:id],persona_id:@idPersona,persona_type:@tipo,judgement_type:"demandado")
+        @judgementPersonas.save
+        params[:judgement][:demandado] = ''
+      end
+    end
+    params[:judgement][:demandanteList].each do |p|
+      if(p.to_s !="")
+        @num = p.to_i
+        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+        @judgementPersonas = JudgementPersonas.new(judgement_id:params[:id],persona_id:@idPersona,persona_type:@tipo,judgement_type:"demandante")
+        @judgementPersonas.save
+        params[:judgement][:demandante] = ''
+      end
+    end
     @judgement.update(judgement_params)
-    redirect_to judgements_path
+    @auction_id = params['judgement']['auction_id']
+    if @auction_id != ""
+      redirect_to auction_path(@auction_id)
+    else
+      redirect_to judgements_path
+    end
   end
 
   def destroy
+    @judgementPersonasValidate = JudgementPersonas.where(judgement_id:params[:id])
+    @judgementPersonasValidate.destroy_all
     @judgement.destroy
     respond_to do |format|
       format.js
