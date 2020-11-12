@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :auctions_records
   resources :rubros
   resources :representante_historicos
   resources :historicos
