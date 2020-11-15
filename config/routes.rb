@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :auctions_records
   resources :rubros
   resources :representante_historicos
   resources :historicos
@@ -18,7 +17,7 @@ Rails.application.routes.draw do
   get 'admins/index'
   post 'modal_auction', to: 'auctions#modal'
 
-  
+  get 'auctions_records/searchFilterData', to: 'auctions_records#searchFilterData'
   get 'judgements/searchFilterData', to: 'judgements#searchFilterData'
   get 'realties/searchFilterData', to: 'realties#searchFilterData'
   post 'realties/createUpload', to: 'realties#createUpload'
@@ -82,9 +81,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :auctions_records
   resources :judgement_debts
   resources :realties
-  resources  :communes, :provinces, :regions
+  resources :communes, :provinces, :regions
   resources :documents
   resources :courts
   resources :appraisals

@@ -1,0 +1,104 @@
+<script>
+
+   function getPersonList(params) {
+      var list = '' 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandado") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
+      <%end%>
+      $('#award_person_list').html(list);       
+    }
+
+    function validatePersonaLegal(pesonaLegalId,type){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id]) %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+      if(count > 0){
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaLegalId && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNatural(pesonaNaturalId,type){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id]) %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+       console.log('count '+count)
+      if(count > 0){
+        console.log('validatePersonaNatural count')
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaNaturalId && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+    
+  $(document).ready(function() {
+    getPersonList();
+  });
+</script>
+<br>
+<h1>Acta Remate:</h1>
+<div class="main container">
+  <div class="container-fluid">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 card card-body ">
+        <div class="field">
+          <h4>remate</h4>
+          <%auction = Auction.find(@auctions_records.auction_id) %><%=auction.judgement.court.name+" / "+auction.judgement.rol_trial%></td>
+        </div>
+        <br>
+        <div class="field">
+          <h4>fecha</h4>
+          <%= @auctions_records.date %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>persona adjudica</h4>
+          <% persona = Persona.find(@auctions_records.award_person_id) %>
+          <%= persona.rut+" / "+persona.full_name_persona %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>monto adjudica</h4>
+          <%= @auctions_records.award_amount %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>se adjudica:</h4>
+          <div id="award_person_list"></div>
+        </div>
+        <br>
+        <div class="field">
+          <h4>Archivo</h4>
+             <% if @auctions_records.file_name != "" && @auctions_records.file_name.to_s.split('/')[5]!=nil %>
+              <%= link_to @auctions_records.file_name.to_s.split('/')[5], File.join(root_url.to_s,@auctions_records.file_name.to_s), target: "_blank"%>
+              <%= link_to 'Descargar', File.join(root_url.to_s,@auctions_records.file_name.to_s),download:''%>
+            <%else %>
+              Sin Archivo
+            <% end %>
+        </div>
+        <br>
+        <div class="field">
+          <h4>estado</h4>
+          <%= @auctions_records.status %>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

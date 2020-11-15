@@ -1,0 +1,115 @@
+<script>
+  $(document).ready(function() {
+    $('select#auctions_record_judgement_id').select2({
+      theme: "bootstrap"
+    });
+    $('select#auctions_record_award_person_id').select2({
+      theme: "bootstrap"
+    });
+    $('select#auctions_record_award_person_list').select2({
+      theme: "bootstrap"
+    });
+  });
+
+   function getPersonList(params) {
+      var list = '' 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandado") ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
+      <%end%>
+      $('#auctions_record_award_person_list').html(list);       
+    }
+
+    function validatePersonaLegal(pesonaLegalId,type){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id]) %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+      if(count > 0){
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaLegalId && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNatural(pesonaNaturalId,type){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id]) %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+       console.log('count '+count)
+      if(count > 0){
+        console.log('validatePersonaNatural count')
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaNaturalId && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+  </script>
+<br>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <h4><%=params['action']=="edit"? "Editar" : "Nueva"%> acta remate</h4>
+      </div>
+      <%= form_with model: @auctions_records, url: auctions_records_path , remote: true do |form| %>
+      <div class="field">
+        <%= form.label :auction_id, "Seleccionar Remate" %>
+        <%= form.select :auction_id, options_for_select(Auction.all.collect {|auction| [auction.judgement.court.name+" / "+auction.judgement.rol_trial, auction.id]},@auctions_records.auction_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date, "Fecha" %>
+        <%= form.text_field :date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :award_person_id, "persona adjudicación:" %>
+        <%= form.select :award_person_id, options_for_select(Persona.all.collect{ |p| [p.name + '- ' + p.last_name1 + ' / ' + p.rut, p.id] },@auctions_records.award_person_id) ,{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, required: true%>
+      </div>
+      <div class="form-group">
+        <%= form.label :award_amount, "monto adjudicación:" %>
+        <%= form.text_field :award_amount, id: :award_amount , class:"form-control border number_formated" ,autofocus: true%>
+      </div>
+      <div class="field">
+        <%= form.label :award_person_list, "se adjudica:" %>
+        <%= form.select :award_person_list , options_for_select([[]]),{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
+      </div>
+      <div class="form-group">
+        <%= form.label :file_name, "archivo:" %>
+        <div class="custom-file">
+          <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true %>
+          <label class="custom-file-label" for="customFile"><%= @auctions_records.file_name.to_s.split('/')[5]%></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= form.label :status, "estado:" %>
+        <%= form.select :status, options_for_select([["Remate en curso",0],["Anulado",1],["Suspendido",2] ,["Adjudicado",3]],@auctions_records.status), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+  getPersonList();
+</script>

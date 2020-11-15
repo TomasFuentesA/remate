@@ -2,7 +2,7 @@ class CreateAuctionsRecords < ActiveRecord::Migration[5.2]
   def change
     create_table :auctions_records do |t|
 
-      t.integer :judgement_id
+      t.integer :award_person_id
       t.integer :auction_id
       t.date :date
       t.string :file_name
