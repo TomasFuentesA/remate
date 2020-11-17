@@ -83,7 +83,7 @@
         <%= form.text_field :award_amount, id: :award_amount , class:"form-control border number_formated" ,autofocus: true%>
       </div>
       <div class="field">
-        <%= form.label :award_person_list, "se adjudica:" %>
+        <%= form.label :award_person_list, "se adjudica para:" %>
         <%= form.select :award_person_list , options_for_select([[]]),{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
       </div>
       <div class="form-group">
