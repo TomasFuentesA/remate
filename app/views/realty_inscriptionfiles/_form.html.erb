@@ -1,37 +1,62 @@
-<%= form_with(model: realty_inscriptionfile, local: true) do |form| %>
-  <% if realty_inscriptionfile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(realty_inscriptionfile.errors.count, "error") %> prohibited this realty_inscriptionfile from being saved:</h2>
+<br>
+<%= form_with model: @realty_inscriptionfile, url: realty_inscriptionfiles_path , remote: true do |form| %>
+  <div class= "container">
+    <div class="form-group">
+      <div class= "card text-center bg-ligth mb-3">
+        <div class= "card-header">
+          <% RealtyInscription.order(:id).each do |inscript| %>
+            <% if inscript.id.to_i == params[:realty_inscription_id].to_i%>             
+              <h1>Nuevo Archivo de la foja: <%= inscript.foja %> y n°: <%= inscript.number %></h1>
+            <%end%>
+          <%end%>    
+        </div>
+        <div class= "card-body">
+          <p class= "card-text">
+            <div class="form-row">
+              <div class="field">
+                <%= form.hidden_field :realty_inscription_id, value: params[:realty_inscription_id] %>
+              </div>
+            </div>
+            <div class= "form-row">  
+              <div class="form-group col-md-2">
+                <%= form.label :date, "Fecha" %>
+                <%= form.text_field :date, class: "form-control" ,data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" %>
+              </div>
+            </div>
+            <div class= "form-row">  
+              <div class="col">
+                <%= form.label :observation, "Observacion:" %>
+                <%= form.text_area :observation, id: :observation ,autofocus: true, class:"form-control border"%>
+              </div>
+            </div>
+            <div class= "form-row">
+              <div class= "col">  
+                <div class="form-group">
+                  <div class="custom-file">
+                    <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true, required: true %>
 
-      <ul>
-      <% realty_inscriptionfile.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+                    <label class="custom-file-label" for="customFile">Ingresar archivo</label>
+                  </div>
+                </div>
+              </div>  
+            </div>  
 
-  <div class="field">
-    <%= form.label :file_name %>
-    <%= form.text_field :file_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :observation %>
-    <%= form.text_field :observation %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :realty_inscription_id %>
-    <%= form.text_field :realty_inscription_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+            
+          </p>    
+        <div class="form-row">
+          <div class="form-group">
+            <%= form.submit "Guardar",class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+    </div>   
   </div>
 <% end %>
+
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>

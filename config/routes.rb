@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
   
+  resources :realty_dueno_historicos
+  resources :realty_duenos
   resources :realty_compradors
   resources :realty_domainrols
   resources :realty_inscriptionfiles
-  resources :realty_inscriptions
+  resources :realty_inscriptions do
+    resources :realty_inscriptionfiles
+  end
   resources :realty_domainfiles
-  resources :realty_domains
+  resources :realty_domains do
+    resources :realty_domainfiles
+    resources :realty_inscriptions
+  end
   resources :rubros
   resources :representante_historicos
   resources :historicos

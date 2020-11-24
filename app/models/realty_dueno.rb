@@ -1,0 +1,2 @@
+class RealtyDueno < ApplicationRecord
+end

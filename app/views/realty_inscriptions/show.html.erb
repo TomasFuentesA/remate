@@ -1,34 +1,73 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Foja:</strong>
-  <%= @realty_inscription.foja %>
-</p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @realty_inscription.number %>
-</p>
 
-<p>
-  <strong>Year:</strong>
-  <%= @realty_inscription.year %>
-</p>
+<div class= "container">
+  
+  <div class= "row">
+    <div class="col-sm-12 card card-body">
+      <div class="row">
+        <div class= "col-md-6">
+          <label for="name"> Foja: </label>
+          <input type = "text" id="name" class= "form-control" placeholder= "Foja" disable value = "<%= @realty_inscription.foja %>" readonly>
+        </div>
+        <div class= "col-md-6">
+          <label for="name"> Número </label>
+          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @realty_inscription.number %>" readonly>
+        </div>
+      </div>  
+      <div class="row">
+        <div class= "col-md-3">
+          <label for="name"> Año: </label>
+          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @realty_inscription.year %>" readonly>
+        </div>
+        <div class= "col-md-6">
+          <label for="name"> CBRS </label>
+          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @realty_inscription.cbrs %>" readonly>
+        </div>
+        <div class= "col-md-3">
+          <label for="name"> Fecha: </label>
+          <input type = "text" id="name" class= "form-control" placeholder= "Name" disable value = "<%= @realty_inscription.date %>" readonly>
+        </div>
+      </div> 
+      <br>
+      <div class= "form-row">
+        <%= link_to 'Edit', edit_realty_inscription_path(@realty_inscription), class: "btn btn-warning" %>
+        <% @realty_domain = RealtyDomain.find(@realty_inscription.realty_domains_id) %>
+        <%= link_to 'Atras', @realty_domain, class: "btn btn-info" %>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<br>
+<div class= "container">
 
-<p>
-  <strong>Cbrs:</strong>
-  <%= @realty_inscription.cbrs %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @realty_inscription.date %>
-</p>
-
-<p>
-  <strong>Realty domains:</strong>
-  <%= @realty_inscription.realty_domains %>
-</p>
-
-<%= link_to 'Edit', edit_realty_inscription_path(@realty_inscription) %> |
-<%= link_to 'Back', realty_inscriptions_path %>
+  <div class= "row">
+      <br>
+      <%= link_to 'Nuevo documento de inscripcion', new_realty_inscription_realty_inscriptionfile_path(@realty_inscription) ,class: "btn btn-primary"%>
+      <br>
+    <table   class="table table-bordered table-hover">
+      <thead  class="thead-dark">
+        <tr>
+          <th scope="col">Nombre(s) documento(s) asociado(s) </th>
+          <th scope="col">Acciones </th>
+        </tr>
+      </thead>
+      <tbody class="rounded-pill">
+        <% RealtyInscriptionfile.order(:id).each do |doc| %>
+          <%if doc.realty_inscription_id == @realty_inscription.id %>
+            <tr>
+              <% if doc.file_name != "" %>
+                <td><%= link_to doc.file_name.to_s.split('/')[5], File.join(root_url.to_s,doc.file_name.to_s)%> </td>
+                <td><%= link_to 'Borrar', doc, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%></td>
+              <%else %>
+                <td>Sin Archivo</td>
+              <% end %>
+            </tr>
+            
+          <%end%>  
+        <%end%>
+      </tbody>
+    </table>
+  </div>      
+</div>

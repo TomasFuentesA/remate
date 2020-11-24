@@ -1,9 +1,4 @@
 <%= link_to 'Volver Listado Personas', personas_path , class: "btn btn-primary" %>
-
-<p></p>
-
-
-
 <br>
 
 <div class="container-fluid">
@@ -200,6 +195,8 @@
       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHistoricos" aria-expanded="false" aria-controls="collapseHistoricos">Mostrar participaciones historicas</button>
       <br>
       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRepresentantes" aria-expanded="false" aria-controls="collapseRepresentantes">Mostrar representantes historicos</button>
+      <br>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRealty" aria-expanded="false" aria-controls="collapseRealty">Mostrar historico de realtys</button>
     </div>  
 
   </div>
@@ -231,6 +228,28 @@
                 <td> <%= participa.percentage.round(2) %> </td>   
               </tr>
             <%end%>  
+          </tbody>
+          <% var = 0 %>
+          <% var2 = 0 %>
+          <% @participaciones.each do |participas| %>
+            <% var += participas.valor %>
+            <% var2 += participas.acciones %>
+          <%end%>
+          <thead class= "thead-light">
+            <tr>
+              <th scope= "col"> 
+                Valor Total
+              </th> 
+              <th scope= "col"> 
+                Acciones Total
+              </th>
+            <tr>
+          </thead> 
+          <tbody class= "rounded-pill">
+            <tr>
+              <td scope = "row"> <%= var %> </td>
+              <td scope = "row"> <%= var2 %> </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -330,4 +349,83 @@
     <%end%>
   </div>  
 </div>
-
+<div class="container-fluid">
+  <% @dueno = RealtyDueno.where(persona_id: @persona.id, type_member: "Natural") %>
+  <% if @dueno.any?%>   
+    <div class= "row">
+      <div class="col-sm-12 card card-body">
+        <h1 align="center"> Realtys de <%= @persona.name %> <%= @persona.last_name1 %> </h1>
+        <table   class="table table-bordered table-hover">
+          <thead  class="thead-dark">
+            <tr>
+              <th scope="col">Nombre Realty</th>
+              <th scope="col">Entrada</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Porcentaje</th>
+            </tr>
+          </thead>
+          <tbody class="rounded-pill">
+            <% @dueno.each do |participa| %>
+              <tr>
+                <% realties = Realty.find(participa.realty_id) %>
+                <td scope="row"> <%= realties.name_realty %></td>
+                <td> <%= participa.entrada %> </td>
+                <td> <%= realties.address %> </td>
+                <td> <%= participa.percentage.round(2) %> </td>
+              </tr>
+            <%end%>  
+          </tbody>
+          <% var3 = 0 %>
+          <% @dueno.each do |dueno| %>
+            <% var3 += dueno.percentage %>
+          <%end%>
+          <thead class= "thead-light">
+            <tr>
+              <th scope= "col"> 
+                Total
+              </th> 
+            <tr>
+          </thead> 
+          <tbody class= "rounded-pill">
+            <tr>
+              <td scope = "row"> <%= var3 %> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <%end%>
+</div>
+<div class= "container-fluid">
+  <div class="collapse" id="collapseRealty">  
+    <% @realty_historicos = RealtyDuenoHistorico.where(persona_id: @persona.id, type_member: "Natural") %>
+    <% if @realty_historicos.any? %>
+      <div class="row">
+        <div class="col-sm-12 card card-body">
+          <h1 align = "center"> Realty historicas de <%= @persona.name %> </h1>
+          <table   class="table table-bordered table-hover">
+            <thead  class="thead-dark">
+              <tr>
+                <th scope="col">Nombre Realty</th>
+                <th scope="col">Entrada</th>
+                <th scope="col">Salida</th>
+                <th scope="col">Dirección</th>
+              </tr>
+            </thead>
+            <tbody class="rounded-pill">
+              <% @realty_historicos.each do |realty_historico| %>
+                <tr>
+                  <% realties = Realty.find(realty_historico.realty_id) %>
+                  <td scope="row"> <%= realties.name_realty %></td>
+                  <td> <%= realty_historico.entrada %> </td>
+                  <td> <%= realty_historico.salida %> </td>
+                  <td> <%= realties.address %> </td>  
+                </tr>
+              <%end%>  
+            </tbody>
+          </table>  
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>  

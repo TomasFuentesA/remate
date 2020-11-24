@@ -1,19 +1,309 @@
-<p id="notice"><%= notice %></p>
+<script>
+  vendedor = 0
 
-<p>
-  <strong>Type modality:</strong>
-  <%= @realty_domain.type_modality %>
-</p>
+  function get_value_realty(params) {
+    if(params.value == "Natural") {
+      var list = '<option value= 0>Seleccione persona natural</option>'
+      <%Persona.order(:name).each do |persona| %>
+        list += '<option value= <%= persona.id%>> <%= persona.name%> <%=persona.last_name1 %> / <%= persona.rut%> </option>'
+      <%end%>
+      $('select#persona_id').html(list);    
+    } else {
+      var list = '<option value= 0>Seleccione empresa</option>'
+      <%LegalPersona.order(:name).each do |empresa| %>
+        list += '<option value= <%= empresa.id%>> <%= empresa.name%> / <%= empresa.rut %> </option>'
+      <%end%>
+      $('select#persona_id').html(list); 
+    }
+  }
 
-<p>
-  <strong>Price:</strong>
-  <%= @realty_domain.price %>
-</p>
+  function Function(clr) {
+    vendedor = clr
+  }
+</script>
 
-<p>
-  <strong>Date posetion:</strong>
-  <%= @realty_domain.date_posetion %>
-</p>
+<%= link_to 'Listado de Compra y Venta', realty_domains_path, class: "btn btn-primary" %>
+<div class="container-fluid">
+  <div class = "row">
+    <div class="card" style= "width: 150rem;">
+      <div class="col-sm-12 card-body">  
+        <h1 align= "center"> <%= @realty_domain.type_modality %></h1>
+        <div class = "row">
+          <div class = "col">
+            <label for= "precio"> Precio: </label>
+            <input type="text" id="precio" class="form-control" placeholder="Precio" disable value="<%= @realty_domain.price %>" readonly>
+          </div>
+          <div class = "col">
+            <label for= "fecha"> Fecha de la escritura: </label>
+            <input type="text" id="fecha" class="form-control" placeholder="Fecha" disable value="<%= @realty_domain.date_posetion %>" readonly>
+          </div>
+        </div>
+        <br>
+        <div class = "row">
+          <% @vendedor = RealtyDomainrol.where(realty_domains_id: @realty_domain.id) %>
+          <% @vendedor.each do |vendedor| %>         
+            <div class = "card" style="width:2000px">
+              <div class = "card-body">
+                <div class = "row">
+                  <div class="col-md-6">
+                    <% if vendedor.type_member == "Natural" %>
+                      <div class = "row">
+                        <div class = "col">
+                          <label for="name"> Vendedor: </label>
+                          <% persona = Persona.find(vendedor.persona_id) %>
+                          <input type="text" id="persona<%= persona.id %>" class="form-control" placeholder="Persona" disable value="<%= persona.name %> <%= persona.last_name1 %>" readonly>                   
+                        </div>
+                      </div>
+                      <div class = "row">
+                        <div class ="col">
+                          <label for= "valor"> Precio: </label>
+                          <input type="text" id="valor<%= vendedor.id %>" class="form-control" placeholder="Valor" disable value="<%= vendedor.valor %>" readonly>
+                        </div>
+                        <div class="col">
+                          <% actual = vendedor.valor %>
+                          <% @comprador = RealtyComprador.where(realty_domainrols_id: vendedor.id) %>
+                          <% @comprador.each do |comprador| %>
+                            <% actual -= comprador.precio %>
+                          <%end%>
+                          <label for= "valor"> Monto restante: </label>
+                          <input type="text" id="valor<%= vendedor.id %>" class="form-control" placeholder="Valor" disable value="<%= actual %>" readonly>
+                        </div>
+                      </div>
+                      <div class = "row">
+                        <div class ="col">
+                          <label for= "porcentaje"> Porcentaje de venta: </label>
+                          <input type="text" id="porcentaje<%= vendedor.id %>" class="form-control" placeholder="Porcentaje" disable value="<%= vendedor.cantidad %>" readonly>
+                        </div>
+                        <div class="col">
+                          <% actual3 = vendedor.cantidad %>
+                          <% @comprador = RealtyComprador.where(realty_domainrols_id: vendedor.id) %>
+                          <% @comprador.each do |comprador| %>
+                            <% resto = ((vendedor.cantidad.to_f * comprador.percentage)/100).to_f.round(2) %>
+                            <% actual3 -= resto.round(2) %>
+                          <%end%>
+                          <label for= "porcentaje"> Porcentaje restante: </label>
+                          <input type="text" id="porcentaje<%= vendedor.id %>" class="form-control" placeholder="Porcentaje" disable value="<%= actual3.round(2) %>" readonly>
+                        </div>
+                      </div>
+                    <%else%>
+                      <div class="row">
+                        <div class = "col">
+                          <label for="name"> Vendedor: </label>
+                          <% legalpersona = LegalPersona.find(vendedor.persona_id) %>
+                          <input type="text" id="legalpersona<%= legalpersona.id%>" class="form-control" placeholder="LegaelPersona" disable value="<%= legalpersona.name %>" readonly>
+                        </div>
+                      </div>
+                      <div class = "row">
+                        <div class ="col">
+                          <label for= "valor"> Precio: </label>
+                          <input type="text" id="valor<%= vendedor.id %>" class="form-control" placeholder="Valor" disable value="<%= vendedor.valor %>" readonly>
+                        </div>
+                        <div class="col">
+                          <% actual2 = vendedor.valor %>
+                          <% @comprador = RealtyComprador.where(realty_domainrols_id: vendedor.id) %>
+                          <% @comprador.each do |comprador| %>
+                            <% actual2 -= comprador.precio %>
+                          <%end%>
+                          <label for= "valor"> Monto restante: </label>
+                          <input type="text" id="valor<%= vendedor.id %>" class="form-control" placeholder="Valor" disable value="<%= actual2 %>" readonly>
+                        </div>
+                      </div>
+                      <div class = "row">
+                        <div class ="col">
+                          <label for= "porcentaje"> Porcentaje de venta: </label>
+                          <input type="text" id="porcentaje<%= vendedor.id %>" class="form-control" placeholder="Porcentaje" disable value="<%= vendedor.cantidad %>" readonly>
+                        </div>
+                        <div class="col">
+                          <% actual4 = vendedor.cantidad %>
+                          <% @comprador = RealtyComprador.where(realty_domainrols_id: vendedor.id) %>
+                          <% @comprador.each do |comprador| %>
+                            <% resto = ((vendedor.cantidad.to_f * comprador.percentage)/100).to_f.round(2) %>
+                            <% actual4 -= resto.round(2) %>
+                          <%end%>
+                          <label for= "porcentaje"> Porcentaje restante: </label>
+                          <input type="text" id="porcentaje<%= vendedor.id %>" class="form-control" placeholder="Porcentaje" disable value="<%= actual4.round(2) %>" readonly>
+                        </div>
+                      </div>
+                    <%end%>      
+                  </div>  
+                  <div class="col-md-6">
+                    <% if @realty_domain.type_modality == "Compra y Venta"%>
+                      <label for="name"> Comprador(es): </label>
+                      <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample<%=vendedor.id%>" aria-expanded="false" aria-controls="collapseExample" onclick= "Function(<%= vendedor.id %>)">Añadir Comprador</button>
+                      <br>
+                      <% @compradores = RealtyComprador.where(realty_domainrols_id: vendedor.id) %>
+                      <% @compradores.each do |comprador| %>
+                        <% if comprador.type_member == "Natural" %>
+                          <% comp = Persona.find(comprador.persona_id) %>
+                          <div class="form-row">
+                            <div class="col-md-6 mb-4">
+                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= comp.name%> <%= comp.last_name1%> / <%= comp.rut %>" readonly>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                              <input type="text" id="precio" class="form-control" placeholder="Precio" disable value="<%= comprador.precio%>" readonly>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                              <input type="text" id="percentage" class="form-control" placeholder="Porcentaje" disable value="<%= comprador.percentage%>" readonly>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                              <%= link_to 'Destroy', comprador, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+                            </div>                                       
+                          </div>
+                        <%else%>
+                          <% comp = LegalPersona.find(comprador.persona_id) %>
+                          <div class="form-row">
+                            <div class="col-md-6 mb-4">
+                              <input type="text" id="name" class="form-control" placeholder="Name" disable value="<%= comp.name%> / <%= comp.rut %>" readonly>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                              <input type="text" id="precio" class="form-control" placeholder="Precio" disable value="<%= comprador.precio%>" readonly>
+                            </div>
+                            <div class="col-md-2 mb-4">
+                              <input type="text" id="percentage" class="form-control" placeholder="Porcentaje" disable value="<%= comprador.percentage%>" readonly>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                              <%= link_to 'Destroy', comprador, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+                            </div>                                       
+                          </div>
+                        <%end%>
+                      <%end%>
+                    <%end%>
+                  </div>    
+                </div>
+                <br>
+                <div class= "container-fluid">
+                  <div class="collapse" id="collapseExample<%=vendedor.id%>">   
+                    <div class= "row">
+                      <div class= "col-sm-12 card card-body">
+                        <h1 align="center"> Añadir Comprador </h1>
+                        <% domrol = DomainRol.find_by(domain_id: params[:id]) %>
+                        <%= form_with model: @realty_comprador, url: realty_compradors_path ,id: :formulary, remote: true do |form| %>                                                   
+                          <div class = "col">
+                            <%= form.label "Tipo" %>
+                          </div>
+                          <div class = "col">
+                            <%= form.radio_button :type_member, 'Natural', onchange: "get_value_realty(this)" %> 
+                            <%= label :type_member_Natural, 'Natural' %>
+                            <%= form.radio_button :type_member, 'Legal', onchange: "get_value_realty(this)" %>
+                            <%= label :type_member_Empresa, 'Legal' %>
+                          </div>
+                                                        
+                          <div class = "col">
+                            <%= form.label "Miembro" %>
+                            <%= form.select :persona_id , options_for_select([["Seleccione", 0]]), {include_blank: "Seleccione"} ,class:"custom-select mr-sm-2"%>
+                          </div>
 
-<%= link_to 'Edit', edit_realty_domain_path(@realty_domain) %> |
-<%= link_to 'Back', realty_domains_path %>
+                          <div class="col">
+                            <%= form.label :price, "Valor a pagar" %>
+                            <%= form.number_field :price, class: "form-control", required: true%>
+                                                            
+                          </div>
+
+                          <div class="col">
+                            <%= form.label :percentage, "Porcentaje" %>
+                            <%= form.text_field :percentage, class:"form-control", id: vendedor.id%>
+                          </div>
+
+
+                          <%= form.hidden_field :realty_domainrols_id, value: vendedor.id %>
+                          <br>
+                          <div class= "col">
+                            <div class="actions">
+                              <%= form.submit 'Guardar', class: "btn btn-primary"%>
+                            </div>
+                          </div>  
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>      
+                </div>
+              </div>           
+            </div> 
+          <% end %>  
+        </div>
+      </div>
+    </div>  
+  </div>    
+</div>
+<div class= "container-fluid">
+  <div class= "row">
+    <div class= "col-sm-12 card card-body">
+      <h1 align= "center">Documentos:</h1>    
+      <br>
+      <%= link_to new_realty_domain_realty_domainfile_path(@realty_domain), class: "btn btn-primary" do %>
+      <%= fa_icon "plus"%> Nuevo documento
+      <% end %>
+      <br>
+      <table class= "table table-bordered table-hover">
+        <thead class= "thead-dark">
+          <tr>
+          <th scope= "col">Documento</th>
+          <th scope= "col">Observacion</th>
+          <th scope= "col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody class= "rounded-pill">
+          <% RealtyDomainfile.order(:id).each do |domfiles|%>
+            <% if domfiles.realty_domains_id == @realty_domain.id%>
+            <tr>
+              <% if domfiles.file_name != "" %>
+                <td scope= "row"><%= link_to domfiles.file_name.to_s.split('/')[5], File.join(root_url.to_s,domfiles.file_name.to_s)%> </td>
+              <%else %>
+                <td scope= "row">Sin Archivo</td>
+              <% end %>
+              <td><%= domfiles.observation %></td>
+              <td>
+                <%= link_to 'Ver', domfiles , class: "btn btn-info" %>
+                <%= link_to 'Edit', edit_realty_domainfile_path(domfiles) , class: "btn btn-warning" %>
+                <%= link_to 'Borrar', domfiles, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+              </td>
+            </tr>
+            <%end%>
+          <%end%>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <% @inscriptions = RealtyInscription.where(realty_domains_id: @realty_domain.id) %>
+  <% unless @inscriptions.nil? %>
+  <div class="row">
+    <div class="col-sm-12 card card-body">
+      <h1 align="center">Inscripciones</h1>  
+      <br>
+      <%= link_to new_realty_domain_realty_inscription_path(@realty_domain),class: "btn btn-primary" do%>
+      <%= fa_icon "plus"%> Nueva Inscripcion
+      <% end %>
+      <br>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">foja</th>
+            <th scope="col">número</th>
+            <th scope="col">año</th>
+            <th scope="col">cbrs</th>
+            <th scope="col">Fecha de Inscripcion</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody class="rounded-pill">
+          <% @inscriptions.each do |inscription| %>
+          <tr>
+            <td scope="row"><%= inscription.foja %></td>
+            <td><%= inscription.number %></td>
+            <td><%= inscription.year %></td>
+            <td><%= inscription.cbrs %></td>
+            <td><%= inscription.date %></td>
+            <td>
+              <%= link_to 'ver', inscription ,class: "btn btn-info"%>
+              <%= link_to 'editar', edit_domain_inscription_path(inscription),class: "btn btn-warning" %>
+            </td>
+          </tr>
+          <%end%>
+        </tbody>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <% end %>
+</div>
