@@ -77,6 +77,9 @@
     })
   }
 
+  
+</script>
+
 
 
 
@@ -125,28 +128,7 @@
   </div>
 </div>
 
-<div class="form-group">
-  <div class="row" style="margin-left: 2px;">
-    <div class="col-xs-8">
-      <div class="dropdown">
-        <button onclick="displayButton()" class="dropbtn">Buscar Persona</button>
-        <div id="myDropdown" class="dropdown-content">
-          <form id="Form_persona_notario">
-            <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataPersona_notario()">
-          </form>
-          <div id="listSearch">
-            <% @personas.each do |persona| %>
-              <a href="javascript:void(0)" onclick="changeDataTable(<%= persona.id %>)"><%= persona.id %>-<%= persona.rut %>-<%= persona.full_name_persona %></a>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-8">
-        <%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
-      </div>
-    </div>
-  </div>
-</div>
+
 </div>
   <script>
   /* When the user clicks on the button,
