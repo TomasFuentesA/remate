@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Realty Compradors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Persona</th>
+      <th>Type member</th>
+      <th>Precio</th>
+      <th>Percentage</th>
+      <th>Realty domainrols</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @realty_compradors.each do |realty_comprador| %>
+      <tr>
+        <td><%= realty_comprador.persona_id %></td>
+        <td><%= realty_comprador.type_member %></td>
+        <td><%= realty_comprador.precio %></td>
+        <td><%= realty_comprador.percentage %></td>
+        <td><%= realty_comprador.realty_domainrols %></td>
+        <td><%= link_to 'Show', realty_comprador %></td>
+        <td><%= link_to 'Edit', edit_realty_comprador_path(realty_comprador) %></td>
+        <td><%= link_to 'Destroy', realty_comprador, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Realty Comprador', new_realty_comprador_path %>

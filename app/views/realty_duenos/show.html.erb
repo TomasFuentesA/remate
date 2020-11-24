@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @realty_dueno.persona_id %>
+</p>
+
+<p>
+  <strong>Realty:</strong>
+  <%= @realty_dueno.realty_id %>
+</p>
+
+<p>
+  <strong>Type member:</strong>
+  <%= @realty_dueno.type_member %>
+</p>
+
+<%= link_to 'Edit', edit_realty_dueno_path(@realty_dueno) %> |
+<%= link_to 'Back', realty_duenos_path %>

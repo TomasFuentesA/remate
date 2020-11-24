@@ -15,6 +15,23 @@
       theme: "bootstrap",
       width: "100%"
     });
+    $('select#dueño').select2({
+      theme: "bootstrap",
+      width: "100%"
+    });
+
+    global_list = '';
+    var dueños= '<option value= > Seleccione </option>'
+    <% Persona.order(:id).each do |persona| %>
+      dueños += '<option value= <%= persona.id%>N> <%= persona.name%> <%= persona.last_name1%>/<%= persona.rut%> </option>' 
+    <%end%>
+    <% LegalPersona.order(:id).each do |legalp| %>
+      dueños += '<option value= <%= legalp.id%>L> <%= legalp.name%>/<%= legalp.rut%> </option>' 
+    <%end%>
+    
+    global_list = dueños;
+
+    $('select#dueño').html(dueños); 
   var AUTH_TOKEN=$('meta[name="csrf-token"]').attr('content');
 
 
@@ -59,7 +76,7 @@ Dropzone.options.filesField = {
 <div class="row justify-content-md-center">
   <div class="card">
     <div class="card-body">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="card-body">
             <%= form_with model: @realty, id: :formulary, remote: true do |form| %>
@@ -138,7 +155,7 @@ Dropzone.options.filesField = {
               <br>
               <div class="form-group">
                 <h5>Avalúo Fiscal</h5> 
-                <div class="row ">                  
+                <div class="row">                  
                   <div class="col-md-3">
                     <%= form.label :apple, "manzana:" %>
                     <%= form.number_field :apple, id: :apple , class:"form-control border" ,autofocus: true%>
@@ -150,6 +167,25 @@ Dropzone.options.filesField = {
                 </div>
               </div>
               <br>
+              <div class="form-group">
+                <h5>Agregar dueño(s)</h5>
+                <div class="form-row">
+                  <div class="col">
+                    <select class="dueño form-control" id="dueño" name="dueño[]" value="" placeholder="Dueño" ></select>
+                  </div>
+                  <div class="col">
+                    <input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="Porcentaje" required>
+                  </div>
+                  <div class="col">
+                    <input class="form-control" data-provide="datepicker" data-date-format="dd-mm-yyyy" autocomplete="off" type="text" name="entrada[]" id="entrada" placeholder="Fecha de ingreso" required> 
+                  </div>
+                  <div class="col">
+                    <button class="btn btn-primary" type="button" style="height:40px;width:200px" onclick="add_dueño(global_list)">+</button>
+                  </div>
+                </div>
+                <div id="sellers">
+                </div>
+              </div>
               <div class="form-group">
                 <%= form.fields_for :type_realty do |form| %>
                 <p>

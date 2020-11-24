@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1 align="center">Compra y Venta de propiedades</h1>
+
+<%= link_to 'Nueva Compra y Venta', new_realty_domain_path , class: "btn btn-primary"%>
+<br>
+
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope= "col">Notario</th>
+      <th scope= "col">Precio</th>
+      <th scope= "col">Fecha</th>
+      <th scope= "col">Observaciones</th>
+      <th scope= "col">Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody id="bodyData" class="rounded-pill">
+    <% @realty_domains.each do |realty_domain| %>
+      <tr>
+        <td>
+          <% if realty_domain.notario_type == "Natural" %>
+            <% notario = Persona.find(realty_domain.notario_id) %>
+            <%= notario.name %> <%=notario.last_name1 %>
+          <% else %>
+            <% notario = LegalPersona.find(realty_domain.notario_id) %>
+            <%= notario.name %>
+          <%end%>    
+        </td>
+        <td><%= realty_domain.price %></td>
+        <td><%= realty_domain.date_posetion %></td>
+        <td><%= realty_domain.observation %></td>
+        <td>
+          <%= link_to 'Show', realty_domain, class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_realty_domain_path(realty_domain), class: "btn btn-warning" %>
+          <%= link_to 'Destroy', realty_domain, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

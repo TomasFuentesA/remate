@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>File name:</strong>
+  <%= @realty_inscriptionfile.file_name %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @realty_inscriptionfile.observation %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @realty_inscriptionfile.date %>
+</p>
+
+<p>
+  <strong>Realty inscription:</strong>
+  <%= @realty_inscriptionfile.realty_inscription %>
+</p>
+
+<%= link_to 'Edit', edit_realty_inscriptionfile_path(@realty_inscriptionfile) %> |
+<%= link_to 'Back', realty_inscriptionfiles_path %>

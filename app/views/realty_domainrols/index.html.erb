@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Realty Domainrols</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type member</th>
+      <th>Type rol</th>
+      <th>Persona</th>
+      <th>Precio</th>
+      <th>Realty domains</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @realty_domainrols.each do |realty_domainrol| %>
+      <tr>
+        <td><%= realty_domainrol.type_member %></td>
+        <td><%= realty_domainrol.type_rol %></td>
+        <td><%= realty_domainrol.persona_id %></td>
+        <td><%= realty_domainrol.precio %></td>
+        <td><%= realty_domainrol.realty_domains %></td>
+        <td><%= link_to 'Show', realty_domainrol %></td>
+        <td><%= link_to 'Edit', edit_realty_domainrol_path(realty_domainrol) %></td>
+        <td><%= link_to 'Destroy', realty_domainrol, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Realty Domainrol', new_realty_domainrol_path %>
