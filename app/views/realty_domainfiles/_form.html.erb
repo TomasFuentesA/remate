@@ -1,5 +1,8 @@
 <br>
+
 <%= form_with model: @realty_domainfile, url: realty_domainfiles_path , remote: true do |form| %>
+  <% @real_dom = RealtyDomain.find(params[:realty_domain_id]) %>
+  <%= link_to "Volver atras", @real_dom, class:"btn btn-secondary" %>
   <div class= "container">
 
     <div class="form-group">

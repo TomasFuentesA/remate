@@ -32,9 +32,9 @@
         <td><%= realty_domain.date_posetion %></td>
         <td><%= realty_domain.observation %></td>
         <td>
-          <%= link_to 'Show', realty_domain %>
-          <%= link_to 'Edit', edit_realty_domain_path(realty_domain) %>
-          <%= link_to 'Destroy', realty_domain, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Show', realty_domain, class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_realty_domain_path(realty_domain), class: "btn btn-warning" %>
+          <%= link_to 'Destroy', realty_domain, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
