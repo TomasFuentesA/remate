@@ -1,0 +1,171 @@
+<script>
+ 
+
+
+  function elementAuctionsRecordsList(id) {
+    var newList = ''
+      <% @auctions_records.each do | auctions_record | %>
+           var auctionsRecord = '<%= auctions_record.id %>'
+            if (auctionsRecordId == id) {
+              newList = '<a href="javascript:void(0)" onclick="changeDataTable(' + auctionsRecordId + ')"><%= auctions_record.id %>-<%= auctions_record.id %>-<%= auctions_record.id %></a>'
+            }           
+        <% end %>
+      return newList
+  }
+
+  function table(id) {
+    var newList = ''
+      <% @auctions_records.each do | auctions_record | %>
+          var auctionsRecordId = '<%= auctions_record.id %>'
+          if (auctionsRecordId == id) {
+            newList = '<table class="table table-bordered table-hover"><thead  class="thead-dark"><tr><th scope="col">remate</th><th scope="col">fecha</th><th scope="col">persona adjudica</th><th scope="col">monto adjudica</th><th scope="col">archivo</th><th scope="col">estado</th><th scope="col">Opciones</th></tr></thead><tbody id="bodyData" class="rounded-pill"><tr><td><%auction = Auction.find(auctions_record.auction_id) %><%=auction.judgement.court.name+" / "+auction.judgement.rol_trial%></td><td><%= auctions_record.date %> </td><td><%= Persona.find(auctions_record.award_person_id).full_name_persona %> </td><td><%= auctions_record.award_amount %> </td><td><%= auctions_record.file_name %> </td><td><%= auctions_record.status %> </td><td><%= link_to 'ver', auctions_record , class: "btn btn-info" %><%= link_to 'editar', edit_auctions_record_path(auctions_record) , class: "btn btn-warning" %><%= link_to 'borrar', auctions_record, method: :delete, data: { confirm: 'Esta seguro ? ' } ,class: "btn btn-danger"%></tr></tr></tbody></table>'
+          }           
+        <% end %>
+      return newList
+  }
+
+  function displayButton() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+
+  function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  }
+
+  function changeDataTable(id) {
+    $('div#live-search-results').html(table(id));
+    displayButton()
+  }
+
+  function searchDataAuctionsrecords(value) {
+
+    var form = $("#Form_auctions_records");
+    var url = "/auctions_records/searchFilterData";
+    var formData = form.serialize();
+    $.get(url, formData, function (json) {
+      var list = []
+      $.each(json, function (i, item) {
+        list.push(elementAuctionsRecordsList(json[i].id))
+      });
+      $('div#listSearch').html(list);
+    })
+  }
+</script>
+
+<%= link_to 'Nueva acta remate', new_auctions_record_path ,class: "btn btn-primary"%>
+<br>
+<br>
+<%= link_to "Quitar filtros", auctions_records_path, class:"btn btn-info"%>
+<br>
+<div class="dropdown">
+  <button onclick="displayButton()" class="dropbtn">Buscar Juicio</button>
+  <div id="myDropdown" class="dropdown-content">
+    <form id="Form_auctions_records">
+      <input type="text" placeholder="Buscar acta remate..." id="myInput" name="q" onkeyup="searchDataAuctionsrecords()">
+    </form>
+    <div id="listSearch">
+      <% @auctions_records.each do |auctionsRecords| %>
+      <% auction = Auction.find(auctionsRecords.auction_id) %>
+      <% persona = Persona.find(auctionsRecords.award_person_id) %>
+      <a href="javascript:void(0)"
+        onclick="changeDataTable(<%= auctionsRecords.id %>)"><%=auction.judgement.court.name+" / "+auction.judgement.rol_trial%>-<%= persona.rut+" / "+persona.full_name_persona %></a>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div id="live-search-results">
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">remate</th>
+        <th scope="col">fecha</th>
+        <th scope="col">persona adjudica</th>
+        <th scope="col">postores</th>
+        <th scope="col">monto adjudica</th>
+        <th scope="col">archivo</th>
+        <th scope="col">estado</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody id="bodyData" class="rounded-pill">
+      <% @auctions_records.each_with_index do |auctions_record, i| %>
+      <tr>
+        <td><%auction = Auction.find(auctions_record.auction_id) %><%=auction.judgement.court.name+" / "+auction.judgement.rol_trial%></td>
+        <td><%= auctions_record.date %> </td>
+        <td><div id="award_person_list-<%=i%>"></div></td>
+        <td><div id="bidders_list-<%=i%>"></div></td>
+        <td><%= auctions_record.award_amount %> </td>
+        <td><%= auctions_record.file_name %> </td>
+        <td><%= auctions_record.status %> </td>
+        <td>
+          <%= link_to 'ver', auctions_record , class: "btn btn-info" %>
+          <%= link_to 'editar', edit_auctions_record_path(auctions_record) , class: "btn btn-warning" %>
+          <%= link_to 'borrar', auctions_record, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <%= will_paginate(@auctions_records, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
+</div>
+
+<script>
+  $(document).ready(function() {
+     <% @auctions_records.each_with_index do |auctions_record_test, i| %>
+               
+    var id ='<%=i%>'
+     console.log('asdasdas')
+    <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:auctions_record_test.id,persona_type_description:"Postor") %>
+    var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+     console.log(count)
+    if(count > 0){
+      var listPostor = ''     
+      <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+        var persona_type_description = '<%=auctions_record.persona_type_description%>'
+          <% empresa = auctions_record.persona_type=="Legal" ? LegalPersona.find(auctions_record.persona_id) :''%>
+          listPostor += '<%= empresa != '' ? empresa.rut+" / "+empresa.name : '' %><br>'      
+          <% persona = auctions_record.persona_type=="Natural" ? Persona.find(auctions_record.persona_id) : '' %>
+          listPostor += '<%= persona != '' ? persona.rut+" / "+persona.name+" "+persona.last_name1 : '' %><br>'   
+          var name = "#bidders_list-"+id+""
+          console.log(name)
+        $(name).html(listPostor.replace("<br><br>", "<br>"));   
+      <%end%>
+    }
+    <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:auctions_record_test.id,persona_type_description:"Adjudicatario") %>
+    var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+     console.log(count)
+    if(count > 0){
+       var listAdjudicatario = ''     
+      <% @auctionsRecord.each do |auctions_record| %>
+                var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+        var persona_type_description = '<%=auctions_record.persona_type_description%>'
+          <% empresa = auctions_record.persona_type=="Legal" ? LegalPersona.find(auctions_record.persona_id) :''%>
+          listAdjudicatario += '<%= empresa != '' ? empresa.rut+" / "+empresa.name : '' %><br>'      
+          <% persona = auctions_record.persona_type=="Natural" ? Persona.find(auctions_record.persona_id) : '' %>
+          listAdjudicatario += '<%= persona != '' ? persona.rut+" / "+persona.name+" "+persona.last_name1 : '' %><br>'  
+          var name = "#award_person_list-"+id+""
+          console.log(name)
+        $(name).html(listAdjudicatario.replace("<br><br>", "<br>"));       
+      <%end%>
+  
+  } 
+        <%end%>
+  });
+</script>
