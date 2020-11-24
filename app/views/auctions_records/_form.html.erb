@@ -53,7 +53,7 @@
           room++;
           count++;
          
-          list += '<div class="form-group removeclass'+room+'"><div class="form-row"><div class="col"><select class="auctions_record_award_person_list form-control" id="auctions_record_award_person_list" name="auctions_record_award_person_list[]" value="" placeholder="Vendedor" required></select></div><div class="col"><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="price" required></div><div class="col"><input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="percentage" required></div><div class="col"><button class="btn btn-danger" type="button" onclick="remove_persons_list('+ room +');"> Eliminar </button></div></div></div>'
+          list += '<div class="form-group removeclass'+room+'"><div class="form-row"><div class="col"><select class="auctions_record_award_person_list form-control" id="auctions_record_award_person_list" name="auctions_record_award_person_list[]" value="" placeholder="Vendedor" required></select></div><div class="col"><input type="text" class="form-control" id="price" name="price[]" value=<%=persona.award_amount ? persona.award_amount : 0%> placeholder="price" required></div><div class="col"><input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="percentage" required></div><div class="col"><button class="btn btn-danger" type="button" onclick="remove_persons_list('+ room +');"> Eliminar </button></div></div></div>'
       <%end%>
       $('#awardPersonList').html(list);   
     }
@@ -91,7 +91,7 @@
       console.log('-------'); 
       console.log(global_list);
       $('#auctions_record_award_person_list').html(list);     
-                $('.auctions_record_award_person_list').html(global_list);
+      $('.auctions_record_award_person_list').html(global_list);
 
     }
 
@@ -167,8 +167,6 @@
       <div>
         <h4><%=params['action']=="edit"? "Editar" : "Nueva"%> acta remate</h4>
       </div>
-      <%=@awardPersonList.to_a%><br>
-      <%=@bidders.to_a%>
       <%= form_with model: @auctions_records, url: auctions_records_path , remote: true do |form| %>
       <div class="field">
         <%= form.label :auction_id, "Seleccionar Remate" %>

@@ -45,12 +45,15 @@ class AuctionsRecordsController < InheritedResources::Base
       end
     end
     params[:auctions_record_award_person_list].each do |p|
-      if(p.to_s !="")
-        @num = p.to_i
-        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
-        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
-        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Adjudicatario")
-        @auctionsRecordsPersona.save
+      params[:price].each do |n|
+        if(p.to_s !="")
+          @num = p.to_i
+          @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+          @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+          @price = n.to_i
+          @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Adjudicatario",award_amount:@price)
+          @auctionsRecordsPersona.save
+        end
       end
     end
     redirect_to @auctions_records
@@ -79,12 +82,15 @@ class AuctionsRecordsController < InheritedResources::Base
       end
     end
     params[:auctions_record_award_person_list].each do |p|
-      if(p.to_s !="")
-        @num = p.to_i
-        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
-        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
-        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Adjudicatario")
-        @auctionsRecordsPersona.save
+      params[:price].each do |n|
+        if(p.to_s !="")
+          @num = p.to_i
+          @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+          @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+          @price = n.to_i
+          @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Adjudicatario",award_amount:@price)
+          @auctionsRecordsPersona.save
+        end
       end
     end
     redirect_to auctions_records_path
