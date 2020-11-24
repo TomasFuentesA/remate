@@ -1,54 +1,43 @@
 <script>
 
-   function getPersonList(params) {
-      var list = '' 
-      <%Persona.order(:name).each do |persona| %>
-          var pesonaNaturalId = '<%=persona.id %>'
-          var validateSelected = validatePersonaNatural(pesonaNaturalId,"demandado") ? "selected" : ""
-          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
-      <%end%>
-      <%LegalPersona.order(:name).each do |empresa| %>
-          var pesonaLegalId = '<%=empresa.id %>'
-          var validateSelected = validatePersonaLegal(pesonaLegalId,"demandado") ? "selected" : ""
-          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
-      <%end%>
-      $('#award_person_list').html(list);       
-    }
-
-    function validatePersonaLegal(pesonaLegalId,type){
-      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id]) %>
-      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
-      if(count > 0){
-        <% @auctionsRecord.each do |auctions_record| %>
+function getPersonList(type) {
+  var list = '' 
+  if(type=="Postor"){
+    <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Postor") %>
+    var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+    if(count > 0){
+      <% @auctionsRecord.each do |auctions_record| %>
         var persona_id = '<%=auctions_record.persona_id%>'
         var persona_type = '<%=auctions_record.persona_type%>'
-          if(persona_id==pesonaLegalId && persona_type=="Legal"){
-            return true
-          }
-        <%end%>
-      }
-      return false
-    }
-
-    function validatePersonaNatural(pesonaNaturalId,type){
-      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id]) %>
-      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
-       console.log('count '+count)
-      if(count > 0){
-        console.log('validatePersonaNatural count')
-        <% @auctionsRecord.each do |auctions_record| %>
-        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type_description = '<%=auctions_record.persona_type_description%>'
+          <% empresa = auctions_record.persona_type=="Legal" ? LegalPersona.find(auctions_record.persona_id) :''%>
+          list += '<%= empresa != '' ? empresa.rut+" / "+empresa.name : '' %><br>'      
+          <% persona = auctions_record.persona_type=="Natural" ? Persona.find(auctions_record.persona_id) : '' %>
+          list += '<%= persona != '' ? persona.rut+" / "+persona.name+" "+persona.last_name1 : '' %><br>'      
+        $('#bidders_list').html(list.replace("<br><br>", "<br>"));   
+      <%end%>
+    } 
+  }else{
+    <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Adjudicatario") %>
+    var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+    if(count > 0){
+      <% @auctionsRecord.each do |auctions_record| %>
+                var persona_id = '<%=auctions_record.persona_id%>'
         var persona_type = '<%=auctions_record.persona_type%>'
-          if(persona_id==pesonaNaturalId && persona_type=="Natural"){
-            return true
-          }
-        <%end%>
-      }
-      return false
+        var persona_type_description = '<%=auctions_record.persona_type_description%>'
+          <% empresa = auctions_record.persona_type=="Legal" ? LegalPersona.find(auctions_record.persona_id) :''%>
+          list += '<%= empresa != '' ? empresa.rut+" / "+empresa.name : '' %><br>'      
+          <% persona = auctions_record.persona_type=="Natural" ? Persona.find(auctions_record.persona_id) : '' %>
+          list += '<%= persona != '' ? persona.rut+" / "+persona.name+" "+persona.last_name1 : '' %><br>'  
+        $('#award_person_list').html(list.replace("<br><br>", "<br>"));       
+      <%end%>
     }
+  }
+ }
     
   $(document).ready(function() {
-    getPersonList();
+    getPersonList("Adjudicatario");
+    getPersonList("Postor");
   });
 </script>
 <br>
@@ -81,6 +70,11 @@
         <div class="field">
           <h4>se adjudica:</h4>
           <div id="award_person_list"></div>
+        </div>
+         <br>
+        <div class="field">
+          <h4>postores:</h4>
+          <div id="bidders_list"></div>
         </div>
         <br>
         <div class="field">

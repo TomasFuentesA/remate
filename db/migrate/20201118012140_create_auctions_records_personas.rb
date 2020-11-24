@@ -4,6 +4,7 @@ class CreateAuctionsRecordsPersonas < ActiveRecord::Migration[5.2]
       t.integer :auctions_record_id
       t.integer :persona_id
       t.string :persona_type
+      t.string :persona_type_description
       t.timestamps
     end
   end

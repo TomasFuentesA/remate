@@ -23,6 +23,8 @@ class AuctionsRecordsController < InheritedResources::Base
   end
 
   def new
+    @auction_id=params['format']
+    @status = 3
     @auctions_records = AuctionsRecord.new
   end
 
@@ -33,12 +35,21 @@ class AuctionsRecordsController < InheritedResources::Base
     @id = @auctions_records.id
     @auctionsRecordsPersonaValidate = AuctionsRecordsPersona.where(auctions_record_id:@id)
     @auctionsRecordsPersonaValidate.destroy_all
-    params[:auctions_record][:award_person_list].each do |p|
+    params[:auctions_record][:bidders].each do |p|
       if(p.to_s !="")
         @num = p.to_i
         @idPersona = (p.to_i < 0) ? @num * -1 : @num;
         @tipo = (p.to_i < 0) ? "Legal" : "Natural"
-        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo)
+        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Postor")
+        @auctionsRecordsPersona.save
+      end
+    end
+    params[:auctions_record_award_person_list].each do |p|
+      if(p.to_s !="")
+        @num = p.to_i
+        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Adjudicatario")
         @auctionsRecordsPersona.save
       end
     end
@@ -49,6 +60,8 @@ class AuctionsRecordsController < InheritedResources::Base
   end
 
   def edit
+    @awardPersonList = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Adjudicatario")
+    @bidders = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Postor")
   end
 
   def update
@@ -56,12 +69,21 @@ class AuctionsRecordsController < InheritedResources::Base
     @id = params[:id]
     @auctionsRecordsPersonaValidate = AuctionsRecordsPersona.where(auctions_record_id:@id)
     @auctionsRecordsPersonaValidate.destroy_all
-    params[:auctions_record][:award_person_list].each do |p|
+    params[:auctions_record][:bidders].each do |p|
       if(p.to_s !="")
         @num = p.to_i
         @idPersona = (p.to_i < 0) ? @num * -1 : @num;
         @tipo = (p.to_i < 0) ? "Legal" : "Natural"
-        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo)
+        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Postor")
+        @auctionsRecordsPersona.save
+      end
+    end
+    params[:auctions_record_award_person_list].each do |p|
+      if(p.to_s !="")
+        @num = p.to_i
+        @idPersona = (p.to_i < 0) ? @num * -1 : @num;
+        @tipo = (p.to_i < 0) ? "Legal" : "Natural"
+        @auctionsRecordsPersona = AuctionsRecordsPersona.new(auctions_record_id:@id,persona_id:@idPersona,persona_type:@tipo,persona_type_description:"Adjudicatario")
         @auctionsRecordsPersona.save
       end
     end
@@ -69,7 +91,10 @@ class AuctionsRecordsController < InheritedResources::Base
   end
 
   def destroy
-    @auctions_records=AuctionsRecord.find(params[:id])
+    @id = params[:id]
+    @auctionsRecordsPersonaValidate = AuctionsRecordsPersona.where(auctions_record_id:@id)
+    @auctionsRecordsPersonaValidate.destroy_all
+    @auctions_records=AuctionsRecord.find(@id)
     @auctions_records.destroy
     redirect_to auctions_records_path
   end

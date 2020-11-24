@@ -1,4 +1,6 @@
 <script>
+ 
+
 
   function elementAuctionsRecordsList(id) {
     var newList = ''
@@ -92,6 +94,7 @@
         <th scope="col">remate</th>
         <th scope="col">fecha</th>
         <th scope="col">persona adjudica</th>
+        <th scope="col">postores</th>
         <th scope="col">monto adjudica</th>
         <th scope="col">archivo</th>
         <th scope="col">estado</th>
@@ -99,12 +102,12 @@
       </tr>
     </thead>
     <tbody id="bodyData" class="rounded-pill">
-      <% @auctions_records.each do |auctions_record| %>
+      <% @auctions_records.each_with_index do |auctions_record, i| %>
       <tr>
         <td><%auction = Auction.find(auctions_record.auction_id) %><%=auction.judgement.court.name+" / "+auction.judgement.rol_trial%></td>
         <td><%= auctions_record.date %> </td>
-        <% persona = Persona.find(auctions_record.award_person_id) %>
-        <td><%= persona.rut+" / "+persona.full_name_persona %></td>
+        <td><div id="award_person_list-<%=i%>"></div></td>
+        <td><div id="bidders_list-<%=i%>"></div></td>
         <td><%= auctions_record.award_amount %> </td>
         <td><%= auctions_record.file_name %> </td>
         <td><%= auctions_record.status %> </td>
@@ -117,6 +120,52 @@
     </tbody>
   </table>
   <br>
-  <script>callPerson();</script>
   <%= will_paginate(@auctions_records, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer,previous_label: "Anterior", next_label: "Siguiente", class: 'pagination justify-content-center') %>
 </div>
+
+<script>
+  $(document).ready(function() {
+     <% @auctions_records.each_with_index do |auctions_record_test, i| %>
+               
+    var id ='<%=i%>'
+     console.log('asdasdas')
+    <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:auctions_record_test.id,persona_type_description:"Postor") %>
+    var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+     console.log(count)
+    if(count > 0){
+      var listPostor = ''     
+      <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+        var persona_type_description = '<%=auctions_record.persona_type_description%>'
+          <% empresa = auctions_record.persona_type=="Legal" ? LegalPersona.find(auctions_record.persona_id) :''%>
+          listPostor += '<%= empresa != '' ? empresa.rut+" / "+empresa.name : '' %><br>'      
+          <% persona = auctions_record.persona_type=="Natural" ? Persona.find(auctions_record.persona_id) : '' %>
+          listPostor += '<%= persona != '' ? persona.rut+" / "+persona.name+" "+persona.last_name1 : '' %><br>'   
+          var name = "#bidders_list-"+id+""
+          console.log(name)
+        $(name).html(listPostor.replace("<br><br>", "<br>"));   
+      <%end%>
+    }
+    <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:auctions_record_test.id,persona_type_description:"Adjudicatario") %>
+    var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+     console.log(count)
+    if(count > 0){
+       var listAdjudicatario = ''     
+      <% @auctionsRecord.each do |auctions_record| %>
+                var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+        var persona_type_description = '<%=auctions_record.persona_type_description%>'
+          <% empresa = auctions_record.persona_type=="Legal" ? LegalPersona.find(auctions_record.persona_id) :''%>
+          listAdjudicatario += '<%= empresa != '' ? empresa.rut+" / "+empresa.name : '' %><br>'      
+          <% persona = auctions_record.persona_type=="Natural" ? Persona.find(auctions_record.persona_id) : '' %>
+          listAdjudicatario += '<%= persona != '' ? persona.rut+" / "+persona.name+" "+persona.last_name1 : '' %><br>'  
+          var name = "#award_person_list-"+id+""
+          console.log(name)
+        $(name).html(listAdjudicatario.replace("<br><br>", "<br>"));       
+      <%end%>
+  
+  } 
+        <%end%>
+  });
+</script>
