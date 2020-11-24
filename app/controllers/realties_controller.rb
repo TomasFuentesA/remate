@@ -41,6 +41,7 @@ class RealtiesController < ApplicationController
   end
 
   def edit
+
     @fileUpload = FileUpload.where(model_id:params['id'])
     @auction_id=params['format']
     @condominios = Condominio.all
@@ -49,6 +50,39 @@ class RealtiesController < ApplicationController
   end
 
   def update
+    i = 0
+    j = 0
+    Rails.logger.info params[:id]
+    if params[:dueño].length != 0 
+      params[:dueño].each do |dueño|
+        if (params[:percentage][i].to_f <= 0) || (params[:percentage][i].to_i > 100)
+          @eliminar = RealtyDueno.where(realty_id: @realty.id)
+          @eliminar.each do |eliminar|
+            eliminar.destroy
+          end
+          flash[:alert] = "Error en el valor del porcentaje"
+          redirect_to(edit_realty_path(@realty)) and return
+        else
+          j += params[:percentage][i].to_f
+          if j <= 100.0
+            if dueño.chars[dueño.length - 1] == 'N'
+              RealtyDueno.create(persona_id: dueño.split("N")[0].to_i, type_member: "Natural", realty_id: params[:id], percentage: params[:percentage][i], entrada: params[:entrada][i])
+              i += 1
+            else
+              RealtyDueno.create(persona_id: dueño.split("L")[0].to_i, type_member: "Legal", realty_id: params[:id], percentage: params[:percentage][i],  entrada: params[:entrada][i])
+              i += 1
+            end
+          else
+            @eliminar = RealtyDueno.where(realty_id: @realty.id)
+            @eliminar.each do |eliminar|
+              eliminar.destroy
+            end
+            flash[:alert] = "Error en el valor del porcentaje"
+            redirect_to(edit_realty_path(@realty)) and return
+          end
+        end  
+      end
+    end  
     @auction_id = params['realty']['auction_id']
     @condominios = Condominio.all
     @realty.update(realty_params)

@@ -1,0 +1,133 @@
+<script>
+  $(document).ready(function() {
+    $('select#realty_domain_notario_id').select2({
+      theme: "bootstrap",
+      width: "100%" 
+    });
+    $('select#realty_domain_realty_id').select2({
+      theme: "bootstrap",
+      width: "100%" 
+    }); 
+    var contadores = '<option value= > Seleccione </option>'
+    var optgroup1 = '<optgroup label="Empresas">'
+    <% LegalPersona.order(:id).each do |legalp| %>
+      <% Activity.order(:id).each do |act| %>
+        <% if (act.activityable_id == legalp.id) && (act.rubro == "Notario") %>
+          optgroup1 += '<option value= <%= legalp.id%>L> <%= legalp.name%>/<%= legalp.rut%>  </option>' 
+        <%end%>
+      <%end%>
+    <%end%>
+     optgroup1 += '</optgroup>'
+    var optgroup2 = '<optgroup label="Personas">'
+    <% Persona.order(:id).each do |perso| %>
+      <% Activity.order(:id).each do |act| %>
+        <% if (act.activityable_id == perso.id) && (act.rubro == "Notario") %>
+          optgroup2 += '<option value= <%= perso.id%>N> <%= perso.name%> <%= perso.last_name1%>/<%= perso.rut%>  </option>' 
+        <%end%>
+      <%end%>
+    <%end%>
+    optgroup2 += '</optgroup>'
+    contadores += optgroup1 + optgroup2
+
+    $('select#realty_domain_notario_id').html(contadores); 
+    
+    var realties= '<option value= > Seleccione </option>'
+    <% Realty.order(:id).each do |realty| %>
+      realties += '<option value= <%= realty.id%>> <%= realty.address%> </option>'
+    <%end%>
+    $('select#realty_domain_realty_id').html(realties); 
+  });
+  
+
+  global_list = ''
+  function myFunction(params) {
+    list = ''
+    <% Realty.order(:id).each do |realty| %>
+      id = <%= realty.id %>
+      if (id == params.value ) { 
+        <% dueños = RealtyDueno.where(realty_id: realty.id) %>
+        <% dueños.each do |dueño| %>
+          <% if dueño.type_member == "Natural" %>
+            <% persona = Persona.find(dueño.persona_id) %>
+            list += '<option value= <%= persona.id%>N> <%= persona.name%> <%= persona.last_name1%> / <%= persona.rut%> </option>'
+          <%else%>
+            <% legalper = LegalPersona.find(dueño.persona_id) %>
+            list += '<option value= <%= legalper.id%>L> <%= legalper.name%>/ <%= legalper.rut%> </option>'
+          <%end%>
+        <%end%>
+      }
+    <%end%>
+    global_list = list;  
+    console.log(list);
+    $('.vendedor').html(list);       
+  }
+
+</script>
+
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 card card-body ">
+      <%= form_with model: @realty_domain, url: realty_domains_path , remote: true do |form| %>
+
+      <h1 align="center"> <%= form.label :type_modality, "Nueva Compra y Venta" %> </h1>
+      <%= form.hidden_field :type_modality, :value => "Compra y Venta", name: "realty_domain[type_modality]", id: "realty_domain_type_modality" %>
+
+      <div class="form-row">
+        <%= form.label :notario_id, "Seleccionar Notario" %>
+        <select class="notario form-control" name="realty_domain[notario_id]" id="realty_domain_notario_id" required></select>
+      </div>
+      <div class="form-row">
+        <%= form.label :type_currency, "Tipo de moneda:" %>
+        <%= form.select :type_currency, options_for_select([["uf", "uf"], ["pesos", "pesos"]]), { include_blank: "Seleccione"},class:"form-control border", required: true %>
+      </div>
+
+      <div class="form-row">
+        <%= form.label :realty_id, "Seleccionar Vivienda" %>
+        <select class="realty form-control" name="realty_domain[realty_id]" id="realty_domain_realty_id" value='' onchange="myFunction(this)" required></select>
+      </div>
+
+      <div class="form-row">
+        <%= form.label :date_posetion, "Fecha de escritura:" %>
+        <%= form.text_field :date_posetion, name:"realty_domain[date_posetion]", id:"realty_domain_date_posetion" , data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off", class:"form-control border" %>
+      </div>
+      <br>
+      <div class="form-row" >
+        <div class="col-md-12 card card-body">
+          <div class="row">
+            <div class="col" align="center">
+              <div class="row">
+                <div class="col">
+                  <select class="vendedor form-control" id="vendedor" name="vendedor[]" value="" placeholder="Vendedor" required></select>
+                </div>
+                <div class="col">
+                  <input class="valor form-control" id="valor" name="valor[]" value="" placeholder="Valor" onkeyup = "sumar()" required></select>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" id="percentage_v" name="percentage_v[]" value="" placeholder="Porcentaje" required>
+                </div>
+                <div class="col">
+                  <button class="btn btn-primary" type="button" style="height:40px;width:200px" onclick="add_seller(global_list)">+</button>
+                </div>
+              </div> 
+            </div>               
+          </div> 
+        </div>
+      </div>
+
+      <div id="sellers">
+      </div>
+       
+
+      <div class="form-row">
+        <%= form.label :observation, "Observaciones:" %>
+        <%= form.text_area :observation, name:"realty_domain[observation]", id:"realty_domain_observation",autofocus: true, class:"form-control border"%>
+      </div>
+
+      <br>
+      <%= form.submit "Guardar",class: "btn btn-success" %>
+      <%= link_to 'Listado de Compra y Ventas', realty_domains_path , class: "btn btn-info"%>
+      <% end %>
+    </div>
+  </div>
+</div>

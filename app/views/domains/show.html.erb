@@ -4,7 +4,7 @@
   <div class= "row">
     <div class= "card" style= "width: 150rem;">
       <div class="col-sm-12 card-body">
-      <h1 align="center"> Datos de la empresa: <%= @legal_persona.name %> </h1>
+        <h1 align="center"> Datos de la empresa: <%= @legal_persona.name %> </h1>
         <div class= "row">
           <div class= "col-md-6">
             <label for= "name"> Nombre de la empresa: </label>
@@ -452,6 +452,7 @@
     var x = ((params.value * 100)/y).toFixed(2)
     document.getElementById(dom_v).value = x.toString();
   }
+  
   function Function(clr) {
     dom_v = clr
   }

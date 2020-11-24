@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Realty Inscriptionfiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>File name</th>
+      <th>Observation</th>
+      <th>Date</th>
+      <th>Realty inscription</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @realty_inscriptionfiles.each do |realty_inscriptionfile| %>
+      <tr>
+        <td><%= realty_inscriptionfile.file_name %></td>
+        <td><%= realty_inscriptionfile.observation %></td>
+        <td><%= realty_inscriptionfile.date %></td>
+        <td><%= realty_inscriptionfile.realty_inscription %></td>
+        <td><%= link_to 'Show', realty_inscriptionfile %></td>
+        <td><%= link_to 'Edit', edit_realty_inscriptionfile_path(realty_inscriptionfile) %></td>
+        <td><%= link_to 'Destroy', realty_inscriptionfile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Realty Inscriptionfile', new_realty_inscriptionfile_path %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Realty Duenos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Persona</th>
+      <th>Realty</th>
+      <th>Type member</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @realty_duenos.each do |realty_dueno| %>
+      <tr>
+        <td><%= realty_dueno.persona_id %></td>
+        <td><%= realty_dueno.realty_id %></td>
+        <td><%= realty_dueno.type_member %></td>
+        <td><%= link_to 'Show', realty_dueno %></td>
+        <td><%= link_to 'Edit', edit_realty_dueno_path(realty_dueno) %></td>
+        <td><%= link_to 'Destroy', realty_dueno, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Realty Dueno', new_realty_dueno_path %>

@@ -75,7 +75,47 @@
 
       $('div#listSearch').html(list);
     })
-}
+  }
+
+  function searchDataPersona_notario(value) {
+    console.log(value)
+
+    var form = $("#Form_persona_notario"); // grab the form wrapping the search bar.
+  
+    var url = "/personas/searchFilterData"; // live_search action.   
+    var formData = form.serialize(); // grab the data in the form   
+    var formDataLowerCase = formData.toLowerCase();
+    //console.log(url)
+    //console.log(formData.toLowerCase())
+
+    $.get(url, formDataLowerCase, function(json) { // perform an AJAX get
+      //$("#live-search-results").html(json); // replace the "results" div with the results
+      console.log(json)
+     // console.log(json[0].id)
+     //$('div#listSearch').text(json[0].id);
+
+        //console.log(json.size)
+        //json.forEach(element => 
+          //console.log(element.id)
+         // var newList = elementPersonaList(5)
+        //);
+        var list = []
+    $.each(json, function(i, item) {
+        //elementPersonaList(json[i].id);
+        list.push(elementPersonaList(json[i].id))
+    });
+        console.log(list)
+        //var newList = elementPersonaList(4)
+        /*for (var i = 0; i < 9; i++) {
+          n += i;
+          mifuncion(n);
+        }*/
+
+        //var newLists;
+
+      $('div#listSearch').html(list);
+    })
+  }
 </script>
 
 
@@ -102,32 +142,53 @@
 <%= link_to 'Nueva Persona', new_persona_path ,class: "btn btn-primary"%>
 <br>
 
-
- <div class="form-group">
-            <div class="row" style="margin-left: 2px;">
-              <div class="col-xs-8">
-  <div class="dropdown">
-    <button onclick="displayButton()" class="dropbtn">Buscar Persona</button>
-    <div id="myDropdown" class="dropdown-content">
-      <form id="Form_persona">
-        <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataPersona()">
-      </form>
-      <div id="listSearch">
-        <% @personas.each do |persona| %>
-          <a href="javascript:void(0)" onclick="changeDataTable(<%= persona.id %>)"><%= persona.id %>-<%= persona.rut %>-<%= persona.full_name_persona %></a>
-        <% end %>
+<div class ="row">
+<div class="form-group">
+  <div class="row" style="margin-left: 2px;">
+    <div class="col-xs-8">
+      <div class="dropdown">
+        <button onclick="displayButton()" class="dropbtn">Buscar Persona</button>
+        <div id="myDropdown" class="dropdown-content">
+          <form id="Form_persona">
+            <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataPersona()">
+          </form>
+          <div id="listSearch">
+            <% @personas.each do |persona| %>
+              <a href="javascript:void(0)" onclick="changeDataTable(<%= persona.id %>)"><%= persona.id %>-<%= persona.rut %>-<%= persona.full_name_persona %></a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-8">
+        <%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
       </div>
     </div>
   </div>
+</div>
 
-  </div>
-              <div class="col-xs-8">
-               <%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
-
-                    </div>
-            </div>
+<div class="form-group">
+  <div class="row" style="margin-left: 2px;">
+    <div class="col-xs-8">
+      <div class="dropdown">
+        <button onclick="displayButton()" class="dropbtn">Buscar Persona</button>
+        <div id="myDropdown" class="dropdown-content">
+          <form id="Form_persona_notario">
+            <input type="text" placeholder="Search.." id="myInput" name="q" onkeyup="searchDataPersona_notario()">
+          </form>
+          <div id="listSearch">
+            <% @personas.each do |persona| %>
+              <a href="javascript:void(0)" onclick="changeDataTable(<%= persona.id %>)"><%= persona.id %>-<%= persona.rut %>-<%= persona.full_name_persona %></a>
+            <% end %>
           </div>
-
+        </div>
+      </div>
+      <div class="col-xs-8">
+        <%= link_to "Quitar filtros", personas_path, class:"btn btn-info"%>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
   <script>
   /* When the user clicks on the button,
   toggle between hiding and showing the dropdown content */

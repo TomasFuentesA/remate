@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @realty_comprador.persona_id %>
+</p>
+
+<p>
+  <strong>Type member:</strong>
+  <%= @realty_comprador.type_member %>
+</p>
+
+<p>
+  <strong>Precio:</strong>
+  <%= @realty_comprador.precio %>
+</p>
+
+<p>
+  <strong>Percentage:</strong>
+  <%= @realty_comprador.percentage %>
+</p>
+
+<p>
+  <strong>Realty domainrols:</strong>
+  <%= @realty_comprador.realty_domainrols %>
+</p>
+
+<%= link_to 'Edit', edit_realty_comprador_path(@realty_comprador) %> |
+<%= link_to 'Back', realty_compradors_path %>

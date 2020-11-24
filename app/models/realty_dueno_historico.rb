@@ -1,0 +1,2 @@
+class RealtyDuenoHistorico < ApplicationRecord
+end

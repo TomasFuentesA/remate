@@ -1,0 +1,42 @@
+<%= form_with(model: realty_dueno_historico, local: true) do |form| %>
+  <% if realty_dueno_historico.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(realty_dueno_historico.errors.count, "error") %> prohibited this realty_dueno_historico from being saved:</h2>
+
+      <ul>
+      <% realty_dueno_historico.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :persona_id %>
+    <%= form.number_field :persona_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :realty_id %>
+    <%= form.number_field :realty_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type_member %>
+    <%= form.text_field :type_member %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salida %>
+    <%= form.date_select :salida %>
+  </div>
+
+  <div class="field">
+    <%= form.label :entrada %>
+    <%= form.date_select :entrada %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
