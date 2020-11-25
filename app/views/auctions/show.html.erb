@@ -272,6 +272,42 @@
           </table>
         </div>
         <% end %>
+        <br><br>
+        <%= link_to 'Nueva acta de remate', new_auctions_record_path(@auction.id) ,class: "btn btn-primary"%>
+        <br><br>
+        <%if @judgement.judicialfiles.any? %>
+        <h3>Acta remate:</h3>
+        <div class="field">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">remate</th>
+                <th scope="col">fecha</th>
+                <th scope="col">persona adjudica</th>
+                <th scope="col">monto adjudica</th>
+                <th scope="col">archivo</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% AuctionsRecord.where(auction_id:@auction.id).each do |auctions_record| %>
+              <tr>
+                <td><%auction = Auction.find(auctions_record.auction_id) %><%=auction.judgement.court.name+" / "+auction.judgement.rol_trial%></td>
+                <td><%= auctions_record.date %> </td>
+                <% persona = Persona.find(auctions_record.award_person_id) %>
+                <td><%= persona.rut+" / "+persona.full_name_persona %></td>
+                <td><%= auctions_record.award_amount %> </td>
+                <td><%= auctions_record.file_name %> </td>
+                <td>
+                  <%= link_to 'ver', auctions_record , class: "btn btn-info" %>
+                  <%= link_to 'editar', edit_auctions_record_path(auctions_record) , class: "btn btn-warning" %>
+                  <%= link_to 'borrar', auctions_record, method: :delete, data: { confirm: 'Esta seguro?' } ,class: "btn btn-danger"%>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>

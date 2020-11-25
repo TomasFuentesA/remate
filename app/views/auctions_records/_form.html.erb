@@ -1,0 +1,237 @@
+<script>
+  $(document).ready(function() {
+    $('select#auctions_record_judgement_id').select2({
+      theme: "bootstrap"
+    });
+    $('select#auctions_record_award_person_id').select2({
+      theme: "bootstrap"
+    });
+    $('select#auctions_record_bidders').select2({
+      theme: "bootstrap"
+    });
+    getBidders();
+    awardPersonList();
+    awardPersonListPerson();
+  });
+
+    var listCount = 0   
+    var count = 1;
+    var room = 0;
+    var global_list = '';
+    function persons_list(global_list) {
+        console.log(global_list)
+        console.log("count "+count)
+        console.log("room "+room)
+           console.log("listCount "+listCount)
+        if(count <= listCount-1){
+          count++;
+          room++;
+          var objTo = document.getElementById('persons_list')
+          var divtest = document.createElement("div");
+          divtest.setAttribute("class", "form-group removeclass"+room);
+          var rdiv = 'removeclass'+room;
+
+          divtest.innerHTML = '<div class="form-row"><div class="col"><select class="auctions_record_award_person_list form-control" id="auctions_record_award_person_list" name="auctions_record_award_person_list[]" value="" placeholder="Vendedor" required></select></div><div class="col"><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="price" required></div><div class="col"><input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="percentage" required></div><div class="col"><button class="btn btn-danger" type="button" onclick="remove_persons_list('+ room +');"> Eliminar </button></div></div>';
+          objTo.appendChild(divtest);
+          console.log(global_list);
+          $('.auctions_record_award_person_list').html(global_list);
+        }
+    }
+
+    function remove_persons_list(rid) {
+      $('.removeclass'+rid).remove();
+      room--;
+      count--;
+       console.log("count "+count)
+        console.log("room "+room)
+        console.log("listCount "+listCount)
+    }
+
+    function awardPersonList(){
+      var list = '' 
+      <%@awardPersonList.order(:id).each do |persona| %>
+          room++;
+          count++;
+         
+          list += '<div class="form-group removeclass'+room+'"><div class="form-row"><div class="col"><select class="auctions_record_award_person_list form-control" id="auctions_record_award_person_list" name="auctions_record_award_person_list[]" value="" placeholder="Vendedor" required></select></div><div class="col"><input type="text" class="form-control" id="price" name="price[]" value=<%=persona.award_amount ? persona.award_amount : 0%> placeholder="price" required></div><div class="col"><input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="percentage" required></div><div class="col"><button class="btn btn-danger" type="button" onclick="remove_persons_list('+ room +');"> Eliminar </button></div></div></div>'
+      <%end%>
+      $('#awardPersonList').html(list);   
+    }
+
+    function getBidders(){
+      var list = '' 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNatural(pesonaNaturalId) ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
+           listCount++;
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegal(pesonaLegalId) ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
+           listCount++;
+      <%end%>
+      $('#auctions_record_bidders').html(list);     
+    }
+
+    function awardPersonListPerson(){
+      var list = '<option value=0>Seleccione</option>' 
+      <%Persona.order(:name).each do |persona| %>
+          var pesonaNaturalId = '<%=persona.id %>'
+          var validateSelected = validatePersonaNaturalAdjudicatario(pesonaNaturalId) ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= persona.id%>> <%= persona.rut+" / "+persona.name+" "+persona.last_name1%> </option>'
+      <%end%>
+      <%LegalPersona.order(:name).each do |empresa| %>
+          var pesonaLegalId = '<%=empresa.id %>'
+          var validateSelected = validatePersonaLegalAdjudicatario(pesonaLegalId) ? "selected" : ""
+          list += '<option '+validateSelected+' value= <%= -empresa.id%>> <%= empresa.rut+" / "+empresa.name%> </option>'
+      <%end%>
+      global_list=list;
+      console.log('-------'); 
+      console.log(global_list);
+      $('#auctions_record_award_person_list').html(list);     
+      $('.auctions_record_award_person_list').html(global_list);
+
+    }
+
+    function validatePersonaLegal(pesonaLegalId){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Postor") %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+      if(count > 0){
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaLegalId && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNatural(pesonaNaturalId){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Postor") %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+       console.log('count '+count)
+      if(count > 0){
+        console.log('validatePersonaNatural count')
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaNaturalId && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaLegalAdjudicatario(pesonaLegalId){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Adjudicatario") %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+      if(count > 0){
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaLegalId && persona_type=="Legal"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+    function validatePersonaNaturalAdjudicatario(pesonaNaturalId){
+      <% @auctionsRecord = AuctionsRecordsPersona.where(auctions_record_id:params[:id],persona_type_description:"Adjudicatario") %>
+      var count = <%=@auctionsRecord != "" ? @auctionsRecord.size : 0 %>
+       console.log('count '+count)
+      if(count > 0){
+        console.log('validatePersonaNatural count')
+        <% @auctionsRecord.each do |auctions_record| %>
+        var persona_id = '<%=auctions_record.persona_id%>'
+        var persona_type = '<%=auctions_record.persona_type%>'
+          if(persona_id==pesonaNaturalId && persona_type=="Natural"){
+            return true
+          }
+        <%end%>
+      }
+      return false
+    }
+
+</script>
+<br>
+<div class="row justify-content-md-center">
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <h4><%=params['action']=="edit"? "Editar" : "Nueva"%> acta remate</h4>
+      </div>
+      <%= form_with model: @auctions_records, url: auctions_records_path , remote: true do |form| %>
+      <div class="field">
+        <%= form.label :auction_id, "Seleccionar Remate" %>
+        <%= form.select :auction_id, options_for_select(Auction.all.collect {|auction| [auction.judgement.court.name+" / "+auction.judgement.rol_trial, auction.id]},@auctions_records.auction_id), { include_blank: "Seleccione"}, class:"form-control border" , required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date, "Fecha" %>
+        <%= form.text_field :date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off" , class:"form-control border", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :award_person_id, "persona adjudicación:" %>
+        <%= form.select :award_person_id, options_for_select(Persona.all.collect{ |p| [p.name + '- ' + p.last_name1 + ' / ' + p.rut, p.id] },@auctions_records.award_person_id) ,{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, required: true%>
+      </div>
+      <div class="form-group">
+        <%= form.label :award_amount, "monto adjudicación:" %>
+        <%= form.text_field :award_amount, id: :award_amount , class:"form-control border number_formated" ,autofocus: true%>
+      </div>
+       <div class="form-group">
+        <%= form.label "se adjudica para:" %>
+      </div>
+      <div id="awardPersonList"></div>
+      <div class="form-row" >
+        <div class="col">
+          <select class="form-control auctions_record_award_person_list" id="auctions_record_award_person_list" name="auctions_record_award_person_list[]" value="" required></select>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="price" required >
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" id="percentage" name="percentage[]" value="" placeholder="percentage" required>
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" type="button" onclick="persons_list(global_list)">Añadir Nuevo </button>
+        </div>
+      </div>
+      <br>
+      <div id="persons_list" class="form-group"></div> 
+      <div class="field">
+        <%= form.label :bidders, "postores:" %>
+        <%= form.select :bidders , options_for_select([[]]),{ include_blank: "Seleccione"}, class:"select-multiple custom-select", autofocus: true, multiple: "multiple", required: true%>
+      </div>
+      <div class="form-group">
+        <%= form.label :file_name, "archivo:" %>
+        <div class="custom-file">
+          <%= form.file_field :file_name, id: :file_name ,class:"custom-file-input",autofocus: true %>
+          <label class="custom-file-label" for="customFile"><%= @auctions_records.file_name.to_s.split('/')[5]%></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= form.label :status, "estado:" %>
+        <%= form.select :status, options_for_select([["Remate en curso",0],["Anulado",1],["Suspendido",2] ,["Adjudicado",3]],@auctions_records.status), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= form.submit "Guardar",class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+   
+</script>
