@@ -12,7 +12,7 @@
     var optgroup1 = '<optgroup label="Empresas">'
     <% LegalPersona.order(:id).each do |legalp| %>
       <% Activity.order(:id).each do |act| %>
-        <% if (act.activityable_id == legalp.id) && (act.rubro == "Notario") %>
+        <% if (act.activityable_id == legalp.id) && (act.rubro == "Notario") && (act.activityable_type == "LegalPersona") %>
           optgroup1 += '<option value= <%= legalp.id%>L> <%= legalp.name%>/<%= legalp.rut%>  </option>' 
         <%end%>
       <%end%>
@@ -21,7 +21,7 @@
     var optgroup2 = '<optgroup label="Personas">'
     <% Persona.order(:id).each do |perso| %>
       <% Activity.order(:id).each do |act| %>
-        <% if (act.activityable_id == perso.id) && (act.rubro == "Notario") %>
+        <% if (act.activityable_id == perso.id) && (act.rubro == "Notario") && (act.activityable_type == "Persona") %>
           optgroup2 += '<option value= <%= perso.id%>N> <%= perso.name%> <%= perso.last_name1%>/<%= perso.rut%>  </option>' 
         <%end%>
       <%end%>
@@ -33,15 +33,18 @@
     
     var realties= '<option value= > Seleccione </option>'
     <% Realty.order(:id).each do |realty| %>
-      realties += '<option value= <%= realty.id%>> <%= realty.address%> </option>'
+      realties += '<option value= <%= realty.id%>> <%= realty.address%> / Dpto - Of:  <%= realty.unit_estate %> </option>'
     <%end%>
-    $('select#realty_domain_realty_id').html(realties); 
+    $('select#realty_domain_realty_id').html(realties);
+    
+    list = '<option> Seleccione </option>'
+    $('.vendedor').html(list);
   });
   
 
   global_list = ''
   function myFunction(params) {
-    list = ''
+    
     <% Realty.order(:id).each do |realty| %>
       id = <%= realty.id %>
       if (id == params.value ) { 
@@ -98,7 +101,7 @@
             <div class="col" align="center">
               <div class="row">
                 <div class="col">
-                  <select class="vendedor form-control" id="vendedor" name="vendedor[]" value="" placeholder="Vendedor" required></select>
+                  <select class="vendedor form-control" id="vendedor" name="vendedor[]" value="" placeholder="Vendedor" required> <option> Seleccione Vendedor </option> </select>
                 </div>
                 <div class="col">
                   <input class="valor form-control" id="valor" name="valor[]" value="" placeholder="Valor" onkeyup = "sumar()" required></select>
@@ -107,7 +110,7 @@
                   <input type="text" class="form-control" id="percentage_v" name="percentage_v[]" value="" placeholder="Porcentaje" required>
                 </div>
                 <div class="col">
-                  <button class="btn btn-primary" type="button" style="height:40px;width:200px" onclick="add_seller(global_list)">+</button>
+                  <button class="btn btn-primary" type="button" style="height:40px;width:200px" onclick="add_seller(global_list, list)">+</button>
                 </div>
               </div> 
             </div>               

@@ -95,7 +95,7 @@
               </div>
               <div class="col">
                 <% @legal_persona = LegalPersona.find(params[:legal_persona_id])%>
-                <label for="name">Dinero Total:</label>
+                <label for="name">Acciones Total:</label>
                 <input type = "text" id="total" class= "form-control" placeholder= "Total" disable value = '<%= @legal_persona.total %>' readonly>
               </div>
               <div class="col">
