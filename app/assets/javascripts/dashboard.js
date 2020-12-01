@@ -8,7 +8,6 @@ function ufApi(){
   $.getJSON('https://mindicador.cl/api', function(data) {
     var dailyIndicators = data;
 
-    uf = dailyIndicators.uf.valor
 
     $("<p/>", {
         html: 'El valor actual de la UF es $' + dailyIndicators.uf.valor
@@ -27,7 +26,7 @@ function dolarApi(){
   $.getJSON('https://mindicador.cl/api', function(data) {
     var dailyIndicators = data;
 
-    dolar = dailyIndicators.dolar.valor
+
     $("<p/>", {
         html: 'El valor actual del Dolar es $' + dailyIndicators.dolar.valor
     }).appendTo("#dolar");
@@ -43,7 +42,6 @@ function euroApi(){
   $.getJSON('https://mindicador.cl/api', function(data) {
     var dailyIndicators = data;
 
-    euro = dailyIndicators.euro.valor
 
     $("<p/>", {
         html: 'El valor actual del Euro es $' + dailyIndicators.euro.valor

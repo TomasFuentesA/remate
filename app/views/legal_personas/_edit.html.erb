@@ -59,7 +59,7 @@ function cese(params) {
         </div>
         <div class="col">
           <%= form.label :estado, "Estado de la empresa:" %>
-          <%= form.select :estado, options_for_select([["Inactivo","Inactivo"],["Activo","Activo"],["Cese de Actividades"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true, onchange: "cese(this)" %>
+          <%= form.select :estado, options_for_select([["Inactivo","Inactivo"],["Activo","Activo"],["Cese de Actividades"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", onchange: "cese(this)" %>
         </div>
 
         <div id= "cese">
