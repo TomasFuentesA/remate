@@ -1,8 +1,23 @@
+<script>
+function defuncion(params) {
+  if (params.value == "Q.E.P.D") {
+    var objTo = document.getElementById('defuncion');
+    var divtest = document.createElement("div");
+    divtest.setAttribute("class", "form-row removeclass");
+    divtest.innerHTML = '<label for="persona_fecha_defuncion">Fecha Defuncion</label><input data-provide="datepicker" data-date-format="dd-mm-yyyy" autocomplete="off" class="form-control border" autofocus="autofocus" required="required" type="text" name="persona[fecha_defuncion]" id="persona_fecha_defuncion">'
+    objTo.appendChild(divtest);
+  } else {
+    $('.removeclass').remove();
+  }
+  
+}
+</script>
+
 <br>
 <div class="container-fluid">
   <%= render partial: "errors" %>
 </div>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="card-body">
       <%= form_for  @persona do |form| %>
@@ -34,20 +49,23 @@
           </div>
         </div>
         <%= form.label :e_civil, "Estado Civil" %>
-        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"], ["Q.E.P.D","Q.E.P.D"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true %>
+        <%= form.select :e_civil, options_for_select([["Soltero","Soltero"],["Casado con Separacion","Casado con Separacion"],["Casado Sociedad Conyugal","Casado Sociedad Conyugal"] ,["Divorciado","Divorciado"],["Viudo","Viudo"], ["Conviviente","Conviviente"], ["Q.E.P.D","Q.E.P.D"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true, onchange: "defuncion(this)" %>
         <br>
         <%= form.label :profesion, "Profesion" %>
         <%= form.text_field :profesion, id: :profesion ,class:"form-control border",autofocus: true  %>
 
         <%= form.label :nacionality, "Nacionalidad"  %>
         <%= form.text_field :nacionality, id: :nacionality ,class:"form-control border",autofocus: true , required: true %>
-
+        
         <%= form.label :birth_date, "Fecha de Nacimiento" %>
         <%= form.text_field :birth_date,  data:{provide:'datepicker',date_format: "dd-mm-yyyy"},autocomplete: "off"  ,class:"form-control border",autofocus: true, required: true %>
 
         <%= form.label :passport, "Pasaporte"  %>
         <%= form.text_field :passport, id: :passport  ,class:"form-control border",autofocus: true  %>
 
+        <div id="defuncion">
+
+        </div>
         <%=form.fields_for :job do |f| %>
         <div class="field">
           <%= form.label :passport, "Cargo en su trabajo:"  %>

@@ -75,7 +75,7 @@ class PersonasController < ApplicationController
     @activities = @able.activities
   end
   def persona_params
-      params.require(:persona).permit(:rut, :name, :name2, :last_name1, :last_name2,:e_civil, :profesion, :nacionality, :passport, :birth_date,
+      params.require(:persona).permit(:rut, :name, :name2, :last_name1, :last_name2,:e_civil, :profesion, :nacionality, :fecha_defuncion, :passport, :birth_date,
       job_attributes: [:position,:salary,:business,:description])
   end
 end

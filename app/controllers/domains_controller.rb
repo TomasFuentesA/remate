@@ -321,6 +321,7 @@ class DomainsController < ApplicationController
                 DomainRol.create(type_member: "Legal", type_rol: "Creador", persona_id: params[:vendedor][i].split("L")[0].to_i, domain_id: @domain.id)
               end
             end
+            @legalpersona.update(estado: "Activo")
             flash[:notice] = "Escritura creada con éxito"
             redirect_to @legalpersona
           end  

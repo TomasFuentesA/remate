@@ -71,9 +71,9 @@ private
 
   def legal_persona_params
     if params['legal_persona']
-      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :acciones, :total)
+      params.require(:legal_persona).permit(:rut, :name, :fantasy_name, :alias, :web, :acciones, :total, :fecha_cese, :estado)
     else
-      params.permit(:rut, :name, :fantasy_name, :alias, :web, :acciones, :total)
+      params.permit(:rut, :name, :fantasy_name, :alias, :web, :acciones, :total, :fecha_cese, :estado)
     end
   end
 

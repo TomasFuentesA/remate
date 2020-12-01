@@ -8,6 +8,7 @@ class RealtyDomainsController < InheritedResources::Base
 
 
   def create
+    Rails.logger.info params
     total = 0
     porcentaje = 0
     cont = 0
@@ -29,9 +30,9 @@ class RealtyDomainsController < InheritedResources::Base
     end
 
     if params[:realty_domain][:notario_id].chars[params[:realty_domain][:notario_id].length - 1 ] == "N"
-      @realtydomain = RealtyDomain.create(type_modality: params[:realty_domain][:type_modality], notario_id: params[:realty_domain][:notario_id], notario_type: "Natural" ,realty_id: params[:realty_domain][:realty_id], date_posetion: params[:realty_domain][:date_posetion], price: total, observation: params[:realty_domain][:observation], type_currency: params[:realty_domain][:type_currency], percentage: porcentaje)
+      @realtydomain = RealtyDomain.create(type_modality: params[:realty_domain][:type_modality], notario_id: params[:realty_domain][:notario_id], notario_type: "Natural" ,realty_id: params[:realty_domain][:realty_id], date_posetion: params[:realty_domain][:date_posetion], price: params[:realty_domain][:total_clp], precio_uf: params[:realty_domain][:total_uf], precio_euro: params[:realty_domain][:total_euro], precio_usd: params[:realty_domain][:total_usd], observation: params[:realty_domain][:observation], type_currency: params[:realty_domain][:type_currency], percentage: porcentaje)
     else
-      @realtydomain = RealtyDomain.create(type_modality: params[:realty_domain][:type_modality], notario_id: params[:realty_domain][:notario_id], notario_type: "Legal" ,realty_id: params[:realty_domain][:realty_id], date_posetion: params[:realty_domain][:date_posetion], price: total, observation: params[:realty_domain][:observation], type_currency: params[:realty_domain][:type_currency], percentage: porcentaje)
+      @realtydomain = RealtyDomain.create(type_modality: params[:realty_domain][:type_modality], notario_id: params[:realty_domain][:notario_id], notario_type: "Legal" ,realty_id: params[:realty_domain][:realty_id], date_posetion: params[:realty_domain][:date_posetion], price: params[:realty_domain][:total_clp], precio_uf: params[:realty_domain][:total_uf], precio_euro: params[:realty_domain][:total_euro], precio_usd: params[:realty_domain][:total_usd], observation: params[:realty_domain][:observation], type_currency: params[:realty_domain][:type_currency], percentage: porcentaje)
     end
 
 

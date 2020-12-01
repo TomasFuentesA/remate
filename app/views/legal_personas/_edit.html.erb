@@ -1,4 +1,18 @@
 <br>
+<script>
+function cese(params) {
+  if (params.value == "Cese de Actividades") {
+    var objTo = document.getElementById('cese');
+    var divtest = document.createElement("div");
+    divtest.setAttribute("class", "form-row removeclass");
+    divtest.innerHTML = '<label for="legal_persona_fecha_cese">Fecha Cese de Actividades</label><input data-provide="datepicker" data-date-format="dd-mm-yyyy" autocomplete="off" class="form-control border" autofocus="autofocus" required="required" type="text" name="legal_persona[fecha_cese]" id="legal_persona_fecha_cese">'
+    objTo.appendChild(divtest);
+  } else {
+    $('.removeclass').remove();
+  }
+  
+}
+</script>
 <div class="container">
   <%= render 'layouts/alerts' %>
 </div>
@@ -42,6 +56,13 @@
         <div class="col">
           <%= form.label :total, "Capital total:" %>
           <%= form.text_field :total, class:"form-control border", autofocus: true, required: true%>
+        </div>
+        <div class="col">
+          <%= form.label :estado, "Estado de la empresa:" %>
+          <%= form.select :estado, options_for_select([["Inactivo","Inactivo"],["Activo","Activo"],["Cese de Actividades"]]), {include_blank: "Seleccione"},class:"custom-select mr-sm-2", required: true, onchange: "cese(this)" %>
+        </div>
+
+        <div id= "cese">
         </div>
         <br>
         <div class="col">

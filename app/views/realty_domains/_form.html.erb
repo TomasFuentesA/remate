@@ -39,6 +39,21 @@
     
     list = '<option> Seleccione </option>'
     $('.vendedor').html(list);
+
+    $.getJSON('https://mindicador.cl/api', function(data) { 
+      var dailyIndicators = data;
+      uf = dailyIndicators.uf.valor
+    })
+
+    $.getJSON('https://mindicador.cl/api', function(data) { 
+      var dailyIndicators = data;
+      euro = dailyIndicators.euro.valor
+    })
+
+    $.getJSON('https://mindicador.cl/api', function(data) { 
+      var dailyIndicators = data;
+      dolar = dailyIndicators.dolar.valor
+    })
   });
   
 
@@ -64,6 +79,84 @@
     console.log(list);
     $('.vendedor').html(list);       
   }
+  sum = 0
+ 
+
+  function sumar() {
+
+    var total = 0;
+
+    $(".valor").each(function() {
+
+      if (isNaN(parseFloat($(this).val()))) {
+
+        total += 0;
+
+      } else {
+
+        total += parseFloat($(this).val());
+
+      }
+
+    });
+    sum = total
+    console.log(total);
+    type = document.getElementById('realty_domain_type_currency').value
+    if (type == "CLP") {
+      document.getElementById('realty_domain_total_clp').value = sum.toString();
+      sum_uf = sum / uf
+      sum_euro = sum / euro
+      sum_dolar = sum / dolar
+      document.getElementById('realty_domain_total_uf').value = (sum_uf.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_euro').value = (sum_euro.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_usd').value = (sum_dolar.toFixed(2)).toString();
+    } else if (type == "UF" ) {
+      document.getElementById('realty_domain_total_uf').value = sum.toString();
+      sum_clp = sum * uf
+      sum_euro = sum_clp / euro
+      sum_dolar = sum_clp / dolar
+      document.getElementById('realty_domain_total_clp').value = (sum_clp.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_euro').value = (sum_euro.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_usd').value = (sum_dolar.toFixed(2)).toString();
+    } else if (type == "EURO") {
+      document.getElementById('realty_domain_total_euro').value = sum.toString();
+      sum_clp = sum * euro
+      sum_uf = sum_clp / uf
+      sum_dolar = sum_clp / dolar
+      document.getElementById('realty_domain_total_clp').value = (sum_clp.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_uf').value = (sum_uf.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_usd').value = (sum_dolar.toFixed(2)).toString();
+    } else {
+      document.getElementById('realty_domain_total_usd').value = sum.toString();
+      sum_clp = sum * dolar
+      sum_uf = sum_clp / uf
+      sum_euro = sum_clp / euro
+      document.getElementById('realty_domain_total_clp').value = (sum_clp.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_uf').value = (sum_uf.toFixed(2)).toString();
+      document.getElementById('realty_domain_total_euro').value = (sum_euro.toFixed(2)).toString();
+      console.log(type);
+    }
+  }
+
+
+  var room_v = 1;
+
+  function add_seller(global_list, list) {
+    debugger  
+    room_v++;
+    var objTo = document.getElementById('sellers');
+    var divtest = document.createElement("div");
+    divtest.setAttribute("class", "form-row removeclass"+room_v);
+    var rdiv = 'removeclass'+room_v;
+
+    divtest.innerHTML = '<div class="col-md-12 card card-body"><div class="row"><div class="col" align="center"><div class="row"><div class="col"><select class="vendedor'+ room_v +' form-control" id="vendedor'+ room_v +'" name="vendedor[]" value="" placeholder="Vendedor" ><option> Seleccione vendedor </option></select></div><div class="col"><input type="text" class="valor form-control" id="valor" name="valor[]" value="" placeholder="Valor" onkeyup = sumar() required></div><div class="col"><input type="text" class="form-control" id="percentage_v" name="percentage_v[]" value="" placeholder="Porcentaje" required></div><div class="col"><button class="btn btn-danger" type="button" style="height:40px;width:200px" onclick="remove_seller('+ room_v +');"> - </button></div></div></div>';
+    objTo.appendChild(divtest);
+
+    $('.vendedor'+ room_v).html(global_list);
+  }
+  function remove_seller(rid) {
+    $('.removeclass'+rid).remove();
+  }
 
 </script>
 
@@ -82,7 +175,7 @@
       </div>
       <div class="form-row">
         <%= form.label :type_currency, "Tipo de moneda:" %>
-        <%= form.select :type_currency, options_for_select([["uf", "uf"], ["pesos", "pesos"]]), { include_blank: "Seleccione"},class:"form-control border", required: true %>
+        <%= form.select :type_currency, options_for_select([["UF", "UF"], ["CLP", "CLP"], ["EURO", "EURO"], ["USD", "USD"]]), { include_blank: "Seleccione"},class:"form-control border", required: true %>
       </div>
 
       <div class="form-row">
@@ -121,7 +214,24 @@
       <div id="sellers">
       </div>
        
-
+      <div class= "form-row">
+        <div class="col">
+          <label for="name">CLP:</label>
+          <input type = "text" id="realty_domain_total_clp" name="realty_domain[total_clp]" class= "clp form-control" placeholder= "CLP" value = "" readonly>
+        </div>
+        <div class="col">
+          <label for="name">UF:</label>
+          <input type = "text" id="realty_domain_total_uf" name="realty_domain[total_uf]" class= "uf form-control" placeholder= "UF" value = "" readonly>
+        </div>
+        <div class="col">
+          <label for="name">EURO:</label>
+          <input type = "text" id="realty_domain_total_euro" name="realty_domain[total_euro]" class= "euro form-control" placeholder= "EURO" value = "" readonly>
+        </div>
+        <div class="col">
+          <label for="name">USD:</label>
+          <input type = "text" id="realty_domain_total_usd" name="realty_domain[total_usd]" class= "usd form-control" placeholder= "USD" value = "" readonly>
+        </div>
+      </div>
       <div class="form-row">
         <%= form.label :observation, "Observaciones:" %>
         <%= form.text_area :observation, name:"realty_domain[observation]", id:"realty_domain_observation",autofocus: true, class:"form-control border"%>
@@ -134,3 +244,4 @@
     </div>
   </div>
 </div>
+
