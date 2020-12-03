@@ -7,19 +7,19 @@ class DocumentsController < ApplicationController
     end
   
     def new 
-        @realty_id = params['format']?params['format']:'' 
+        @fromRealtyId = params['format']?params['format']:'' 
         @document = Document.new
-        @document.realty_id = @realty_id   
+        @document.realty_id = @fromRealtyId   
     end
   
     def create 
-        @realty_id = params['document']['realty_id']
+        @realty_id = params['document']['fromRealtyId']
         @document = Document.new(document_params)
         if @document.save
           if @realty_id != ""
             redirect_to realty_path(@realty_id)
           else
-            redirect_to @document, notice: "Estudio Ingresado"
+            redirect_to documents_path, notice: "Documentación Ingresada"
           end
         else
           render :json => { :errors => @document.errors.full_messages }

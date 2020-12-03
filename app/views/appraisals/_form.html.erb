@@ -9,7 +9,8 @@
 <div class="row justify-content-md-center">
   <div class="card">
     <div class="card-body">
-      <%= form_with model: Appraisal.new, local: true do |form| %>
+      <%= form_with model: @appraisal, local: true do |form| %>
+      <%= form.hidden_field :fromRealtyId, value: @fromRealtyId %>
       <%= form.label :name, "Ingreso de nueva Tasacion" %>
       <div class="form-group">
         <%= form.label :realty_id %>

@@ -12,6 +12,7 @@
       <%= form.label :name, "Ingreso de nueva documentación" %>
       <div class="form-group">
         <%= form.label :realty_id, "Propiedad" %>
+        <%= form.hidden_field :fromRealtyId, value: @fromRealtyId %>
         <% if params['format']%>
             <%= form.label @document.realty.address, class: "form-control"%>
             <%= form.hidden_field :realty_id, value: @document.realty_id %>

@@ -7,14 +7,23 @@ class AppraisalsController < ApplicationController
   end
 
   def new
-    @realty_id=params['format']?params['format']:''
+    @fromRealtyId=params['format']?params['format']:''
     @appraisal = Appraisal.new
+    @realty_id = @fromRealtyId   
   end
 
   def create
+    @realty_id = params['appraisal']['fromRealtyId']
     @appraisal = Appraisal.new(appraisal_params)
-    @appraisal.save
-    redirect_to appraisals_path
+    if @appraisal.save
+      if @realty_id != ""
+        redirect_to realty_path(@realty_id)
+      else
+        redirect_to appraisals_path, notice: "Tasación Ingresada"
+      end
+    else
+      render :json => { :errors => @appraisal.errors.full_messages }
+    end
   end
 
   def show
